@@ -65,28 +65,13 @@
       border-color: #8b5cf6;
       box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
     }
-    .smooth-transition {
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    .slide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   </style>
 </head>
 <body class="text-zinc-100 min-h-screen flex flex-col items-center justify-between relative selection:bg-brand selection:text-white antialiased p-4">
 
   <canvas id="particles"></canvas>
 
-  <!-- Loading Screen -->
-  <div id="loadingScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#09090b] transition-opacity duration-500">
-    <div class="relative flex items-center justify-center">
-      <div class="w-14 h-14 rounded-full border-2 border-zinc-800 border-t-brand animate-spin shadow-[0_0_20px_rgba(139,92,246,0.5)]"></div>
-      <div class="absolute inset-0 flex items-center justify-center">
-        <i class="fa-solid fa-bolt text-brand text-xs animate-pulse"></i>
-      </div>
-    </div>
-    <p class="font-display text-zinc-500 text-xs tracking-[0.2em] uppercase mt-4">Loading ZNN Sistem...</p>
-  </div>
-
-  <!-- CONTAINER APP DASHBOARD (Tampil Utama) -->
+  <!-- CONTAINER APP DASHBOARD -->
   <main id="appContainer" class="w-full max-w-[380px] z-10 flex flex-col items-center justify-between py-2 space-y-4 min-h-[92vh]">
     
     <!-- Navbar Header dengan Tombol Hamburger -->
@@ -97,7 +82,7 @@
         </button>
         <div>
           <p class="text-[7px] text-zinc-500 uppercase tracking-widest font-semibold">Layanan</p>
-          <p class="font-display font-semibold text-[11px] text-white truncate max-w-[90px]">ZNN Panel</p>
+          <p class="font-display font-semibold text-[11px] text-white truncate max-w-[90px]">Thanz Panel</p>
         </div>
       </div>
       <div class="flex items-center space-x-1">
@@ -256,7 +241,7 @@
 
     <!-- Footer Copyright -->
     <div class="text-[9px] text-zinc-500 text-center pt-2">
-      <span>© 2026 ZNN</span> • <span>api.znn.my.id</span>
+      <span>© POWERED BY THANZ</span> • <span>Since 2026</span>
     </div>
   </main>
 
@@ -269,7 +254,7 @@
           <div class="w-8 h-8 rounded-xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand">
             <span class="font-bold text-sm">Z</span>
           </div>
-          <span class="font-display font-bold text-sm text-white">ZNN<span class="text-brand">Panel</span></span>
+          <span class="font-display font-bold text-sm text-white">Thanz<span class="text-brand">Dev</span></span>
         </div>
         <button onclick="toggleSidebar()" class="text-zinc-400 hover:text-white text-sm">
           <i class="fa-solid fa-xmark"></i>
@@ -293,7 +278,7 @@
     </div>
 
     <div class="pt-4 border-t border-brand/20 text-center">
-      <p class="text-[9px] text-zinc-500">© 2026 ZNN Activation Service</p>
+      <p class="text-[9px] text-zinc-500">© ThanzDev</p>
     </div>
   </div>
 
@@ -304,12 +289,12 @@
         <i class="fa-brands fa-whatsapp"></i>
       </div>
       <span class="text-[10px] font-bold text-emerald-400 tracking-widest uppercase">WHATSAPP CHANNEL</span>
-      <h3 class="font-display font-semibold text-sm text-white mt-1 mb-2">Ikuti saluran ZNN</h3>
+      <h3 class="font-display font-semibold text-sm text-white mt-1 mb-2">Ikuti saluran Thanz</h3>
       <p id="channel-description" class="text-[10px] text-zinc-300 mb-4 leading-relaxed">
         Dapatkan info update layanan, fitur baru, dan pengumuman penting langsung dari saluran WhatsApp.
       </p>
       <div class="space-y-2">
-        <a href="https://whatsapp.com/channel/0029Vb6jzN97z4keastNq73f" target="_blank" onclick="closeChannelModal()" class="block w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-xs transition shadow-[0_0_15px_rgba(16,185,129,0.35)]">
+        <a href="https://whatsapp.com/channel/0029VbDkINSH5JM0fCnF4v2w" target="_blank" onclick="closeChannelModal()" class="block w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-xs transition shadow-[0_0_15px_rgba(16,185,129,0.35)]">
           Ikuti saluran
         </a>
         <button onclick="closeChannelModal()" class="w-full py-2 rounded-xl bg-surface-card border border-brand/30 text-zinc-400 hover:text-white font-medium text-xs transition">
@@ -508,7 +493,7 @@
       document.getElementById('success-modal').classList.add('opacity-0', 'pointer-events-none');
       resetActivationForm();
       const modal = document.getElementById('channel-modal');
-      document.getElementById('channel-description').textContent = "Aktivasi sudah selesai. Ikuti saluran ZNN untuk mendapatkan update layanan berikutnya.";
+      document.getElementById('channel-description').textContent = "Aktivasi sudah selesai. Ikuti saluran Thanz untuk mendapatkan update layanan berikutnya.";
       modal.classList.remove('opacity-0', 'pointer-events-none');
     }
 
@@ -633,7 +618,7 @@
 
       if(!Number.isInteger(amount) || amount < 1 || amount > 100) {
         noticeEl.className = "py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/30 text-red-400";
-        noticeEl.textContent = "Jumlah bulk harus angka 1 sampai 100.";
+        noticeEl.textContent = "Jumlah email harus angka 1 sampai 100.";
         noticeEl.classList.remove('hidden');
         return;
       }
