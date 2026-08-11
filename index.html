@@ -71,8 +71,52 @@
 
   <canvas id="particles"></canvas>
 
+  <!-- LOGIN / REGISTER OVERLAY -->
+  <div id="loginOverlay" class="fixed inset-0 bg-[#09090b] z-50 flex items-center justify-center p-4 transition-opacity duration-300">
+    <div class="glass-card max-w-[340px] w-full rounded-[24px] p-6 text-center shadow-2xl relative space-y-4">
+      <div class="w-12 h-12 rounded-2xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand text-xl mx-auto shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <div>
+        <span id="auth-badge" class="px-3 py-1 rounded-full border border-brand/40 bg-brand/10 text-[#C084FC] text-[10px] font-extrabold tracking-[0.2em] uppercase">LOGIN AKUN</span>
+        <h1 id="auth-title" class="font-display text-lg font-bold tracking-tight text-white mt-2 mb-0.5">Masuk ke Thanz Panel</h1>
+        <p id="auth-subtitle" class="text-zinc-400 text-[11px]">Masukkan email dan password Anda untuk melanjutkan.</p>
+      </div>
+
+      <div class="space-y-3 pt-1 text-left">
+        <div class="space-y-1">
+          <label class="text-[11px] text-zinc-300 font-medium">Email</label>
+          <div class="input-field rounded-xl flex items-center px-3.5 py-2.5">
+            <i class="fa-regular fa-envelope text-zinc-500 mr-3 text-xs"></i>
+            <input type="email" id="auth-email" placeholder="nama@email.com" class="w-full bg-transparent text-xs text-white placeholder-zinc-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-[11px] text-zinc-300 font-medium">Password</label>
+          <div class="input-field rounded-xl flex items-center px-3.5 py-2.5">
+            <i class="fa-solid fa-key text-zinc-500 mr-3 text-xs"></i>
+            <input type="password" id="auth-password" placeholder="••••••••" class="w-full bg-transparent text-xs text-white placeholder-zinc-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <button onclick="handleEmailAuth()" id="auth-submit-btn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand to-indigo-500 text-white font-medium text-xs hover:opacity-95 transition shadow-[0_0_20px_rgba(139,92,246,0.35)] mt-2">
+          <span id="auth-btn-text">Masuk Sekarang</span>
+        </button>
+
+        <div id="login-notice" class="hidden py-2 px-3 rounded-xl text-[11px]"></div>
+
+        <div class="text-center pt-2 border-t border-brand/20">
+          <button onclick="toggleAuthMode()" id="auth-toggle-link" class="text-[11px] text-zinc-400 hover:text-brand transition">
+            Belum punya akun? <span class="text-brand font-semibold underline">Daftar di sini</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CONTAINER APP DASHBOARD -->
-  <main id="appContainer" class="w-full max-w-[380px] z-10 flex flex-col items-center justify-between py-2 space-y-4 min-h-[92vh]">
+  <main id="appContainer" class="w-full max-w-[380px] z-10 flex flex-col items-center justify-between py-2 space-y-4 min-h-[92vh] hidden">
     
     <!-- Navbar Header dengan Tombol Hamburger -->
     <header class="w-full px-3 py-2.5 flex items-center justify-between border-b border-brand/20 shrink-0 glass-card rounded-2xl">
@@ -89,9 +133,9 @@
         <button onclick="switchFeature('am')" id="tabBtnAM" class="px-2 py-1 rounded-lg bg-brand text-white text-[10px] font-bold transition">Utama</button>
         <button onclick="switchFeature('bulk')" id="tabBtnBulk" class="px-2 py-1 rounded-lg bg-surface-card border border-brand/30 text-zinc-400 text-[10px] font-bold transition">Bulk</button>
         <button onclick="switchFeature('inbox')" id="tabBtnInbox" class="px-2 py-1 rounded-lg bg-surface-card border border-brand/30 text-zinc-400 text-[10px] font-bold transition">Inbox</button>
-        <a href="https://whatsapp.com/channel/0029Vb6jzN97z4keastNq73f" target="_blank" class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 hover:bg-emerald-500/20 transition" title="WhatsApp Channel">
-          <i class="fa-brands fa-whatsapp text-xs"></i>
-        </a>
+        <button onclick="handleLogout()" class="w-7 h-7 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 hover:bg-red-500/20 transition" title="Keluar">
+          <i class="fa-solid fa-right-from-bracket text-xs"></i>
+        </button>
       </div>
     </header>
 
@@ -241,7 +285,7 @@
 
     <!-- Footer Copyright -->
     <div class="text-[9px] text-zinc-500 text-center pt-2">
-      <span>© POWERED BY THANZ</span> • <span>Since 2026</span>
+      <span>© POWERED BY THANZ</span> • <span id="user-status-label">User</span>
     </div>
   </main>
 
@@ -412,6 +456,133 @@
     window.soundError = () => window.playSound(300, 0.10, 'sine', 0.15);
   </script>
 
+  <!-- Firebase SDK & Email/Password Authentication Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCyrdoBu6tPtfaZM_8s2UpNBNFgbRtHZjM",
+      authDomain: "am-gen-thanz.firebaseapp.com",
+      projectId: "am-gen-thanz",
+      storageBucket: "am-gen-thanz.firebasestorage.app",
+      messagingSenderId: "1064875166814",
+      appId: "1:1064875166814:web:782fc76611241f672678cf",
+      measurementId: "G-T3SBM22QQD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    let isRegisterMode = false;
+
+    window.toggleAuthMode = function() {
+      window.soundClick();
+      isRegisterMode = !isRegisterMode;
+      const badge = document.getElementById('auth-badge');
+      const title = document.getElementById('auth-title');
+      const subtitle = document.getElementById('auth-subtitle');
+      const btnText = document.getElementById('auth-btn-text');
+      const toggleLink = document.getElementById('auth-toggle-link');
+      const notice = document.getElementById('login-notice');
+      notice.classList.add('hidden');
+
+      if (isRegisterMode) {
+        badge.textContent = "REGISTRASI AKUN";
+        title.textContent = "Buat Akun Baru";
+        subtitle.textContent = "Daftar untuk menggunakan layanan Thanz Panel.";
+        btnText.textContent = "Daftar Sekarang";
+        toggleLink.innerHTML = 'Sudah punya akun? <span class="text-brand font-semibold underline">Masuk di sini</span>';
+      } else {
+        badge.textContent = "LOGIN AKUN";
+        title.textContent = "Masuk ke Thanz Panel";
+        subtitle.textContent = "Masukkan email dan password Anda untuk melanjutkan.";
+        btnText.textContent = "Masuk Sekarang";
+        toggleLink.innerHTML = 'Belum punya akun? <span class="text-brand font-semibold underline">Daftar di sini</span>';
+      }
+    };
+
+    window.handleEmailAuth = async function() {
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value.trim();
+      const notice = document.getElementById('login-notice');
+      notice.classList.add('hidden');
+
+      if (!email || !email.includes('@')) {
+        notice.className = "py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/30 text-red-400";
+        notice.textContent = "Masukkan format email yang valid.";
+        notice.classList.remove('hidden');
+        window.soundError();
+        return;
+      }
+
+      if (!password || password.length < 6) {
+        notice.className = "py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/30 text-red-400";
+        notice.textContent = "Password minimal terdiri dari 6 karakter.";
+        notice.classList.remove('hidden');
+        window.soundError();
+        return;
+      }
+
+      const btn = document.getElementById('auth-submit-btn');
+      btn.disabled = true;
+      const originalText = document.getElementById('auth-btn-text').textContent;
+      document.getElementById('auth-btn-text').innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Memproses...';
+
+      try {
+        if (isRegisterMode) {
+          await createUserWithEmailAndPassword(auth, email, password);
+        } else {
+          await signInWithEmailAndPassword(auth, email, password);
+        }
+        window.soundSuccess();
+      } catch (error) {
+        window.soundError();
+        notice.className = "py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/30 text-red-400";
+        let errMsg = error.message;
+        if(error.code === 'auth/invalid-credential') errMsg = 'Email atau password salah.';
+        if(error.code === 'auth/email-already-in-use') errMsg = 'Email sudah terdaftar.';
+        notice.textContent = "Gagal: " + errMsg;
+        notice.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        document.getElementById('auth-btn-text').textContent = originalText;
+      }
+    };
+
+    window.handleLogout = async function() {
+      try {
+        await signOut(auth);
+        window.soundClick();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      const loginOverlay = document.getElementById('loginOverlay');
+      const appContainer = document.getElementById('appContainer');
+      const statusLabel = document.getElementById('user-status-label');
+
+      if (user) {
+        loginOverlay.classList.add('opacity-0', 'pointer-events-none');
+        appContainer.classList.remove('hidden');
+        statusLabel.textContent = user.email || "Authenticated";
+        
+        // Munculkan channel modal saat pertama kali masuk dashboard
+        setTimeout(() => {
+          const modal = document.getElementById('channel-modal');
+          modal.classList.remove('opacity-0', 'pointer-events-none');
+        }, 700);
+      } else {
+        loginOverlay.classList.remove('opacity-0', 'pointer-events-none');
+        appContainer.classList.add('hidden');
+      }
+    });
+  </script>
+
   <!-- Logika Aplikasi Utama & Backend API Integrasi -->
   <script>
     function showToast(msg) {
@@ -468,14 +639,6 @@
         tabInbox.className = "px-2 py-1 rounded-lg bg-brand text-white text-[10px] font-bold transition";
       }
     }
-
-    // Modal Channel (Load otomatis)
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        const modal = document.getElementById('channel-modal');
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-      }, 700);
-    });
 
     function closeChannelModal() {
       window.soundClick();
@@ -689,13 +852,13 @@
         } else {
           const msg = messages[0];
           const subject = msg?.subject || "Pesan Alight Motion";
-          const links = (msg?.body || msg?.text || "").match(/https?:\/\/[^\s<>"']+/gi) || [];
+          const links = (msg?.body || msg?.text || "").match(/https?:\r?\n?\/[^\s<>"']+/gi) || [];
           const link = links.find(l => l.includes("alight")) || links[0] || "";
 
           const card = document.createElement('div');
           card.className = "p-3 rounded-xl bg-surface-card border border-brand/20 space-y-2 text-[11px]";
           card.innerHTML = `
-            <div class="font-bold text-white truncate">${subject}</div>
+            <div class="font-display font-bold text-white truncate">${subject}</div>
             ${link ? `<div class="p-2 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] break-all">${link}</div><button onclick="navigator.clipboard.writeText('${link}');showToast('Link disalin!')" class="w-full py-1.5 rounded bg-brand text-white font-bold text-[10px]">Salin Tautan</button>` : `<div class="text-zinc-400 text-[10px]">Link verifikasi belum ditemukan di pesan ini.</div>`}
           `;
           resContainer.appendChild(card);
