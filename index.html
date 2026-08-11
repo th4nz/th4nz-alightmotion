@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alight Motion Activation</title>
+  <style>
+    /* Styling Dasar Mengikuti Aslinya */
+    body { background: #0f1117; color: #e5e7eb; font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+    .container { max-width: 500px; width: 100%; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .hidden { display: none !important; }
+    input, textarea { width: 100%; background: #0d1117; border: 1px solid #30363d; color: #fff; padding: 10px; border-radius: 6px; box-sizing: border-box; margin-top: 6px; margin-bottom: 12px; font-size: 14px; outline: none; }
+    input:focus, textarea:focus { border-color: #58a6ff; }
+    button { background: #238636; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; }
+    button:hover { background: #2ea043; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .notice { padding: 10px; border-radius: 6px; font-size: 13px; margin-bottom: 12px; }
+    .notice.success { background: rgba(35, 134, 54, 0.2); border: 1px solid #238636; color: #3fb950; }
+    .notice.error { background: rgba(248, 81, 73, 0.2); border: 1px solid #f85149; color: #ff7b72; }
+    .nav-tabs { display: flex; gap: 8px; margin-bottom: 15px; }
+    .nav-tab { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; flex: 1; padding: 8px; text-align: center; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .nav-tab.active { background: #1f6feb; border-color: #388bfd; color: #fff; }
+    .email-result { background: #0d1117; border: 1px solid #30363d; padding: 8px 12px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; }
+    .result-button { background: #30363d; color: #c9d1d9; width: auto; padding: 4px 10px; font-size: 12px; }
+    .result-button:hover { background: #8b949e; color: #fff; }
+    h1, h2 { font-size: 1.2rem; margin-top: 0; }
+    p { font-size: 0.9rem; color: #8b949e; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 20px;">
+      <span id="hero-eyebrow" style="font-size: 12px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px;">Alight Motion</span>
+      <h1 id="hero-title" style="margin: 5px 0 0 0;">Aktivasi Premium</h1>
+    </div>
+
+    <div class="nav-tabs" role="tablist">
+      <button class="nav-tab active" id="main-toggle">Aktivasi</button>
+      <button class="nav-tab" id="bulk-toggle">Bulk Email</button>
+      <button class="nav-tab" id="inbox-toggle">Baca Email</button>
+    </div>
+
+    <main id="activation-card" class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span id="step-kicker" style="font-size: 11px; color: #58a6ff; text-transform: uppercase;">Langkah 1 dari 2</span>
+      </div>
+      <h2 id="step-title" style="margin-top: 8px;">Kirim email verifikasi</h2>
+      <p id="step-description">Masukkan email yang digunakan untuk akun Alight Motion.</p>
+
+      <div id="notice" class="notice hidden"></div>
+
+      <form id="main-form">
+        <label id="field-label-text" style="font-size: 13px; font-weight: 500;">Email target</label>
+        <div id="field-icon" class="hidden"></div>
+        <input id="main-input" name="email" type="email" placeholder="nama@email.com" required>
+        <button type="submit" id="submit-button">
+          <span id="button-text">Kirim link verifikasi</span>
+        </button>
+      </form>
+    </main>
+
+    <div id="tools-panel" class="card hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h2 id="tools-title" style="margin: 0;">Bulk email</h2>
+        <button class="result-button" id="tools-close">Kembali</button>
+      </div>
+
+      <div id="bulk-panel">
+        <div id="bulk-notice" class="notice hidden"></div>
+        <form id="bulk-form">
+          <label style="font-size: 13px;">Jumlah Email (1 - 100)</label>
+          <input id="bulk-amount" type="number" min="1" max="100" value="5" required>
+          <button type="submit" id="bulk-submit">
+            <span id="bulk-button-text">Buat email Premium</span>
+          </button>
+        </form>
+        <div id="bulk-results" class="hidden" style="margin-top: 15px;"></div>
+      </div>
+
+      <div id="inbox-panel" class="hidden">
+        <div id="inbox-notice" class="notice hidden"></div>
+        <form id="inbox-form">
+          <label style="font-size: 13px;">Alamat Temp Mail</label>
+          <input id="inbox-email" type="email" placeholder="email@tempmail.com" required>
+          <button type="submit" id="inbox-submit">
+            <span id="inbox-button-text">Ambil link terbaru</span>
+          </button>
+        </form>
+        <div id="inbox-results" class="hidden" style="margin-top: 15px;"></div>
+      </div>
+    </div>
+
+    <div id="guide-card" class="card">
+      <p id="guide-email" style="margin: 0; font-size: 13px;">Setelah link dikirim, ikuti langkah berikut untuk menyelesaikan verifikasi.</p>
+    </div>
+  </div>
+
+  <div class="notice hidden" id="channel-modal"></div>
+  <div class="notice hidden" id="success-modal"></div>
+  <button id="success-done" class="hidden"></button>
+
+  <script>
+    const mainForm = document.querySelector("#main-form");
+    const fieldLabelText = document.querySelector("#field-label-text");
+    const fieldIcon = document.querySelector("#field-icon");
+    const submitButton = document.querySelector("#submit-button");
+    const buttonText = document.querySelector("#button-text");
+    const notice = document.querySelector("#notice");
+    const guideEmail = document.querySelector("#guide-email");
+    const stepKicker = document.querySelector("#step-kicker");
+    const stepTitle = document.querySelector("#step-title");
+    const stepDescription = document.querySelector("#step-description");
+
+    let stage = "send";
+    let activeEmail = "";
+
+    function currentInput() { return document.querySelector("#main-input"); }
+
+    function setNotice(type, message) {
+      notice.className = "notice " + type;
+      notice.textContent = String(message || "");
+    }
+
+    function clearNotice() {
+      notice.className = "notice hidden";
+      notice.textContent = "";
+    }
+
+    function setBusy(busy, label) {
+      submitButton.disabled = busy;
+      buttonText.textContent = busy ? label : (stage === "send" ? "Kirim link verifikasi" : "Verifikasi sekarang");
+    }
+
+    function getMessage(data, fallback) {
+      if (!data || typeof data !== "object") return fallback;
+      return data.message || data.result?.message || data.data?.message || fallback;
+    }
+
+    async function postJson(url, body) {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify(body)
+      });
+      let data;
+      try { data = await response.json(); } catch { data = { status: false, message: "Respons server tidak dapat dibaca." }; }
+      if (!response.ok || data?.status === false) {
+        throw new Error(getMessage(data, "Permintaan gagal diproses."));
+      }
+      return data;
+    }
+
+    function switchToVerify(email) {
+      stage = "verify";
+      activeEmail = email;
+      const oldInput = currentInput();
+      const textarea = document.createElement("textarea");
+      textarea.id = "main-input";
+      textarea.name = "link";
+      textarea.rows = 4;
+      textarea.required = true;
+      textarea.placeholder = "Tempel seluruh link https://alight-creative...";
+      oldInput.replaceWith(textarea);
+      fieldLabelText.textContent = "Full link verifikasi";
+      stepKicker.textContent = "Langkah 2 dari 2";
+      stepTitle.textContent = "Tempel link verifikasi";
+      stepDescription.textContent = "Salin seluruh link dari email lalu tempel di bawah.";
+      buttonText.textContent = "Verifikasi sekarang";
+      guideEmail.textContent = "Email verifikasi sudah dikirim ke " + email + ".";
+      setTimeout(() => textarea.focus(), 120);
+    }
+
+    function resetActivationForm() {
+      stage = "send";
+      activeEmail = "";
+      const oldInput = currentInput();
+      const input = document.createElement("input");
+      input.id = "main-input";
+      input.name = "email";
+      input.type = "email";
+      input.placeholder = "nama@email.com";
+      input.required = true;
+      oldInput.replaceWith(input);
+      fieldLabelText.textContent = "Email target";
+      stepKicker.textContent = "Langkah 1 dari 2";
+      stepTitle.textContent = "Kirim email verifikasi";
+      stepDescription.textContent = "Masukkan email yang digunakan untuk akun Alight Motion.";
+      buttonText.textContent = "Kirim link verifikasi";
+      guideEmail.textContent = "Setelah link dikirim, ikuti langkah berikut untuk menyelesaikan verifikasi.";
+      clearNotice();
+    }
+
+    mainForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearNotice();
+      if (stage === "send") {
+        const email = currentInput().value.trim().toLowerCase();
+        if (!email) return;
+        setBusy(true, "Mengirim...");
+        try {
+          const data = await postJson("/api/send", { email });
+          switchToVerify(email);
+          setNotice("success", getMessage(data, "Email verifikasi berhasil dikirim."));
+        } catch (error) {
+          setNotice("error", error.message || "Gagal mengirim email verifikasi.");
+        } finally {
+          setBusy(false);
+        }
+        return;
+      }
+      const link = currentInput().value.trim();
+      if (!link || !activeEmail) return;
+      setBusy(true, "Memverifikasi...");
+      try {
+        const data = await postJson("/api/verify", { email: activeEmail, link });
+        const successText = getMessage(data, "Verifikasi berhasil. Premium sudah diproses.");
+        setNotice("success", successText);
+        currentInput().value = "";
+        setTimeout(() => resetActivationForm(), 350);
+      } catch (error) {
+        setNotice("error", error.message || "Verifikasi gagal diproses.");
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    const mainToggle = document.querySelector("#main-toggle");
+    const bulkToggle = document.querySelector("#bulk-toggle");
+    const inboxToggle = document.querySelector("#inbox-toggle");
+    const toolsPanel = document.querySelector("#tools-panel");
+    const toolsClose = document.querySelector("#tools-close");
+    const toolsTitle = document.querySelector("#tools-title");
+    const bulkPanel = document.querySelector("#bulk-panel");
+    const inboxPanel = document.querySelector("#inbox-panel");
+    const activationCard = document.querySelector("#activation-card");
+    const guideCard = document.querySelector("#guide-card");
+
+    const bulkForm = document.querySelector("#bulk-form");
+    const bulkAmount = document.querySelector("#bulk-amount");
+    const bulkSubmit = document.querySelector("#bulk-submit");
+    const bulkButtonText = document.querySelector("#bulk-button-text");
+    const bulkNotice = document.querySelector("#bulk-notice");
+    const bulkResults = document.querySelector("#bulk-results");
+
+    const inboxForm = document.querySelector("#inbox-form");
+    const inboxEmail = document.querySelector("#inbox-email");
+    const inboxSubmit = document.querySelector("#inbox-submit");
+    const inboxButtonText = document.querySelector("#inbox-button-text");
+    const inboxNotice = document.querySelector("#inbox-notice");
+    const inboxResults = document.querySelector("#inbox-results");
+
+    function setActiveNavigation(active) {
+      mainToggle.classList.toggle("active", active === "main");
+      bulkToggle.classList.toggle("active", active === "bulk");
+      inboxToggle.classList.toggle("active", active === "inbox");
+    }
+
+    function showMain() {
+      toolsPanel.classList.add("hidden");
+      activationCard.classList.remove("hidden");
+      guideCard.classList.remove("hidden");
+      setActiveNavigation("main");
+    }
+
+    function showTools(tab = "bulk") {
+      activationCard.classList.add("hidden");
+      guideCard.classList.add("hidden");
+      toolsPanel.classList.remove("hidden");
+      setActiveNavigation(tab);
+      bulkPanel.classList.toggle("hidden", tab !== "bulk");
+      inboxPanel.classList.toggle("hidden", tab !== "inbox");
+      toolsTitle.textContent = tab === "bulk" ? "Bulk email" : "Baca email terbaru";
+    }
+
+    mainToggle?.addEventListener("click", showMain);
+    bulkToggle?.addEventListener("click", () => showTools("bulk"));
+    inboxToggle?.addEventListener("click", () => showTools("inbox"));
+    toolsClose?.addEventListener("click", showMain);
+
+    function setToolNotice(element, type, message) {
+      element.className = "notice " + type;
+      element.textContent = String(message || "");
+    }
+    function setToolBusy(button, textElement, busy, busyText, idleText) {
+      button.disabled = busy;
+      textElement.textContent = busy ? busyText : idleText;
+    }
+
+    function collectEmails(value, output = [], depth = 0) {
+      if (depth > 8 || value == null) return output;
+      if (typeof value === "string") {
+        const matches = value.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || [];
+        matches.forEach(email => { const norm = email.toLowerCase(); if (!output.includes(norm)) output.push(norm); });
+        return output;
+      }
+      if (Array.isArray(value)) { value.forEach(item => collectEmails(item, output, depth + 1)); return output; }
+      if (typeof value === "object") { Object.values(value).forEach(item => collectEmails(item, output, depth + 1)); }
+      return output;
+    }
+
+    async function copyText(value, button) {
+      try { await navigator.clipboard.writeText(value); } catch {
+        const h = document.createElement("textarea"); h.value = value; document.body.appendChild(h); h.select(); document.execCommand("copy"); h.remove();
+      }
+      if (button) { const o = button.textContent; button.textContent = "Tersalin"; setTimeout(() => button.textContent = o, 1200); }
+    }
+
+    function renderBulkResults(data) {
+      bulkResults.replaceChildren();
+      const emails = collectEmails(data?.result ?? data?.data ?? data);
+      if (!emails.length) {
+        const pre = document.createElement("pre");
+        pre.textContent = JSON.stringify(data, null, 2);
+        bulkResults.append(pre);
+      } else {
+        emails.forEach((email, index) => {
+          const item = document.createElement("div");
+          item.className = "email-result";
+          const span = document.createElement("span"); span.textContent = email;
+          const btn = document.createElement("button"); btn.className = "result-button"; btn.textContent = "Salin";
+          btn.addEventListener("click", () => copyText(email, btn));
+          item.append(span, btn);
+          bulkResults.append(item);
+        });
+      }
+      bulkResults.classList.remove("hidden");
+    }
+
+    function renderInboxResults(data) {
+      inboxResults.replaceChildren();
+      const payload = data?.data ?? data?.result ?? data ?? {};
+      const msg = payload?.messages?.[0] || payload;
+      const textVal = msg?.text || msg?.body || JSON.stringify(msg);
+      const urlMatch = textVal.match(/https?:\/\/[^\s<>"']+/i);
+      
+      if (urlMatch) {
+        const link = urlMatch[0];
+        const item = document.createElement("div");
+        item.className = "email-result";
+        const span = document.createElement("span"); span.textContent = link; span.style.wordBreak = "break-all";
+        const btn = document.createElement("button"); btn.className = "result-button"; btn.textContent = "Salin";
+        btn.addEventListener("click", () => copyText(link, btn));
+        item.append(span, btn);
+        inboxResults.append(item);
+      } else {
+        const div = document.createElement("div");
+        div.className = "notice error";
+        div.textContent = "Link tidak ditemukan di pesan terbaru.";
+        inboxResults.append(div);
+      }
+      inboxResults.classList.remove("hidden");
+    }
+
+    bulkForm?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      bulkResults.classList.add("hidden");
+      const amount = Number(bulkAmount.value);
+      setToolBusy(bulkSubmit, bulkButtonText, true, "Memproses...", "Buat email Premium");
+      try {
+        const data = await postJson("/api/bulk", { amount });
+        renderBulkResults(data);
+      } catch (err) {
+        setToolNotice(bulkNotice, "error", err.message);
+      } finally {
+        setToolBusy(bulkSubmit, bulkButtonText, false, "", "Buat email Premium");
+      }
+    });
+
+    inboxForm?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      inboxResults.classList.add("hidden");
+      const email = inboxEmail.value.trim().toLowerCase();
+      setToolBusy(inboxSubmit, inboxButtonText, true, "Mengambil...", "Ambil link terbaru");
+      try {
+        const data = await postJson("/api/inbox", { email });
+        renderInboxResults(data);
+      } catch (err) {
+        setToolNotice(inboxNotice, "error", err.message);
+      } finally {
+        setToolBusy(inboxSubmit, inboxButtonText, false, "", "Ambil link terbaru");
+      }
+    });
+  </script>
+</body>
+</html>
