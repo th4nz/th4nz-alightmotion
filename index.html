@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AM Pro Toolkit | Cyber Neon Edition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#8b5cf6',
+              hover: '#7c3aed',
+              muted: 'rgba(139, 92, 246, 0.15)',
+              glow: '#a78bfa',
+            },
+            surface: {
+              DEFAULT: '#09090b',
+              card: 'rgba(24, 24, 27, 0.85)',
+              border: 'rgba(139, 92, 246, 0.2)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: #09090b;
+      font-family: 'Inter', sans-serif;
+    }
+    #particles {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-card {
+      background: rgba(24, 24, 27, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.1);
+    }
+    .input-field {
+      background: rgba(9, 9, 11, 0.85);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .input-field:focus-within {
+      border-color: #8b5cf6;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    }
+    .smooth-transition {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .slide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  </style>
+</head>
+<body class="text-zinc-100 min-h-screen flex flex-col items-center justify-between relative selection:bg-brand selection:text-white antialiased p-4">
+
+  <canvas id="particles"></canvas>
+
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#09090b] transition-opacity duration-500">
+    <div class="relative flex items-center justify-center">
+      <div class="w-14 h-14 rounded-full border-2 border-zinc-800 border-t-brand animate-spin shadow-[0_0_20px_rgba(139,92,246,0.5)]"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <i class="fa-solid fa-bolt text-brand text-xs animate-pulse"></i>
+      </div>
+    </div>
+    <p class="font-display text-zinc-500 text-xs tracking-[0.2em] uppercase mt-4">Loading ZNN Sistem...</p>
+  </div>
+
+  <!-- CONTAINER APP DASHBOARD (Tampil Utama) -->
+  <main id="appContainer" class="w-full max-w-[380px] z-10 flex flex-col items-center justify-between py-2 space-y-4 min-h-[92vh]">
+    
+    <!-- Navbar Header dengan Tombol Hamburger -->
+    <header class="w-full px-3 py-2.5 flex items-center justify-between border-b border-brand/20 shrink-0 glass-card rounded-2xl">
+      <div class="flex items-center space-x-2">
+        <button onclick="toggleSidebar()" class="w-7 h-7 rounded-lg bg-surface-card border border-brand/30 flex items-center justify-center text-brand hover:bg-brand/20 transition" title="Menu">
+          <i class="fa-solid fa-bars text-xs"></i>
+        </button>
+        <div>
+          <p class="text-[7px] text-zinc-500 uppercase tracking-widest font-semibold">Layanan</p>
+          <p class="font-display font-semibold text-[11px] text-white truncate max-w-[90px]">ZNN Panel</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-1">
+        <button onclick="switchFeature('am')" id="tabBtnAM" class="px-2 py-1 rounded-lg bg-brand text-white text-[10px] font-bold transition">Utama</button>
+        <button onclick="switchFeature('bulk')" id="tabBtnBulk" class="px-2 py-1 rounded-lg bg-surface-card border border-brand/30 text-zinc-400 text-[10px] font-bold transition">Bulk</button>
+        <button onclick="switchFeature('inbox')" id="tabBtnInbox" class="px-2 py-1 rounded-lg bg-surface-card border border-brand/30 text-zinc-400 text-[10px] font-bold transition">Inbox</button>
+        <a href="https://whatsapp.com/channel/0029Vb6jzN97z4keastNq73f" target="_blank" class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 hover:bg-emerald-500/20 transition" title="WhatsApp Channel">
+          <i class="fa-brands fa-whatsapp text-xs"></i>
+        </a>
+      </div>
+    </header>
+
+    <!-- FITUR 1: UTAMA (Aktivasi / Verifikasi AM) -->
+    <div id="featurePanelAM" class="w-full flex flex-col items-center my-auto space-y-4">
+      <div class="mb-1 text-center w-full">
+        <span class="px-3 py-1 rounded-full border border-brand/40 bg-brand/10 text-[#C084FC] text-[10px] font-extrabold tracking-[0.2em] uppercase">ALIGHT MOTION</span>
+        <h1 class="font-display text-lg font-bold tracking-tight text-white mt-1 mb-0.5">Aktivasi Premium</h1>
+        <p class="text-zinc-400 text-[10px] tracking-wide">Kirim link verifikasi ke email, lalu selesaikan aktivasi.</p>
+      </div>
+
+      <div class="glass-card rounded-[22px] overflow-hidden shadow-2xl w-full relative">
+        <div class="w-full h-1 bg-zinc-900 absolute top-0 left-0 z-10">
+          <div id="progressBar" class="h-full bg-gradient-to-r from-brand to-indigo-400 transition-all duration-500 ease-out shadow-[0_0_10px_#8b5cf6]" style="width: 50%;"></div>
+        </div>
+
+        <div class="p-4 pt-5 relative">
+          
+          <!-- Panel Kirim Email -->
+          <div id="panel1" class="step-panel">
+            <div class="mb-3 flex justify-between items-center">
+              <div>
+                <span class="text-[10px] font-extrabold text-[#C084FC] tracking-wider uppercase">Langkah 1 dari 2</span>
+                <h2 class="font-display text-xs font-semibold text-white">Kirim Email Verifikasi</h2>
+              </div>
+              <div class="flex gap-1">
+                <span class="w-6 h-6 rounded-full bg-brand text-white text-[10px] font-bold flex items-center justify-center shadow-[0_0_10px_rgba(139,92,246,0.4)]" id="dot-one">1</span>
+                <span class="w-6 h-6 rounded-full bg-surface-card border border-brand/30 text-zinc-400 text-[10px] font-bold flex items-center justify-center" id="dot-two">2</span>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <div class="input-field rounded-xl flex items-center px-3.5 py-2.5">
+                <i class="fa-regular fa-envelope text-zinc-500 mr-3 text-xs"></i>
+                <input type="email" id="main-input" placeholder="nama@email.com" class="w-full bg-transparent text-xs text-white placeholder-zinc-600 focus:outline-none" />
+              </div>
+
+              <div id="notice" class="hidden py-2 px-3 rounded-xl text-[11px] leading-relaxed"></div>
+
+              <button onclick="handleMainAction()" id="submit-button" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand to-indigo-500 text-white font-medium text-xs hover:opacity-95 active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(139,92,246,0.35)] flex items-center justify-center space-x-2">
+                <span id="button-text">Kirim link verifikasi</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Panel Verifikasi Link -->
+          <div id="panel2" class="step-panel hidden">
+            <div class="mb-3 flex justify-between items-center">
+              <div>
+                <span class="text-[10px] font-extrabold text-[#C084FC] tracking-wider uppercase">Langkah 2 dari 2</span>
+                <h2 class="font-display text-xs font-semibold text-white">Tempel Link Verifikasi</h2>
+              </div>
+              <div class="flex gap-1">
+                <span class="w-6 h-6 rounded-full bg-surface-card border border-brand/30 text-zinc-400 text-[10px] font-bold flex items-center justify-center" id="dot-one-b">1</span>
+                <span class="w-6 h-6 rounded-full bg-brand text-white text-[10px] font-bold flex items-center justify-center shadow-[0_0_10px_rgba(139,92,246,0.4)]" id="dot-two-b">2</span>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <div class="input-field rounded-xl flex items-start px-3 py-2.5">
+                <i class="fa-solid fa-link text-zinc-500 mr-3 text-xs mt-1"></i>
+                <textarea id="main-textarea" rows="3" placeholder="Tempel seluruh link https://alight-creative..." class="w-full bg-transparent text-xs text-white placeholder-zinc-600 focus:outline-none resize-none"></textarea>
+              </div>
+
+              <div id="notice2" class="hidden py-2 px-3 rounded-xl text-[11px] leading-relaxed"></div>
+
+              <div class="flex space-x-2">
+                <button onclick="resetActivationForm()" class="px-3 py-2.5 rounded-xl bg-surface-card border border-brand/30 text-zinc-300 hover:text-white transition text-xs">
+                  <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button onclick="handleMainAction()" id="submit-button-2" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-brand to-indigo-500 text-white font-medium text-xs hover:opacity-95 active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(139,92,246,0.35)]">
+                  Verifikasi sekarang
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Panduan Singkat -->
+      <div class="glass-card rounded-[22px] p-4 w-full text-left space-y-2">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 rounded-lg bg-brand/20 text-brand flex items-center justify-center text-xs">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <span class="text-xs font-bold text-white">Panduan Cepat</span>
+        </div>
+        <p id="guide-email" class="text-[11px] text-zinc-400 leading-relaxed">
+          Setelah link dikirim ke email, pastikan cek folder spam, tandai bukan spam, lalu salin tautan lengkap berformat <code>https://alight-creative...</code> dan tempel di langkah kedua.
+        </p>
+      </div>
+    </div>
+
+    <!-- FITUR 2: BULK EMAIL GENERATOR -->
+    <div id="featurePanelBulk" class="w-full flex flex-col items-center my-auto space-y-4 hidden">
+      <div class="mb-1 text-center w-full">
+        <span class="px-3 py-1 rounded-full border border-brand/40 bg-brand/10 text-[#C084FC] text-[10px] font-extrabold tracking-[0.2em] uppercase">BULK SERVICE</span>
+        <h1 class="font-display text-lg font-bold tracking-tight text-white mt-1 mb-0.5">Bulk Email Generator</h1>
+        <p class="text-zinc-400 text-[10px] tracking-wide">Buat beberapa email Alight Motion Premium sekaligus.</p>
+      </div>
+
+      <div class="glass-card rounded-[22px] p-4 w-full space-y-3">
+        <div class="space-y-1">
+          <label class="text-[11px] text-zinc-300 font-medium">Jumlah Email (1 - 100)</label>
+          <div class="input-field rounded-xl flex items-center px-3.5 py-2.5">
+            <i class="fa-solid fa-layer-group text-zinc-500 mr-3 text-xs"></i>
+            <input type="number" id="bulk-amount" min="1" max="100" value="1" class="w-full bg-transparent text-xs text-white placeholder-zinc-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <button onclick="handleBulkSubmit()" id="bulk-submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand to-indigo-500 text-white font-medium text-xs hover:opacity-95 transition shadow-[0_0_20px_rgba(139,92,246,0.35)]">
+          <span id="bulk-button-text">Buat email Premium</span>
+        </button>
+
+        <div id="bulk-notice" class="hidden py-2 px-3 rounded-xl text-[11px]"></div>
+        <div id="bulk-results" class="hidden space-y-2 max-h-[200px] overflow-y-auto pr-1"></div>
+      </div>
+    </div>
+
+    <!-- FITUR 3: INBOX SCANNER -->
+    <div id="featurePanelInbox" class="w-full flex flex-col items-center my-auto space-y-4 hidden">
+      <div class="mb-1 text-center w-full">
+        <span class="px-3 py-1 rounded-full border border-brand/40 bg-brand/10 text-[#C084FC] text-[10px] font-extrabold tracking-[0.2em] uppercase">TEMP MAIL</span>
+        <h1 class="font-display text-lg font-bold tracking-tight text-white mt-1 mb-0.5">Baca Email Masuk</h1>
+        <p class="text-zinc-400 text-[10px] tracking-wide">Ambil link Alight Motion dari pesan terbaru inbox.</p>
+      </div>
+
+      <div class="glass-card rounded-[22px] p-4 w-full space-y-3">
+        <div class="space-y-1">
+          <label class="text-[11px] text-zinc-300 font-medium">Alamat Email</label>
+          <div class="input-field rounded-xl flex items-center px-3.5 py-2.5">
+            <i class="fa-regular fa-envelope text-zinc-500 mr-3 text-xs"></i>
+            <input type="email" id="inbox-email" placeholder="nama@tempmail.com" class="w-full bg-transparent text-xs text-white placeholder-zinc-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <button onclick="handleInboxSubmit()" id="inbox-submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand to-indigo-500 text-white font-medium text-xs hover:opacity-95 transition shadow-[0_0_20px_rgba(139,92,246,0.35)]">
+          <span id="inbox-button-text">Ambil link terbaru</span>
+        </button>
+
+        <div id="inbox-notice" class="hidden py-2 px-3 rounded-xl text-[11px]"></div>
+        <div id="inbox-results" class="hidden space-y-2 max-h-[220px] overflow-y-auto"></div>
+      </div>
+    </div>
+
+    <!-- Footer Copyright -->
+    <div class="text-[9px] text-zinc-500 text-center pt-2">
+      <span>© 2026 ZNN</span> • <span>api.znn.my.id</span>
+    </div>
+  </main>
+
+  <!-- Sidebar Menu (Kiri) -->
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleSidebar()"></div>
+  <div id="sidebarMenu" class="fixed top-0 left-0 bottom-0 w-[260px] glass-card z-50 transform -translate-x-full transition-transform duration-300 p-5 flex flex-col justify-between border-r border-brand/30">
+    <div>
+      <div class="flex items-center justify-between mb-6 pb-3 border-b border-brand/20">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand">
+            <span class="font-bold text-sm">Z</span>
+          </div>
+          <span class="font-display font-bold text-sm text-white">ZNN<span class="text-brand">Panel</span></span>
+        </div>
+        <button onclick="toggleSidebar()" class="text-zinc-400 hover:text-white text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <button onclick="toggleSidebar(); switchFeature('am');" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-surface-card hover:bg-brand/15 border border-brand/20 transition text-zinc-200">
+          <i class="fa-solid fa-bolt text-brand"></i> Aktivasi Utama
+        </button>
+        <button onclick="toggleSidebar(); switchFeature('bulk');" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-surface-card hover:bg-brand/15 border border-brand/20 transition text-zinc-200">
+          <i class="fa-solid fa-layer-group text-brand"></i> Bulk Email Tools
+        </button>
+        <button onclick="toggleSidebar(); switchFeature('inbox');" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-surface-card hover:bg-brand/15 border border-brand/20 transition text-zinc-200">
+          <i class="fa-solid fa-inbox text-brand"></i> Baca Inbox
+        </button>
+        <a href="https://whatsapp.com/channel/0029Vb6jzN97z4keastNq73f" target="_blank" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition text-emerald-400">
+          <i class="fa-brands fa-whatsapp text-sm"></i> Saluran WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="pt-4 border-t border-brand/20 text-center">
+      <p class="text-[9px] text-zinc-500">© 2026 ZNN Activation Service</p>
+    </div>
+  </div>
+
+  <!-- Channel Modal (Otomatis muncul saat load) -->
+  <div id="channel-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="glass-card max-w-[300px] w-full rounded-[20px] p-5 relative text-center shadow-2xl">
+      <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl mx-auto mb-3 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+        <i class="fa-brands fa-whatsapp"></i>
+      </div>
+      <span class="text-[10px] font-bold text-emerald-400 tracking-widest uppercase">WHATSAPP CHANNEL</span>
+      <h3 class="font-display font-semibold text-sm text-white mt-1 mb-2">Ikuti saluran ZNN</h3>
+      <p id="channel-description" class="text-[10px] text-zinc-300 mb-4 leading-relaxed">
+        Dapatkan info update layanan, fitur baru, dan pengumuman penting langsung dari saluran WhatsApp.
+      </p>
+      <div class="space-y-2">
+        <a href="https://whatsapp.com/channel/0029Vb6jzN97z4keastNq73f" target="_blank" onclick="closeChannelModal()" class="block w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-xs transition shadow-[0_0_15px_rgba(16,185,129,0.35)]">
+          Ikuti saluran
+        </a>
+        <button onclick="closeChannelModal()" class="w-full py-2 rounded-xl bg-surface-card border border-brand/30 text-zinc-400 hover:text-white font-medium text-xs transition">
+          Nanti saja
+        </button>
+      </div>
+      <button onclick="closeChannelModal()" class="absolute top-3.5 right-3.5 text-zinc-400 hover:text-white transition text-xs">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Modal (Muncul saat verifikasi berhasil) -->
+  <div id="success-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="glass-card max-w-[300px] w-full rounded-[20px] p-5 relative text-center shadow-2xl">
+      <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-emerald-500 to-emerald-400 text-white flex items-center justify-center text-xl mx-auto mb-3 shadow-[0_0_25px_rgba(16,185,129,0.5)]">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <span class="text-[10px] font-bold text-emerald-400 tracking-widest uppercase">AKTIVASI SELESAI</span>
+      <h3 class="font-display font-semibold text-sm text-white mt-1 mb-2">Premium berhasil diproses</h3>
+      <p id="success-message" class="text-[10px] text-zinc-300 mb-4 leading-relaxed">
+        Verifikasi berhasil. Akun Alight Motion kamu sudah diproses oleh sistem.
+      </p>
+      <button onclick="closeSuccessModal()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand to-indigo-500 text-white font-medium text-xs hover:opacity-95 transition shadow-[0_0_15px_rgba(139,92,246,0.35)]">
+        Selesai
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notifikasi -->
+  <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 -translate-y-20 opacity-0 transition-all duration-400 glass-card text-white px-3.5 py-2 rounded-xl text-[10px] font-medium shadow-2xl flex items-center space-x-2 z-50 pointer-events-none border border-brand/40">
+    <i class="fa-solid fa-circle-info text-brand text-xs"></i>
+    <span id="toastMessage">Pemberitahuan</span>
+  </div>
+
+  <!-- Skrip Background Partikel -->
+  <script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    let particles = [];
+
+    function resize(){
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        init();
+    }
+    window.addEventListener("resize", resize);
+
+    class Particle {
+        constructor(){
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.size = Math.random() * 1.5 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.2;
+            this.speedY = (Math.random() - 0.5) * 0.2;
+            this.alpha = Math.random() * 0.5 + 0.1;
+        }
+        update(){
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if(this.x < 0) this.x = w;
+            if(this.x > w) this.x = 0;
+            if(this.y < 0) this.y = h;
+            if(this.y > h) this.y = 0;
+        }
+        draw(){
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(139, 92, 246, ${this.alpha})`;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = "#8b5cf6";
+            ctx.fill();
+        }
+    }
+
+    function init(){
+        particles = [];
+        let count = Math.floor((w * h) / 7000);
+        for(let i = 0; i < count; i++){
+            particles.push(new Particle());
+        }
+    }
+
+    function animate(){
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+    resize();
+    animate();
+  </script>
+
+  <!-- Sound Effects -->
+  <script>
+    let audioCtx = null;
+    window.playSound = function(freq = 800, duration = 0.08, type = 'sine', volume = 0.25) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (_) {}
+    };
+    window.soundClick = () => window.playSound(400, 0.05, 'sine', 0.15);
+    window.soundSuccess = () => window.playSound(800, 0.08, 'sine', 0.20);
+    window.soundError = () => window.playSound(300, 0.10, 'sine', 0.15);
+  </script>
+
+  <!-- Logika Aplikasi Utama & Backend API Integrasi -->
+  <script>
+    function showToast(msg) {
+      window.playSound(600, 0.07, 'sine', 0.18);
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.remove('-translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('-translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    function toggleSidebar() {
+      window.soundClick();
+      const sidebar = document.getElementById('sidebarMenu');
+      const overlay = document.getElementById('sidebarOverlay');
+      if(sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    function switchFeature(feature) {
+      window.soundClick();
+      const am = document.getElementById('featurePanelAM');
+      const bulk = document.getElementById('featurePanelBulk');
+      const inbox = document.getElementById('featurePanelInbox');
+      
+      const tabAM = document.getElementById('tabBtnAM');
+      const tabBulk = document.getElementById('tabBtnBulk');
+      const tabInbox = document.getElementById('tabBtnInbox');
+
+      am.classList.add('hidden');
+      bulk.classList.add('hidden');
+      inbox.classList.add('hidden');
+
+      tabAM.className = "px-2 py-1 rounded-lg bg-surface-card border border-brand/30 text-zinc-400 text-[10px] font-bold transition";
+      tabBulk.className = "px-2 py-1 rounded-lg bg-surface-card border border-brand/30 text-zinc-400 text-[10px] font-bold transition";
+      tabInbox.className = "px-2 py-1 rounded-lg bg-surface-card border border-brand/30 text-zinc-400 text-[10px] font-bold transition";
+
+      if(feature === 'am') {
+        am.classList.remove('hidden');
+        tabAM.className = "px-2 py-1 rounded-lg bg-brand text-white text-[10px] font-bold transition";
+      } else if(feature === 'bulk') {
+        bulk.classList.remove('hidden');
+        tabBulk.className = "px-2 py-1 rounded-lg bg-brand text-white text-[10px] font-bold transition";
+      } else if(feature === 'inbox') {
+        inbox.classList.remove('hidden');
+        tabInbox.className = "px-2 py-1 rounded-lg bg-brand text-white text-[10px] font-bold transition";
+      }
+    }
+
+    // Modal Channel (Load otomatis)
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const modal = document.getElementById('channel-modal');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+      }, 700);
+    });
+
+    function closeChannelModal() {
+      window.soundClick();
+      document.getElementById('channel-modal').classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function openSuccessModal(msg) {
+      window.soundSuccess();
+      if(msg) document.getElementById('success-message').textContent = msg;
+      document.getElementById('success-modal').classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeSuccessModal() {
+      window.soundClick();
+      document.getElementById('success-modal').classList.add('opacity-0', 'pointer-events-none');
+      resetActivationForm();
+      const modal = document.getElementById('channel-modal');
+      document.getElementById('channel-description').textContent = "Aktivasi sudah selesai. Ikuti saluran ZNN untuk mendapatkan update layanan berikutnya.";
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    // Logika Aktivasi Utama (Send & Verify API)
+    let stage = "send";
+    let activeEmail = "";
+
+    function setNotice(elementId, type, message) {
+      const el = document.getElementById(elementId);
+      el.className = `py-2 px-3 rounded-xl text-[11px] leading-relaxed ${type === 'success' ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border border-red-500/30 text-red-400'}`;
+      el.textContent = message;
+      el.classList.remove('hidden');
+    }
+
+    async function postJson(url, body) {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify(body)
+      });
+      let data;
+      try { data = await response.json(); } catch { data = { status: false, message: "Respons server tidak dapat dibaca." }; }
+      if (!response.ok || data?.status === false) {
+        throw new Error(data?.message || data?.result?.message || "Permintaan gagal diproses.");
+      }
+      return data;
+    }
+
+    async function handleMainAction() {
+      if (stage === "send") {
+        const email = document.getElementById('main-input').value.trim().toLowerCase();
+        if(!email || !email.includes('@')) {
+          setNotice('notice', 'error', 'Masukkan alamat email yang valid.');
+          return;
+        }
+
+        const btn = document.getElementById('submit-button');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Mengirim...';
+
+        try {
+          const data = await postJson("/api/send", { email });
+          activeEmail = email;
+          stage = "verify";
+          
+          document.getElementById('panel1').classList.add('hidden');
+          document.getElementById('panel2').classList.remove('hidden');
+          document.getElementById('progressBar').style.width = '100%';
+          
+          document.getElementById('guide-email').textContent = `Email verifikasi telah dikirim ke ${email}. Salin tautan dari email lalu tempel di bawah.`;
+          setNotice('notice2', 'success', data.message || 'Email verifikasi berhasil dikirim.');
+          window.soundSuccess();
+        } catch (err) {
+          window.soundError();
+          setNotice('notice', 'error', err.message || 'Gagal mengirim email verifikasi.');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<span>Kirim link verifikasi</span><i class="fa-solid fa-arrow-right text-[10px]"></i>';
+        }
+      } else {
+        const link = document.getElementById('main-textarea').value.trim();
+        if(!link) {
+          setNotice('notice2', 'error', 'Masukkan link verifikasi dengan benar.');
+          return;
+        }
+
+        const btn = document.getElementById('submit-button-2');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Memverifikasi...';
+
+        try {
+          const data = await postJson("/api/verify", { email: activeEmail, link });
+          openSuccessModal(data.message || 'Verifikasi berhasil. Akun sudah diproses.');
+        } catch (err) {
+          window.soundError();
+          setNotice('notice2', 'error', err.message || 'Verifikasi gagal diproses.');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = 'Verifikasi sekarang';
+        }
+      }
+    }
+
+    function resetActivationForm() {
+      stage = "send";
+      activeEmail = "";
+      document.getElementById('main-input').value = '';
+      document.getElementById('main-textarea').value = '';
+      document.getElementById('panel2').classList.add('hidden');
+      document.getElementById('panel1').classList.remove('hidden');
+      document.getElementById('progressBar').style.width = '50%';
+      document.getElementById('notice').classList.add('hidden');
+      document.getElementById('notice2').classList.add('hidden');
+      document.getElementById('guide-email').textContent = 'Setelah link dikirim ke email, pastikan cek folder spam, tandai bukan spam, lalu salin tautan lengkap berformat https://alight-creative... dan tempel di langkah kedua.';
+    }
+
+    // Bulk Generator Logic
+    function collectEmails(value, output = [], depth = 0) {
+      if (depth > 6 || value == null) return output;
+      if (typeof value === "string") {
+        const matches = value.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || [];
+        matches.forEach(e => { if(!output.includes(e.toLowerCase())) output.push(e.toLowerCase()); });
+        return output;
+      }
+      if (Array.isArray(value)) {
+        value.forEach(i => collectEmails(i, output, depth + 1));
+        return output;
+      }
+      if (typeof value === "object") {
+        Object.values(value).forEach(i => collectEmails(i, output, depth + 1));
+      }
+      return output;
+    }
+
+    async function handleBulkSubmit() {
+      const amount = Number(document.getElementById('bulk-amount').value);
+      const noticeEl = document.getElementById('bulk-notice');
+      const resContainer = document.getElementById('bulk-results');
+      
+      noticeEl.classList.add('hidden');
+      resContainer.classList.add('hidden');
+
+      if(!Number.isInteger(amount) || amount < 1 || amount > 100) {
+        noticeEl.className = "py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/30 text-red-400";
+        noticeEl.textContent = "Jumlah bulk harus angka 1 sampai 100.";
+        noticeEl.classList.remove('hidden');
+        return;
+      }
+
+      const btn = document.getElementById('bulk-submit');
+      btn.disabled = true;
+      document.getElementById('bulk-button-text').textContent = "Membuat...";
+
+      try {
+        const data = await postJson("/api/bulk", { amount });
+        const emails = collectEmails(data?.result ?? data?.data ?? data);
+        resContainer.replaceChildren();
+
+        if(!emails.length) {
+          resContainer.innerHTML = `<pre class="p-2 bg-surface rounded text-[10px] text-brand overflow-auto">${JSON.stringify(data, null, 2)}</pre>`;
+        } else {
+          emails.forEach((em, idx) => {
+            const row = document.createElement('div');
+            row.className = "flex items-center justify-between p-2 rounded-xl bg-surface-card border border-brand/20 text-[11px]";
+            row.innerHTML = `<span class="text-white truncate max-w-[200px]">${em}</span><button onclick="navigator.clipboard.writeText('${em}');showToast('Email disalin!')" class="px-2 py-1 rounded bg-brand/20 text-brand font-bold text-[10px]">Salin</button>`;
+            resContainer.appendChild(row);
+          });
+        }
+        resContainer.classList.remove('hidden');
+        noticeEl.className = "py-2 px-3 rounded-xl text-[11px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-400";
+        noticeEl.textContent = "Email Premium berhasil dibuat.";
+        noticeEl.classList.remove('hidden');
+        window.soundSuccess();
+      } catch (err) {
+        window.soundError();
+        noticeEl.className = "py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/30 text-red-400";
+        noticeEl.textContent = err.message || "Gagal membuat email bulk.";
+        noticeEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        document.getElementById('bulk-button-text').textContent = "Buat email Premium";
+      }
+    }
+
+    // Inbox Scanner Logic
+    async function handleInboxSubmit() {
+      const email = document.getElementById('inbox-email').value.trim().toLowerCase();
+      const noticeEl = document.getElementById('inbox-notice');
+      const resContainer = document.getElementById('inbox-results');
+
+      noticeEl.classList.add('hidden');
+      resContainer.classList.add('hidden');
+
+      if(!email || !email.includes('@')) {
+        noticeEl.className = "py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/30 text-red-400";
+        noticeEl.textContent = "Masukkan email yang valid.";
+        noticeEl.classList.remove('hidden');
+        return;
+      }
+
+      const btn = document.getElementById('inbox-submit');
+      btn.disabled = true;
+      document.getElementById('inbox-button-text').textContent = "Memindai...";
+
+      try {
+        const data = await postJson("/api/inbox", { email });
+        const payload = data?.data ?? data?.result ?? data ?? {};
+        const messages = Array.isArray(payload) ? payload : (payload.messages || []);
+
+        resContainer.replaceChildren();
+        if(!messages.length) {
+          resContainer.innerHTML = `<div class="p-3 text-center text-zinc-400 text-[11px] border border-dashed border-brand/20 rounded-xl">Belum ada pesan masuk.</div>`;
+        } else {
+          const msg = messages[0];
+          const subject = msg?.subject || "Pesan Alight Motion";
+          const links = (msg?.body || msg?.text || "").match(/https?:\/\/[^\s<>"']+/gi) || [];
+          const link = links.find(l => l.includes("alight")) || links[0] || "";
+
+          const card = document.createElement('div');
+          card.className = "p-3 rounded-xl bg-surface-card border border-brand/20 space-y-2 text-[11px]";
+          card.innerHTML = `
+            <div class="font-bold text-white truncate">${subject}</div>
+            ${link ? `<div class="p-2 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] break-all">${link}</div><button onclick="navigator.clipboard.writeText('${link}');showToast('Link disalin!')" class="w-full py-1.5 rounded bg-brand text-white font-bold text-[10px]">Salin Tautan</button>` : `<div class="text-zinc-400 text-[10px]">Link verifikasi belum ditemukan di pesan ini.</div>`}
+          `;
+          resContainer.appendChild(card);
+        }
+        resContainer.classList.remove('hidden');
+        noticeEl.className = "py-2 px-3 rounded-xl text-[11px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-400";
+        noticeEl.textContent = "Inbox berhasil dipindai.";
+        noticeEl.classList.remove('hidden');
+        window.soundSuccess();
+      } catch (err) {
+        window.soundError();
+        noticeEl.className = "py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/30 text-red-400";
+        noticeEl.textContent = err.message || "Gagal membaca inbox.";
+        noticeEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        document.getElementById('inbox-button-text').textContent = "Ambil link terbaru";
+      }
+    }
+  </script>
+</body>
+</html>
+
