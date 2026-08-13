@@ -13,18 +13,20 @@
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
-            display: ['Outfit', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
           },
           colors: {
             brand: {
-              DEFAULT: '#6366f1',
-              hover: '#4f46e5',
-              muted: 'rgba(99, 102, 241, 0.1)',
+              DEFAULT: '#8B5CF6',
+              hover: '#A855F7',
+              muted: 'rgba(139, 92, 246, 0.15)',
             },
             surface: {
-              DEFAULT: '#0f172a',
-              card: '#1e293b',
-              border: '#334155'
+              DEFAULT: '#07050D',
+              card: 'rgba(255, 255, 255, 0.07)',
+              cardSolid: '#0B0714',
+              border: 'rgba(255, 255, 255, 0.09)',
+              input: 'rgba(10, 7, 20, 0.6)'
             }
           }
         }
@@ -32,307 +34,373 @@
     }
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
-    .font-display { font-family: 'Outfit', sans-serif; }
-    input, select { background-color: #090d16 !important; border-color: #334155 !important; color: #fff !important; }
-    input:focus, select:focus { border-color: #6366f1 !important; outline: none; box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2); }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background-color: #07050D; 
+      color: #E2E8F0; 
+      overflow-x: hidden;
+    }
+    .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    /* Atmosfer Background Glows */
+    .bg-glow-orb {
+      position: fixed;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(11, 7, 20, 0) 70%);
+      border-radius: 50%;
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(60px);
+    }
+    
+    /* Glassmorphism Styles */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.045);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card-subtle {
+      background: rgba(13, 9, 23, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    input, select { 
+      background-color: rgba(10, 7, 20, 0.75) !important; 
+      border-color: rgba(255, 255, 255, 0.08) !important; 
+      color: #F8FAFC !important; 
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+    }
+    input:focus, select:focus { 
+      border-color: #8B5CF6 !important; 
+      outline: none; 
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.1); 
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: rgba(7, 5, 13, 0.5); }
+    ::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.3); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.6); }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-between p-4">
+<body class="min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 relative selection:bg-purple-500 selection:text-white">
 
-  <!-- AUTH SECTION (Single unified login/register box) -->
-  <div id="authContainer" class="w-full max-w-sm my-auto space-y-4">
-    <div class="text-center space-y-1 mb-4">
-      <div class="inline-flex p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xl mb-1">
+  <!-- Background Ambient Glows -->
+  <div class="bg-glow-orb -top-24 -left-24 animate-pulse"></div>
+  <div class="bg-glow-orb bottom-0 right-0" style="background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(7, 5, 13, 0) 70%);"></div>
+
+  <!-- Top Minimalist Navbar Header -->
+  <header class="w-full max-w-xl flex items-center justify-between py-3 px-4 rounded-2xl glass-card mb-4">
+    <div class="flex items-center space-x-2.5">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-sm shadow-inner">
         <i class="fa-solid fa-bolt"></i>
       </div>
-      <h1 class="font-display font-bold text-xl text-white">AM Pro Toolkit</h1>
-      <p class="text-xs text-slate-400">Panel Aktivasi & Manajemen Member</p>
-    </div>
-
-    <!-- Toggle Login / Register -->
-    <div class="grid grid-cols-2 p-1 rounded-lg bg-surface-card border border-surface-border text-xs font-medium text-center">
-      <button onclick="switchAuthTab('login')" id="tabLoginBtn" class="py-2 rounded-md bg-indigo-600 text-white transition">Masuk</button>
-      <button onclick="switchAuthTab('register')" id="tabRegBtn" class="py-2 rounded-md text-slate-400 hover:text-white transition">Daftar</button>
-    </div>
-
-    <!-- Login Box -->
-    <div id="loginFormCard" class="bg-surface-card border border-surface-border p-5 rounded-xl space-y-3 shadow-lg">
-      <h2 class="font-display font-bold text-xs text-slate-300 tracking-wider uppercase">Autentikasi Akun</h2>
-      <div class="space-y-2.5">
-        <div>
-          <label class="block text-[11px] font-medium text-slate-400 mb-1">Username</label>
-          <input type="text" id="loginUsername" placeholder="Masukkan username" class="w-full px-3 py-2 rounded-lg text-xs border" />
-        </div>
-        <div>
-          <label class="block text-[11px] font-medium text-slate-400 mb-1">Token / Password Admin</label>
-          <div class="relative">
-            <input type="password" id="loginToken" placeholder="Masukkan password/token" class="w-full px-3 py-2 pr-9 rounded-lg text-xs border" />
-            <button type="button" onclick="togglePasswordVisibility('loginToken', 'eyeLoginIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
-              <i id="eyeLoginIcon" class="fa-solid fa-eye"></i>
-            </button>
-          </div>
-        </div>
-        <button onclick="handleLogin()" class="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md shadow-indigo-600/20 mt-1">Masuk Sistem</button>
+      <div>
+        <span class="font-display font-bold text-sm text-white tracking-tight">AM Pro Toolkit</span>
+        <span class="text-[10px] text-purple-300/70 block -mt-0.5">Glass Edition</span>
       </div>
     </div>
-
-    <!-- Register Box -->
-    <div id="regFormCard" class="bg-surface-card border border-surface-border p-5 rounded-xl space-y-3 shadow-lg hidden">
-      <h2 class="font-display font-bold text-xs text-slate-300 tracking-wider uppercase">Pendaftaran Member</h2>
-      <p class="text-[11px] text-amber-400/90 bg-amber-500/10 border border-amber-500/20 p-2 rounded-lg">Catatan: Batas 1 pendaftaran per perangkat.</p>
-      <div class="space-y-2.5">
-        <div>
-          <label class="block text-[11px] font-medium text-slate-400 mb-1">Username Unik</label>
-          <input type="text" id="regUsername" placeholder="cth: thanz123" class="w-full px-3 py-2 rounded-lg text-xs border" />
-        </div>
-        <div>
-          <label class="block text-[11px] font-medium text-slate-400 mb-1">Token Rahasia</label>
-          <div class="relative">
-            <input type="password" id="regToken" placeholder="Buat token akses" class="w-full px-3 py-2 pr-9 rounded-lg text-xs border" />
-            <button type="button" onclick="togglePasswordVisibility('regToken', 'eyeRegIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
-              <i id="eyeRegIcon" class="fa-solid fa-eye"></i>
-            </button>
-          </div>
-        </div>
-        <button onclick="handleRegister()" class="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-md shadow-emerald-600/20 mt-1">Daftar Sekarang</button>
+    <div class="flex items-center gap-2">
+      <div class="text-[11px] text-slate-400 px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.05]">
+        <i class="fa-solid fa-shield-halved text-purple-400 mr-1"></i> Secure
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- USER DASHBOARD SECTION -->
-  <div id="appContainer" class="w-full max-w-sm my-auto space-y-3 hidden">
-    <!-- User Info Card -->
-    <div class="bg-surface-card border border-surface-border p-4 rounded-xl space-y-3 shadow-lg">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-2.5">
-          <div class="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold text-xs" id="userAvatar">U</div>
+  <!-- AUTH SECTION (Single unified login/register box) -->
+  <main class="w-full max-w-md my-auto space-y-4">
+    <div id="authContainer" class="space-y-4">
+      <div class="text-center space-y-1.5 mb-2">
+        <h1 class="font-display font-bold text-xl text-white tracking-tight">Panel Aktivasi</h1>
+        <p class="text-xs text-slate-400">Masuk atau daftarkan perangkat Anda untuk mengakses alat.</p>
+      </div>
+
+      <!-- Toggle Login / Register -->
+      <div class="grid grid-cols-2 p-1 rounded-xl glass-card-subtle border border-white/[0.06] text-xs font-medium text-center">
+        <button onclick="switchAuthTab('login')" id="tabLoginBtn" class="py-2.5 rounded-lg bg-purple-600/80 text-white shadow-lg shadow-purple-900/30 transition-all duration-200">Masuk</button>
+        <button onclick="switchAuthTab('register')" id="tabRegBtn" class="py-2.5 rounded-lg text-slate-400 hover:text-white transition-all duration-200">Daftar</button>
+      </div>
+
+      <!-- Login Box -->
+      <div id="loginFormCard" class="glass-card p-6 rounded-2xl space-y-4">
+        <h2 class="font-display font-bold text-xs text-purple-300 tracking-wider uppercase">Autentikasi Akun</h2>
+        <div class="space-y-3">
           <div>
-            <div class="font-display font-bold text-sm text-white" id="displayUsername">-</div>
-            <div class="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Status: Aktif
-            </div>
+            <label class="block text-[11px] font-medium text-slate-300 mb-1.5">Username</label>
+            <input type="text" id="loginUsername" placeholder="Masukkan username" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
           </div>
-        </div>
-        <button onclick="handleLogout()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 border border-surface-border text-slate-300 hover:text-white text-xs transition">
-          <i class="fa-solid fa-right-from-bracket"></i>
-        </button>
-      </div>
-
-      <!-- Limit stats -->
-      <div class="grid grid-cols-4 gap-1.5 pt-2 border-t border-surface-border text-center">
-        <div class="p-1.5 rounded-lg bg-[#090d16] border border-surface-border">
-          <div class="text-[9px] text-slate-400">Limit</div>
-          <div class="font-display font-bold text-xs text-white" id="statLimit">5</div>
-        </div>
-        <div class="p-1.5 rounded-lg bg-[#090d16] border border-surface-border">
-          <div class="text-[9px] text-slate-400">Terpakai</div>
-          <div class="font-display font-bold text-xs text-amber-400" id="statUsed">0</div>
-        </div>
-        <div class="p-1.5 rounded-lg bg-[#090d16] border border-surface-border">
-          <div class="text-[9px] text-slate-400">Sisa</div>
-          <div class="font-display font-bold text-xs text-emerald-400" id="statRemaining">5</div>
-        </div>
-        <div class="p-1.5 rounded-lg bg-[#090d16] border border-surface-border">
-          <div class="text-[9px] text-slate-400">Reset</div>
-          <div class="font-display font-bold text-[10px] text-indigo-400 truncate" id="statReset">--:--</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Toolbox Menu -->
-    <div class="bg-surface-card border border-surface-border rounded-xl overflow-hidden shadow-lg">
-      <div class="grid grid-cols-3 border-b border-surface-border text-xs font-medium">
-        <button onclick="switchTab('send')" id="tabSend" class="py-2.5 text-center text-indigo-400 border-b-2 border-indigo-500 bg-indigo-500/5">Aktivasi</button>
-        <button onclick="switchTab('bulk')" id="tabBulk" class="py-2.5 text-center text-slate-400 hover:text-white">Bulk</button>
-        <button onclick="switchTab('inbox')" id="tabInbox" class="py-2.5 text-center text-slate-400 hover:text-white">Inbox</button>
-      </div>
-
-      <!-- Tab Utama / Magic Link -->
-      <div id="contentSend" class="p-4 space-y-3">
-        <div class="space-y-0.5">
-          <h2 class="font-display font-bold text-xs text-white">Magic Link Alight Motion</h2>
-          <p class="text-[11px] text-slate-400" id="flowInstruction">Kirim magic link ke email target terlebih dahulu.</p>
-        </div>
-
-        <div class="space-y-2.5">
-          <div id="stepEmailBox" class="space-y-2">
-            <input type="email" id="inputEmail" placeholder="email@domain.com" class="w-full px-3 py-2 rounded-lg text-xs border" />
-            <button onclick="handleSendMagicLink()" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">Kirim Magic Link</button>
-          </div>
-
-          <div id="stepVerifyBox" class="hidden space-y-2">
-            <input type="text" id="inputLink" placeholder="Tempel link verifikasi https://..." class="w-full px-3 py-2 rounded-lg text-xs border" />
-            <div class="flex space-x-2">
-              <button onclick="handleVerifyMagicLink()" class="flex-1 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition">Verifikasi Link</button>
-              <button onclick="resetInjectFlow()" class="px-3 py-2 rounded-lg bg-slate-800 border border-surface-border text-slate-300 hover:text-white text-xs"><i class="fa-solid fa-rotate-left"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div id="sendResult" class="hidden p-2.5 rounded-lg text-xs bg-[#090d16] border border-surface-border space-y-1"></div>
-      </div>
-
-      <!-- Tab Bulk Generator -->
-      <div id="contentBulk" class="p-4 space-y-3 hidden">
-        <div class="space-y-0.5">
-          <h2 class="font-display font-bold text-xs text-white">Bulk Generator</h2>
-          <p class="text-[11px] text-slate-400">Buat akun premium sekaligus (1 - 100).</p>
-        </div>
-        <div class="space-y-2">
-          <input type="number" id="inputBulkAmount" min="1" max="100" value="5" class="w-full px-3 py-2 rounded-lg text-xs border" />
-          <button onclick="runBulkInject()" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">Generate Bulk</button>
-        </div>
-        <div id="bulkResult" class="hidden p-2.5 rounded-lg text-xs bg-[#090d16] border border-surface-border space-y-1 max-h-40 overflow-y-auto"></div>
-      </div>
-
-      <!-- Tab Inbox Temp Mail -->
-      <div id="contentInbox" class="p-4 space-y-3 hidden">
-        <div class="space-y-0.5">
-          <h2 class="font-display font-bold text-xs text-white">Pindai Inbox</h2>
-          <p class="text-[11px] text-slate-400">Cek pesan masuk untuk mendapatkan link verifikasi.</p>
-        </div>
-        <div class="space-y-2">
-          <input type="email" id="inputInboxEmail" placeholder="email@tempmail.com" class="w-full px-3 py-2 rounded-lg text-xs border" />
-          <button onclick="runInboxCheck()" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">Pindai Pesan</button>
-        </div>
-        <div id="inboxNotice" class="hidden"></div>
-        <div id="inboxResult" class="space-y-2 max-h-40 overflow-y-auto"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADMIN DASHBOARD SECTION -->
-  <div id="adminContainer" class="w-full max-w-xl my-auto space-y-3 hidden">
-    <div class="bg-surface-card border border-surface-border p-4 rounded-xl space-y-3 shadow-xl">
-      <div class="flex items-center justify-between pb-2 border-b border-surface-border">
-        <div class="flex items-center space-x-2 text-indigo-400">
-          <i class="fa-solid fa-user-shield text-sm"></i>
-          <h2 class="font-display font-bold text-sm text-white">Panel Administrator</h2>
-        </div>
-        <button onclick="handleLogout()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 border border-surface-border text-slate-300 hover:text-white text-xs transition">
-          <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
-        </button>
-      </div>
-
-      <!-- Statistik Admin -->
-      <div class="grid grid-cols-4 gap-2 text-center">
-        <div class="p-2 rounded-lg bg-[#090d16] border border-surface-border">
-          <div class="text-[9px] text-slate-400">Total User</div>
-          <div class="font-display font-bold text-sm text-white" id="admTotalUsers">0</div>
-        </div>
-        <div class="p-2 rounded-lg bg-[#090d16] border border-surface-border">
-          <div class="text-[9px] text-slate-400">Aktif</div>
-          <div class="font-display font-bold text-sm text-emerald-400" id="admActiveUsers">0</div>
-        </div>
-        <div class="p-2 rounded-lg bg-[#090d16] border border-surface-border">
-          <div class="text-[9px] text-slate-400">Nonaktif</div>
-          <div class="font-display font-bold text-sm text-red-400" id="admDisabledUsers">0</div>
-        </div>
-        <div class="p-2 rounded-lg bg-[#090d16] border border-surface-border">
-          <div class="text-[9px] text-slate-400">Total Inject</div>
-          <div class="font-display font-bold text-sm text-indigo-400" id="admTotalInjects">0</div>
-        </div>
-      </div>
-
-      <!-- Panel Pengelolaan Admin -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-        <!-- Reset Limit User -->
-        <div class="p-3 rounded-lg bg-[#090d16] border border-surface-border space-y-2">
-          <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-rotate-right text-indigo-400"></i> Reset Limit User (0/5)
-          </h3>
-          <div class="space-y-1.5">
-            <input type="text" id="admResetLimitUsername" placeholder="Username Target" class="w-full px-2.5 py-1.5 rounded-lg text-xs border" />
-          </div>
-          <button onclick="admResetLimitByUsername()" class="w-full py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition">Reset Limit Sekarang</button>
-        </div>
-
-        <!-- Reset Password User -->
-        <div class="p-3 rounded-lg bg-[#090d16] border border-surface-border space-y-2">
-          <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-key text-indigo-400"></i> Reset Password User
-          </h3>
-          <div class="space-y-1.5">
-            <input type="text" id="admResetUsername" placeholder="Username Target" class="w-full px-2.5 py-1.5 rounded-lg text-xs border" />
+          <div>
+            <label class="block text-[11px] font-medium text-slate-300 mb-1.5">Token / Password Admin</label>
             <div class="relative">
-              <input type="password" id="admNewTokenVal" placeholder="Password Baru" class="w-full px-2.5 py-1.5 pr-8 rounded-lg text-xs border" />
-              <button type="button" onclick="togglePasswordVisibility('admNewTokenVal', 'eyeAdmResetIcon')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
-                <i id="eyeAdmResetIcon" class="fa-solid fa-eye"></i>
+              <input type="password" id="loginToken" placeholder="Masukkan password/token" class="w-full px-3.5 py-2.5 pr-10 rounded-xl text-xs border" />
+              <button type="button" onclick="togglePasswordVisibility('loginToken', 'eyeLoginIcon')" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
+                <i id="eyeLoginIcon" class="fa-solid fa-eye"></i>
               </button>
             </div>
           </div>
-          <button onclick="admResetPasswordByUsername()" class="w-full py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition">Ubah Password</button>
+          <button onclick="handleLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white font-bold text-xs transition-all duration-200 shadow-lg shadow-purple-600/25 mt-2 transform hover:-translate-y-0.5">Masuk Sistem</button>
         </div>
       </div>
 
-      <!-- Buat User & Panel Eksekusi Alat -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-        <div class="p-3 rounded-lg bg-[#090d16] border border-surface-border space-y-2">
-          <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-user-plus text-indigo-400"></i> Buat User Baru
-          </h3>
-          <div class="space-y-1.5">
-            <input type="text" id="admNewUser" placeholder="Username" class="w-full px-2.5 py-1.5 rounded-lg text-xs border" />
-            <div class="grid grid-cols-2 gap-1.5">
+      <!-- Register Box -->
+      <div id="regFormCard" class="glass-card p-6 rounded-2xl space-y-4 hidden">
+        <h2 class="font-display font-bold text-xs text-purple-300 tracking-wider uppercase">Pendaftaran Member</h2>
+        <p class="text-[11px] text-amber-300/90 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation text-amber-400 flex-shrink-0"></i>
+          <span>Catatan: Batas 1 pendaftaran per perangkat keras.</span>
+        </p>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-[11px] font-medium text-slate-300 mb-1.5">Username Unik</label>
+            <input type="text" id="regUsername" placeholder="cth: thanz123" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-medium text-slate-300 mb-1.5">Token Rahasia</label>
+            <div class="relative">
+              <input type="password" id="regToken" placeholder="Buat token akses" class="w-full px-3.5 py-2.5 pr-10 rounded-xl text-xs border" />
+              <button type="button" onclick="togglePasswordVisibility('regToken', 'eyeRegIcon')" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
+                <i id="eyeRegIcon" class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <button onclick="handleRegister()" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs transition-all duration-200 shadow-lg shadow-emerald-600/25 mt-2 transform hover:-translate-y-0.5">Daftar Sekarang</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- USER DASHBOARD SECTION -->
+    <div id="appContainer" class="w-full space-y-3.5 hidden">
+      <!-- User Info Card -->
+      <div class="glass-card p-4 sm:p-5 rounded-2xl space-y-3.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-300 font-bold text-xs shadow-inner" id="userAvatar">U</div>
+            <div>
+              <div class="font-display font-bold text-sm text-white tracking-wide" id="displayUsername">-</div>
+              <div class="text-[10px] text-emerald-400 font-medium flex items-center gap-1.5 mt-0.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Status: Aktif
+              </div>
+            </div>
+          </div>
+          <button onclick="handleLogout()" class="px-3 py-1.5 rounded-xl glass-card-subtle text-slate-300 hover:text-white text-xs transition flex items-center gap-1.5 border border-white/10">
+            <i class="fa-solid fa-right-from-bracket"></i> Keluar
+          </button>
+        </div>
+
+        <!-- Limit stats -->
+        <div class="grid grid-cols-4 gap-2 pt-2.5 border-t border-white/[0.06] text-center">
+          <div class="p-2 rounded-xl glass-card-subtle">
+            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Limit</div>
+            <div class="font-display font-bold text-xs text-white mt-0.5" id="statLimit">5</div>
+          </div>
+          <div class="p-2 rounded-xl glass-card-subtle">
+            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Terpakai</div>
+            <div class="font-display font-bold text-xs text-amber-400 mt-0.5" id="statUsed">0</div>
+          </div>
+          <div class="p-2 rounded-xl glass-card-subtle">
+            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Sisa</div>
+            <div class="font-display font-bold text-xs text-emerald-400 mt-0.5" id="statRemaining">5</div>
+          </div>
+          <div class="p-2 rounded-xl glass-card-subtle">
+            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Reset</div>
+            <div class="font-display font-bold text-[10px] text-purple-300 mt-0.5 truncate" id="statReset">--:--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolbox Menu -->
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <div class="grid grid-cols-3 border-b border-white/[0.06] text-xs font-medium bg-black/20">
+          <button onclick="switchTab('send')" id="tabSend" class="py-3 text-center text-purple-400 border-b-2 border-purple-500 bg-purple-500/10 transition">Aktivasi</button>
+          <button onclick="switchTab('bulk')" id="tabBulk" class="py-3 text-center text-slate-400 hover:text-white transition">Bulk</button>
+          <button onclick="switchTab('inbox')" id="tabInbox" class="py-3 text-center text-slate-400 hover:text-white transition">Inbox</button>
+        </div>
+
+        <!-- Tab Utama / Magic Link -->
+        <div id="contentSend" class="p-5 space-y-4">
+          <div class="space-y-1">
+            <h2 class="font-display font-bold text-xs text-white uppercase tracking-wider">Magic Link Alight Motion</h2>
+            <p class="text-[11px] text-slate-400" id="flowInstruction">Kirim magic link ke email target terlebih dahulu.</p>
+          </div>
+
+          <div class="space-y-3">
+            <div id="stepEmailBox" class="space-y-2.5">
+              <input type="email" id="inputEmail" placeholder="email@domain.com" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
+              <button onclick="handleSendMagicLink()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/30">Kirim Magic Link</button>
+            </div>
+
+            <div id="stepVerifyBox" class="hidden space-y-2.5">
+              <input type="text" id="inputLink" placeholder="Tempel link verifikasi https://..." class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
+              <div class="flex space-x-2">
+                <button onclick="handleVerifyMagicLink()" class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-md">Verifikasi Link</button>
+                <button onclick="resetInjectFlow()" class="px-3.5 py-2.5 rounded-xl glass-card-subtle text-slate-300 hover:text-white text-xs border border-white/10"><i class="fa-solid fa-rotate-left"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="sendResult" class="hidden p-3 rounded-xl text-xs glass-card-subtle border border-white/10 space-y-1"></div>
+        </div>
+
+        <!-- Tab Bulk Generator -->
+        <div id="contentBulk" class="p-5 space-y-4 hidden">
+          <div class="space-y-1">
+            <h2 class="font-display font-bold text-xs text-white uppercase tracking-wider">Bulk Generator</h2>
+            <p class="text-[11px] text-slate-400">Buat akun premium sekaligus (1 - 100).</p>
+          </div>
+          <div class="space-y-2.5">
+            <input type="number" id="inputBulkAmount" min="1" max="100" value="5" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
+            <button onclick="runBulkInject()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/30">Generate Bulk</button>
+          </div>
+          <div id="bulkResult" class="hidden p-3 rounded-xl text-xs glass-card-subtle border border-white/10 space-y-1 max-h-40 overflow-y-auto"></div>
+        </div>
+
+        <!-- Tab Inbox Temp Mail -->
+        <div id="contentInbox" class="p-5 space-y-4 hidden">
+          <div class="space-y-1">
+            <h2 class="font-display font-bold text-xs text-white uppercase tracking-wider">Pindai Inbox</h2>
+            <p class="text-[11px] text-slate-400">Cek pesan masuk untuk mendapatkan link verifikasi.</p>
+          </div>
+          <div class="space-y-2.5">
+            <input type="email" id="inputInboxEmail" placeholder="email@tempmail.com" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
+            <button onclick="runInboxCheck()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/30">Pindai Pesan</button>
+          </div>
+          <div id="inboxNotice" class="hidden"></div>
+          <div id="inboxResult" class="space-y-2 max-h-40 overflow-y-auto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD SECTION -->
+    <div id="adminContainer" class="w-full max-w-2xl space-y-3.5 hidden">
+      <div class="glass-card p-5 rounded-2xl space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+          <div class="flex items-center space-x-2 text-purple-400">
+            <i class="fa-solid fa-user-shield text-sm"></i>
+            <h2 class="font-display font-bold text-sm text-white">Panel Administrator</h2>
+          </div>
+          <button onclick="handleLogout()" class="px-3 py-1.5 rounded-xl glass-card-subtle text-slate-300 hover:text-white text-xs transition border border-white/10">
+            <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
+          </button>
+        </div>
+
+        <!-- Statistik Admin -->
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div class="p-2.5 rounded-xl glass-card-subtle">
+            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Total User</div>
+            <div class="font-display font-bold text-sm text-white mt-0.5" id="admTotalUsers">0</div>
+          </div>
+          <div class="p-2.5 rounded-xl glass-card-subtle">
+            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Aktif</div>
+            <div class="font-display font-bold text-sm text-emerald-400 mt-0.5" id="admActiveUsers">0</div>
+          </div>
+          <div class="p-2.5 rounded-xl glass-card-subtle">
+            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Nonaktif</div>
+            <div class="font-display font-bold text-sm text-red-400 mt-0.5" id="admDisabledUsers">0</div>
+          </div>
+          <div class="p-2.5 rounded-xl glass-card-subtle">
+            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Total Inject</div>
+            <div class="font-display font-bold text-sm text-purple-400 mt-0.5" id="admTotalInjects">0</div>
+          </div>
+        </div>
+
+        <!-- Panel Pengelolaan Admin -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Reset Limit User -->
+          <div class="p-3.5 rounded-xl glass-card-subtle space-y-2.5 border border-white/[0.06]">
+            <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5 uppercase">
+              <i class="fa-solid fa-rotate-right text-purple-400"></i> Reset Limit User (0/5)
+            </h3>
+            <input type="text" id="admResetLimitUsername" placeholder="Username Target" class="w-full px-3 py-2 rounded-xl text-xs border" />
+            <button onclick="admResetLimitByUsername()" class="w-full py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/20">Reset Limit Sekarang</button>
+          </div>
+
+          <!-- Reset Password User -->
+          <div class="p-3.5 rounded-xl glass-card-subtle space-y-2.5 border border-white/[0.06]">
+            <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5 uppercase">
+              <i class="fa-solid fa-key text-purple-400"></i> Reset Password User
+            </h3>
+            <input type="text" id="admResetUsername" placeholder="Username Target" class="w-full px-3 py-2 rounded-xl text-xs border" />
+            <div class="relative">
+              <input type="password" id="admNewTokenVal" placeholder="Password Baru" class="w-full px-3 py-2 pr-9 rounded-xl text-xs border" />
+              <button type="button" onclick="togglePasswordVisibility('admNewTokenVal', 'eyeAdmResetIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
+                <i id="eyeAdmResetIcon" class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+            <button onclick="admResetPasswordByUsername()" class="w-full py-2 rounded-xl bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs transition shadow-md shadow-purple-700/20">Ubah Password</button>
+          </div>
+        </div>
+
+        <!-- Buat User & Panel Eksekusi Alat -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3.5 rounded-xl glass-card-subtle space-y-2.5 border border-white/[0.06]">
+            <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5 uppercase">
+              <i class="fa-solid fa-user-plus text-purple-400"></i> Buat User Baru
+            </h3>
+            <input type="text" id="admNewUser" placeholder="Username" class="w-full px-3 py-2 rounded-xl text-xs border" />
+            <div class="grid grid-cols-2 gap-2">
               <div class="relative">
-                <input type="password" id="admNewToken" placeholder="Token" class="w-full px-2.5 py-1.5 pr-8 rounded-lg text-xs border" />
+                <input type="password" id="admNewToken" placeholder="Token" class="w-full px-3 py-2 pr-8 rounded-xl text-xs border" />
                 <button type="button" onclick="togglePasswordVisibility('admNewToken', 'eyeAdmNewIcon')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
                   <i id="eyeAdmNewIcon" class="fa-solid fa-eye"></i>
                 </button>
               </div>
-              <input type="number" id="admNewLimit" placeholder="Limit" value="5" class="px-2.5 py-1.5 rounded-lg text-xs border" />
+              <input type="number" id="admNewLimit" placeholder="Limit" value="5" class="px-3 py-2 rounded-xl text-xs border" />
             </div>
+            <button onclick="admCreateUser()" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-md shadow-emerald-600/20">Simpan User</button>
           </div>
-          <button onclick="admCreateUser()" class="w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition">Simpan User</button>
-        </div>
 
-        <div class="p-3 rounded-lg bg-[#090d16] border border-surface-border space-y-2">
-          <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-toolbox text-indigo-400"></i> Eksekusi Alat Admin
-          </h3>
-          <div class="space-y-1.5 text-xs">
-            <select id="admToolSelect" onchange="admSwitchToolView()" class="w-full px-2.5 py-1.5 rounded-lg border">
+          <div class="p-3.5 rounded-xl glass-card-subtle space-y-2.5 border border-white/[0.06]">
+            <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5 uppercase">
+              <i class="fa-solid fa-toolbox text-purple-400"></i> Eksekusi Alat Admin
+            </h3>
+            <select id="admToolSelect" onchange="admSwitchToolView()" class="w-full px-3 py-2 rounded-xl border text-xs">
               <option value="inject">AM Inject (Kirim Email)</option>
               <option value="verify">AM Verify Link (Magic Link)</option>
               <option value="bulk">AM Bulk Generator</option>
               <option value="inbox">Temp Mail Inbox</option>
             </select>
-            <input type="text" id="admToolInput" placeholder="Email target..." class="w-full px-2.5 py-1.5 rounded-lg border" />
+            <input type="text" id="admToolInput" placeholder="Email target..." class="w-full px-3 py-2 rounded-xl border text-xs" />
             <div id="admVerifyLinkBox" class="hidden">
-              <input type="text" id="admToolLink" placeholder="Link verifikasi https://..." class="w-full px-2.5 py-1.5 rounded-lg border" />
+              <input type="text" id="admToolLink" placeholder="Link verifikasi https://..." class="w-full px-3 py-2 rounded-xl border text-xs" />
             </div>
+            <button onclick="admRunTool()" class="w-full py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/20">Jalankan</button>
           </div>
-          <button onclick="admRunTool()" class="w-full py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition">Jalankan</button>
         </div>
-      </div>
 
-      <div id="admToolResult" class="hidden p-2 rounded-lg bg-[#090d16] border border-surface-border text-xs space-y-1 max-h-32 overflow-y-auto"></div>
+        <div id="admToolResult" class="hidden p-3 rounded-xl glass-card-subtle border border-white/10 text-xs space-y-1 max-h-32 overflow-y-auto"></div>
 
-      <!-- Tabel Daftar Member -->
-      <div class="space-y-1.5">
-        <h3 class="font-display font-bold text-xs text-white">Daftar Member</h3>
-        <div class="max-h-48 overflow-y-auto rounded-lg border border-surface-border bg-[#090d16]">
-          <table class="w-full text-left text-[11px]">
-            <thead class="bg-surface-card text-slate-300 sticky top-0">
-              <tr>
-                <th class="p-2">User / Token</th>
-                <th class="p-2">Limit</th>
-                <th class="p-2">Status</th>
-                <th class="p-2 text-right">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="admUserTableBody" class="divide-y divide-surface-border"></tbody>
-          </table>
+        <!-- Tabel Daftar Member -->
+        <div class="space-y-2">
+          <h3 class="font-display font-bold text-xs text-white uppercase tracking-wider">Daftar Member</h3>
+          <div class="max-h-48 overflow-y-auto rounded-xl border border-white/[0.06] bg-black/40">
+            <table class="w-full text-left text-[11px]">
+              <thead class="bg-white/[0.03] text-slate-300 sticky top-0 backdrop-blur-md">
+                <tr>
+                  <th class="p-2.5">User / Token</th>
+                  <th class="p-2.5">Limit</th>
+                  <th class="p-2.5">Status</th>
+                  <th class="p-2.5 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="admUserTableBody" class="divide-y divide-white/[0.04]"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
-  <!-- Toast Notifikasi -->
-  <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 px-3.5 py-2 rounded-xl bg-slate-900 border border-indigo-500/30 text-white text-xs shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50"></div>
+  <!-- Toast Notifikasi Glass -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2.5 rounded-2xl glass-card border border-purple-500/30 text-white text-xs shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 backdrop-blur-2xl"></div>
 
   <!-- Footer -->
   <footer class="mt-6 text-center text-[10px] text-slate-500">
@@ -393,15 +461,15 @@
     function switchAuthTab(tab) {
       document.getElementById('loginFormCard').classList.add('hidden');
       document.getElementById('regFormCard').classList.add('hidden');
-      document.getElementById('tabLoginBtn').className = 'py-2 rounded-md text-slate-400 hover:text-white transition';
-      document.getElementById('tabRegBtn').className = 'py-2 rounded-md text-slate-400 hover:text-white transition';
+      document.getElementById('tabLoginBtn').className = 'py-2.5 rounded-lg text-slate-400 hover:text-white transition-all duration-200';
+      document.getElementById('tabRegBtn').className = 'py-2.5 rounded-lg text-slate-400 hover:text-white transition-all duration-200';
 
       if (tab === 'login') {
         document.getElementById('loginFormCard').classList.remove('hidden');
-        document.getElementById('tabLoginBtn').className = 'py-2 rounded-md bg-indigo-600 text-white transition';
+        document.getElementById('tabLoginBtn').className = 'py-2.5 rounded-lg bg-purple-600/80 text-white shadow-lg shadow-purple-900/30 transition-all duration-200';
       } else if (tab === 'register') {
         document.getElementById('regFormCard').classList.remove('hidden');
-        document.getElementById('tabRegBtn').className = 'py-2 rounded-md bg-indigo-600 text-white transition';
+        document.getElementById('tabRegBtn').className = 'py-2.5 rounded-lg bg-purple-600/80 text-white shadow-lg shadow-purple-900/30 transition-all duration-200';
       }
     }
 
@@ -599,19 +667,19 @@
       document.getElementById('contentSend').classList.add('hidden');
       document.getElementById('contentBulk').classList.add('hidden');
       document.getElementById('contentInbox').classList.add('hidden');
-      document.getElementById('tabSend').className = 'py-2.5 text-center text-slate-400 hover:text-white';
-      document.getElementById('tabBulk').className = 'py-2.5 text-center text-slate-400 hover:text-white';
-      document.getElementById('tabInbox').className = 'py-2.5 text-center text-slate-400 hover:text-white';
+      document.getElementById('tabSend').className = 'py-3 text-center text-slate-400 hover:text-white transition';
+      document.getElementById('tabBulk').className = 'py-3 text-center text-slate-400 hover:text-white transition';
+      document.getElementById('tabInbox').className = 'py-3 text-center text-slate-400 hover:text-white transition';
 
       if (tab === 'send') {
         document.getElementById('contentSend').classList.remove('hidden');
-        document.getElementById('tabSend').className = 'py-2.5 text-center text-indigo-400 border-b-2 border-indigo-500 bg-indigo-500/5';
+        document.getElementById('tabSend').className = 'py-3 text-center text-purple-400 border-b-2 border-purple-500 bg-purple-500/10 transition';
       } else if (tab === 'bulk') {
         document.getElementById('contentBulk').classList.remove('hidden');
-        document.getElementById('tabBulk').className = 'py-2.5 text-center text-indigo-400 border-b-2 border-indigo-500 bg-indigo-500/5';
+        document.getElementById('tabBulk').className = 'py-3 text-center text-purple-400 border-b-2 border-purple-500 bg-purple-500/10 transition';
       } else if (tab === 'inbox') {
         document.getElementById('contentInbox').classList.remove('hidden');
-        document.getElementById('tabInbox').className = 'py-2.5 text-center text-indigo-400 border-b-2 border-indigo-500 bg-indigo-500/5';
+        document.getElementById('tabInbox').className = 'py-3 text-center text-purple-400 border-b-2 border-purple-500 bg-purple-500/10 transition';
       }
     }
 
@@ -770,7 +838,7 @@
       const resContainer = document.getElementById('inboxResult');
       if (!email) return showToast('Masukkan email.');
 
-      notice.className = 'py-2 px-3 rounded-lg text-[11px] bg-indigo-500/10 border border-indigo-500/20 text-indigo-400';
+      notice.className = 'py-2 px-3 rounded-xl text-[11px] bg-purple-500/10 border border-purple-500/20 text-purple-300';
       notice.textContent = 'Memindai pesan...';
       notice.classList.remove('hidden');
       resContainer.innerHTML = '';
@@ -786,7 +854,7 @@
           throw new Error(json.message || 'Gagal mengambil inbox.');
         }
 
-        notice.className = 'py-2 px-3 rounded-lg text-[11px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400';
+        notice.className = 'py-2 px-3 rounded-xl text-[11px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400';
         notice.textContent = 'Inbox berhasil dipindai.';
 
         const messages = json.data?.messages || [];
@@ -797,16 +865,16 @@
 
         messages.forEach(msg => {
           const card = document.createElement('div');
-          card.className = 'p-2.5 rounded-lg bg-[#090d16] border border-surface-border space-y-1.5 text-xs';
+          card.className = 'p-3 rounded-xl glass-card-subtle border border-white/10 space-y-2 text-xs';
           const link = msg.login_url || '';
           card.innerHTML = `
             <div class="font-bold text-white">${msg.subject || 'Tanpa Subjek'}</div>
-            ${link ? `<div class="p-2 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] break-all">${link}</div><button onclick="navigator.clipboard.writeText('${link}');showToast('Link disalin!')" class="w-full py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px]">Salin Link</button>` : '<div class="text-slate-400 text-[10px]">Link belum tersedia.</div>'}
+            ${link ? `<div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] break-all">${link}</div><button onclick="navigator.clipboard.writeText('${link}');showToast('Link disalin!')" class="w-full py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-[10px] shadow-sm">Salin Link</button>` : '<div class="text-slate-400 text-[10px]">Link belum tersedia.</div>'}
           `;
           resContainer.appendChild(card);
         });
       } catch (err) {
-        notice.className = 'py-2 px-3 rounded-lg text-[11px] bg-red-500/10 border border-red-500/20 text-red-400';
+        notice.className = 'py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/20 text-red-400';
         notice.textContent = err.message;
       }
     }
@@ -832,24 +900,24 @@
 
       users.forEach(u => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-indigo-500/5 transition';
+        tr.className = 'hover:bg-purple-500/5 transition';
         tr.innerHTML = `
-          <td class="p-2">
+          <td class="p-2.5">
             <div class="font-bold text-white">${u.username}</div>
             <div class="text-[10px] text-slate-400 font-mono">Token: ${u.token}</div>
           </td>
-          <td class="p-2">
+          <td class="p-2.5">
             <div>Limit: ${u.daily_limit}</div>
             <div class="text-[10px] text-amber-400">Terpakai: ${u.used_count}</div>
           </td>
-          <td class="p-2">
-            <span class="px-1.5 py-0.5 rounded text-[10px] ${u.status === 'Active' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}">${u.status}</span>
+          <td class="p-2.5">
+            <span class="px-2 py-0.5 rounded-full text-[10px] ${u.status === 'Active' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}">${u.status}</span>
           </td>
-          <td class="p-2 text-right space-x-1">
-            <button onclick="admPromptResetLimit('${u.username}')" class="px-2 py-1 rounded bg-indigo-500/10 text-indigo-400 text-[10px] hover:bg-indigo-500/20" title="Reset Limit">Limit</button>
-            <button onclick="admPromptResetPass('${u.username}')" class="px-2 py-1 rounded bg-purple-500/10 text-purple-400 text-[10px] hover:bg-purple-500/20" title="Reset Password">Pass</button>
-            <button onclick="admToggleStatus('${u.id}', '${u.status}')" class="px-2 py-1 rounded ${u.status === 'Active' ? 'bg-amber-500/10 text-amber-400' : 'bg-emerald-500/10 text-emerald-400'} text-[10px]">${u.status === 'Active' ? 'Off' : 'On'}</button>
-            <button onclick="admDeleteUser('${u.id}')" class="px-2 py-1 rounded bg-red-500/10 text-red-400 text-[10px] hover:bg-red-500/20"><i class="fa-solid fa-trash"></i></button>
+          <td class="p-2.5 text-right space-x-1">
+            <button onclick="admPromptResetLimit('${u.username}')" class="px-2 py-1 rounded-lg bg-purple-500/10 text-purple-300 text-[10px] hover:bg-purple-500/20 border border-purple-500/20" title="Reset Limit">Limit</button>
+            <button onclick="admPromptResetPass('${u.username}')" class="px-2 py-1 rounded-lg bg-purple-500/10 text-purple-300 text-[10px] hover:bg-purple-500/20 border border-purple-500/20" title="Reset Password">Pass</button>
+            <button onclick="admToggleStatus('${u.id}', '${u.status}')" class="px-2 py-1 rounded-lg ${u.status === 'Active' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'} text-[10px]">${u.status === 'Active' ? 'Off' : 'On'}</button>
+            <button onclick="admDeleteUser('${u.id}')" class="px-2 py-1 rounded-lg bg-red-500/10 text-red-400 text-[10px] hover:bg-red-500/20 border border-red-500/20"><i class="fa-solid fa-trash"></i></button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -1020,3 +1088,4 @@
   </script>
 </body>
 </html>
+
