@@ -41,7 +41,7 @@
   <style>
     :root {
       --bg: #05020a;
-      --panel: rgba(15, 10, 26, 0.88);
+      --panel: rgba(15, 10, 26, 0.78);
       --panel-soft: rgba(255, 255, 255, 0.03);
       --line: rgba(192, 132, 252, 0.18);
       --line-soft: rgba(192, 132, 252, 0.08);
@@ -118,39 +118,6 @@
       right: -170px;
       bottom: 60px;
       background: rgba(192, 132, 252, 0.22);
-    }
-
-    /* EFEK GARIS STROKE / LAMPU LED BERJALAN DI KELILING KOTAK SAJA (TANPA BLOB DI TENGAH) */
-    @property --angle {
-      syntax: '<angle>';
-      initial-value: 0deg;
-      inherits: false;
-    }
-
-    @keyframes spin-glow {
-      0% { --angle: 0deg; }
-      100% { --angle: 360deg; }
-    }
-
-    .neon-border-glow {
-      position: relative;
-      border-radius: 18px;
-      background: var(--panel);
-      isolation: isolate;
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
-    }
-
-    .neon-border-glow::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      border-radius: 20px;
-      background: conic-gradient(from var(--angle), transparent 70%, #c084fc 90%, #ffffff 95%, #c084fc 100%);
-      z-index: -1;
-      animation: spin-glow 4s linear infinite;
-      opacity: 0.9;
-      filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.6));
-      pointer-events: none;
     }
 
     .glass {
@@ -284,6 +251,24 @@
       animation: appear .45s ease both;
     }
 
+    .auth-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -90px;
+      top: -100px;
+      border-radius: 50%;
+      background: rgba(192, 132, 252, 0.18);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
     .auth-tabs {
       padding: 4px;
       background: rgba(255, 255, 255, 0.025);
@@ -351,6 +336,12 @@
       background: linear-gradient(90deg, #7c3aed, #c084fc);
       box-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
       transition: width .35s ease;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(192, 132, 252, 0.1);
+      border-radius: 12px;
     }
 
     .tool-tabs {
@@ -516,7 +507,7 @@
         </div>
 
         <!-- FORM MASUK -->
-        <div id="loginFormCard" class="neon-border-glow p-5 sm:p-6">
+        <div id="loginFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6">
           <div class="flex items-center justify-between mb-5">
             <div>
               <div class="section-label mb-1.5">Account</div>
@@ -550,7 +541,7 @@
         </div>
 
         <!-- FORM PENDAFTARAN -->
-        <div id="regFormCard" class="neon-border-glow p-5 sm:p-6 hidden">
+        <div id="regFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6 hidden">
           <div class="flex items-center justify-between mb-5">
             <div>
               <div class="section-label mb-1.5">Registration</div>
