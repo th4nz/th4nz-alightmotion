@@ -131,6 +131,37 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
+    /* LAMPU GLOW BERJALAN DI KELILING KOTAK */
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes spin-glow {
+      0% { --angle: 0deg; }
+      100% { --angle: 360deg; }
+    }
+
+    .neon-border-glow {
+      position: relative;
+      border-radius: 16px;
+      background: var(--panel);
+      isolation: isolate;
+    }
+
+    .neon-border-glow::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      background: conic-gradient(from var(--angle), transparent 70%, #c084fc 90%, #ffffff 95%, #c084fc 100%);
+      z-index: -1;
+      animation: spin-glow 4s linear infinite;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.6));
+    }
+
     .glass-soft {
       background: var(--panel-soft);
       border: 1px solid var(--line-soft);
@@ -507,7 +538,7 @@
         </div>
 
         <!-- FORM MASUK -->
-        <div id="loginFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6">
+        <div id="loginFormCard" class="auth-card neon-border-glow rounded-[16px] p-5 sm:p-6">
           <div class="flex items-center justify-between mb-5">
             <div>
               <div class="section-label mb-1.5">Account</div>
@@ -541,7 +572,7 @@
         </div>
 
         <!-- FORM PENDAFTARAN -->
-        <div id="regFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6 hidden">
+        <div id="regFormCard" class="auth-card neon-border-glow rounded-[16px] p-5 sm:p-6 hidden">
           <div class="flex items-center justify-between mb-5">
             <div>
               <div class="section-label mb-1.5">Registration</div>
