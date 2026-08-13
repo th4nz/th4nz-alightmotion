@@ -1,508 +1,1267 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>AM Pro Toolkit | ThanzDev</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              DEFAULT: '#8B5CF6',
-              hover: '#A855F7',
-              muted: 'rgba(139, 92, 246, 0.15)',
-            },
-            surface: {
-              DEFAULT: '#07050D',
-              card: 'rgba(255, 255, 255, 0.07)',
-              cardSolid: '#0B0714',
-              border: 'rgba(255, 255, 255, 0.09)',
-              input: 'rgba(10, 7, 20, 0.6)'
-            }
-          }
-        }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AM Pro Toolkit · ThanzDev</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #07050D;
+      color: #E2E8F0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* ===== BACKGROUND ORBS ===== */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.25), transparent 70%);
+      top: -150px;
+      right: -100px;
+      animation: orbFloat 20s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);
+      bottom: -100px;
+      left: -100px;
+      animation: orbFloat 25s ease-in-out infinite alternate-reverse;
+    }
+    .orb-3 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.12), transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: orbPulse 15s ease-in-out infinite alternate;
+    }
+    @keyframes orbFloat {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        transform: translate(60px, -40px) scale(1.1);
       }
     }
-  </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { 
-      font-family: 'Inter', sans-serif; 
-      background-color: #07050D; 
-      color: #E2E8F0; 
-      overflow-x: hidden;
+    @keyframes orbPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0.8;
+      }
     }
-    .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
-    
-    /* Atmosfer Background Glows */
-    .bg-glow-orb {
+
+    /* ===== GRID OVERLAY ===== */
+    .grid-overlay {
       position: fixed;
-      width: 450px;
-      height: 450px;
-      background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(11, 7, 20, 0) 70%);
-      border-radius: 50%;
-      z-index: -1;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
       pointer-events: none;
-      filter: blur(60px);
-    }
-    
-    /* Glassmorphism Styles */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.045);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      z-index: 0;
     }
 
-    .glass-card-subtle {
-      background: rgba(13, 9, 23, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+    /* ===== CONTAINER ===== */
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 560px;
+      margin: 0 auto;
     }
 
-    input, select { 
-      background-color: rgba(10, 7, 20, 0.75) !important; 
-      border-color: rgba(255, 255, 255, 0.08) !important; 
-      color: #F8FAFC !important; 
+    /* ===== GLASS CARD ===== */
+    .glass {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 24px;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 0 40px rgba(139, 92, 246, 0.04);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .glass:hover {
+      border-color: rgba(139, 92, 246, 0.15);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 0 60px rgba(139, 92, 246, 0.06);
+    }
+    .glass-subtle {
+      background: rgba(13, 9, 23, 0.6);
+      backdrop-filter: blur(16px) saturate(1.2);
+      -webkit-backdrop-filter: blur(16px) saturate(1.2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* ===== HEADER LOGO ===== */
+    .logo-section {
+      text-align: center;
+      padding: 28px 0 16px;
+    }
+    .logo-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(168, 85, 247, 0.15));
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      margin-bottom: 12px;
+      font-size: 26px;
+      color: #A855F7;
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+    }
+    .logo-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #C084FC, #A855F7, #EC4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+    .logo-badge {
+      display: inline-block;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #A855F7;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ===== AUTH TOGGLE ===== */
+    .auth-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .auth-toggle button {
+      padding: 10px 0;
+      border: none;
+      border-radius: 11px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.4);
+      font-family: 'Inter', sans-serif;
+    }
+    .auth-toggle button.active {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(168, 85, 247, 0.15));
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15);
+    }
+    .auth-toggle button:not(.active):hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ===== FORM ===== */
+    .form-card {
+      padding: 20px 22px 24px;
+      margin-top: 16px;
+    }
+    .form-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #C084FC;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 5px;
+      letter-spacing: 0.02em;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(10, 7, 20, 0.7) !important;
+      border: 1px solid rgba(255, 255, 255, 0.07) !important;
+      border-radius: 12px;
+      color: #F8FAFC !important;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: all 0.25s ease;
       backdrop-filter: blur(10px);
-      transition: all 0.2s ease;
     }
-    input:focus, select:focus { 
-      border-color: #8B5CF6 !important; 
-      outline: none; 
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.1); 
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+    .form-input:focus {
+      border-color: rgba(139, 92, 246, 0.5) !important;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12), 0 0 30px rgba(139, 92, 246, 0.05);
+    }
+    .form-input.error {
+      border-color: rgba(239, 68, 68, 0.4) !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+    }
+    .input-group {
+      margin-bottom: 14px;
+    }
+    .input-group:last-of-type {
+      margin-bottom: 18px;
+    }
+    .input-relative {
+      position: relative;
+    }
+    .input-relative .form-input {
+      padding-right: 44px;
+    }
+    .input-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      font-size: 13px;
+      transition: color 0.2s;
+      padding: 4px;
+    }
+    .input-toggle:hover {
+      color: rgba(255, 255, 255, 0.6);
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: rgba(7, 5, 13, 0.5); }
-    ::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.3); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.6); }
+    /* ===== BUTTONS ===== */
+    .btn {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.02em;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #8B5CF6, #A855F7);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(139, 92, 246, 0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(139, 92, 246, 0.35);
+      filter: brightness(1.05);
+    }
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
+    }
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #059669, #10B981);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(16, 185, 129, 0.25);
+    }
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(16, 185, 129, 0.35);
+      filter: brightness(1.05);
+    }
+    .btn-success:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .btn-sm {
+      padding: 8px 14px;
+      font-size: 11px;
+      border-radius: 10px;
+      width: auto;
+    }
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-icon i {
+      font-size: 13px;
+    }
+
+    /* ===== NOTICE ===== */
+    .notice {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 11px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+      border: 1px solid transparent;
+    }
+    .notice i {
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .notice-warning {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.15);
+      color: #FCD34D;
+    }
+    .notice-info {
+      background: rgba(139, 92, 246, 0.08);
+      border-color: rgba(139, 92, 246, 0.12);
+      color: #C084FC;
+    }
+    .notice-success {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.12);
+      color: #6EE7B7;
+    }
+    .notice-error {
+      background: rgba(239, 68, 68, 0.08);
+      border-color: rgba(239, 68, 68, 0.12);
+      color: #FCA5A5;
+    }
+
+    /* ===== DASHBOARD ===== */
+    .user-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(168, 85, 247, 0.12));
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #C084FC;
+      flex-shrink: 0;
+    }
+    .user-info {
+      flex: 1;
+      margin-left: 12px;
+    }
+    .user-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .user-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #6EE7B7;
+    }
+    .user-status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #6EE7B7;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.3);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-logout:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    /* ===== STATS ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      padding: 14px 20px 18px;
+    }
+    .stat-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 10px 6px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .stat-label {
+      font-size: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.25);
+    }
+    .stat-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 2px;
+      letter-spacing: -0.5px;
+    }
+    .stat-value.purple {
+      color: #A855F7;
+    }
+    .stat-value.amber {
+      color: #FBBF24;
+    }
+    .stat-value.emerald {
+      color: #6EE7B7;
+    }
+    .stat-value.rose {
+      color: #F472B6;
+    }
+
+    /* ===== TABS ===== */
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(0, 0, 0, 0.15);
+    }
+    .tab-btn {
+      padding: 12px 0;
+      border: none;
+      background: transparent;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      letter-spacing: 0.02em;
+    }
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #8B5CF6, #A855F7);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .tab-btn.active {
+      color: #C084FC;
+    }
+    .tab-btn.active::after {
+      width: 40%;
+    }
+    .tab-btn:hover:not(.active) {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ===== TAB CONTENT ===== */
+    .tab-content {
+      display: none;
+      padding: 18px 20px 22px;
+      animation: fadeUp 0.3s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tab-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 4px;
+    }
+    .tab-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.25);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .tab-desc i {
+      color: rgba(139, 92, 246, 0.5);
+      margin-right: 4px;
+    }
+
+    .tab-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .inline-group {
+      display: flex;
+      gap: 8px;
+    }
+    .inline-group .form-input {
+      flex: 1;
+    }
+    .inline-group .btn {
+      flex: 0 0 auto;
+      width: auto;
+      padding: 12px 16px;
+    }
+
+    /* ===== RESULT BOX ===== */
+    .result-box {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 11px;
+      line-height: 1.6;
+      max-height: 160px;
+      overflow-y: auto;
+      font-family: 'Inter', monospace;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .result-box.show {
+      display: block;
+    }
+    .result-box .success {
+      color: #6EE7B7;
+    }
+    .result-box .error {
+      color: #FCA5A5;
+    }
+    .result-box .highlight {
+      color: #C084FC;
+    }
+
+    /* ===== ADMIN PANEL ===== */
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 0 4px;
+    }
+    .admin-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .admin-card-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.3);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .admin-card-title i {
+      color: rgba(139, 92, 246, 0.5);
+    }
+    .admin-card .form-input {
+      font-size: 12px;
+      padding: 10px 14px;
+    }
+    .admin-card .btn {
+      font-size: 11px;
+      padding: 10px;
+      margin-top: 6px;
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: rgba(13, 9, 23, 0.9);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      padding: 12px 24px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #E2E8F0;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+      pointer-events: none;
+      max-width: 90vw;
+      text-align: center;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .toast.success {
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .toast.error {
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    /* ===== ADMIN TABLE ===== */
+    .admin-table-wrap {
+      margin-top: 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .admin-table-wrap::-webkit-scrollbar {
+      width: 4px;
+    }
+    .admin-table-wrap::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .admin-table-wrap::-webkit-scrollbar-thumb {
+      background: rgba(139, 92, 246, 0.3);
+      border-radius: 4px;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    .admin-table thead {
+      background: rgba(255, 255, 255, 0.02);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      backdrop-filter: blur(8px);
+    }
+    .admin-table th {
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      font-size: 9px;
+      letter-spacing: 0.06em;
+    }
+    .admin-table td {
+      padding: 10px 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      color: rgba(255, 255, 255, 0.7);
+      vertical-align: middle;
+    }
+    .admin-table .user-cell .name {
+      font-weight: 600;
+      color: #fff;
+    }
+    .admin-table .user-cell .token {
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.2);
+      font-family: monospace;
+      margin-top: 2px;
+    }
+    .badge-status {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-active {
+      background: rgba(16, 185, 129, 0.12);
+      color: #6EE7B7;
+      border: 1px solid rgba(16, 185, 129, 0.15);
+    }
+    .badge-disabled {
+      background: rgba(239, 68, 68, 0.12);
+      color: #FCA5A5;
+      border: 1px solid rgba(239, 68, 68, 0.15);
+    }
+    .admin-action-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.3);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 9px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      margin: 0 2px;
+    }
+    .admin-action-btn:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+    .admin-action-btn.danger:hover {
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #FCA5A5;
+    }
+    .admin-action-btn.success:hover {
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #6EE7B7;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+      .form-card {
+        padding: 16px 16px 20px;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        padding: 12px 14px 16px;
+      }
+      .stat-value {
+        font-size: 15px;
+      }
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+      .inline-group {
+        flex-direction: column;
+      }
+      .inline-group .btn {
+        width: 100%;
+      }
+      .logo-title {
+        font-size: 18px;
+      }
+      .admin-table {
+        font-size: 10px;
+      }
+      .admin-table th,
+      .admin-table td {
+        padding: 6px 8px;
+      }
+    }
+
+    /* ===== SCROLLBAR GLOBAL ===== */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(7, 5, 13, 0.5);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(139, 92, 246, 0.3);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(139, 92, 246, 0.5);
+    }
+
+    /* ===== HIDE UTILITY ===== */
+    .hidden {
+      display: none !important;
+    }
+    .flex {
+      display: flex;
+    }
+    .items-center {
+      align-items: center;
+    }
+    .gap-2 {
+      gap: 8px;
+    }
+    .gap-3 {
+      gap: 12px;
+    }
+    .mt-2 {
+      margin-top: 8px;
+    }
+    .mt-3 {
+      margin-top: 12px;
+    }
+    .mb-2 {
+      margin-bottom: 8px;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .w-full {
+      width: 100%;
+    }
+    .space-y-2>*+* {
+      margin-top: 8px;
+    }
+    .space-y-3>*+* {
+      margin-top: 12px;
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 relative selection:bg-purple-500 selection:text-white">
+<body>
 
-  <!-- Background Ambient Glows -->
-  <div class="bg-glow-orb -top-24 -left-24 animate-pulse"></div>
-  <div class="bg-glow-orb bottom-0 right-0" style="background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(7, 5, 13, 0) 70%);"></div>
+  <!-- Background Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grid-overlay"></div>
 
-  <!-- Top Minimalist Navbar Header -->
-  <header class="w-full max-w-xl flex items-center justify-between py-3 px-4 rounded-2xl glass-card mb-4">
-    <div class="flex items-center space-x-2.5">
-      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-sm shadow-inner">
-        <i class="fa-solid fa-bolt"></i>
-      </div>
-      <div>
-        <span class="font-display font-bold text-sm text-white tracking-tight">AM Pro Toolkit</span>
-        <span class="text-[10px] text-purple-300/70 block -mt-0.5">Glass Edition</span>
-      </div>
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== APP WRAPPER ===== -->
+  <div class="app-wrapper">
+
+    <!-- ===== LOGO ===== -->
+    <div class="logo-section">
+      <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="logo-title">AM Pro Toolkit</div>
+      <div class="logo-sub">by ThanzDev</div>
+      <div class="logo-badge"><i class="fa-regular fa-gem"></i> Secure</div>
     </div>
-    <div class="flex items-center gap-2">
-      <div class="text-[11px] text-slate-400 px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.05]">
-        <i class="fa-solid fa-shield-halved text-purple-400 mr-1"></i> Secure
-      </div>
-    </div>
-  </header>
 
-  <!-- AUTH SECTION (Single unified login/register box) -->
-  <main class="w-full max-w-md my-auto space-y-4">
-    <div id="authContainer" class="space-y-4">
-      <div class="text-center space-y-1.5 mb-2">
-        <h1 class="font-display font-bold text-xl text-white tracking-tight">Panel Aktivasi</h1>
-        <p class="text-xs text-slate-400">Masuk atau daftarkan perangkat Anda untuk mengakses alat.</p>
-      </div>
+    <!-- ===== AUTH CONTAINER ===== -->
+    <div id="authContainer">
+      <div class="glass" style="padding:20px 20px 24px;">
 
-      <!-- Toggle Login / Register -->
-      <div class="grid grid-cols-2 p-1 rounded-xl glass-card-subtle border border-white/[0.06] text-xs font-medium text-center">
-        <button onclick="switchAuthTab('login')" id="tabLoginBtn" class="py-2.5 rounded-lg bg-purple-600/80 text-white shadow-lg shadow-purple-900/30 transition-all duration-200">Masuk</button>
-        <button onclick="switchAuthTab('register')" id="tabRegBtn" class="py-2.5 rounded-lg text-slate-400 hover:text-white transition-all duration-200">Daftar</button>
-      </div>
+        <!-- Toggle -->
+        <div class="auth-toggle">
+          <button class="active" id="tabLoginBtn" onclick="switchAuth('login')">Masuk</button>
+          <button id="tabRegBtn" onclick="switchAuth('register')">Daftar</button>
+        </div>
 
-      <!-- Login Box -->
-      <div id="loginFormCard" class="glass-card p-6 rounded-2xl space-y-4">
-        <h2 class="font-display font-bold text-xs text-purple-300 tracking-wider uppercase">Autentikasi Akun</h2>
-        <div class="space-y-3">
-          <div>
-            <label class="block text-[11px] font-medium text-slate-300 mb-1.5">Username</label>
-            <input type="text" id="loginUsername" placeholder="Masukkan username" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
+        <!-- Login Form -->
+        <div id="loginForm" class="form-card">
+          <div class="form-title"><i class="fa-regular fa-circle-check" style="margin-right:6px;"></i>Autentikasi Akun</div>
+          <div class="input-group">
+            <label class="form-label">Username</label>
+            <input class="form-input" id="loginUsername" placeholder="Masukkan username" />
           </div>
-          <div>
-            <label class="block text-[11px] font-medium text-slate-300 mb-1.5">Token / Password Admin</label>
-            <div class="relative">
-              <input type="password" id="loginToken" placeholder="Masukkan password/token" class="w-full px-3.5 py-2.5 pr-10 rounded-xl text-xs border" />
-              <button type="button" onclick="togglePasswordVisibility('loginToken', 'eyeLoginIcon')" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
-                <i id="eyeLoginIcon" class="fa-solid fa-eye"></i>
-              </button>
+          <div class="input-group">
+            <label class="form-label">Token / Password</label>
+            <div class="input-relative">
+              <input class="form-input" id="loginToken" type="password" placeholder="Masukkan password" />
+              <button class="input-toggle" onclick="togglePass('loginToken','eyeLogin')"><i id="eyeLogin" class="fa-regular fa-eye"></i></button>
             </div>
           </div>
-          <button onclick="handleLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white font-bold text-xs transition-all duration-200 shadow-lg shadow-purple-600/25 mt-2 transform hover:-translate-y-0.5">Masuk Sistem</button>
+          <button class="btn btn-primary" onclick="handleLogin()"><i class="fa-regular fa-right-to-bracket" style="margin-right:8px;"></i>Masuk Sistem</button>
         </div>
-      </div>
 
-      <!-- Register Box -->
-      <div id="regFormCard" class="glass-card p-6 rounded-2xl space-y-4 hidden">
-        <h2 class="font-display font-bold text-xs text-purple-300 tracking-wider uppercase">Pendaftaran Member</h2>
-        <p class="text-[11px] text-amber-300/90 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl flex items-center gap-2">
-          <i class="fa-solid fa-triangle-exclamation text-amber-400 flex-shrink-0"></i>
-          <span>Catatan: Batas 1 pendaftaran per perangkat keras.</span>
-        </p>
-        <div class="space-y-3">
-          <div>
-            <label class="block text-[11px] font-medium text-slate-300 mb-1.5">Username Unik</label>
-            <input type="text" id="regUsername" placeholder="cth: thanz123" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
+        <!-- Register Form -->
+        <div id="regForm" class="form-card hidden">
+          <div class="form-title"><i class="fa-regular fa-pen-to-square" style="margin-right:6px;"></i>Pendaftaran Member</div>
+          <div class="notice notice-warning">
+            <i class="fa-regular fa-triangle-exclamation"></i>
+            <span>Catatan: Batas 1 pendaftaran per perangkat keras.</span>
           </div>
-          <div>
-            <label class="block text-[11px] font-medium text-slate-300 mb-1.5">Token Rahasia</label>
-            <div class="relative">
-              <input type="password" id="regToken" placeholder="Buat token akses" class="w-full px-3.5 py-2.5 pr-10 rounded-xl text-xs border" />
-              <button type="button" onclick="togglePasswordVisibility('regToken', 'eyeRegIcon')" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
-                <i id="eyeRegIcon" class="fa-solid fa-eye"></i>
-              </button>
+          <div class="input-group">
+            <label class="form-label">Username Unik</label>
+            <input class="form-input" id="regUsername" placeholder="cth: thanz123" />
+          </div>
+          <div class="input-group">
+            <label class="form-label">Token Rahasia</label>
+            <div class="input-relative">
+              <input class="form-input" id="regToken" type="password" placeholder="Buat token akses" />
+              <button class="input-toggle" onclick="togglePass('regToken','eyeReg')"><i id="eyeReg" class="fa-regular fa-eye"></i></button>
             </div>
           </div>
-          <button onclick="handleRegister()" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs transition-all duration-200 shadow-lg shadow-emerald-600/25 mt-2 transform hover:-translate-y-0.5">Daftar Sekarang</button>
+          <button class="btn btn-success" onclick="handleRegister()"><i class="fa-regular fa-user-plus" style="margin-right:8px;"></i>Daftar Sekarang</button>
         </div>
+
       </div>
     </div>
 
-    <!-- USER DASHBOARD SECTION -->
-    <div id="appContainer" class="w-full space-y-3.5 hidden">
-      <!-- User Info Card -->
-      <div class="glass-card p-4 sm:p-5 rounded-2xl space-y-3.5">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-300 font-bold text-xs shadow-inner" id="userAvatar">U</div>
-            <div>
-              <div class="font-display font-bold text-sm text-white tracking-wide" id="displayUsername">-</div>
-              <div class="text-[10px] text-emerald-400 font-medium flex items-center gap-1.5 mt-0.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Status: Aktif
+    <!-- ===== USER DASHBOARD ===== -->
+    <div id="appContainer" class="hidden">
+
+      <!-- User Header -->
+      <div class="glass" style="overflow:hidden;">
+        <div class="user-header">
+          <div style="display:flex;align-items:center;">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <div class="user-info">
+              <div class="user-name" id="displayUsername">-</div>
+              <div class="user-status"><span class="dot"></span> Status: Aktif</div>
+            </div>
+          </div>
+          <button class="btn-logout" onclick="handleLogout()"><i class="fa-regular fa-right-from-bracket"></i> Keluar</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-item"><div class="stat-label">Limit</div><div class="stat-value purple" id="statLimit">5</div></div>
+          <div class="stat-item"><div class="stat-label">Terpakai</div><div class="stat-value amber" id="statUsed">0</div></div>
+          <div class="stat-item"><div class="stat-label">Sisa</div><div class="stat-value emerald" id="statRemaining">5</div></div>
+          <div class="stat-item"><div class="stat-label">Reset</div><div class="stat-value rose" id="statReset" style="font-size:13px;">--:--</div></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="send" onclick="switchTab('send')">Aktivasi</button>
+          <button class="tab-btn" data-tab="bulk" onclick="switchTab('bulk')">Bulk</button>
+          <button class="tab-btn" data-tab="inbox" onclick="switchTab('inbox')">Inbox</button>
+        </div>
+
+        <!-- Tab: Send -->
+        <div class="tab-content active" id="tabSend">
+          <div class="tab-label"><i class="fa-regular fa-envelope"></i> Magic Link Alight Motion</div>
+          <div class="tab-desc" id="flowInstruction">Kirim magic link ke email target terlebih dahulu.</div>
+          <div class="tab-actions">
+            <div id="stepEmailBox">
+              <input class="form-input" id="inputEmail" placeholder="email@domain.com" />
+              <button class="btn btn-primary" style="margin-top:10px;" onclick="handleSendMagicLink()"><i class="fa-regular fa-paper-plane" style="margin-right:8px;"></i>Kirim Magic Link</button>
+            </div>
+            <div id="stepVerifyBox" class="hidden">
+              <input class="form-input" id="inputLink" placeholder="Tempel link verifikasi https://..." />
+              <div style="display:flex;gap:8px;margin-top:10px;">
+                <button class="btn btn-success" style="flex:1;" onclick="handleVerifyMagicLink()"><i class="fa-regular fa-check"></i> Verifikasi</button>
+                <button class="btn btn-outline" style="flex:0 0 auto;width:auto;padding:13px 16px;" onclick="resetInjectFlow()"><i class="fa-regular fa-rotate-left"></i></button>
               </div>
             </div>
           </div>
-          <button onclick="handleLogout()" class="px-3 py-1.5 rounded-xl glass-card-subtle text-slate-300 hover:text-white text-xs transition flex items-center gap-1.5 border border-white/10">
-            <i class="fa-solid fa-right-from-bracket"></i> Keluar
-          </button>
+          <div class="result-box" id="sendResult"></div>
         </div>
 
-        <!-- Limit stats -->
-        <div class="grid grid-cols-4 gap-2 pt-2.5 border-t border-white/[0.06] text-center">
-          <div class="p-2 rounded-xl glass-card-subtle">
-            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Limit</div>
-            <div class="font-display font-bold text-xs text-white mt-0.5" id="statLimit">5</div>
+        <!-- Tab: Bulk -->
+        <div class="tab-content" id="tabBulk">
+          <div class="tab-label"><i class="fa-regular fa-layer-group"></i> Bulk Generator</div>
+          <div class="tab-desc">Buat akun premium sekaligus (1 – 100).</div>
+          <div class="tab-actions">
+            <input class="form-input" id="inputBulkAmount" type="number" min="1" max="100" value="5" />
+            <button class="btn btn-primary" onclick="runBulkInject()"><i class="fa-regular fa-bolt" style="margin-right:8px;"></i>Generate Bulk</button>
           </div>
-          <div class="p-2 rounded-xl glass-card-subtle">
-            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Terpakai</div>
-            <div class="font-display font-bold text-xs text-amber-400 mt-0.5" id="statUsed">0</div>
-          </div>
-          <div class="p-2 rounded-xl glass-card-subtle">
-            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Sisa</div>
-            <div class="font-display font-bold text-xs text-emerald-400 mt-0.5" id="statRemaining">5</div>
-          </div>
-          <div class="p-2 rounded-xl glass-card-subtle">
-            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Reset</div>
-            <div class="font-display font-bold text-[10px] text-purple-300 mt-0.5 truncate" id="statReset">--:--</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Toolbox Menu -->
-      <div class="glass-card rounded-2xl overflow-hidden">
-        <div class="grid grid-cols-3 border-b border-white/[0.06] text-xs font-medium bg-black/20">
-          <button onclick="switchTab('send')" id="tabSend" class="py-3 text-center text-purple-400 border-b-2 border-purple-500 bg-purple-500/10 transition">Aktivasi</button>
-          <button onclick="switchTab('bulk')" id="tabBulk" class="py-3 text-center text-slate-400 hover:text-white transition">Bulk</button>
-          <button onclick="switchTab('inbox')" id="tabInbox" class="py-3 text-center text-slate-400 hover:text-white transition">Inbox</button>
+          <div class="result-box" id="bulkResult"></div>
         </div>
 
-        <!-- Tab Utama / Magic Link -->
-        <div id="contentSend" class="p-5 space-y-4">
-          <div class="space-y-1">
-            <h2 class="font-display font-bold text-xs text-white uppercase tracking-wider">Magic Link Alight Motion</h2>
-            <p class="text-[11px] text-slate-400" id="flowInstruction">Kirim magic link ke email target terlebih dahulu.</p>
-          </div>
-
-          <div class="space-y-3">
-            <div id="stepEmailBox" class="space-y-2.5">
-              <input type="email" id="inputEmail" placeholder="email@domain.com" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
-              <button onclick="handleSendMagicLink()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/30">Kirim Magic Link</button>
-            </div>
-
-            <div id="stepVerifyBox" class="hidden space-y-2.5">
-              <input type="text" id="inputLink" placeholder="Tempel link verifikasi https://..." class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
-              <div class="flex space-x-2">
-                <button onclick="handleVerifyMagicLink()" class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-md">Verifikasi Link</button>
-                <button onclick="resetInjectFlow()" class="px-3.5 py-2.5 rounded-xl glass-card-subtle text-slate-300 hover:text-white text-xs border border-white/10"><i class="fa-solid fa-rotate-left"></i></button>
-              </div>
-            </div>
-          </div>
-
-          <div id="sendResult" class="hidden p-3 rounded-xl text-xs glass-card-subtle border border-white/10 space-y-1"></div>
-        </div>
-
-        <!-- Tab Bulk Generator -->
-        <div id="contentBulk" class="p-5 space-y-4 hidden">
-          <div class="space-y-1">
-            <h2 class="font-display font-bold text-xs text-white uppercase tracking-wider">Bulk Generator</h2>
-            <p class="text-[11px] text-slate-400">Buat akun premium sekaligus (1 - 100).</p>
-          </div>
-          <div class="space-y-2.5">
-            <input type="number" id="inputBulkAmount" min="1" max="100" value="5" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
-            <button onclick="runBulkInject()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/30">Generate Bulk</button>
-          </div>
-          <div id="bulkResult" class="hidden p-3 rounded-xl text-xs glass-card-subtle border border-white/10 space-y-1 max-h-40 overflow-y-auto"></div>
-        </div>
-
-        <!-- Tab Inbox Temp Mail -->
-        <div id="contentInbox" class="p-5 space-y-4 hidden">
-          <div class="space-y-1">
-            <h2 class="font-display font-bold text-xs text-white uppercase tracking-wider">Pindai Inbox</h2>
-            <p class="text-[11px] text-slate-400">Cek pesan masuk untuk mendapatkan link verifikasi.</p>
-          </div>
-          <div class="space-y-2.5">
-            <input type="email" id="inputInboxEmail" placeholder="email@tempmail.com" class="w-full px-3.5 py-2.5 rounded-xl text-xs border" />
-            <button onclick="runInboxCheck()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/30">Pindai Pesan</button>
+        <!-- Tab: Inbox -->
+        <div class="tab-content" id="tabInbox">
+          <div class="tab-label"><i class="fa-regular fa-inbox"></i> Pindai Inbox</div>
+          <div class="tab-desc">Cek pesan masuk untuk mendapatkan link verifikasi.</div>
+          <div class="tab-actions">
+            <input class="form-input" id="inputInboxEmail" placeholder="email@tempmail.com" />
+            <button class="btn btn-primary" onclick="runInboxCheck()"><i class="fa-regular fa-magnifying-glass" style="margin-right:8px;"></i>Pindai Pesan</button>
           </div>
           <div id="inboxNotice" class="hidden"></div>
-          <div id="inboxResult" class="space-y-2 max-h-40 overflow-y-auto"></div>
+          <div id="inboxResult" style="margin-top:12px;display:flex;flex-direction:column;gap:10px;"></div>
         </div>
+
       </div>
     </div>
 
-    <!-- ADMIN DASHBOARD SECTION -->
-    <div id="adminContainer" class="w-full max-w-2xl space-y-3.5 hidden">
-      <div class="glass-card p-5 rounded-2xl space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
-          <div class="flex items-center space-x-2 text-purple-400">
-            <i class="fa-solid fa-user-shield text-sm"></i>
-            <h2 class="font-display font-bold text-sm text-white">Panel Administrator</h2>
+    <!-- ===== ADMIN DASHBOARD ===== -->
+    <div id="adminContainer" class="hidden">
+      <div class="glass" style="padding:20px 20px 24px;">
+
+        <!-- Admin Header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:14px;margin-bottom:18px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <i class="fa-regular fa-user-shield" style="color:#A855F7;font-size:18px;"></i>
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;color:#fff;">Panel Administrator</span>
           </div>
-          <button onclick="handleLogout()" class="px-3 py-1.5 rounded-xl glass-card-subtle text-slate-300 hover:text-white text-xs transition border border-white/10">
-            <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
-          </button>
+          <button class="btn-logout" onclick="handleLogout()"><i class="fa-regular fa-right-from-bracket"></i> Keluar</button>
         </div>
 
-        <!-- Statistik Admin -->
-        <div class="grid grid-cols-4 gap-2 text-center">
-          <div class="p-2.5 rounded-xl glass-card-subtle">
-            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Total User</div>
-            <div class="font-display font-bold text-sm text-white mt-0.5" id="admTotalUsers">0</div>
-          </div>
-          <div class="p-2.5 rounded-xl glass-card-subtle">
-            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Aktif</div>
-            <div class="font-display font-bold text-sm text-emerald-400 mt-0.5" id="admActiveUsers">0</div>
-          </div>
-          <div class="p-2.5 rounded-xl glass-card-subtle">
-            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Nonaktif</div>
-            <div class="font-display font-bold text-sm text-red-400 mt-0.5" id="admDisabledUsers">0</div>
-          </div>
-          <div class="p-2.5 rounded-xl glass-card-subtle">
-            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Total Inject</div>
-            <div class="font-display font-bold text-sm text-purple-400 mt-0.5" id="admTotalInjects">0</div>
-          </div>
+        <!-- Admin Stats -->
+        <div class="stats-grid" style="padding:0 0 16px;">
+          <div class="stat-item"><div class="stat-label">Total User</div><div class="stat-value purple" id="admTotalUsers">0</div></div>
+          <div class="stat-item"><div class="stat-label">Aktif</div><div class="stat-value emerald" id="admActiveUsers">0</div></div>
+          <div class="stat-item"><div class="stat-label">Nonaktif</div><div class="stat-value rose" id="admDisabledUsers">0</div></div>
+          <div class="stat-item"><div class="stat-label">Total Inject</div><div class="stat-value amber" id="admTotalInjects">0</div></div>
         </div>
 
-        <!-- Panel Pengelolaan Admin -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <!-- Reset Limit User -->
-          <div class="p-3.5 rounded-xl glass-card-subtle space-y-2.5 border border-white/[0.06]">
-            <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5 uppercase">
-              <i class="fa-solid fa-rotate-right text-purple-400"></i> Reset Limit User (0/5)
-            </h3>
-            <input type="text" id="admResetLimitUsername" placeholder="Username Target" class="w-full px-3 py-2 rounded-xl text-xs border" />
-            <button onclick="admResetLimitByUsername()" class="w-full py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/20">Reset Limit Sekarang</button>
+        <!-- Admin Tools -->
+        <div class="admin-grid">
+          <!-- Reset Limit -->
+          <div class="admin-card">
+            <div class="admin-card-title"><i class="fa-regular fa-rotate-right"></i> Reset Limit User</div>
+            <input class="form-input" id="admResetLimitUsername" placeholder="Username Target" />
+            <button class="btn btn-primary" onclick="admResetLimitByUsername()" style="font-size:11px;">Reset Limit</button>
           </div>
-
-          <!-- Reset Password User -->
-          <div class="p-3.5 rounded-xl glass-card-subtle space-y-2.5 border border-white/[0.06]">
-            <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5 uppercase">
-              <i class="fa-solid fa-key text-purple-400"></i> Reset Password User
-            </h3>
-            <input type="text" id="admResetUsername" placeholder="Username Target" class="w-full px-3 py-2 rounded-xl text-xs border" />
-            <div class="relative">
-              <input type="password" id="admNewTokenVal" placeholder="Password Baru" class="w-full px-3 py-2 pr-9 rounded-xl text-xs border" />
-              <button type="button" onclick="togglePasswordVisibility('admNewTokenVal', 'eyeAdmResetIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
-                <i id="eyeAdmResetIcon" class="fa-solid fa-eye"></i>
-              </button>
+          <!-- Reset Password -->
+          <div class="admin-card">
+            <div class="admin-card-title"><i class="fa-regular fa-key"></i> Reset Password</div>
+            <input class="form-input" id="admResetUsername" placeholder="Username Target" />
+            <div class="input-relative" style="margin-top:6px;">
+              <input class="form-input" id="admNewTokenVal" type="password" placeholder="Password Baru" />
+              <button class="input-toggle" onclick="togglePass('admNewTokenVal','eyeAdmReset')"><i id="eyeAdmReset" class="fa-regular fa-eye"></i></button>
             </div>
-            <button onclick="admResetPasswordByUsername()" class="w-full py-2 rounded-xl bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs transition shadow-md shadow-purple-700/20">Ubah Password</button>
+            <button class="btn btn-primary" onclick="admResetPasswordByUsername()" style="font-size:11px;margin-top:6px;">Ubah Password</button>
           </div>
-        </div>
-
-        <!-- Buat User & Panel Eksekusi Alat -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="p-3.5 rounded-xl glass-card-subtle space-y-2.5 border border-white/[0.06]">
-            <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5 uppercase">
-              <i class="fa-solid fa-user-plus text-purple-400"></i> Buat User Baru
-            </h3>
-            <input type="text" id="admNewUser" placeholder="Username" class="w-full px-3 py-2 rounded-xl text-xs border" />
-            <div class="grid grid-cols-2 gap-2">
-              <div class="relative">
-                <input type="password" id="admNewToken" placeholder="Token" class="w-full px-3 py-2 pr-8 rounded-xl text-xs border" />
-                <button type="button" onclick="togglePasswordVisibility('admNewToken', 'eyeAdmNewIcon')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
-                  <i id="eyeAdmNewIcon" class="fa-solid fa-eye"></i>
-                </button>
+          <!-- Create User -->
+          <div class="admin-card">
+            <div class="admin-card-title"><i class="fa-regular fa-user-plus"></i> Buat User Baru</div>
+            <input class="form-input" id="admNewUser" placeholder="Username" />
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;">
+              <div class="input-relative">
+                <input class="form-input" id="admNewToken" type="password" placeholder="Token" />
+                <button class="input-toggle" onclick="togglePass('admNewToken','eyeAdmNew')"><i id="eyeAdmNew" class="fa-regular fa-eye"></i></button>
               </div>
-              <input type="number" id="admNewLimit" placeholder="Limit" value="5" class="px-3 py-2 rounded-xl text-xs border" />
+              <input class="form-input" id="admNewLimit" type="number" placeholder="Limit" value="5" />
             </div>
-            <button onclick="admCreateUser()" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-md shadow-emerald-600/20">Simpan User</button>
+            <button class="btn btn-success" onclick="admCreateUser()" style="font-size:11px;margin-top:6px;"><i class="fa-regular fa-floppy-disk" style="margin-right:6px;"></i>Simpan User</button>
           </div>
-
-          <div class="p-3.5 rounded-xl glass-card-subtle space-y-2.5 border border-white/[0.06]">
-            <h3 class="font-display font-bold text-[11px] text-white flex items-center gap-1.5 uppercase">
-              <i class="fa-solid fa-toolbox text-purple-400"></i> Eksekusi Alat Admin
-            </h3>
-            <select id="admToolSelect" onchange="admSwitchToolView()" class="w-full px-3 py-2 rounded-xl border text-xs">
+          <!-- Tool Exec -->
+          <div class="admin-card">
+            <div class="admin-card-title"><i class="fa-regular fa-toolbox"></i> Eksekusi Alat</div>
+            <select class="form-input" id="admToolSelect" onchange="admSwitchToolView()" style="appearance:auto;padding:10px 14px;">
               <option value="inject">AM Inject (Kirim Email)</option>
-              <option value="verify">AM Verify Link (Magic Link)</option>
+              <option value="verify">AM Verify (Magic Link)</option>
               <option value="bulk">AM Bulk Generator</option>
               <option value="inbox">Temp Mail Inbox</option>
             </select>
-            <input type="text" id="admToolInput" placeholder="Email target..." class="w-full px-3 py-2 rounded-xl border text-xs" />
-            <div id="admVerifyLinkBox" class="hidden">
-              <input type="text" id="admToolLink" placeholder="Link verifikasi https://..." class="w-full px-3 py-2 rounded-xl border text-xs" />
+            <input class="form-input" id="admToolInput" placeholder="Email target..." style="margin-top:6px;" />
+            <div id="admVerifyLinkBox" class="hidden" style="margin-top:6px;">
+              <input class="form-input" id="admToolLink" placeholder="Link verifikasi https://..." />
             </div>
-            <button onclick="admRunTool()" class="w-full py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-md shadow-purple-600/20">Jalankan</button>
+            <button class="btn btn-primary" onclick="admRunTool()" style="font-size:11px;margin-top:6px;"><i class="fa-regular fa-play" style="margin-right:6px;"></i>Jalankan</button>
           </div>
         </div>
 
-        <div id="admToolResult" class="hidden p-3 rounded-xl glass-card-subtle border border-white/10 text-xs space-y-1 max-h-32 overflow-y-auto"></div>
+        <!-- Tool Result -->
+        <div class="result-box" id="admToolResult"></div>
 
-        <!-- Tabel Daftar Member -->
-        <div class="space-y-2">
-          <h3 class="font-display font-bold text-xs text-white uppercase tracking-wider">Daftar Member</h3>
-          <div class="max-h-48 overflow-y-auto rounded-xl border border-white/[0.06] bg-black/40">
-            <table class="w-full text-left text-[11px]">
-              <thead class="bg-white/[0.03] text-slate-300 sticky top-0 backdrop-blur-md">
-                <tr>
-                  <th class="p-2.5">User / Token</th>
-                  <th class="p-2.5">Limit</th>
-                  <th class="p-2.5">Status</th>
-                  <th class="p-2.5 text-right">Aksi</th>
-                </tr>
+        <!-- User Table -->
+        <div style="margin-top:18px;">
+          <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Daftar Member</div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr><th>User</th><th>Limit</th><th>Status</th><th style="text-align:right;">Aksi</th></tr>
               </thead>
-              <tbody id="admUserTableBody" class="divide-y divide-white/[0.04]"></tbody>
+              <tbody id="admUserTableBody"></tbody>
             </table>
           </div>
         </div>
+
       </div>
     </div>
-  </main>
 
-  <!-- Toast Notifikasi Glass -->
-  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2.5 rounded-2xl glass-card border border-purple-500/30 text-white text-xs shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 backdrop-blur-2xl"></div>
+  </div>
 
-  <!-- Footer -->
-  <footer class="mt-6 text-center text-[10px] text-slate-500">
-    AM Pro Toolkit &bull; Secure Backend &bull; ThanzDev
-  </footer>
-
+  <!-- ============================================= -->
+  <!-- ===== JAVASCRIPT ===== -->
+  <!-- ============================================= -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // ============================================
+    // KONFIGURASI
+    // ============================================
     const SUPABASE_URL = "https://rjssnlfqtywmmokcxdix.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqc3NubGZxdHl3bW1va2N4ZGl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MTUxODMsImV4cCI6MjEwMjE5MTE4M30.bMqR8JrfRyPG4Xx2gHh1t19dkc6_Qyg-G6XjI3KYfgk";
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqc3NubGZxdHl3bW1va2N4ZGl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MTUxODMsImV4cCI6MjEwMjE5MTE4M30.bMqR8JrfRyPG4Xx2gHh1t19dkc6_Qyg-G6XjI3KYfgk";
 
-    let supabaseClient = null;
+    let supabase = null;
     let currentUser = null;
     let isAdmin = false;
     let activeInjectEmail = '';
+    let countdownInterval = null;
     let deviceId = localStorage.getItem('am_device_id');
     if (!deviceId) {
       deviceId = 'dev_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
       localStorage.setItem('am_device_id', deviceId);
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      initSupabase(SUPABASE_URL, SUPABASE_ANON_KEY);
-      checkExistingSession();
-    });
+    // ============================================
+    // TOAST
+    // ============================================
+    let toastTimer = null;
 
-    function initSupabase(url, key) {
+    function showToast(msg, type = '') {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.className = 'toast' + (type ? ' ' + type : '');
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    // ============================================
+    // SUPABASE INIT
+    // ============================================
+    function initSupabase() {
       try {
-        supabaseClient = window.supabase.createClient(url, key);
+        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       } catch (e) {
         console.error(e);
-        showToast('Gagal terhubung ke database.');
+        showToast('Gagal terhubung ke database.', 'error');
       }
     }
 
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.remove('opacity-0', 'pointer-events-none');
-      setTimeout(() => {
-        t.classList.add('opacity-0', 'pointer-events-none');
-      }, 3000);
-    }
-
-    function togglePasswordVisibility(inputId, iconId) {
-      const input = document.getElementById(inputId);
+    // ============================================
+    // UI HELPERS
+    // ============================================
+    function togglePass(inputId, iconId) {
+      const inp = document.getElementById(inputId);
       const icon = document.getElementById(iconId);
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        icon.className = 'fa-regular fa-eye-slash';
       } else {
-        input.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
+        inp.type = 'password';
+        icon.className = 'fa-regular fa-eye';
       }
     }
 
-    function switchAuthTab(tab) {
-      document.getElementById('loginFormCard').classList.add('hidden');
-      document.getElementById('regFormCard').classList.add('hidden');
-      document.getElementById('tabLoginBtn').className = 'py-2.5 rounded-lg text-slate-400 hover:text-white transition-all duration-200';
-      document.getElementById('tabRegBtn').className = 'py-2.5 rounded-lg text-slate-400 hover:text-white transition-all duration-200';
+    function switchAuth(tab) {
+      const loginForm = document.getElementById('loginForm');
+      const regForm = document.getElementById('regForm');
+      const loginBtn = document.getElementById('tabLoginBtn');
+      const regBtn = document.getElementById('tabRegBtn');
 
       if (tab === 'login') {
-        document.getElementById('loginFormCard').classList.remove('hidden');
-        document.getElementById('tabLoginBtn').className = 'py-2.5 rounded-lg bg-purple-600/80 text-white shadow-lg shadow-purple-900/30 transition-all duration-200';
-      } else if (tab === 'register') {
-        document.getElementById('regFormCard').classList.remove('hidden');
-        document.getElementById('tabRegBtn').className = 'py-2.5 rounded-lg bg-purple-600/80 text-white shadow-lg shadow-purple-900/30 transition-all duration-200';
+        loginForm.classList.remove('hidden');
+        regForm.classList.add('hidden');
+        loginBtn.className = 'active';
+        regBtn.className = '';
+      } else {
+        loginForm.classList.add('hidden');
+        regForm.classList.remove('hidden');
+        loginBtn.className = '';
+        regBtn.className = 'active';
       }
     }
 
+    function switchTab(tab) {
+      const tabs = ['send', 'bulk', 'inbox'];
+      tabs.forEach(t => {
+        document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.toggle('active', t === tab);
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.tab === tab);
+        });
+      });
+    }
+
+    // ============================================
+    // AUTH
+    // ============================================
     async function handleRegister() {
-      if (!supabaseClient) return showToast('Database belum terhubung!');
+      if (!supabase) return showToast('Database belum terhubung.', 'error');
       const username = document.getElementById('regUsername').value.trim();
       const token = document.getElementById('regToken').value.trim();
+      if (!username || !token) return showToast('Username dan token wajib diisi!', 'error');
 
-      if (!username || !token) return showToast('Username dan token wajib diisi!');
+      const { data: existingDevice } = await supabase.from('users').select('id').eq('device_id', deviceId).maybeSingle();
+      if (existingDevice) return showToast('Perangkat ini sudah pernah mendaftar!', 'error');
 
-      const { data: existingDevice } = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('device_id', deviceId)
-        .maybeSingle();
-
-      if (existingDevice) {
-        return showToast('Perangkat ini sudah pernah mendaftar!');
-      }
-
-      const { data: existingUser } = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('username', username)
-        .maybeSingle();
-
-      if (existingUser) {
-        return showToast('Username sudah digunakan!');
-      }
+      const { data: existingUser } = await supabase.from('users').select('id').eq('username', username).maybeSingle();
+      if (existingUser) return showToast('Username sudah digunakan!', 'error');
 
       const resetAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-
-      const { error } = await supabaseClient.from('users').insert([{
+      const { error } = await supabase.from('users').insert([{
         username,
         token,
         daily_limit: 5,
@@ -513,49 +1272,44 @@
       }]);
 
       if (error) {
-        showToast('Gagal register: ' + error.message);
+        showToast('Gagal register: ' + error.message, 'error');
       } else {
-        showToast('Pendaftaran berhasil! Silakan masuk.');
-        switchAuthTab('login');
+        showToast('Pendaftaran berhasil! Silakan masuk.', 'success');
+        switchAuth('login');
+        document.getElementById('regUsername').value = '';
+        document.getElementById('regToken').value = '';
       }
     }
 
     async function handleLogin() {
-      if (!supabaseClient) return showToast('Database belum terhubung!');
+      if (!supabase) return showToast('Database belum terhubung.', 'error');
       const username = document.getElementById('loginUsername').value.trim();
       const token = document.getElementById('loginToken').value.trim();
+      if (!username || !token) return showToast('Masukkan username dan password!', 'error');
 
-      if (!username || !token) return showToast('Masukkan username dan password!');
-
+      // Admin check
       if (username === 'thanz' && token === 'thanzadmin') {
         isAdmin = true;
         localStorage.setItem('am_is_admin', 'true');
-        showToast('Berhasil masuk sebagai Admin.');
+        showToast('Berhasil masuk sebagai Admin.', 'success');
         enterAdminDashboard();
         return;
       }
 
-      const { data: user, error } = await supabaseClient
-        .from('users')
-        .select('*')
-        .eq('username', username)
-        .eq('token', token)
+      const { data: user, error } = await supabase.from('users').select('*').eq('username', username).eq('token', token)
         .maybeSingle();
-
       if (error || !user) {
-        return showToast('Username atau password salah!');
+        return showToast('Username atau password salah!', 'error');
       }
-
       if (user.status !== 'Active') {
-        return showToast('Akun Anda dinonaktifkan oleh Administrator.');
+        return showToast('Akun Anda dinonaktifkan oleh Administrator.', 'error');
       }
 
-      await supabaseClient.from('users').update({ last_login_at: new Date().toISOString() }).eq('id', user.id);
-
+      await supabase.from('users').update({ last_login_at: new Date().toISOString() }).eq('id', user.id);
       isAdmin = false;
       currentUser = user;
       localStorage.setItem('am_current_user', JSON.stringify(user));
-      showToast('Berhasil masuk!');
+      showToast('Berhasil masuk!', 'success');
       enterUserDashboard();
     }
 
@@ -566,7 +1320,6 @@
         enterAdminDashboard();
         return;
       }
-
       const saved = localStorage.getItem('am_current_user');
       if (saved) {
         try {
@@ -581,13 +1334,8 @@
     }
 
     async function refreshUserData() {
-      if (!currentUser || !supabaseClient) return false;
-      const { data, error } = await supabaseClient
-        .from('users')
-        .select('*')
-        .eq('id', currentUser.id)
-        .maybeSingle();
-
+      if (!currentUser || !supabase) return false;
+      const { data, error } = await supabase.from('users').select('*').eq('id', currentUser.id).maybeSingle();
       if (error || !data || data.status !== 'Active') {
         handleLogout();
         return false;
@@ -605,19 +1353,19 @@
       document.getElementById('authContainer').classList.remove('hidden');
       document.getElementById('appContainer').classList.add('hidden');
       document.getElementById('adminContainer').classList.add('hidden');
-      showToast('Berhasil keluar.');
+      if (countdownInterval) clearInterval(countdownInterval);
+      showToast('Berhasil keluar.', '');
     }
 
-    let countdownInterval = null;
-
+    // ============================================
+    // DASHBOARD
+    // ============================================
     function enterUserDashboard() {
       document.getElementById('authContainer').classList.add('hidden');
       document.getElementById('adminContainer').classList.add('hidden');
       document.getElementById('appContainer').classList.remove('hidden');
-
       document.getElementById('displayUsername').textContent = currentUser.username;
       document.getElementById('userAvatar').textContent = currentUser.username.charAt(0).toUpperCase();
-      
       updateLimitDisplay();
       if (countdownInterval) clearInterval(countdownInterval);
       countdownInterval = setInterval(updateLimitDisplay, 1000);
@@ -632,13 +1380,12 @@
 
     function updateLimitDisplay() {
       if (!currentUser) return;
-      
-      const now = new Date().getTime();
+      const now = Date.now();
       const resetTime = new Date(currentUser.reset_at).getTime();
 
       if (now >= resetTime) {
         const newReset = new Date(now + 24 * 60 * 60 * 1000).toISOString();
-        supabaseClient.from('users').update({ used_count: 0, reset_at: newReset }).eq('id', currentUser.id).then(({error}) => {
+        supabase.from('users').update({ used_count: 0, reset_at: newReset }).eq('id', currentUser.id).then(({ error }) => {
           if (!error) {
             currentUser.used_count = 0;
             currentUser.reset_at = newReset;
@@ -654,40 +1401,23 @@
 
       const diff = resetTime - now;
       if (diff > 0) {
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById('statReset').textContent = `${hours}j ${minutes}m ${seconds}d`;
+        const h = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        const m = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        const s = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+        document.getElementById('statReset').textContent = h + ':' + m + ':' + s;
       } else {
-        document.getElementById('statReset').textContent = 'Memuat...';
+        document.getElementById('statReset').textContent = '00:00:00';
       }
     }
 
-    function switchTab(tab) {
-      document.getElementById('contentSend').classList.add('hidden');
-      document.getElementById('contentBulk').classList.add('hidden');
-      document.getElementById('contentInbox').classList.add('hidden');
-      document.getElementById('tabSend').className = 'py-3 text-center text-slate-400 hover:text-white transition';
-      document.getElementById('tabBulk').className = 'py-3 text-center text-slate-400 hover:text-white transition';
-      document.getElementById('tabInbox').className = 'py-3 text-center text-slate-400 hover:text-white transition';
-
-      if (tab === 'send') {
-        document.getElementById('contentSend').classList.remove('hidden');
-        document.getElementById('tabSend').className = 'py-3 text-center text-purple-400 border-b-2 border-purple-500 bg-purple-500/10 transition';
-      } else if (tab === 'bulk') {
-        document.getElementById('contentBulk').classList.remove('hidden');
-        document.getElementById('tabBulk').className = 'py-3 text-center text-purple-400 border-b-2 border-purple-500 bg-purple-500/10 transition';
-      } else if (tab === 'inbox') {
-        document.getElementById('contentInbox').classList.remove('hidden');
-        document.getElementById('tabInbox').className = 'py-3 text-center text-purple-400 border-b-2 border-purple-500 bg-purple-500/10 transition';
-      }
-    }
-
+    // ============================================
+    // INJECT FLOW
+    // ============================================
     async function handleSendMagicLink() {
       const email = document.getElementById('inputEmail').value.trim();
-      if (!email) return showToast('Masukkan email yang valid.');
+      if (!email) return showToast('Masukkan email yang valid.', 'error');
 
-      showToast('Mengirim magic link...');
+      showToast('Mengirim magic link...', '');
       try {
         const res = await fetch('/api/send', {
           method: 'POST',
@@ -698,37 +1428,30 @@
         if (!res.ok || json.status === false) {
           throw new Error(json.message || 'Gagal mengirim magic link.');
         }
-
         activeInjectEmail = email;
         document.getElementById('stepEmailBox').classList.add('hidden');
         document.getElementById('stepVerifyBox').classList.remove('hidden');
-        document.getElementById('flowInstruction').textContent = `Magic link terkirim ke ${email}. Masukkan link verifikasi.`;
-        showToast('Magic link berhasil dikirim!');
+        document.getElementById('flowInstruction').textContent = 'Magic link terkirim ke ' + email +
+          '. Masukkan link verifikasi.';
+        showToast('Magic link berhasil dikirim!', 'success');
       } catch (err) {
-        showToast(err.message || 'Koneksi gagal.');
+        showToast(err.message || 'Koneksi gagal.', 'error');
       }
     }
 
     async function handleVerifyMagicLink() {
       const link = document.getElementById('inputLink').value.trim();
-      if (!link) return showToast('Masukkan link verifikasi.');
+      if (!link) return showToast('Masukkan link verifikasi.', 'error');
 
       const valid = await refreshUserData();
-      if (!valid) return showToast('Sesi berakhir.');
-
-      if (currentUser.status !== 'Active') {
-        return showToast('Akun dinonaktifkan.');
-      }
+      if (!valid) return showToast('Sesi berakhir.', 'error');
+      if (currentUser.status !== 'Active') return showToast('Akun dinonaktifkan.', 'error');
 
       const remaining = currentUser.daily_limit - currentUser.used_count;
-      if (remaining <= 0) {
-        return showToast('Limit harian Anda sudah habis.');
-      }
+      if (remaining <= 0) return showToast('Limit harian Anda sudah habis.', 'error');
 
-      showToast('Memverifikasi...');
+      showToast('Memverifikasi...', '');
       let success = false;
-      let resultMessage = '';
-
       try {
         const res = await fetch('/api/verify', {
           method: 'POST',
@@ -737,17 +1460,18 @@
         });
         const json = await res.json();
         success = res.ok && json.status !== false;
-        resultMessage = json.message || 'Verifikasi berhasil!';
-
-        const resEl = document.getElementById('sendResult');
-        resEl.innerHTML = `<div class="${success ? 'text-emerald-400' : 'text-red-400'} font-bold">${success ? 'Berhasil' : 'Gagal'}</div><div class="text-[10px] text-slate-300 mt-0.5">${resultMessage}</div>`;
-        resEl.classList.remove('hidden');
+        const el = document.getElementById('sendResult');
+        el.innerHTML = `
+            <div class="${success ? 'success' : 'error'}">${success ? '✓ Berhasil' : '✗ Gagal'}</div>
+            <div style="color:rgba(255,255,255,0.4);font-size:10px;">${json.message || 'Proses selesai.'}</div>
+          `;
+        el.classList.add('show');
       } catch (err) {
         success = false;
-        showToast('Kesalahan jaringan.');
+        showToast('Kesalahan jaringan.', 'error');
       }
 
-      await supabaseClient.from('inject_logs').insert([{
+      await supabase.from('inject_logs').insert([{
         user_id: currentUser.id,
         username: currentUser.username,
         status: success ? 'SUCCESS' : 'FAILED'
@@ -755,14 +1479,14 @@
 
       if (success) {
         const newUsed = currentUser.used_count + 1;
-        await supabaseClient.from('users').update({ used_count: newUsed }).eq('id', currentUser.id);
+        await supabase.from('users').update({ used_count: newUsed }).eq('id', currentUser.id);
         currentUser.used_count = newUsed;
         localStorage.setItem('am_current_user', JSON.stringify(currentUser));
         updateLimitDisplay();
-        showToast('Verifikasi berhasil! Kredit terpakai +1');
+        showToast('Verifikasi berhasil! Kredit +1', 'success');
         resetInjectFlow();
       } else {
-        showToast('Verifikasi gagal.');
+        showToast('Verifikasi gagal.', 'error');
       }
     }
 
@@ -773,29 +1497,25 @@
       document.getElementById('stepVerifyBox').classList.add('hidden');
       document.getElementById('stepEmailBox').classList.remove('hidden');
       document.getElementById('flowInstruction').textContent = 'Kirim magic link ke email target terlebih dahulu.';
-      document.getElementById('sendResult').classList.add('hidden');
+      document.getElementById('sendResult').classList.remove('show');
     }
 
+    // ============================================
+    // BULK
+    // ============================================
     async function runBulkInject() {
       const valid = await refreshUserData();
-      if (!valid) return showToast('Sesi berakhir.');
-
-      if (currentUser.status !== 'Active') {
-        return showToast('Akun dinonaktifkan.');
-      }
+      if (!valid) return showToast('Sesi berakhir.', 'error');
+      if (currentUser.status !== 'Active') return showToast('Akun dinonaktifkan.', 'error');
 
       const remaining = currentUser.daily_limit - currentUser.used_count;
-      if (remaining <= 0) {
-        return showToast('Limit harian habis.');
-      }
+      if (remaining <= 0) return showToast('Limit harian habis.', 'error');
 
       const amount = Number(document.getElementById('inputBulkAmount').value);
-      if (!amount || amount < 1 || amount > 100) return showToast('Jumlah 1 - 100.');
+      if (!amount || amount < 1 || amount > 100) return showToast('Jumlah 1 – 100.', 'error');
 
-      showToast('Memproses bulk...');
+      showToast('Memproses bulk...', '');
       let success = false;
-      let resultMessage = '';
-
       try {
         const res = await fetch('/api/bulk', {
           method: 'POST',
@@ -804,17 +1524,18 @@
         });
         const json = await res.json();
         success = res.ok && json.status !== false;
-        resultMessage = json.message || JSON.stringify(json, null, 2);
-
-        const resEl = document.getElementById('bulkResult');
-        resEl.innerHTML = `<div class="${success ? 'text-emerald-400' : 'text-red-400'} font-bold">${success ? 'Berhasil' : 'Gagal'}</div><pre class="whitespace-pre-wrap text-[10px] text-slate-300 mt-1">${resultMessage}</pre>`;
-        resEl.classList.remove('hidden');
+        const el = document.getElementById('bulkResult');
+        el.innerHTML = `
+            <div class="${success ? 'success' : 'error'}">${success ? '✓ Berhasil' : '✗ Gagal'}</div>
+            <pre style="color:rgba(255,255,255,0.4);font-size:10px;white-space:pre-wrap;word-break:break-all;margin-top:4px;">${JSON.stringify(json, null, 2)}</pre>
+          `;
+        el.classList.add('show');
       } catch (err) {
         success = false;
-        showToast('Koneksi gagal.');
+        showToast('Koneksi gagal.', 'error');
       }
 
-      await supabaseClient.from('inject_logs').insert([{
+      await supabase.from('inject_logs').insert([{
         user_id: currentUser.id,
         username: currentUser.username,
         status: success ? 'SUCCESS' : 'FAILED'
@@ -822,26 +1543,29 @@
 
       if (success) {
         const newUsed = currentUser.used_count + 1;
-        await supabaseClient.from('users').update({ used_count: newUsed }).eq('id', currentUser.id);
+        await supabase.from('users').update({ used_count: newUsed }).eq('id', currentUser.id);
         currentUser.used_count = newUsed;
         localStorage.setItem('am_current_user', JSON.stringify(currentUser));
         updateLimitDisplay();
-        showToast('Bulk berhasil! Kredit terpakai +1');
+        showToast('Bulk berhasil! Kredit +1', 'success');
       } else {
-        showToast('Bulk gagal.');
+        showToast('Bulk gagal.', 'error');
       }
     }
 
+    // ============================================
+    // INBOX
+    // ============================================
     async function runInboxCheck() {
       const email = document.getElementById('inputInboxEmail').value.trim();
       const notice = document.getElementById('inboxNotice');
-      const resContainer = document.getElementById('inboxResult');
-      if (!email) return showToast('Masukkan email.');
+      const container = document.getElementById('inboxResult');
+      if (!email) return showToast('Masukkan email.', 'error');
 
-      notice.className = 'py-2 px-3 rounded-xl text-[11px] bg-purple-500/10 border border-purple-500/20 text-purple-300';
-      notice.textContent = 'Memindai pesan...';
+      notice.className = 'notice notice-info';
+      notice.innerHTML = '<i class="fa-regular fa-spinner fa-spin"></i> Memindai pesan...';
       notice.classList.remove('hidden');
-      resContainer.innerHTML = '';
+      container.innerHTML = '';
 
       try {
         const res = await fetch('/api/inbox', {
@@ -854,39 +1578,50 @@
           throw new Error(json.message || 'Gagal mengambil inbox.');
         }
 
-        notice.className = 'py-2 px-3 rounded-xl text-[11px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400';
-        notice.textContent = 'Inbox berhasil dipindai.';
+        notice.className = 'notice notice-success';
+        notice.innerHTML = '<i class="fa-regular fa-check-circle"></i> Inbox berhasil dipindai.';
 
         const messages = json.data?.messages || [];
-        if (messages.length === 0) {
-          resContainer.innerHTML = '<div class="text-xs text-slate-400 p-2 text-center">Belum ada pesan.</div>';
+        if (!messages.length) {
+          container.innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.2);font-size:12px;padding:16px 0;">Belum ada pesan.</div>';
           return;
         }
 
         messages.forEach(msg => {
-          const card = document.createElement('div');
-          card.className = 'p-3 rounded-xl glass-card-subtle border border-white/10 space-y-2 text-xs';
           const link = msg.login_url || '';
+          const card = document.createElement('div');
+          card.className = 'glass-subtle';
+          card.style.cssText = 'padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);';
           card.innerHTML = `
-            <div class="font-bold text-white">${msg.subject || 'Tanpa Subjek'}</div>
-            ${link ? `<div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] break-all">${link}</div><button onclick="navigator.clipboard.writeText('${link}');showToast('Link disalin!')" class="w-full py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-[10px] shadow-sm">Salin Link</button>` : '<div class="text-slate-400 text-[10px]">Link belum tersedia.</div>'}
-          `;
-          resContainer.appendChild(card);
+              <div style="font-weight:600;font-size:12px;color:#fff;">${msg.subject || 'Tanpa Subjek'}</div>
+              ${link ? `
+                <div style="margin-top:6px;padding:8px 12px;background:rgba(16,185,129,0.06);border-radius:8px;border:1px solid rgba(16,185,129,0.08);font-size:10px;color:#6EE7B7;word-break:break-all;">${link}</div>
+                <button onclick="navigator.clipboard.writeText('${link}');showToast('Link disalin!','success')" style="margin-top:6px;width:100%;padding:6px;border:1px solid rgba(139,92,246,0.15);border-radius:8px;background:rgba(139,92,246,0.06);color:#C084FC;font-size:10px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:inherit;" onmouseover="this.style.background='rgba(139,92,246,0.12)'" onmouseout="this.style.background='rgba(139,92,246,0.06)'">
+                  <i class="fa-regular fa-copy"></i> Salin Link
+                </button>
+              ` : `
+                <div style="margin-top:6px;color:rgba(255,255,255,0.15);font-size:10px;">Link belum tersedia.</div>
+              `}
+            `;
+          container.appendChild(card);
         });
+
       } catch (err) {
-        notice.className = 'py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/20 text-red-400';
-        notice.textContent = err.message;
+        notice.className = 'notice notice-error';
+        notice.innerHTML = '<i class="fa-regular fa-circle-xmark"></i> ' + err.message;
       }
     }
 
+    // ============================================
+    // ADMIN
+    // ============================================
     async function loadAdminPanel() {
-      if (!isAdmin || !supabaseClient) return;
+      if (!isAdmin || !supabase) return;
 
-      const { data: users, error: errUsers } = await supabaseClient.from('users').select('*');
-      const { data: logs, error: errLogs } = await supabaseClient.from('inject_logs').select('*');
-
+      const { data: users, error: errUsers } = await supabase.from('users').select('*');
+      const { data: logs, error: errLogs } = await supabase.from('inject_logs').select('*');
       if (errUsers || errLogs) {
-        showToast('Gagal memuat data admin.');
+        showToast('Gagal memuat data admin.', 'error');
         return;
       }
 
@@ -897,29 +1632,25 @@
 
       const tbody = document.getElementById('admUserTableBody');
       tbody.innerHTML = '';
-
       users.forEach(u => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-purple-500/5 transition';
         tr.innerHTML = `
-          <td class="p-2.5">
-            <div class="font-bold text-white">${u.username}</div>
-            <div class="text-[10px] text-slate-400 font-mono">Token: ${u.token}</div>
-          </td>
-          <td class="p-2.5">
-            <div>Limit: ${u.daily_limit}</div>
-            <div class="text-[10px] text-amber-400">Terpakai: ${u.used_count}</div>
-          </td>
-          <td class="p-2.5">
-            <span class="px-2 py-0.5 rounded-full text-[10px] ${u.status === 'Active' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}">${u.status}</span>
-          </td>
-          <td class="p-2.5 text-right space-x-1">
-            <button onclick="admPromptResetLimit('${u.username}')" class="px-2 py-1 rounded-lg bg-purple-500/10 text-purple-300 text-[10px] hover:bg-purple-500/20 border border-purple-500/20" title="Reset Limit">Limit</button>
-            <button onclick="admPromptResetPass('${u.username}')" class="px-2 py-1 rounded-lg bg-purple-500/10 text-purple-300 text-[10px] hover:bg-purple-500/20 border border-purple-500/20" title="Reset Password">Pass</button>
-            <button onclick="admToggleStatus('${u.id}', '${u.status}')" class="px-2 py-1 rounded-lg ${u.status === 'Active' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'} text-[10px]">${u.status === 'Active' ? 'Off' : 'On'}</button>
-            <button onclick="admDeleteUser('${u.id}')" class="px-2 py-1 rounded-lg bg-red-500/10 text-red-400 text-[10px] hover:bg-red-500/20 border border-red-500/20"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        `;
+            <td>
+              <div style="font-weight:600;color:#fff;font-size:12px;">${u.username}</div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.15);font-family:monospace;">Token: ${u.token}</div>
+            </td>
+            <td>
+              <div style="font-size:12px;font-weight:600;color:#fff;">${u.daily_limit}</div>
+              <div style="font-size:9px;color:rgba(251,191,36,0.5);">Terpakai: ${u.used_count}</div>
+            </td>
+            <td><span class="badge-status ${u.status === 'Active' ? 'badge-active' : 'badge-disabled'}">${u.status}</span></td>
+            <td style="text-align:right;white-space:nowrap;">
+              <button class="admin-action-btn" onclick="admPromptResetLimit('${u.username}')" title="Reset Limit"><i class="fa-regular fa-rotate-right"></i></button>
+              <button class="admin-action-btn" onclick="admPromptResetPass('${u.username}')" title="Reset Password"><i class="fa-regular fa-key"></i></button>
+              <button class="admin-action-btn ${u.status === 'Active' ? 'danger' : 'success'}" onclick="admToggleStatus('${u.id}','${u.status}')">${u.status === 'Active' ? 'Off' : 'On'}</button>
+              <button class="admin-action-btn danger" onclick="admDeleteUser('${u.id}')"><i class="fa-regular fa-trash-can"></i></button>
+            </td>
+          `;
         tbody.appendChild(tr);
       });
     }
@@ -928,11 +1659,10 @@
       const username = document.getElementById('admNewUser').value.trim();
       const token = document.getElementById('admNewToken').value.trim();
       const daily_limit = Number(document.getElementById('admNewLimit').value) || 5;
+      if (!username || !token) return showToast('Username dan token wajib diisi.', 'error');
 
-      if (!username || !token) return showToast('Username dan token wajib diisi.');
       const resetAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-
-      const { error } = await supabaseClient.from('users').insert([{
+      const { error } = await supabase.from('users').insert([{
         username,
         token,
         daily_limit,
@@ -940,10 +1670,10 @@
         reset_at: resetAt,
         status: 'Active'
       }]);
-
-      if (error) showToast('Gagal: ' + error.message);
-      else {
-        showToast('User berhasil dibuat.');
+      if (error) {
+        showToast('Gagal: ' + error.message, 'error');
+      } else {
+        showToast('User berhasil dibuat.', 'success');
         document.getElementById('admNewUser').value = '';
         document.getElementById('admNewToken').value = '';
         loadAdminPanel();
@@ -951,52 +1681,31 @@
     }
 
     async function admResetLimitByUsername() {
-      const targetUsername = document.getElementById('admResetLimitUsername').value.trim();
-      if (!targetUsername) return showToast('Masukkan username target.');
-
-      const { data: targetUser, error: fetchErr } = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('username', targetUsername)
-        .maybeSingle();
-
-      if (fetchErr || !targetUser) return showToast('Username tidak ditemukan.');
-
-      const { error: updateErr } = await supabaseClient
-        .from('users')
-        .update({ used_count: 0 })
-        .eq('id', targetUser.id);
-
-      if (updateErr) showToast('Gagal reset limit.');
-      else {
-        showToast(`Limit user ${targetUsername} direset (0/5).`);
+      const target = document.getElementById('admResetLimitUsername').value.trim();
+      if (!target) return showToast('Masukkan username target.', 'error');
+      const { data: user, error: fetchErr } = await supabase.from('users').select('id').eq('username', target).maybeSingle();
+      if (fetchErr || !user) return showToast('Username tidak ditemukan.', 'error');
+      const { error } = await supabase.from('users').update({ used_count: 0 }).eq('id', user.id);
+      if (error) {
+        showToast('Gagal reset limit.', 'error');
+      } else {
+        showToast('Limit user ' + target + ' direset.', 'success');
         document.getElementById('admResetLimitUsername').value = '';
         loadAdminPanel();
       }
     }
 
     async function admResetPasswordByUsername() {
-      const targetUsername = document.getElementById('admResetUsername').value.trim();
+      const target = document.getElementById('admResetUsername').value.trim();
       const newToken = document.getElementById('admNewTokenVal').value.trim();
-
-      if (!targetUsername || !newToken) return showToast('Isi data lengkap.');
-
-      const { data: targetUser, error: fetchErr } = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('username', targetUsername)
-        .maybeSingle();
-
-      if (fetchErr || !targetUser) return showToast('Username tidak ditemukan.');
-
-      const { error: updateErr } = await supabaseClient
-        .from('users')
-        .update({ token: newToken })
-        .eq('id', targetUser.id);
-
-      if (updateErr) showToast('Gagal reset password.');
-      else {
-        showToast('Password berhasil direset.');
+      if (!target || !newToken) return showToast('Isi data lengkap.', 'error');
+      const { data: user, error: fetchErr } = await supabase.from('users').select('id').eq('username', target).maybeSingle();
+      if (fetchErr || !user) return showToast('Username tidak ditemukan.', 'error');
+      const { error } = await supabase.from('users').update({ token: newToken }).eq('id', user.id);
+      if (error) {
+        showToast('Gagal reset password.', 'error');
+      } else {
+        showToast('Password berhasil direset.', 'success');
         document.getElementById('admResetUsername').value = '';
         document.getElementById('admNewTokenVal').value = '';
         loadAdminPanel();
@@ -1005,12 +1714,12 @@
 
     function admPromptResetLimit(username) {
       document.getElementById('admResetLimitUsername').value = username;
-      showToast(`Target limit: ${username}`);
+      showToast('Target limit: ' + username, '');
     }
 
     function admPromptResetPass(username) {
       document.getElementById('admResetUsername').value = username;
-      showToast(`Target pass: ${username}`);
+      showToast('Target pass: ' + username, '');
     }
 
     function admSwitchToolView() {
@@ -1018,13 +1727,12 @@
       const input = document.getElementById('admToolInput');
       const linkBox = document.getElementById('admVerifyLinkBox');
       linkBox.classList.add('hidden');
-
-      if (tool === 'inject') input.placeholder = "Email target AM...";
+      if (tool === 'inject') input.placeholder = 'Email target AM...';
       else if (tool === 'verify') {
-        input.placeholder = "Email target AM...";
+        input.placeholder = 'Email target AM...';
         linkBox.classList.remove('hidden');
-      } else if (tool === 'bulk') input.placeholder = "Jumlah bulk (1 - 100)...";
-      else if (tool === 'inbox') input.placeholder = "Email temp mail...";
+      } else if (tool === 'bulk') input.placeholder = 'Jumlah bulk (1 – 100)...';
+      else if (tool === 'inbox') input.placeholder = 'Email temp mail...';
     }
 
     async function admRunTool() {
@@ -1032,60 +1740,67 @@
       const val = document.getElementById('admToolInput').value.trim();
       const linkVal = document.getElementById('admToolLink').value.trim();
       const resContainer = document.getElementById('admToolResult');
-      resContainer.classList.add('hidden');
+      resContainer.classList.remove('show');
       resContainer.innerHTML = '';
+      if (!val) return showToast('Masukkan input.', 'error');
 
-      if (!val) return showToast('Masukkan input.');
-      showToast('Menjalankan alat...');
-
+      showToast('Menjalankan alat...', '');
       try {
-        if (tool === 'inject') {
-          const res = await fetch('/api/send', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val }) });
-          const json = await res.json();
-          resContainer.innerHTML = `<div class="font-bold">Hasil Inject:</div><pre class="text-[10px] text-slate-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
-          resContainer.classList.remove('hidden');
-        } else if (tool === 'verify') {
-          const res = await fetch('/api/verify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val, link: linkVal }) });
-          const json = await res.json();
-          resContainer.innerHTML = `<div class="font-bold">Hasil Verify:</div><pre class="text-[10px] text-slate-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
-          resContainer.classList.remove('hidden');
-        } else if (tool === 'bulk') {
-          const res = await fetch('/api/bulk', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: Number(val) }) });
-          const json = await res.json();
-          resContainer.innerHTML = `<div class="font-bold">Hasil Bulk:</div><pre class="text-[10px] text-slate-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
-          resContainer.classList.remove('hidden');
-        } else if (tool === 'inbox') {
-          const res = await fetch('/api/inbox', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val }) });
-          const json = await res.json();
-          resContainer.innerHTML = `<div class="font-bold">Hasil Inbox:</div><pre class="text-[10px] text-slate-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
-          resContainer.classList.remove('hidden');
-        }
-        showToast('Selesai.');
+        let endpoint = '';
+        let body = {};
+        if (tool === 'inject') { endpoint = '/api/send';
+          body = { email: val }; } else if (tool === 'verify') { endpoint = '/api/verify';
+          body = { email: val, link: linkVal }; } else if (tool === 'bulk') { endpoint = '/api/bulk';
+          body = { amount: Number(val) }; } else if (tool === 'inbox') { endpoint = '/api/inbox';
+          body = { email: val }; }
+
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const json = await res.json();
+        resContainer.innerHTML = `
+            <div style="font-weight:600;color:#C084FC;margin-bottom:4px;">Hasil:</div>
+            <pre style="color:rgba(255,255,255,0.4);font-size:10px;white-space:pre-wrap;word-break:break-all;">${JSON.stringify(json, null, 2)}</pre>
+          `;
+        resContainer.classList.add('show');
+        showToast('Selesai.', 'success');
       } catch (err) {
-        showToast('Gagal: ' + err.message);
+        showToast('Gagal: ' + err.message, 'error');
       }
     }
 
     async function admToggleStatus(userId, currentStatus) {
-      const nextStatus = currentStatus === 'Active' ? 'Disabled' : 'Active';
-      const { error } = await supabaseClient.from('users').update({ status: nextStatus }).eq('id', userId);
-      if (error) showToast('Gagal mengubah status.');
-      else {
-        showToast('Status diubah.');
+      const next = currentStatus === 'Active' ? 'Disabled' : 'Active';
+      const { error } = await supabase.from('users').update({ status: next }).eq('id', userId);
+      if (error) {
+        showToast('Gagal mengubah status.', 'error');
+      } else {
+        showToast('Status diubah.', 'success');
         loadAdminPanel();
       }
     }
 
     async function admDeleteUser(userId) {
       if (!confirm('Hapus user ini?')) return;
-      const { error } = await supabaseClient.from('users').delete().eq('id', userId);
-      if (error) showToast('Gagal menghapus.');
-      else {
-        showToast('User dihapus.');
+      const { error } = await supabase.from('users').delete().eq('id', userId);
+      if (error) {
+        showToast('Gagal menghapus.', 'error');
+      } else {
+        showToast('User dihapus.', 'success');
         loadAdminPanel();
       }
     }
-  </script>
-</body>
-</html>
 
+    // ============================================
+    // INIT
+    // ============================================
+    window.addEventListener('DOMContentLoaded', () => {
+      initSupabase();
+      checkExistingSession();
+    });
+  </script>
+
+</body>
+  </html>
