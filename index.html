@@ -826,15 +826,23 @@
                 <div class="section-label mb-1">Management</div>
                 <h3 class="font-display font-bold text-[13px] text-white">Daftar Member</h3>
               </div>
-              <button onclick="loadAdminPanel()" class="btn btn-ghost w-8 h-8 flex items-center justify-center">
-                <i class="fa-solid fa-rotate text-[9px]"></i>
-              </button>
+              <div class="flex items-center gap-2">
+                <button onclick="admDeleteSelectedUsers()" class="btn bg-red-500/[.12] text-red-300 border border-red-400/[.25] px-2.5 py-1.5 text-[9px] font-semibold flex items-center gap-1.5">
+                  <i class="fa-solid fa-trash-can"></i> Hapus Ditandai
+                </button>
+                <button onclick="loadAdminPanel()" class="btn btn-ghost w-8 h-8 flex items-center justify-center">
+                  <i class="fa-solid fa-rotate text-[9px]"></i>
+                </button>
+              </div>
             </div>
 
             <div class="admin-table overflow-auto max-h-72 rounded-[12px] border border-white/[.06] bg-black/[.2]">
               <table class="w-full min-w-[610px] text-left text-[10px]">
                 <thead class="sticky top-0 bg-[#0d0914]/95 backdrop-blur-xl text-[#c4b5fd]">
                   <tr>
+                    <th class="px-3 py-2.5 w-8">
+                      <input type="checkbox" id="selectAllCheckbox" onchange="admToggleSelectAll(this)" class="w-3.5 h-3.5 accent-purple-500 cursor-pointer" />
+                    </th>
                     <th class="px-3 py-2.5 font-semibold">User</th>
                     <th class="px-3 py-2.5 font-semibold">Usage</th>
                     <th class="px-3 py-2.5 font-semibold">Status</th>
@@ -886,7 +894,6 @@
 
   async function initSupabase(url, key) {
     try {
-      // Tunggu library Supabase jika CDN belum selesai dimuat.
       for (let i = 0; i < 50 && !window.supabase; i++) {
         await new Promise(resolve => setTimeout(resolve, 100));
       }
@@ -1046,7 +1053,7 @@
     enterUserDashboard();
   }
 
-  function checkExistingSession() {
+  async function checkExistingSession() {
     const savedAdmin = localStorage.getItem("am_is_admin");
 
     if (savedAdmin === "true") {
@@ -1059,7 +1066,29 @@
     if (!saved) return;
 
     try {
-      currentUser = JSON.parse(saved);
+      const localUser = JSON.parse(saved);
+      
+      if (supabaseClient && localUser && localUser.id) {
+        const { data: freshUser, error } = await supabaseClient
+          .from("users")
+          .select("*")
+          .eq("id", localUser.id)
+          .maybeSingle();
+
+        if (!error && freshUser) {
+          if (freshUser.status !== "Active") {
+            showToast("Akun Anda dinonaktifkan.");
+            handleLogout();
+            return;
+          }
+          currentUser = freshUser;
+          localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+          enterUserDashboard();
+          return;
+        }
+      }
+
+      currentUser = localUser;
       refreshUserData().then(success => {
         if (success) enterUserDashboard();
       });
@@ -1506,12 +1535,16 @@
 
     const tbody = document.getElementById("admUserTableBody");
     tbody.innerHTML = "";
+    document.getElementById("selectAllCheckbox").checked = false;
 
     safeUsers.forEach(u => {
       const tr = document.createElement("tr");
       tr.className = "hover:bg-violet-500/[.04] transition";
 
       tr.innerHTML = `
+        <td class="px-3 py-3 w-8">
+          <input type="checkbox" value="${escapeAttr(u.id)}" class="user-checkbox w-3.5 h-3.5 accent-purple-500 cursor-pointer" />
+        </td>
         <td class="px-3 py-3">
           <div class="font-semibold text-white">${escapeHtml(u.username)}</div>
           <div class="text-[9px] text-[#7c6f93] font-mono mt-0.5">
@@ -1551,6 +1584,34 @@
 
       tbody.appendChild(tr);
     });
+  }
+
+  function admToggleSelectAll(source) {
+    const checkboxes = document.querySelectorAll(".user-checkbox");
+    checkboxes.forEach(cb => cb.checked = source.checked);
+  }
+
+  async function admDeleteSelectedUsers() {
+    const checkboxes = document.querySelectorAll(".user-checkbox:checked");
+    if (checkboxes.length === 0) {
+      return showToast("Tidak ada user yang ditandai.");
+    }
+
+    if (!confirm(`Hapus ${checkboxes.length} user yang ditandai?`)) return;
+
+    const idsToDelete = Array.from(checkboxes).map(cb => cb.value);
+
+    const { error } = await supabaseClient
+      .from("users")
+      .delete()
+      .in("id", idsToDelete);
+
+    if (error) {
+      showToast("Gagal menghapus user terpilih.");
+    } else {
+      showToast(`${checkboxes.length} user berhasil dihapus.`);
+      loadAdminPanel();
+    }
   }
 
   async function admCreateUser() {
@@ -1780,4 +1841,3 @@
 </script>
 </body>
 </html>
-
