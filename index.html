@@ -131,35 +131,56 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
-    /* LAMPU GLOW BERJALAN DI KELILING KOTAK */
-    @property --angle {
-      syntax: '<angle>';
-      initial-value: 0deg;
-      inherits: false;
-    }
-
-    @keyframes spin-glow {
-      0% { --angle: 0deg; }
-      100% { --angle: 360deg; }
-    }
-
-    .neon-border-glow {
+    /* EFEK BLOB LAMPU GLOW BERPUTAR (Uiverse Style) */
+    .card-glow-wrapper {
       position: relative;
-      border-radius: 16px;
-      background: var(--panel);
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
       isolation: isolate;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
     }
 
-    .neon-border-glow::before {
-      content: "";
+    .card-glow-wrapper .bg {
       position: absolute;
-      inset: -2px;
-      border-radius: 18px;
-      background: conic-gradient(from var(--angle), transparent 70%, #c084fc 90%, #ffffff 95%, #c084fc 100%);
-      z-index: -1;
-      animation: spin-glow 4s linear infinite;
-      opacity: 0.8;
-      filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.6));
+      inset: 0;
+      background: var(--panel);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      z-index: 1;
+    }
+
+    .card-glow-wrapper .blob {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(135deg, #c084fc, #9333ea);
+      border-radius: 50%;
+      z-index: 0;
+      filter: blur(40px);
+      animation: blob-bounce 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-glow-wrapper .content-area {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes blob-bounce {
+      0%, 100% {
+        transform: translate(-20%, -20%) scale(1);
+      }
+      25% {
+        transform: translate(250%, -20%) scale(1.2);
+      }
+      50% {
+        transform: translate(250%, 220%) scale(0.9);
+      }
+      75% {
+        transform: translate(-20%, 220%) scale(1.1);
+      }
     }
 
     .glass-soft {
@@ -282,24 +303,6 @@
       animation: appear .45s ease both;
     }
 
-    .auth-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .auth-card::before {
-      content: "";
-      position: absolute;
-      width: 180px;
-      height: 180px;
-      right: -90px;
-      top: -100px;
-      border-radius: 50%;
-      background: rgba(192, 132, 252, 0.18);
-      filter: blur(40px);
-      pointer-events: none;
-    }
-
     .auth-tabs {
       padding: 4px;
       background: rgba(255, 255, 255, 0.025);
@@ -367,12 +370,6 @@
       background: linear-gradient(90deg, #7c3aed, #c084fc);
       box-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
       transition: width .35s ease;
-    }
-
-    .stat-box {
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(192, 132, 252, 0.1);
-      border-radius: 12px;
     }
 
     .tool-tabs {
@@ -538,77 +535,85 @@
         </div>
 
         <!-- FORM MASUK -->
-        <div id="loginFormCard" class="auth-card neon-border-glow rounded-[16px] p-5 sm:p-6">
-          <div class="flex items-center justify-between mb-5">
-            <div>
-              <div class="section-label mb-1.5">Account</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Masuk ke akun</h2>
-            </div>
-            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-violet-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
-              <i class="fa-solid fa-arrow-right-to-bracket text-[11px]"></i>
-            </div>
-          </div>
-
-          <div class="space-y-3.5">
-            <div>
-              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Username</label>
-              <input id="loginUsername" type="text" autocomplete="username" placeholder="Masukkan username" class="px-3.5 py-3 text-[11px]" />
-            </div>
-
-            <div>
-              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Token / Password</label>
-              <div class="relative">
-                <input id="loginToken" type="password" autocomplete="current-password" placeholder="Masukkan token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
-                <button type="button" onclick="togglePasswordVisibility('loginToken','eyeLoginIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8] hover:text-white">
-                  <i id="eyeLoginIcon" class="fa-solid fa-eye text-[11px]"></i>
-                </button>
+        <div id="loginFormCard" class="card-glow-wrapper">
+          <div class="bg"></div>
+          <div class="blob"></div>
+          <div class="content-area p-5 sm:p-6">
+            <div class="flex items-center justify-between mb-5">
+              <div>
+                <div class="section-label mb-1.5">Account</div>
+                <h2 class="font-display font-bold text-[14px] text-white">Masuk ke akun</h2>
+              </div>
+              <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-violet-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+                <i class="fa-solid fa-arrow-right-to-bracket text-[11px]"></i>
               </div>
             </div>
 
-            <button onclick="handleLogin()" class="btn btn-primary w-full py-3 text-[11px] font-bold text-white mt-1">
-              Masuk Sistem
-            </button>
+            <div class="space-y-3.5">
+              <div>
+                <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Username</label>
+                <input id="loginUsername" type="text" autocomplete="username" placeholder="Masukkan username" class="px-3.5 py-3 text-[11px]" />
+              </div>
+
+              <div>
+                <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Token / Password</label>
+                <div class="relative">
+                  <input id="loginToken" type="password" autocomplete="current-password" placeholder="Masukkan token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
+                  <button type="button" onclick="togglePasswordVisibility('loginToken','eyeLoginIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8] hover:text-white">
+                    <i id="eyeLoginIcon" class="fa-solid fa-eye text-[11px]"></i>
+                  </button>
+                </div>
+              </div>
+
+              <button onclick="handleLogin()" class="btn btn-primary w-full py-3 text-[11px] font-bold text-white mt-1">
+                Masuk Sistem
+              </button>
+            </div>
           </div>
         </div>
 
         <!-- FORM PENDAFTARAN -->
-        <div id="regFormCard" class="auth-card neon-border-glow rounded-[16px] p-5 sm:p-6 hidden">
-          <div class="flex items-center justify-between mb-5">
-            <div>
-              <div class="section-label mb-1.5">Registration</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Buat akun baru</h2>
-            </div>
-            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-violet-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
-              <i class="fa-solid fa-user-plus text-[11px]"></i>
-            </div>
-          </div>
-
-          <div class="mb-4 p-3 rounded-[11px] bg-amber-500/[.05] border border-amber-400/[.15] flex gap-2.5">
-            <i class="fa-solid fa-circle-info text-amber-400 text-[11px] mt-0.5"></i>
-            <p class="text-[10px] leading-relaxed text-amber-200/80">
-              Satu perangkat hanya dapat digunakan untuk satu pendaftaran.
-            </p>
-          </div>
-
-          <div class="space-y-3.5">
-            <div>
-              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Username</label>
-              <input id="regUsername" type="text" autocomplete="username" placeholder="contoh: thanz123" class="px-3.5 py-3 text-[11px]" />
-            </div>
-
-            <div>
-              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Token Rahasia</label>
-              <div class="relative">
-                <input id="regToken" type="password" autocomplete="new-password" placeholder="Buat token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
-                <button type="button" onclick="togglePasswordVisibility('regToken','eyeRegIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8] hover:text-white">
-                  <i id="eyeRegIcon" class="fa-solid fa-eye text-[11px]"></i>
-                </button>
+        <div id="regFormCard" class="card-glow-wrapper hidden">
+          <div class="bg"></div>
+          <div class="blob"></div>
+          <div class="content-area p-5 sm:p-6">
+            <div class="flex items-center justify-between mb-5">
+              <div>
+                <div class="section-label mb-1.5">Registration</div>
+                <h2 class="font-display font-bold text-[14px] text-white">Buat akun baru</h2>
+              </div>
+              <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-violet-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+                <i class="fa-solid fa-user-plus text-[11px]"></i>
               </div>
             </div>
 
-            <button onclick="handleRegister()" class="btn btn-success w-full py-3 text-[11px] font-bold text-white mt-1">
-              Daftar Sekarang
-            </button>
+            <div class="mb-4 p-3 rounded-[11px] bg-amber-500/[.05] border border-amber-400/[.15] flex gap-2.5">
+              <i class="fa-solid fa-circle-info text-amber-400 text-[11px] mt-0.5"></i>
+              <p class="text-[10px] leading-relaxed text-amber-200/80">
+                Satu perangkat hanya dapat digunakan untuk satu pendaftaran.
+              </p>
+            </div>
+
+            <div class="space-y-3.5">
+              <div>
+                <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Username</label>
+                <input id="regUsername" type="text" autocomplete="username" placeholder="contoh: thanz123" class="px-3.5 py-3 text-[11px]" />
+              </div>
+
+              <div>
+                <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Token Rahasia</label>
+                <div class="relative">
+                  <input id="regToken" type="password" autocomplete="new-password" placeholder="Buat token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
+                  <button type="button" onclick="togglePasswordVisibility('regToken','eyeRegIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8] hover:text-white">
+                    <i id="eyeRegIcon" class="fa-solid fa-eye text-[11px]"></i>
+                  </button>
+                </div>
+              </div>
+
+              <button onclick="handleRegister()" class="btn btn-success w-full py-3 text-[11px] font-bold text-white mt-1">
+                Daftar Sekarang
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -1862,7 +1867,7 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
-  }
+    }
 
   function escapeAttr(value) {
     return String(value ?? "")
