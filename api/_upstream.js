@@ -67,7 +67,7 @@ function authorizationValue(token) {
 
 export async function callAlightMotion(action, params = {}) {
   const token = cleanString(process.env.AM_TOKEN, 4096);
-  const accessToken ="znn_vcl_70f11dc65aa3ffe29b8660347770410dc39a5327375228d5";
+  const accessToken = cleanString(process.env.ZNN_ACCESS_TOKEN, 4096);
 
   if (!token) {
     const error = new Error(
