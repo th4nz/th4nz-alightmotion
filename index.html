@@ -39,13 +39,13 @@
     .font-display { font-family: 'Outfit', sans-serif; }
     .glow-effect { box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.3); }
     .glass-card { background: rgba(24, 24, 27, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(139, 92, 246, 0.2); }
-    input, select { background-color: rgba(9, 9, 11, 0.6) !important; border-color: rgba(139, 92, 246, 0.3) !important; color: #fff !important; }
-    input:focus, select:focus { border-color: #8b5cf6 !important; ring: 2px solid rgba(139, 92, 246, 0.5); outline: none; }
+    input, select, textarea { background-color: rgba(9, 9, 11, 0.6) !important; border-color: rgba(139, 92, 246, 0.3) !important; color: #fff !important; }
+    input:focus, select:focus, textarea:focus { border-color: #8b5cf6 !important; ring: 2px solid rgba(139, 92, 246, 0.5); outline: none; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-between p-4 selection:bg-brand selection:text-white">
 
-  <!-- Container Autentikasi (Hanya Login & Register, Admin login menyatu di form login) -->
+  <!-- Container Autentikasi (Login / Register) -->
   <div id="authContainer" class="w-full max-w-md my-auto space-y-4">
     <div class="text-center space-y-1 mb-6">
       <div class="inline-flex p-3 rounded-2xl bg-brand/10 border border-brand/30 text-brand text-2xl mb-2 glow-effect">
@@ -55,13 +55,13 @@
       <p class="text-xs text-zinc-400">Sistem Aktivasi Premium & Limit Harian</p>
     </div>
 
-    <!-- Pilihan Tab Auth (Hanya Login & Register) -->
+    <!-- Pilihan Tab Auth (Login & Register) -->
     <div class="grid grid-cols-2 p-1 rounded-xl glass-card text-xs font-medium text-center">
       <button onclick="switchAuthTab('login')" id="tabLoginBtn" class="py-2 rounded-lg bg-brand text-white transition">Login</button>
       <button onclick="switchAuthTab('register')" id="tabRegBtn" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">Register</button>
     </div>
 
-    <!-- Form Login Member / Admin (Menyatu) -->
+    <!-- Form Login Member / Admin -->
     <div id="loginFormCard" class="glass-card p-6 rounded-2xl space-y-4">
       <h2 class="font-display font-bold text-sm text-white">Login Member / Admin</h2>
       <div class="space-y-3">
@@ -95,10 +95,8 @@
     </div>
   </div>
 
-  <!-- Container Utama (User Dashboard & Fitur Existing) -->
+  <!-- Container User Dashboard -->
   <div id="appContainer" class="w-full max-w-md my-auto space-y-4 hidden">
-    
-    <!-- Informasi Akun & Limit Harian -->
     <div class="glass-card p-4 rounded-2xl space-y-3">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2">
@@ -114,7 +112,6 @@
         </button>
       </div>
 
-      <!-- Kotak Statistik Limit -->
       <div class="grid grid-cols-4 gap-2 pt-2 border-t border-white/5 text-center">
         <div class="p-2 rounded-xl bg-zinc-900/50 border border-white/5">
           <div class="text-[10px] text-zinc-400">Limit</div>
@@ -135,7 +132,7 @@
       </div>
     </div>
 
-    <!-- Antarmuka Toolbox (Fitur Existing: Send, Bulk, Inbox) -->
+    <!-- Toolbox User -->
     <div class="glass-card rounded-2xl overflow-hidden">
       <div class="grid grid-cols-3 border-b border-brand/20 text-xs font-medium">
         <button onclick="switchTab('send')" id="tabSend" class="py-3 text-center text-brand border-b-2 border-brand bg-brand/5">Utama</button>
@@ -143,7 +140,6 @@
         <button onclick="switchTab('inbox')" id="tabInbox" class="py-3 text-center text-zinc-400 hover:text-white">Baca Email</button>
       </div>
 
-      <!-- Tab Send / Verify -->
       <div id="contentSend" class="p-5 space-y-4">
         <div class="space-y-1">
           <h2 class="font-display font-bold text-sm text-white">Aktivasi Alight Motion</h2>
@@ -157,7 +153,7 @@
           </div>
 
           <div id="verifyLinkContainer" class="hidden">
-            <label class="block text-[11px] font-medium text-zinc-300 mb-1">Link Verifikasi (Opsional)</label>
+            <label class="block text-[11px] font-medium text-zinc-300 mb-1">Link Verifikasi</label>
             <input type="text" id="inputLink" placeholder="https://..." class="w-full px-3 py-2 rounded-xl text-xs border" />
           </div>
 
@@ -174,7 +170,6 @@
         <div id="sendResult" class="hidden p-3 rounded-xl text-xs bg-zinc-900/80 border border-white/10 space-y-2"></div>
       </div>
 
-      <!-- Tab Bulk Generator -->
       <div id="contentBulk" class="p-5 space-y-4 hidden">
         <div class="space-y-1">
           <h2 class="font-display font-bold text-sm text-white">Bulk Generator</h2>
@@ -195,7 +190,6 @@
         <div id="bulkResult" class="hidden p-3 rounded-xl text-xs bg-zinc-900/80 border border-white/10 space-y-2 max-h-60 overflow-y-auto"></div>
       </div>
 
-      <!-- Tab Inbox Temp Mail -->
       <div id="contentInbox" class="p-5 space-y-4 hidden">
         <div class="space-y-1">
           <h2 class="font-display font-bold text-sm text-white">Pindai Inbox Temp Mail</h2>
@@ -219,7 +213,7 @@
     </div>
   </div>
 
-  <!-- Container Panel Admin Sesuai Tema Web -->
+  <!-- Container Admin Panel Sesuai Tema Web (Lengkap dengan AM Inject, Verify, Bulk, & Inbox) -->
   <div id="adminContainer" class="w-full max-w-2xl my-auto space-y-4 hidden">
     <div class="glass-card p-5 rounded-2xl space-y-4">
       <div class="flex items-center justify-between pb-3 border-b border-brand/20">
@@ -252,9 +246,8 @@
         </div>
       </div>
 
-      <!-- Grid Menu Pengelolaan Admin -->
+      <!-- Grid Pengelolaan User (Add Limit & Reset Password) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <!-- 1. Kotak Add Limit via Username -->
         <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
           <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
             <i class="fa-solid fa-circle-plus text-brand"></i> Add Limit via Username
@@ -266,7 +259,6 @@
           <button onclick="admAddLimitByUsername()" class="w-full py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition shadow-[0_0_15px_rgba(139,92,246,0.3)]">Tambahkan Limit</button>
         </div>
 
-        <!-- 2. Kotak Reset Password (Token) via Username di Admin Panel -->
         <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
           <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
             <i class="fa-solid fa-key text-brand"></i> Reset Password User
@@ -279,9 +271,8 @@
         </div>
       </div>
 
-      <!-- 3. Kotak Buat User Manual & Panel Fitur AM (Inject, Bulk, Inbox) -->
+      <!-- Grid Pembuatan User & Panel Eksekusi Lengkap (Send, Verify Link, Bulk, Inbox) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <!-- Buat User Manual -->
         <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
           <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
             <i class="fa-solid fa-user-plus text-brand"></i> Buat User Baru
@@ -296,7 +287,7 @@
           <button onclick="admCreateUser()" class="w-full py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-500 transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">Buat User</button>
         </div>
 
-        <!-- Panel Alat Eksekusi Admin (AM Inject, Bulk, Inbox) -->
+        <!-- Panel Eksekusi Alat Admin Lengkap (Termasuk Verify Link) -->
         <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
           <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
             <i class="fa-solid fa-toolbox text-brand"></i> Panel Eksekusi Alat
@@ -304,10 +295,14 @@
           <div class="space-y-2 text-xs">
             <select id="admToolSelect" onchange="admSwitchToolView()" class="w-full px-3 py-2 rounded-xl border">
               <option value="inject">AM Inject (Send Email)</option>
+              <option value="verify">AM Verify Link (Magic Link)</option>
               <option value="bulk">AM Bulk Generator</option>
               <option value="inbox">Temp Mail Inbox Scanner</option>
             </select>
-            <input type="text" id="admToolInput" placeholder="Email target / Jumlah bulk / Email tempmail" class="w-full px-3 py-2 rounded-xl border" />
+            <input type="text" id="admToolInput" placeholder="Masukkan email target AM..." class="w-full px-3 py-2 rounded-xl border" />
+            <div id="admVerifyLinkBox" class="hidden">
+              <input type="text" id="admToolLink" placeholder="Tempel link verifikasi https://..." class="w-full px-3 py-2 rounded-xl border" />
+            </div>
           </div>
           <button onclick="admRunTool()" class="w-full py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition shadow-[0_0_15px_rgba(139,92,246,0.3)]">Jalankan Alat</button>
         </div>
@@ -347,7 +342,6 @@
   </footer>
 
   <script>
-    // Konfigurasi Supabase langsung
     const SUPABASE_URL = "https://rjssnlfqtywmmokcxdix.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqc3NubGZxdHl3bW1va2N4ZGl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MTUxODMsImV4cCI6MjEwMjE5MTE4M30.bMqR8JrfRyPG4Xx2gHh1t19dkc6_Qyg-G6XjI3KYfgk";
 
@@ -463,7 +457,6 @@
 
       if (!username || !token) return showToast('Masukkan username dan token!');
 
-      // Cek apakah login sebagai Admin (username: thanz, password/token: thanzadmin)
       if (username === 'thanz' && token === 'thanzadmin') {
         isAdmin = true;
         localStorage.setItem('am_is_admin', 'true');
@@ -918,8 +911,15 @@
     function admSwitchToolView() {
       const tool = document.getElementById('admToolSelect').value;
       const input = document.getElementById('admToolInput');
+      const linkBox = document.getElementById('admVerifyLinkBox');
+      
+      linkBox.classList.add('hidden');
+
       if (tool === 'inject') {
         input.placeholder = "Masukkan email target AM (cth: user@email.com)";
+      } else if (tool === 'verify') {
+        input.placeholder = "Masukkan email target AM...";
+        linkBox.classList.remove('hidden');
       } else if (tool === 'bulk') {
         input.placeholder = "Masukkan jumlah bulk (1 - 100)";
       } else if (tool === 'inbox') {
@@ -930,6 +930,7 @@
     async function admRunTool() {
       const tool = document.getElementById('admToolSelect').value;
       const val = document.getElementById('admToolInput').value.trim();
+      const linkVal = document.getElementById('admToolLink').value.trim();
       const resContainer = document.getElementById('admToolResult');
       resContainer.classList.add('hidden');
       resContainer.innerHTML = '';
@@ -947,6 +948,16 @@
           });
           const json = await res.json();
           resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">AM Inject Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
+          resContainer.classList.remove('hidden');
+        } else if (tool === 'verify') {
+          if (!linkVal) return showToast('Masukkan link verifikasi.');
+          const res = await fetch('/api/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: val, link: linkVal })
+          });
+          const json = await res.json();
+          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">AM Verify Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
           resContainer.classList.remove('hidden');
         } else if (tool === 'bulk') {
           const amount = Number(val);
