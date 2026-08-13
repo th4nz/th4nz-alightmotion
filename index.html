@@ -150,36 +150,44 @@
         <button onclick="switchTab('inbox')" id="tabInbox" class="py-3 text-center text-zinc-400 hover:text-white">Baca Email</button>
       </div>
 
+      <!-- Tab Utama (Magic Link Alight Motion Terintegrasi) -->
       <div id="contentSend" class="p-5 space-y-4">
         <div class="space-y-1">
           <h2 class="font-display font-bold text-sm text-white">Aktivasi Alight Motion</h2>
-          <p class="text-[11px] text-zinc-400">Kirim email aktivasi atau verifikasi tautan akun AM Anda.</p>
+          <p class="text-[11px] text-zinc-400" id="flowInstruction">Masukkan email AM untuk mengirimkan magic link.</p>
         </div>
 
         <div class="space-y-3">
-          <div>
+          <!-- Step 1: Input Email -->
+          <div id="stepEmailBox">
             <label class="block text-[11px] font-medium text-zinc-300 mb-1">Email Alight Motion</label>
-            <input type="email" id="inputEmail" placeholder="nama@domain.com" class="w-full px-3 py-2 rounded-xl text-xs border" />
+            <input type="email" id="inputEmail" placeholder="nama@domain.com" class="w-full px-3 py-2 rounded-xl text-xs border mb-3" />
+            <button onclick="handleSendMagicLink()" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">
+              <i class="fa-solid fa-paper-plane mr-1"></i> Kirim Magic Link
+            </button>
           </div>
 
-          <div id="verifyLinkContainer" class="hidden">
-            <label class="block text-[11px] font-medium text-zinc-300 mb-1">Link Verifikasi</label>
-            <input type="text" id="inputLink" placeholder="https://..." class="w-full px-3 py-2 rounded-xl text-xs border" />
-          </div>
-
-          <div class="flex space-x-2">
-            <button onclick="runInject('send')" class="flex-1 py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">
-              <i class="fa-solid fa-paper-plane mr-1"></i> Kirim Aktivasi
-            </button>
-            <button onclick="toggleVerifyField()" class="px-3 py-2.5 rounded-xl bg-zinc-800 text-zinc-300 hover:text-white text-xs border border-white/5" title="Toggle Verify">
-              <i class="fa-solid fa-link"></i>
-            </button>
+          <!-- Step 2: Input & Verifikasi Magic Link (Muncul Otomatis) -->
+          <div id="stepVerifyBox" class="hidden space-y-3">
+            <div>
+              <label class="block text-[11px] font-medium text-zinc-300 mb-1">Magic Link Verifikasi</label>
+              <input type="text" id="inputLink" placeholder="https://..." class="w-full px-3 py-2 rounded-xl text-xs border" />
+            </div>
+            <div class="flex space-x-2">
+              <button onclick="handleVerifyMagicLink()" class="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 hover:bg-emerald-500 transition">
+                <i class="fa-solid fa-check mr-1"></i> Verifikasi Link
+              </button>
+              <button onclick="resetInjectFlow()" class="px-3 py-2.5 rounded-xl bg-zinc-800 text-zinc-300 hover:text-white text-xs border border-white/5" title="Batal / Ulangi">
+                <i class="fa-solid fa-rotate-left"></i>
+              </button>
+            </div>
           </div>
         </div>
 
         <div id="sendResult" class="hidden p-3 rounded-xl text-xs bg-zinc-900/80 border border-white/10 space-y-2"></div>
       </div>
 
+      <!-- Tab Bulk Generator -->
       <div id="contentBulk" class="p-5 space-y-4 hidden">
         <div class="space-y-1">
           <h2 class="font-display font-bold text-sm text-white">Bulk Generator</h2>
@@ -192,7 +200,7 @@
             <input type="number" id="inputBulkAmount" min="1" max="100" value="5" class="w-full px-3 py-2 rounded-xl text-xs border" />
           </div>
 
-          <button onclick="runInject('bulk')" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">
+          <button onclick="runBulkInject()" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">
             <i class="fa-solid fa-bolt mr-1"></i> Generate Bulk
           </button>
         </div>
@@ -200,6 +208,7 @@
         <div id="bulkResult" class="hidden p-3 rounded-xl text-xs bg-zinc-900/80 border border-white/10 space-y-2 max-h-60 overflow-y-auto"></div>
       </div>
 
+      <!-- Tab Inbox Temp Mail -->
       <div id="contentInbox" class="p-5 space-y-4 hidden">
         <div class="space-y-1">
           <h2 class="font-display font-bold text-sm text-white">Pindai Inbox Temp Mail</h2>
@@ -223,7 +232,7 @@
     </div>
   </div>
 
-  <!-- Container Admin Panel Sesuai Tema Web (Lengkap dengan AM Inject, Verify, Bulk, & Inbox) -->
+  <!-- Container Admin Panel Sesuai Tema Web -->
   <div id="adminContainer" class="w-full max-w-2xl my-auto space-y-4 hidden">
     <div class="glass-card p-5 rounded-2xl space-y-4">
       <div class="flex items-center justify-between pb-3 border-b border-brand/20">
@@ -368,6 +377,7 @@
     let supabaseClient = null;
     let currentUser = null;
     let isAdmin = false;
+    let activeInjectEmail = ''; // Menyimpan email untuk proses verifikasi magic link berikutnya
     let deviceId = localStorage.getItem('am_device_id');
     if (!deviceId) {
       deviceId = 'dev_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -649,15 +659,40 @@
       }
     }
 
-    let isVerifyMode = false;
-    function toggleVerifyField() {
-      isVerifyMode = !isVerifyMode;
-      const c = document.getElementById('verifyLinkContainer');
-      if (isVerifyMode) c.classList.remove('hidden');
-      else c.classList.add('hidden');
+    // Alur Integrasi Magic Link & Verifikasi (Tanpa potong kredit saat kirim, potong 1 saat verifikasi berhasil)
+    async function handleSendMagicLink() {
+      const email = document.getElementById('inputEmail').value.trim();
+      if (!email) return showToast('Masukkan email Alight Motion yang valid.');
+
+      showToast('Mengirim magic link...');
+      try {
+        const res = await fetch('/api/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const json = await res.json();
+        if (!res.ok || json.status === false) {
+          throw new Error(json.message || 'Gagal mengirim magic link.');
+        }
+
+        // Berhasil kirim magic link, simpan email dan ubah panel ke input magic link
+        activeInjectEmail = email;
+        document.getElementById('stepEmailBox').classList.add('hidden');
+        document.getElementById('stepVerifyBox').classList.remove('hidden');
+        document.getElementById('flowInstruction').textContent = `Magic link terkirim ke ${email}. Masukkan link verifikasi di bawah.`;
+        showToast('Magic link berhasil dikirim!');
+        window.soundSuccess();
+      } catch (err) {
+        window.soundError();
+        showToast(err.message || 'Terjadi kesalahan jaringan.');
+      }
     }
 
-    async function runInject(type) {
+    async function handleVerifyMagicLink() {
+      const link = document.getElementById('inputLink').value.trim();
+      if (!link) return showToast('Masukkan link verifikasi.');
+
       const valid = await refreshUserData();
       if (!valid) return showToast('Sesi berakhir atau akun dinonaktifkan.');
 
@@ -672,55 +707,96 @@
         return showToast('Limit harian Anda sudah habis! Tunggu waktu reset.');
       }
 
-      let endpoint = '';
-      let bodyData = {};
-
-      if (type === 'send') {
-        const email = document.getElementById('inputEmail').value.trim();
-        if (!email) return showToast('Masukkan email yang valid.');
-        if (isVerifyMode) {
-          const link = document.getElementById('inputLink').value.trim();
-          if (!link) return showToast('Masukkan link verifikasi.');
-          endpoint = '/api/verify';
-          bodyData = { email, link };
-        } else {
-          endpoint = '/api/send';
-          bodyData = { email };
-        }
-      } else if (type === 'bulk') {
-        const amount = Number(document.getElementById('inputBulkAmount').value);
-        if (!amount || amount < 1 || amount > 100) return showToast('Jumlah bulk 1 - 100.');
-        endpoint = '/api/bulk';
-        bodyData = { amount };
-      }
-
-      showToast('Memproses permintaan...');
-
+      showToast('Memverifikasi magic link...');
       let success = false;
       let resultMessage = '';
 
       try {
-        const res = await fetch(endpoint, {
+        const res = await fetch('/api/verify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(bodyData)
+          body: JSON.stringify({ email: activeInjectEmail, link })
+        });
+        const json = await res.json();
+        success = res.ok && json.status !== false;
+        resultMessage = json.message || 'Verifikasi berhasil!';
+
+        const resEl = document.getElementById('sendResult');
+        resEl.innerHTML = `<div class="${success ? 'text-emerald-400' : 'text-red-400'} font-bold">${success ? 'Berhasil' : 'Gagal'}</div><div class="text-[10px] text-zinc-300 mt-1">${resultMessage}</div>`;
+        resEl.classList.remove('hidden');
+      } catch (err) {
+        success = false;
+        showToast('Terjadi kesalahan jaringan saat verifikasi.');
+      }
+
+      await supabaseClient.from('inject_logs').insert([{
+        user_id: currentUser.id,
+        username: currentUser.username,
+        status: success ? 'SUCCESS' : 'FAILED'
+      }]);
+
+      if (success) {
+        const newUsed = currentUser.used_count + 1;
+        await supabaseClient.from('users').update({ used_count: newUsed }).eq('id', currentUser.id);
+        currentUser.used_count = newUsed;
+        localStorage.setItem('am_current_user', JSON.stringify(currentUser));
+        updateLimitDisplay();
+        window.soundSuccess();
+        showToast('Verifikasi berhasil! Kredit berkurang 1.');
+        resetInjectFlow();
+      } else {
+        window.soundError();
+        showToast('Verifikasi gagal. Kredit tidak dikurangi.');
+      }
+    }
+
+    function resetInjectFlow() {
+      activeInjectEmail = '';
+      document.getElementById('inputEmail').value = '';
+      document.getElementById('inputLink').value = '';
+      document.getElementById('stepVerifyBox').classList.add('hidden');
+      document.getElementById('stepEmailBox').classList.remove('hidden');
+      document.getElementById('flowInstruction').textContent = 'Masukkan email AM untuk mengirimkan magic link.';
+      document.getElementById('sendResult').classList.add('hidden');
+    }
+
+    async function runBulkInject() {
+      const valid = await refreshUserData();
+      if (!valid) return showToast('Sesi berakhir atau akun dinonaktifkan.');
+
+      if (currentUser.status !== 'Active') {
+        window.soundError();
+        return showToast('Akun Anda tidak aktif.');
+      }
+
+      const remaining = currentUser.daily_limit - currentUser.used_count;
+      if (remaining <= 0) {
+        window.soundError();
+        return showToast('Limit harian Anda sudah habis! Tunggu waktu reset.');
+      }
+
+      const amount = Number(document.getElementById('inputBulkAmount').value);
+      if (!amount || amount < 1 || amount > 100) return showToast('Jumlah bulk 1 - 100.');
+
+      showToast('Memproses bulk generator...');
+      let success = false;
+      let resultMessage = '';
+
+      try {
+        const res = await fetch('/api/bulk', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount })
         });
         const json = await res.json();
         success = res.ok && json.status !== false;
         resultMessage = json.message || JSON.stringify(json, null, 2);
 
-        if (type === 'send') {
-          const resEl = document.getElementById('sendResult');
-          resEl.innerHTML = `<div class="${success ? 'text-emerald-400' : 'text-red-400'} font-bold">${success ? 'Berhasil' : 'Gagal'}</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${resultMessage}</pre>`;
-          resEl.classList.remove('hidden');
-        } else if (type === 'bulk') {
-          const resEl = document.getElementById('bulkResult');
-          resEl.innerHTML = `<div class="${success ? 'text-emerald-400' : 'text-red-400'} font-bold">${success ? 'Berhasil' : 'Gagal'}</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${resultMessage}</pre>`;
-          resEl.classList.remove('hidden');
-        }
+        const resEl = document.getElementById('bulkResult');
+        resEl.innerHTML = `<div class="${success ? 'text-emerald-400' : 'text-red-400'} font-bold">${success ? 'Berhasil' : 'Gagal'}</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${resultMessage}</pre>`;
+        resEl.classList.remove('hidden');
       } catch (err) {
         success = false;
-        resultMessage = err.message || 'Koneksi gagal.';
         showToast('Terjadi kesalahan jaringan.');
       }
 
@@ -737,10 +813,10 @@
         localStorage.setItem('am_current_user', JSON.stringify(currentUser));
         updateLimitDisplay();
         window.soundSuccess();
-        showToast('Inject berhasil! Limit terpakai +1');
+        showToast('Bulk berhasil! Limit terpakai +1');
       } else {
         window.soundError();
-        showToast('Inject gagal. Limit tidak dikurangi.');
+        showToast('Bulk gagal. Limit tidak dikurangi.');
       }
     }
 
@@ -1011,7 +1087,7 @@
             body: JSON.stringify({ email: val })
           });
           const json = await res.json();
-          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">Inbox Scanner Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
+          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">Inbox Scanner Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.json(json, null, 2)}</pre>`;
           resContainer.classList.remove('hidden');
         }
         showToast('Eksekusi alat selesai.');
