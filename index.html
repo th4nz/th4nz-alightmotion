@@ -45,7 +45,7 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-between p-4 selection:bg-brand selection:text-white">
 
-  <!-- Container Autentikasi (Login / Register / Lupa Token / Admin Login) -->
+  <!-- Container Autentikasi (Hanya Login & Register, Admin login menyatu di form login) -->
   <div id="authContainer" class="w-full max-w-md my-auto space-y-4">
     <div class="text-center space-y-1 mb-6">
       <div class="inline-flex p-3 rounded-2xl bg-brand/10 border border-brand/30 text-brand text-2xl mb-2 glow-effect">
@@ -55,25 +55,23 @@
       <p class="text-xs text-zinc-400">Sistem Aktivasi Premium & Limit Harian</p>
     </div>
 
-    <!-- Pilihan Tab Auth -->
-    <div class="grid grid-cols-4 p-1 rounded-xl glass-card text-[11px] font-medium text-center">
+    <!-- Pilihan Tab Auth (Hanya Login & Register) -->
+    <div class="grid grid-cols-2 p-1 rounded-xl glass-card text-xs font-medium text-center">
       <button onclick="switchAuthTab('login')" id="tabLoginBtn" class="py-2 rounded-lg bg-brand text-white transition">Login</button>
       <button onclick="switchAuthTab('register')" id="tabRegBtn" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">Register</button>
-      <button onclick="switchAuthTab('forgot')" id="tabForgotBtn" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">Reset</button>
-      <button onclick="switchAuthTab('admin')" id="tabAdminBtn" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">Admin</button>
     </div>
 
-    <!-- Form Login Member -->
+    <!-- Form Login Member / Admin (Menyatu) -->
     <div id="loginFormCard" class="glass-card p-6 rounded-2xl space-y-4">
-      <h2 class="font-display font-bold text-sm text-white">Login Member</h2>
+      <h2 class="font-display font-bold text-sm text-white">Login Member / Admin</h2>
       <div class="space-y-3">
         <div>
           <label class="block text-[11px] font-medium text-zinc-300 mb-1">Username</label>
           <input type="text" id="loginUsername" placeholder="Username Anda" class="w-full px-3 py-2 rounded-xl text-xs border" />
         </div>
         <div>
-          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Token Akses</label>
-          <input type="password" id="loginToken" placeholder="Token rahasia Anda" class="w-full px-3 py-2 rounded-xl text-xs border" />
+          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Token / Password</label>
+          <input type="password" id="loginToken" placeholder="Token atau password Anda" class="w-full px-3 py-2 rounded-xl text-xs border" />
         </div>
         <button onclick="handleLogin()" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">Masuk Dashboard</button>
       </div>
@@ -93,39 +91,6 @@
           <input type="password" id="regToken" placeholder="Token untuk login nanti" class="w-full px-3 py-2 rounded-xl text-xs border" />
         </div>
         <button onclick="handleRegister()" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 hover:bg-emerald-500 transition">Daftar Sekarang</button>
-      </div>
-    </div>
-
-    <!-- Form Reset Token / Password via Username -->
-    <div id="forgotFormCard" class="glass-card p-6 rounded-2xl space-y-4 hidden">
-      <h2 class="font-display font-bold text-sm text-white">Reset Token / Password</h2>
-      <p class="text-[11px] text-zinc-400">Masukkan username Anda dan token/password baru untuk mengganti akses akun Anda.</p>
-      <div class="space-y-3">
-        <div>
-          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Username</label>
-          <input type="text" id="forgotUsername" placeholder="Username akun Anda" class="w-full px-3 py-2 rounded-xl text-xs border" />
-        </div>
-        <div>
-          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Token / Password Baru</label>
-          <input type="password" id="forgotNewToken" placeholder="Token baru" class="w-full px-3 py-2 rounded-xl text-xs border" />
-        </div>
-        <button onclick="handleResetPassword()" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">Simpan Token Baru</button>
-      </div>
-    </div>
-
-    <!-- Form Login Admin -->
-    <div id="adminFormCard" class="glass-card p-6 rounded-2xl space-y-4 hidden">
-      <h2 class="font-display font-bold text-sm text-white">Login Administrator</h2>
-      <div class="space-y-3">
-        <div>
-          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Admin Username</label>
-          <input type="text" id="adminUsername" placeholder="Username admin" class="w-full px-3 py-2 rounded-xl text-xs border" />
-        </div>
-        <div>
-          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Admin Password</label>
-          <input type="password" id="adminPassword" placeholder="Password admin" class="w-full px-3 py-2 rounded-xl text-xs border" />
-        </div>
-        <button onclick="handleAdminLogin()" class="w-full py-2.5 rounded-xl bg-purple-700 text-white font-bold text-xs shadow-lg shadow-purple-700/30 hover:bg-purple-600 transition">Buka Admin Panel</button>
       </div>
     </div>
   </div>
@@ -254,7 +219,7 @@
     </div>
   </div>
 
-  <!-- Container Panel Admin Sesuai Tema Web (Dilengkapi Add Limit, Reset Password, AM Inject, Bulk, & Inbox) -->
+  <!-- Container Panel Admin Sesuai Tema Web -->
   <div id="adminContainer" class="w-full max-w-2xl my-auto space-y-4 hidden">
     <div class="glass-card p-5 rounded-2xl space-y-4">
       <div class="flex items-center justify-between pb-3 border-b border-brand/20">
@@ -262,7 +227,7 @@
           <i class="fa-solid fa-user-shield text-lg"></i>
           <h2 class="font-display font-bold text-base text-white">Admin Dashboard</h2>
         </div>
-        <button onclick="handleAdminLogout()" class="px-3 py-1.5 rounded-xl bg-surface-card border border-brand/30 text-zinc-300 hover:text-white text-xs transition">
+        <button onclick="handleLogout()" class="px-3 py-1.5 rounded-xl bg-surface-card border border-brand/30 text-zinc-300 hover:text-white text-xs transition">
           <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar Admin
         </button>
       </div>
@@ -301,7 +266,7 @@
           <button onclick="admAddLimitByUsername()" class="w-full py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition shadow-[0_0_15px_rgba(139,92,246,0.3)]">Tambahkan Limit</button>
         </div>
 
-        <!-- 2. Kotak Reset Password (Token) via Username -->
+        <!-- 2. Kotak Reset Password (Token) via Username di Admin Panel -->
         <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
           <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
             <i class="fa-solid fa-key text-brand"></i> Reset Password User
@@ -388,7 +353,7 @@
 
     let supabaseClient = null;
     let currentUser = null;
-    let currentAdmin = null;
+    let isAdmin = false;
     let deviceId = localStorage.getItem('am_device_id');
     if (!deviceId) {
       deviceId = 'dev_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -428,13 +393,8 @@
     function switchAuthTab(tab) {
       document.getElementById('loginFormCard').classList.add('hidden');
       document.getElementById('regFormCard').classList.add('hidden');
-      document.getElementById('forgotFormCard').classList.add('hidden');
-      document.getElementById('adminFormCard').classList.add('hidden');
-      
       document.getElementById('tabLoginBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
       document.getElementById('tabRegBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
-      document.getElementById('tabForgotBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
-      document.getElementById('tabAdminBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
 
       if (tab === 'login') {
         document.getElementById('loginFormCard').classList.remove('hidden');
@@ -442,12 +402,6 @@
       } else if (tab === 'register') {
         document.getElementById('regFormCard').classList.remove('hidden');
         document.getElementById('tabRegBtn').className = 'py-2 rounded-lg bg-brand text-white transition';
-      } else if (tab === 'forgot') {
-        document.getElementById('forgotFormCard').classList.remove('hidden');
-        document.getElementById('tabForgotBtn').className = 'py-2 rounded-lg bg-brand text-white transition';
-      } else if (tab === 'admin') {
-        document.getElementById('adminFormCard').classList.remove('hidden');
-        document.getElementById('tabAdminBtn').className = 'py-2 rounded-lg bg-purple-700 text-white transition';
       }
     }
 
@@ -502,45 +456,21 @@
       }
     }
 
-    async function handleResetPassword() {
-      if (!supabaseClient) return showToast('Supabase belum terhubung!');
-      const username = document.getElementById('forgotUsername').value.trim();
-      const newToken = document.getElementById('forgotNewToken').value.trim();
-
-      if (!username || !newToken) return showToast('Username dan token baru wajib diisi!');
-
-      const { data: user, error: fetchErr } = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('username', username)
-        .maybeSingle();
-
-      if (fetchErr || !user) {
-        window.soundError();
-        return showToast('Username tidak ditemukan!');
-      }
-
-      const { error: updateErr } = await supabaseClient
-        .from('users')
-        .update({ token: newToken })
-        .eq('id', user.id);
-
-      if (updateErr) {
-        window.soundError();
-        showToast('Gagal mereset token: ' + updateErr.message);
-      } else {
-        window.soundSuccess();
-        showToast('Token berhasil direset! Silakan login.');
-        switchAuthTab('login');
-      }
-    }
-
     async function handleLogin() {
       if (!supabaseClient) return showToast('Supabase belum terhubung!');
       const username = document.getElementById('loginUsername').value.trim();
       const token = document.getElementById('loginToken').value.trim();
 
       if (!username || !token) return showToast('Masukkan username dan token!');
+
+      // Cek apakah login sebagai Admin (username: thanz, password/token: thanzadmin)
+      if (username === 'thanz' && token === 'thanzadmin') {
+        isAdmin = true;
+        localStorage.setItem('am_is_admin', 'true');
+        window.soundSuccess();
+        enterAdminDashboard();
+        return;
+      }
 
       const { data: user, error } = await supabaseClient
         .from('users')
@@ -561,19 +491,27 @@
 
       await supabaseClient.from('users').update({ last_login_at: new Date().toISOString() }).eq('id', user.id);
 
+      isAdmin = false;
       currentUser = user;
       localStorage.setItem('am_current_user', JSON.stringify(user));
       window.soundSuccess();
-      enterDashboard();
+      enterUserDashboard();
     }
 
     function checkExistingSession() {
+      const savedAdmin = localStorage.getItem('am_is_admin');
+      if (savedAdmin === 'true') {
+        isAdmin = true;
+        enterAdminDashboard();
+        return;
+      }
+
       const saved = localStorage.getItem('am_current_user');
       if (saved) {
         try {
           currentUser = JSON.parse(saved);
           refreshUserData().then(success => {
-            if (success) enterDashboard();
+            if (success) enterUserDashboard();
           });
         } catch {
           localStorage.removeItem('am_current_user');
@@ -600,47 +538,18 @@
 
     function handleLogout() {
       currentUser = null;
+      isAdmin = false;
       localStorage.removeItem('am_current_user');
+      localStorage.removeItem('am_is_admin');
       document.getElementById('authContainer').classList.remove('hidden');
       document.getElementById('appContainer').classList.add('hidden');
       document.getElementById('adminContainer').classList.add('hidden');
       showToast('Berhasil keluar.');
     }
 
-    async function handleAdminLogin() {
-      if (!supabaseClient) return showToast('Supabase belum terhubung!');
-      const u = document.getElementById('adminUsername').value.trim();
-      const p = document.getElementById('adminPassword').value.trim();
-
-      const { data: adm, error } = await supabaseClient
-        .from('users')
-        .select('*')
-        .eq('username', u)
-        .eq('token', p)
-        .maybeSingle();
-
-      if (error || !adm || adm.username !== 'thanz') {
-        window.soundError();
-        return showToast('Kredensial admin salah!');
-      }
-
-      currentAdmin = adm;
-      document.getElementById('authContainer').classList.add('hidden');
-      document.getElementById('adminContainer').classList.remove('hidden');
-      window.soundSuccess();
-      loadAdminPanel();
-    }
-
-    function handleAdminLogout() {
-      currentAdmin = null;
-      document.getElementById('adminContainer').classList.add('hidden');
-      document.getElementById('authContainer').classList.remove('hidden');
-      showToast('Admin keluar.');
-    }
-
     let countdownInterval = null;
 
-    function enterDashboard() {
+    function enterUserDashboard() {
       document.getElementById('authContainer').classList.add('hidden');
       document.getElementById('adminContainer').classList.add('hidden');
       document.getElementById('appContainer').classList.remove('hidden');
@@ -651,6 +560,13 @@
       updateLimitDisplay();
       if (countdownInterval) clearInterval(countdownInterval);
       countdownInterval = setInterval(updateLimitDisplay, 1000);
+    }
+
+    function enterAdminDashboard() {
+      document.getElementById('authContainer').classList.add('hidden');
+      document.getElementById('appContainer').classList.add('hidden');
+      document.getElementById('adminContainer').classList.remove('hidden');
+      loadAdminPanel();
     }
 
     function updateLimitDisplay() {
@@ -849,7 +765,7 @@
     }
 
     async function loadAdminPanel() {
-      if (!currentAdmin || !supabaseClient) return;
+      if (!isAdmin || !supabaseClient) return;
 
       const { data: users, error: errUsers } = await supabaseClient.from('users').select('*');
       const { data: logs, error: errLogs } = await supabaseClient.from('inject_logs').select('*');
