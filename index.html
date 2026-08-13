@@ -45,7 +45,7 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-between p-4 selection:bg-brand selection:text-white">
 
-  <!-- Container Autentikasi (Login / Register / Admin Login) -->
+  <!-- Container Autentikasi (Login / Register / Lupa Token / Admin Login) -->
   <div id="authContainer" class="w-full max-w-md my-auto space-y-4">
     <div class="text-center space-y-1 mb-6">
       <div class="inline-flex p-3 rounded-2xl bg-brand/10 border border-brand/30 text-brand text-2xl mb-2 glow-effect">
@@ -56,9 +56,10 @@
     </div>
 
     <!-- Pilihan Tab Auth -->
-    <div class="grid grid-cols-3 p-1 rounded-xl glass-card text-xs font-medium text-center">
+    <div class="grid grid-cols-4 p-1 rounded-xl glass-card text-[11px] font-medium text-center">
       <button onclick="switchAuthTab('login')" id="tabLoginBtn" class="py-2 rounded-lg bg-brand text-white transition">Login</button>
       <button onclick="switchAuthTab('register')" id="tabRegBtn" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">Register</button>
+      <button onclick="switchAuthTab('forgot')" id="tabForgotBtn" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">Reset</button>
       <button onclick="switchAuthTab('admin')" id="tabAdminBtn" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">Admin</button>
     </div>
 
@@ -92,6 +93,23 @@
           <input type="password" id="regToken" placeholder="Token untuk login nanti" class="w-full px-3 py-2 rounded-xl text-xs border" />
         </div>
         <button onclick="handleRegister()" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 hover:bg-emerald-500 transition">Daftar Sekarang</button>
+      </div>
+    </div>
+
+    <!-- Form Reset Token / Password via Username -->
+    <div id="forgotFormCard" class="glass-card p-6 rounded-2xl space-y-4 hidden">
+      <h2 class="font-display font-bold text-sm text-white">Reset Token / Password</h2>
+      <p class="text-[11px] text-zinc-400">Masukkan username Anda dan token/password baru untuk mengganti akses akun Anda.</p>
+      <div class="space-y-3">
+        <div>
+          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Username</label>
+          <input type="text" id="forgotUsername" placeholder="Username akun Anda" class="w-full px-3 py-2 rounded-xl text-xs border" />
+        </div>
+        <div>
+          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Token / Password Baru</label>
+          <input type="password" id="forgotNewToken" placeholder="Token baru" class="w-full px-3 py-2 rounded-xl text-xs border" />
+        </div>
+        <button onclick="handleResetPassword()" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">Simpan Token Baru</button>
       </div>
     </div>
 
@@ -236,56 +254,75 @@
     </div>
   </div>
 
-  <!-- Container Panel Admin -->
+  <!-- Container Panel Admin Sesuai Tema Web -->
   <div id="adminContainer" class="w-full max-w-2xl my-auto space-y-4 hidden">
     <div class="glass-card p-5 rounded-2xl space-y-4">
-      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+      <div class="flex items-center justify-between pb-3 border-b border-brand/20">
         <div class="flex items-center space-x-2 text-brand">
           <i class="fa-solid fa-user-shield text-lg"></i>
           <h2 class="font-display font-bold text-base text-white">Admin Dashboard</h2>
         </div>
-        <button onclick="handleAdminLogout()" class="px-3 py-1.5 rounded-xl bg-zinc-800 text-zinc-300 hover:text-white text-xs transition">
+        <button onclick="handleAdminLogout()" class="px-3 py-1.5 rounded-xl bg-surface-card border border-brand/30 text-zinc-300 hover:text-white text-xs transition">
           <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar Admin
         </button>
       </div>
 
       <!-- Statistik Admin -->
       <div class="grid grid-cols-4 gap-2 text-center">
-        <div class="p-3 rounded-xl bg-zinc-900/60 border border-white/5">
+        <div class="p-3 rounded-xl bg-surface-card border border-brand/20">
           <div class="text-[10px] text-zinc-400">Total Users</div>
           <div class="font-display font-bold text-base text-white" id="admTotalUsers">0</div>
         </div>
-        <div class="p-3 rounded-xl bg-zinc-900/60 border border-white/5">
+        <div class="p-3 rounded-xl bg-surface-card border border-brand/20">
           <div class="text-[10px] text-zinc-400">Active</div>
           <div class="font-display font-bold text-base text-emerald-400" id="admActiveUsers">0</div>
         </div>
-        <div class="p-3 rounded-xl bg-zinc-900/60 border border-white/5">
+        <div class="p-3 rounded-xl bg-surface-card border border-brand/20">
           <div class="text-[10px] text-zinc-400">Disabled</div>
           <div class="font-display font-bold text-base text-red-400" id="admDisabledUsers">0</div>
         </div>
-        <div class="p-3 rounded-xl bg-zinc-900/60 border border-white/5">
+        <div class="p-3 rounded-xl bg-surface-card border border-brand/20">
           <div class="text-[10px] text-zinc-400">Total Inject</div>
           <div class="font-display font-bold text-base text-brand" id="admTotalInjects">0</div>
         </div>
       </div>
 
-      <!-- Buat User Manual oleh Admin -->
-      <div class="p-4 rounded-xl bg-zinc-900/40 border border-white/5 space-y-3">
-        <h3 class="font-display font-bold text-xs text-white">Buat User Manual</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-          <input type="text" id="admNewUser" placeholder="Username" class="px-3 py-2 rounded-xl text-xs border" />
-          <input type="text" id="admNewToken" placeholder="Token" class="px-3 py-2 rounded-xl text-xs border" />
-          <input type="number" id="admNewLimit" placeholder="Limit (cth: 5)" value="5" class="px-3 py-2 rounded-xl text-xs border" />
+      <!-- Fitur Tambah Limit via Username & Buat User Manual Sesuai Tema -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <!-- Kotak Add Limit via Username -->
+        <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
+          <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-plus text-brand"></i> Add Limit via Username
+          </h3>
+          <div class="space-y-2">
+            <input type="text" id="admTargetUsername" placeholder="Target Username" class="w-full px-3 py-2 rounded-xl text-xs border" />
+            <input type="number" id="admAddLimitVal" placeholder="Jumlah Tambahan (cth: 5)" value="5" class="w-full px-3 py-2 rounded-xl text-xs border" />
+          </div>
+          <button onclick="admAddLimitByUsername()" class="w-full py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition shadow-[0_0_15px_rgba(139,92,246,0.3)]">Tambahkan Limit</button>
         </div>
-        <button onclick="admCreateUser()" class="w-full py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition">Tambah User</button>
+
+        <!-- Kotak Buat User Manual -->
+        <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
+          <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-user-plus text-brand"></i> Buat User Baru
+          </h3>
+          <div class="space-y-2">
+            <input type="text" id="admNewUser" placeholder="Username" class="w-full px-3 py-2 rounded-xl text-xs border" />
+            <div class="grid grid-cols-2 gap-2">
+              <input type="text" id="admNewToken" placeholder="Token" class="px-3 py-2 rounded-xl text-xs border" />
+              <input type="number" id="admNewLimit" placeholder="Limit" value="5" class="px-3 py-2 rounded-xl text-xs border" />
+            </div>
+          </div>
+          <button onclick="admCreateUser()" class="w-full py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-500 transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">Buat User</button>
+        </div>
       </div>
 
       <!-- Tabel Daftar Member -->
       <div class="space-y-2">
         <h3 class="font-display font-bold text-xs text-white">Daftar Member</h3>
-        <div class="max-h-72 overflow-y-auto rounded-xl border border-white/10 bg-zinc-900/50">
+        <div class="max-h-60 overflow-y-auto rounded-xl border border-brand/20 bg-surface-card">
           <table class="w-full text-left text-[11px]">
-            <thead class="bg-zinc-800/80 text-zinc-300 sticky top-0">
+            <thead class="bg-zinc-900/90 text-zinc-300 sticky top-0">
               <tr>
                 <th class="p-2.5">User & Token</th>
                 <th class="p-2.5">Limit / Terpakai</th>
@@ -293,7 +330,7 @@
                 <th class="p-2.5 text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody id="admUserTableBody" class="divide-y divide-white/5">
+            <tbody id="admUserTableBody" class="divide-y divide-brand/10">
               <!-- Diisi secara dinamis -->
             </tbody>
           </table>
@@ -303,7 +340,7 @@
   </div>
 
   <!-- Toast Notifikasi -->
-  <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-white text-xs shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50"></div>
+  <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl bg-surface-card border border-brand/40 text-white text-xs shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50"></div>
 
   <!-- Footer -->
   <footer class="mt-8 text-center text-[10px] text-zinc-500">
@@ -311,7 +348,7 @@
   </footer>
 
   <script>
-    // Konfigurasi Supabase yang langsung ditanam dari URL & Anon Key yang Anda berikan
+    // Konfigurasi Supabase langsung
     const SUPABASE_URL = "https://rjssnlfqtywmmokcxdix.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqc3NubGZxdHl3bW1va2N4ZGl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MTUxODMsImV4cCI6MjEwMjE5MTE4M30.bMqR8JrfRyPG4Xx2gHh1t19dkc6_Qyg-G6XjI3KYfgk";
 
@@ -357,9 +394,12 @@
     function switchAuthTab(tab) {
       document.getElementById('loginFormCard').classList.add('hidden');
       document.getElementById('regFormCard').classList.add('hidden');
+      document.getElementById('forgotFormCard').classList.add('hidden');
       document.getElementById('adminFormCard').classList.add('hidden');
+      
       document.getElementById('tabLoginBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
       document.getElementById('tabRegBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
+      document.getElementById('tabForgotBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
       document.getElementById('tabAdminBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
 
       if (tab === 'login') {
@@ -368,6 +408,9 @@
       } else if (tab === 'register') {
         document.getElementById('regFormCard').classList.remove('hidden');
         document.getElementById('tabRegBtn').className = 'py-2 rounded-lg bg-brand text-white transition';
+      } else if (tab === 'forgot') {
+        document.getElementById('forgotFormCard').classList.remove('hidden');
+        document.getElementById('tabForgotBtn').className = 'py-2 rounded-lg bg-brand text-white transition';
       } else if (tab === 'admin') {
         document.getElementById('adminFormCard').classList.remove('hidden');
         document.getElementById('tabAdminBtn').className = 'py-2 rounded-lg bg-purple-700 text-white transition';
@@ -421,6 +464,39 @@
       } else {
         window.soundSuccess();
         showToast('Registrasi berhasil! Silakan login.');
+        switchAuthTab('login');
+      }
+    }
+
+    async function handleResetPassword() {
+      if (!supabaseClient) return showToast('Supabase belum terhubung!');
+      const username = document.getElementById('forgotUsername').value.trim();
+      const newToken = document.getElementById('forgotNewToken').value.trim();
+
+      if (!username || !newToken) return showToast('Username dan token baru wajib diisi!');
+
+      const { data: user, error: fetchErr } = await supabaseClient
+        .from('users')
+        .select('id')
+        .eq('username', username)
+        .maybeSingle();
+
+      if (fetchErr || !user) {
+        window.soundError();
+        return showToast('Username tidak ditemukan!');
+      }
+
+      const { error: updateErr } = await supabaseClient
+        .from('users')
+        .update({ token: newToken })
+        .eq('id', user.id);
+
+      if (updateErr) {
+        window.soundError();
+        showToast('Gagal mereset token: ' + updateErr.message);
+      } else {
+        window.soundSuccess();
+        showToast('Token berhasil direset! Silakan login.');
         switchAuthTab('login');
       }
     }
@@ -764,7 +840,7 @@
 
       users.forEach(u => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-white/5 transition';
+        tr.className = 'hover:bg-brand/5 transition';
         tr.innerHTML = `
           <td class="p-2.5">
             <div class="font-bold text-white">${u.username}</div>
@@ -778,7 +854,7 @@
             <span class="px-2 py-0.5 rounded text-[10px] ${u.status === 'Active' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">${u.status}</span>
           </td>
           <td class="p-2.5 text-right space-x-1">
-            <button onclick="admAddLimit('${u.id}', ${u.daily_limit})" class="px-2 py-1 rounded bg-brand/20 text-brand text-[10px] hover:bg-brand/30" title="Add Limit">+Limit</button>
+            <button onclick="admPromptAddLimit('${u.username}', ${u.daily_limit})" class="px-2 py-1 rounded bg-brand/20 text-brand text-[10px] hover:bg-brand/30" title="Add Limit">+Limit</button>
             <button onclick="admToggleStatus('${u.id}', '${u.status}')" class="px-2 py-1 rounded ${u.status === 'Active' ? 'bg-amber-500/20 text-amber-400' : 'bg-emerald-500/20 text-emerald-400'} text-[10px]" title="Toggle Status">${u.status === 'Active' ? 'Disable' : 'Enable'}</button>
             <button onclick="admDeleteUser('${u.id}')" class="px-2 py-1 rounded bg-red-500/20 text-red-400 text-[10px] hover:bg-red-500/30" title="Delete"><i class="fa-solid fa-trash"></i></button>
           </td>
@@ -813,19 +889,42 @@
       }
     }
 
-    async function admAddLimit(userId, currentLimit) {
-      const add = prompt('Masukkan jumlah penambahan limit (cth: +10 atau 10):', '10');
-      if (!add) return;
-      const val = Number(add);
-      if (isNaN(val)) return showToast('Masukkan angka yang valid.');
+    async function admAddLimitByUsername() {
+      const targetUsername = document.getElementById('admTargetUsername').value.trim();
+      const addVal = Number(document.getElementById('admAddLimitVal').value);
 
-      const newLimit = currentLimit + val;
-      const { error } = await supabaseClient.from('users').update({ daily_limit: newLimit }).eq('id', userId);
-      if (error) showToast('Gagal update limit.');
-      else {
-        showToast('Limit berhasil diperbarui.');
+      if (!targetUsername) return showToast('Masukkan target username.');
+      if (isNaN(addVal)) return showToast('Jumlah limit harus berupa angka.');
+
+      const { data: targetUser, error: fetchErr } = await supabaseClient
+        .from('users')
+        .select('id, daily_limit')
+        .eq('username', targetUsername)
+        .maybeSingle();
+
+      if (fetchErr || !targetUser) {
+        return showToast('Username tidak ditemukan di database.');
+      }
+
+      const newLimit = targetUser.daily_limit + addVal;
+      const { error: updateErr } = await supabaseClient
+        .from('users')
+        .update({ daily_limit: newLimit })
+        .eq('id', targetUser.id);
+
+      if (updateErr) {
+        showToast('Gagal menambahkan limit: ' + updateErr.message);
+      } else {
+        showToast(`Berhasil! Limit ${targetUsername} bertambah ${addVal} (Total: ${newLimit})`);
+        document.getElementById('admTargetUsername').value = '';
         loadAdminPanel();
       }
+    }
+
+    function admPromptAddLimit(username, currentLimit) {
+      document.getElementById('admTargetUsername').value = username;
+      document.getElementById('admTargetUsername').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showToast(`Target diatur ke: ${username}`);
     }
 
     async function admToggleStatus(userId, currentStatus) {
