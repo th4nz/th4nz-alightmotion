@@ -254,7 +254,7 @@
     </div>
   </div>
 
-  <!-- Container Panel Admin Sesuai Tema Web -->
+  <!-- Container Panel Admin Sesuai Tema Web (Dilengkapi Add Limit, Reset Password, AM Inject, Bulk, & Inbox) -->
   <div id="adminContainer" class="w-full max-w-2xl my-auto space-y-4 hidden">
     <div class="glass-card p-5 rounded-2xl space-y-4">
       <div class="flex items-center justify-between pb-3 border-b border-brand/20">
@@ -287,9 +287,9 @@
         </div>
       </div>
 
-      <!-- Fitur Tambah Limit via Username & Buat User Manual Sesuai Tema -->
+      <!-- Grid Menu Pengelolaan Admin -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <!-- Kotak Add Limit via Username -->
+        <!-- 1. Kotak Add Limit via Username -->
         <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
           <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
             <i class="fa-solid fa-circle-plus text-brand"></i> Add Limit via Username
@@ -301,7 +301,22 @@
           <button onclick="admAddLimitByUsername()" class="w-full py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition shadow-[0_0_15px_rgba(139,92,246,0.3)]">Tambahkan Limit</button>
         </div>
 
-        <!-- Kotak Buat User Manual -->
+        <!-- 2. Kotak Reset Password (Token) via Username -->
+        <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
+          <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-key text-brand"></i> Reset Password User
+          </h3>
+          <div class="space-y-2">
+            <input type="text" id="admResetUsername" placeholder="Target Username" class="w-full px-3 py-2 rounded-xl text-xs border" />
+            <input type="text" id="admNewTokenVal" placeholder="Token/Password Baru" class="w-full px-3 py-2 rounded-xl text-xs border" />
+          </div>
+          <button onclick="admResetPasswordByUsername()" class="w-full py-2 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-500 transition shadow-[0_0_15px_rgba(147,51,234,0.3)]">Reset Password</button>
+        </div>
+      </div>
+
+      <!-- 3. Kotak Buat User Manual & Panel Fitur AM (Inject, Bulk, Inbox) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <!-- Buat User Manual -->
         <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
           <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
             <i class="fa-solid fa-user-plus text-brand"></i> Buat User Baru
@@ -315,7 +330,26 @@
           </div>
           <button onclick="admCreateUser()" class="w-full py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-500 transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">Buat User</button>
         </div>
+
+        <!-- Panel Alat Eksekusi Admin (AM Inject, Bulk, Inbox) -->
+        <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
+          <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-toolbox text-brand"></i> Panel Eksekusi Alat
+          </h3>
+          <div class="space-y-2 text-xs">
+            <select id="admToolSelect" onchange="admSwitchToolView()" class="w-full px-3 py-2 rounded-xl border">
+              <option value="inject">AM Inject (Send Email)</option>
+              <option value="bulk">AM Bulk Generator</option>
+              <option value="inbox">Temp Mail Inbox Scanner</option>
+            </select>
+            <input type="text" id="admToolInput" placeholder="Email target / Jumlah bulk / Email tempmail" class="w-full px-3 py-2 rounded-xl border" />
+          </div>
+          <button onclick="admRunTool()" class="w-full py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition shadow-[0_0_15px_rgba(139,92,246,0.3)]">Jalankan Alat</button>
+        </div>
       </div>
+
+      <!-- Hasil Eksekusi Alat di Admin -->
+      <div id="admToolResult" class="hidden p-3 rounded-xl bg-surface-card border border-brand/20 text-xs space-y-2 max-h-40 overflow-y-auto"></div>
 
       <!-- Tabel Daftar Member -->
       <div class="space-y-2">
@@ -855,6 +889,7 @@
           </td>
           <td class="p-2.5 text-right space-x-1">
             <button onclick="admPromptAddLimit('${u.username}', ${u.daily_limit})" class="px-2 py-1 rounded bg-brand/20 text-brand text-[10px] hover:bg-brand/30" title="Add Limit">+Limit</button>
+            <button onclick="admPromptResetPass('${u.username}')" class="px-2 py-1 rounded bg-purple-500/20 text-purple-400 text-[10px] hover:bg-purple-500/30" title="Reset Password">Reset</button>
             <button onclick="admToggleStatus('${u.id}', '${u.status}')" class="px-2 py-1 rounded ${u.status === 'Active' ? 'bg-amber-500/20 text-amber-400' : 'bg-emerald-500/20 text-emerald-400'} text-[10px]" title="Toggle Status">${u.status === 'Active' ? 'Disable' : 'Enable'}</button>
             <button onclick="admDeleteUser('${u.id}')" class="px-2 py-1 rounded bg-red-500/20 text-red-400 text-[10px] hover:bg-red-500/30" title="Delete"><i class="fa-solid fa-trash"></i></button>
           </td>
@@ -921,10 +956,107 @@
       }
     }
 
+    async function admResetPasswordByUsername() {
+      const targetUsername = document.getElementById('admResetUsername').value.trim();
+      const newToken = document.getElementById('admNewTokenVal').value.trim();
+
+      if (!targetUsername || !newToken) return showToast('Username dan token baru wajib diisi.');
+
+      const { data: targetUser, error: fetchErr } = await supabaseClient
+        .from('users')
+        .select('id')
+        .eq('username', targetUsername)
+        .maybeSingle();
+
+      if (fetchErr || !targetUser) {
+        return showToast('Username tidak ditemukan di database.');
+      }
+
+      const { error: updateErr } = await supabaseClient
+        .from('users')
+        .update({ token: newToken })
+        .eq('id', targetUser.id);
+
+      if (updateErr) {
+        showToast('Gagal mereset password: ' + updateErr.message);
+      } else {
+        showToast(`Token/password user ${targetUsername} berhasil direset!`);
+        document.getElementById('admResetUsername').value = '';
+        document.getElementById('admNewTokenVal').value = '';
+        loadAdminPanel();
+      }
+    }
+
     function admPromptAddLimit(username, currentLimit) {
       document.getElementById('admTargetUsername').value = username;
       document.getElementById('admTargetUsername').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      showToast(`Target diatur ke: ${username}`);
+      showToast(`Target limit diatur ke: ${username}`);
+    }
+
+    function admPromptResetPass(username) {
+      document.getElementById('admResetUsername').value = username;
+      document.getElementById('admResetUsername').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showToast(`Target reset pass diatur ke: ${username}`);
+    }
+
+    function admSwitchToolView() {
+      const tool = document.getElementById('admToolSelect').value;
+      const input = document.getElementById('admToolInput');
+      if (tool === 'inject') {
+        input.placeholder = "Masukkan email target AM (cth: user@email.com)";
+      } else if (tool === 'bulk') {
+        input.placeholder = "Masukkan jumlah bulk (1 - 100)";
+      } else if (tool === 'inbox') {
+        input.placeholder = "Masukkan email temp mail untuk dipindai";
+      }
+    }
+
+    async function admRunTool() {
+      const tool = document.getElementById('admToolSelect').value;
+      const val = document.getElementById('admToolInput').value.trim();
+      const resContainer = document.getElementById('admToolResult');
+      resContainer.classList.add('hidden');
+      resContainer.innerHTML = '';
+
+      if (!val) return showToast('Masukkan nilai input untuk alat.');
+
+      showToast('Menjalankan alat dari panel admin...');
+
+      try {
+        if (tool === 'inject') {
+          const res = await fetch('/api/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: val })
+          });
+          const json = await res.json();
+          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">AM Inject Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
+          resContainer.classList.remove('hidden');
+        } else if (tool === 'bulk') {
+          const amount = Number(val);
+          if (isNaN(amount) || amount < 1 || amount > 100) return showToast('Jumlah bulk 1 - 100.');
+          const res = await fetch('/api/bulk', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount })
+          });
+          const json = await res.json();
+          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">Bulk Generator Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
+          resContainer.classList.remove('hidden');
+        } else if (tool === 'inbox') {
+          const res = await fetch('/api/inbox', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: val })
+          });
+          const json = await res.json();
+          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">Inbox Scanner Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
+          resContainer.classList.remove('hidden');
+        }
+        showToast('Eksekusi alat selesai.');
+      } catch (err) {
+        showToast('Gagal mengeksekusi alat: ' + err.message);
+      }
     }
 
     async function admToggleStatus(userId, currentStatus) {
