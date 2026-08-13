@@ -120,35 +120,36 @@
       background: rgba(192, 132, 252, 0.22);
     }
 
-    /* EFEK GARIS STROKE LAMPU LED BERJALAN DI KELILING KOTAK SAJA */
+    /* EFEK GARIS STROKE / LAMPU LED BERJALAN DI KELILING KOTAK SAJA (TANPA BLOB DI TENGAH) */
     @property --angle {
       syntax: '<angle>';
       initial-value: 0deg;
       inherits: false;
     }
 
-    @keyframes spin-border {
+    @keyframes spin-glow {
       0% { --angle: 0deg; }
       100% { --angle: 360deg; }
     }
 
-    .card-led-border {
+    .neon-border-glow {
       position: relative;
-      border-radius: 20px;
-      isolation: isolate;
+      border-radius: 18px;
       background: var(--panel);
+      isolation: isolate;
       box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
     }
 
-    .card-led-border::before {
+    .neon-border-glow::before {
       content: "";
       position: absolute;
       inset: -2px;
-      border-radius: 22px;
-      background: conic-gradient(from var(--angle), transparent 65%, #c084fc 85%, #ffffff 92%, #c084fc 98%, transparent 100%);
+      border-radius: 20px;
+      background: conic-gradient(from var(--angle), transparent 70%, #c084fc 90%, #ffffff 95%, #c084fc 100%);
       z-index: -1;
-      animation: spin-border 3.5s linear infinite;
-      filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.7));
+      animation: spin-glow 4s linear infinite;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.6));
       pointer-events: none;
     }
 
@@ -515,7 +516,7 @@
         </div>
 
         <!-- FORM MASUK -->
-        <div id="loginFormCard" class="card-led-border p-5 sm:p-6">
+        <div id="loginFormCard" class="neon-border-glow p-5 sm:p-6">
           <div class="flex items-center justify-between mb-5">
             <div>
               <div class="section-label mb-1.5">Account</div>
@@ -549,7 +550,7 @@
         </div>
 
         <!-- FORM PENDAFTARAN -->
-        <div id="regFormCard" class="card-led-border p-5 sm:p-6 hidden">
+        <div id="regFormCard" class="neon-border-glow p-5 sm:p-6 hidden">
           <div class="flex items-center justify-between mb-5">
             <div>
               <div class="section-label mb-1.5">Registration</div>
@@ -1793,7 +1794,7 @@
         <pre class="text-[9px] text-[#c4b5fd] whitespace-pre-wrap">${escapeHtml(JSON.stringify(json, null, 2))}</pre>
       `;
 
-      result.classList.add("hidden");
+      result.classList.remove("hidden");
       showToast(res.ok ? "Selesai." : "Request gagal.");
     } catch (err) {
       showToast("Gagal: " + err.message);
