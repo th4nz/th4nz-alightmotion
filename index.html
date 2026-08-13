@@ -3,9 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#05020a" />
+  <meta name="description" content="AM Pro Toolkit — Electric Violet Neon Edition" />
   <title>AM Pro Toolkit | ThanzDev</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -13,1105 +22,1762 @@
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
-            display: ['Outfit', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            marker: ['Permanent Marker', 'cursive', 'sans-serif']
           },
           colors: {
-            brand: {
-              DEFAULT: '#8b5cf6',
-              hover: '#7c3aed',
-              muted: 'rgba(139, 92, 246, 0.15)',
-              glow: '#a78bfa',
-            },
-            surface: {
-              DEFAULT: '#09090b',
-              card: 'rgba(24, 24, 27, 0.85)',
-              border: 'rgba(139, 92, 246, 0.2)'
+            violetx: {
+              400: '#c084fc',
+              500: '#a855f7',
+              600: '#9333ea',
+              700: '#7e22ce'
             }
           }
         }
       }
-    }
+    };
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
-    .font-display { font-family: 'Outfit', sans-serif; }
-    .glow-effect { box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.3); }
-    .glass-card { background: rgba(24, 24, 27, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(139, 92, 246, 0.2); }
-    input, select, textarea { background-color: rgba(9, 9, 11, 0.6) !important; border-color: rgba(139, 92, 246, 0.3) !important; color: #fff !important; }
-    input:focus, select:focus, textarea:focus { border-color: #8b5cf6 !important; ring: 2px solid rgba(139, 92, 246, 0.5); outline: none; }
+    :root {
+      --bg: #05020a;
+      --panel: rgba(15, 10, 26, 0.78);
+      --panel-soft: rgba(255, 255, 255, 0.03);
+      --line: rgba(192, 132, 252, 0.18);
+      --line-soft: rgba(192, 132, 252, 0.08);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --neon-violet: #a855f7;
+      --neon-bright: #c084fc;
+      --neon-glow: rgba(168, 85, 247, 0.45);
+      --green: #34d399;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(168, 85, 247, 0.16), transparent 30%),
+        radial-gradient(circle at 85% 90%, rgba(192, 132, 252, 0.12), transparent 35%),
+        var(--bg);
+      font-family: Inter, sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .font-display {
+      font-family: "Plus Jakarta Sans", Inter, sans-serif;
+    }
+
+    .ambient {
+      position: fixed;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(80px);
+      opacity: 0.55;
+    }
+
+    .ambient.one {
+      left: -160px;
+      top: 50px;
+      background: rgba(168, 85, 247, 0.28);
+    }
+
+    .ambient.two {
+      right: -170px;
+      bottom: 60px;
+      background: rgba(192, 132, 252, 0.22);
+    }
+
+    .glass {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      box-shadow:
+        0 22px 60px rgba(0, 0, 0, 0.45),
+        0 0 25px rgba(168, 85, 247, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-soft {
+      background: var(--panel-soft);
+      border: 1px solid var(--line-soft);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .topbar {
+      box-shadow:
+        0 16px 45px rgba(0, 0, 0, 0.35),
+        0 0 20px rgba(168, 85, 247, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-mark {
+      background: linear-gradient(145deg, rgba(168, 85, 247, 0.3), rgba(168, 85, 247, 0.08));
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    .status-dot {
+      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.08), 0 0 12px rgba(52, 211, 153, 0.55);
+    }
+
+    input,
+    select {
+      width: 100%;
+      color: #f8fafc !important;
+      background: rgba(8, 5, 15, 0.85) !important;
+      border: 1px solid rgba(192, 132, 252, 0.15) !important;
+      border-radius: 11px !important;
+      outline: none;
+      transition: .2s ease;
+    }
+
+    input::placeholder {
+      color: #7c6f93;
+    }
+
+    input:hover,
+    select:hover {
+      border-color: rgba(192, 132, 252, 0.35) !important;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--neon-bright) !important;
+      box-shadow:
+        0 0 0 3px rgba(168, 85, 247, 0.2),
+        0 0 20px rgba(168, 85, 247, 0.35) !important;
+    }
+
+    select option {
+      background: #100c17;
+      color: white;
+    }
+
+    .btn {
+      border-radius: 11px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      position: relative;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #a855f7, #7c3aed);
+      border: 1px solid rgba(216, 180, 254, 0.4);
+      box-shadow: 
+        0 4px 15px rgba(168, 85, 247, 0.4),
+        0 0 25px rgba(168, 85, 247, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #c084fc, #9333ea);
+      transform: translateY(-1px);
+      box-shadow: 
+        0 6px 22px rgba(168, 85, 247, 0.6),
+        0 0 35px rgba(192, 132, 252, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #059669, #047857);
+      border: 1px solid rgba(110, 231, 183, 0.3);
+      box-shadow: 
+        0 4px 15px rgba(5, 150, 105, 0.35),
+        0 0 20px rgba(52, 211, 153, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, #10b981, #059669);
+      transform: translateY(-1px);
+      box-shadow: 
+        0 6px 22px rgba(16, 185, 129, 0.5),
+        0 0 30px rgba(52, 211, 153, 0.35);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(192, 132, 252, 0.12);
+      color: #c4b5fd;
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.05);
+    }
+
+    .btn-ghost:hover {
+      color: white;
+      background: rgba(168, 85, 247, 0.1);
+      border-color: rgba(192, 132, 252, 0.3);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+    }
+
+    .auth-shell {
+      animation: appear .45s ease both;
+    }
+
+    .auth-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -90px;
+      top: -100px;
+      border-radius: 50%;
+      background: rgba(192, 132, 252, 0.18);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .auth-tabs {
+      padding: 4px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(192, 132, 252, 0.12);
+    }
+
+    .auth-tab {
+      color: #948aa8;
+      transition: .2s ease;
+    }
+
+    .auth-tab.active {
+      color: white;
+      background: linear-gradient(135deg, #a855f7, #7c3aed);
+      box-shadow: 0 4px 18px rgba(168, 85, 247, 0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .section-label {
+      color: #c084fc;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+    }
+
+    .dashboard {
+      animation: appear .35s ease both;
+    }
+
+    .account-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .account-card::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 150px;
+      right: -120px;
+      top: -85px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.22), transparent 68%);
+      pointer-events: none;
+    }
+
+    .avatar {
+      background: linear-gradient(145deg, rgba(168, 85, 247, 0.35), rgba(168, 85, 247, 0.1));
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+    }
+
+    .usage-track {
+      height: 6px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .usage-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #7c3aed, #c084fc);
+      box-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
+      transition: width .35s ease;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(192, 132, 252, 0.1);
+      border-radius: 12px;
+    }
+
+    .tool-tabs {
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(192, 132, 252, 0.12);
+    }
+
+    .tool-tab {
+      position: relative;
+      color: #948aa8;
+      transition: .2s ease;
+    }
+
+    .tool-tab:hover {
+      color: #e9d5ff;
+    }
+
+    .tool-tab.active {
+      color: #c084fc;
+      text-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
+    }
+
+    .tool-tab.active::after {
+      content: "";
+      position: absolute;
+      left: 20%;
+      right: 20%;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 10px;
+      background: #c084fc;
+      box-shadow: 0 0 12px rgba(192, 132, 252, 0.8);
+    }
+
+    .tool-content {
+      animation: fade .22s ease both;
+    }
+
+    .result-box {
+      background: rgba(8, 5, 15, 0.7);
+      border: 1px solid rgba(192, 132, 252, 0.15);
+      box-shadow: inset 0 0 15px rgba(168, 85, 247, 0.05);
+    }
+
+    .admin-shell {
+      animation: appear .35s ease both;
+    }
+
+    .admin-stat {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(192, 132, 252, 0.1);
+      border-radius: 12px;
+    }
+
+    .admin-table {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(168, 85, 247, 0.4) transparent;
+    }
+
+    .admin-table::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    .admin-table::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.4);
+      border-radius: 99px;
+    }
+
+    .toast {
+      transform: translate(-50%, 14px);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      background: rgba(15, 10, 26, 0.92);
+      border: 1px solid rgba(192, 132, 252, 0.3);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(168, 85, 247, 0.25);
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(7px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .desktop-only {
+        display: none !important;
+      }
+    }
+
+    @media (min-width: 640px) {
+      .mobile-only {
+        display: none !important;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-between p-4 selection:bg-brand selection:text-white">
 
-  <!-- Container Autentikasi (Login / Register) -->
-  <div id="authContainer" class="w-full max-w-md my-auto space-y-4">
-    <div class="text-center space-y-1 mb-6">
-      <div class="inline-flex p-3 rounded-2xl bg-brand/10 border border-brand/30 text-brand text-2xl mb-2 glow-effect">
-        <i class="fa-solid fa-shield-halved"></i>
-      </div>
-      <h1 class="font-display font-bold text-2xl text-white">AM Pro Toolkit</h1>
-      <p class="text-xs text-zinc-400">Sistem Aktivasi Premium & Limit Harian</p>
-    </div>
+<body class="min-h-screen px-3 py-3 sm:px-5 sm:py-5">
 
-    <!-- Pilihan Tab Auth (Login & Register) -->
-    <div class="grid grid-cols-2 p-1 rounded-xl glass-card text-xs font-medium text-center">
-      <button onclick="switchAuthTab('login')" id="tabLoginBtn" class="py-2 rounded-lg bg-brand text-white transition">Login</button>
-      <button onclick="switchAuthTab('register')" id="tabRegBtn" class="py-2 rounded-lg text-zinc-400 hover:text-white transition">Register</button>
-    </div>
+  <div class="ambient one"></div>
+  <div class="ambient two"></div>
 
-    <!-- Form Login Member / Admin -->
-    <div id="loginFormCard" class="glass-card p-6 rounded-2xl space-y-4">
-      <h2 class="font-display font-bold text-sm text-white">Login Member / Admin</h2>
-      <div class="space-y-3">
-        <div>
-          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Username</label>
-          <input type="text" id="loginUsername" placeholder="Username Anda" class="w-full px-3 py-2 rounded-xl text-xs border" />
-        </div>
-        <div>
-          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Token / Password</label>
-          <div class="relative">
-            <input type="password" id="loginToken" placeholder="Token atau password Anda" class="w-full px-3 py-2 pr-9 rounded-xl text-xs border" />
-            <button type="button" onclick="togglePasswordVisibility('loginToken', 'eyeLoginIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white text-xs">
-              <i id="eyeLoginIcon" class="fa-solid fa-eye"></i>
-            </button>
-          </div>
-        </div>
-        <button onclick="handleLogin()" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">Masuk Dashboard</button>
-      </div>
-    </div>
+  <div class="w-full max-w-2xl mx-auto flex min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-40px)] flex-col">
 
-    <!-- Form Register Member -->
-    <div id="regFormCard" class="glass-card p-6 rounded-2xl space-y-4 hidden">
-      <h2 class="font-display font-bold text-sm text-white">Daftar Akun Baru</h2>
-      <p class="text-[11px] text-amber-400/90 bg-amber-500/10 border border-amber-500/30 p-2.5 rounded-xl">Catatan: Setiap perangkat/browser hanya dapat mendaftar 1 kali.</p>
-      <div class="space-y-3">
-        <div>
-          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Buat Username Unik</label>
-          <input type="text" id="regUsername" placeholder="cth: thanz123" class="w-full px-3 py-2 rounded-xl text-xs border" />
+    <!-- KEPALA APLIKASI (HEADER) -->
+    <header class="topbar glass rounded-[16px] px-4 py-3.5 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="brand-mark w-9 h-9 rounded-[11px] flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-wand-magic-sparkles text-violet-300 text-sm drop-shadow-[0_0_8px_rgba(192,132,252,0.8)]"></i>
         </div>
-        <div>
-          <label class="block text-[11px] font-medium text-zinc-300 mb-1">Buat Token Rahasia</label>
-          <div class="relative">
-            <input type="password" id="regToken" placeholder="Token untuk login nanti" class="w-full px-3 py-2 pr-9 rounded-xl text-xs border" />
-            <button type="button" onclick="togglePasswordVisibility('regToken', 'eyeRegIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white text-xs">
-              <i id="eyeRegIcon" class="fa-solid fa-eye"></i>
-            </button>
-          </div>
-        </div>
-        <button onclick="handleRegister()" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 hover:bg-emerald-500 transition">Daftar Sekarang</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Container User Dashboard -->
-  <div id="appContainer" class="w-full max-w-md my-auto space-y-4 hidden">
-    <div class="glass-card p-4 rounded-2xl space-y-3">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-full bg-brand/20 border border-brand/40 flex items-center justify-center text-brand font-bold text-xs" id="userAvatar">U</div>
-          <div>
-            <div class="font-display font-bold text-sm text-white" id="displayUsername">-</div>
-            <div class="text-[10px] text-emerald-400 font-medium" id="displayStatus">Status: Active</div>
-          </div>
-        </div>
-        <button onclick="handleLogout()" class="px-3 py-1.5 rounded-xl bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 text-xs transition flex items-center space-x-1">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          <span>Keluar</span>
-        </button>
-      </div>
-
-      <div class="grid grid-cols-4 gap-2 pt-2 border-t border-white/5 text-center">
-        <div class="p-2 rounded-xl bg-zinc-900/50 border border-white/5">
-          <div class="text-[10px] text-zinc-400">Limit</div>
-          <div class="font-display font-bold text-sm text-white" id="statLimit">5</div>
-        </div>
-        <div class="p-2 rounded-xl bg-zinc-900/50 border border-white/5">
-          <div class="text-[10px] text-zinc-400">Terpakai</div>
-          <div class="font-display font-bold text-sm text-amber-400" id="statUsed">0</div>
-        </div>
-        <div class="p-2 rounded-xl bg-zinc-900/50 border border-white/5">
-          <div class="text-[10px] text-zinc-400">Sisa</div>
-          <div class="font-display font-bold text-sm text-emerald-400" id="statRemaining">5</div>
-        </div>
-        <div class="p-2 rounded-xl bg-zinc-900/50 border border-white/5">
-          <div class="text-[10px] text-zinc-400">Reset</div>
-          <div class="font-display font-bold text-[11px] text-brand" id="statReset">--:--</div>
+        <div class="min-w-0">
+          <div class="font-display font-bold text-[13px] text-white tracking-tight truncate drop-shadow-[0_0_10px_rgba(192,132,252,0.3)]">AM Pro Toolkit</div>
+          <div class="text-[9px] text-[#c084fc] mt-0.5 tracking-wide">Developer Edition</div>
         </div>
       </div>
-    </div>
 
-    <!-- Toolbox User -->
-    <div class="glass-card rounded-2xl overflow-hidden">
-      <div class="grid grid-cols-3 border-b border-brand/20 text-xs font-medium">
-        <button onclick="switchTab('send')" id="tabSend" class="py-3 text-center text-brand border-b-2 border-brand bg-brand/5">Utama</button>
-        <button onclick="switchTab('bulk')" id="tabBulk" class="py-3 text-center text-zinc-400 hover:text-white">Bulk</button>
-        <button onclick="switchTab('inbox')" id="tabInbox" class="py-3 text-center text-zinc-400 hover:text-white">Baca Email</button>
+      <div class="flex items-center gap-2">
+        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/[.03] border border-white/[.06] text-[9px] text-[#a78bfa]">
+          <span class="status-dot w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Sistem Online
+        </div>
+        <div class="text-[9px] px-2.5 py-1.5 rounded-full bg-violet-500/[.12] border border-violet-400/[.25] text-violet-200 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+          v2.0
+        </div>
       </div>
+    </header>
 
-      <!-- Tab Utama (Magic Link Alight Motion Terintegrasi) -->
-      <div id="contentSend" class="p-5 space-y-4">
-        <div class="space-y-1">
-          <h2 class="font-display font-bold text-sm text-white">Aktivasi Alight Motion</h2>
-          <p class="text-[11px] text-zinc-400" id="flowInstruction">Masukkan email AM untuk mengirimkan magic link.</p>
+    <!-- KONTEN UTAMA -->
+    <main class="flex-1 flex flex-col justify-center py-5">
+
+      <!-- BAGIAN AUTENTIKASI -->
+      <section id="authContainer" class="auth-shell w-full max-w-md mx-auto">
+        <div class="text-center mb-5">
+          <div class="section-label mb-2">Secure access</div>
+          <h1 class="font-marker font-normal text-[26px] sm:text-[30px] text-white tracking-wide drop-shadow-[0_0_18px_rgba(192,132,252,0.35)] py-1">Aktivasi</h1>
+          <p class="text-[11px] text-[#948aa8] mt-1.5 leading-relaxed">
+            Kelola akses dan tools Alight Motion dari satu tempat.
+          </p>
         </div>
 
-        <div class="space-y-3">
-          <!-- Step 1: Input Email -->
-          <div id="stepEmailBox">
-            <label class="block text-[11px] font-medium text-zinc-300 mb-1">Email Alight Motion</label>
-            <input type="email" id="inputEmail" placeholder="nama@domain.com" class="w-full px-3 py-2 rounded-xl text-xs border mb-3" />
-            <button onclick="handleSendMagicLink()" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">
-              <i class="fa-solid fa-paper-plane mr-1"></i> Kirim Magic Link
-            </button>
-          </div>
+        <div class="auth-tabs rounded-[13px] grid grid-cols-2 gap-1 mb-3">
+          <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="auth-tab active py-2.5 rounded-[9px] text-[11px] font-semibold">
+            Masuk
+          </button>
+          <button id="tabRegBtn" onclick="switchAuthTab('register')" class="auth-tab py-2.5 rounded-[9px] text-[11px] font-semibold">
+            Daftar
+          </button>
+        </div>
 
-          <!-- Step 2: Input & Verifikasi Magic Link (Muncul Otomatis) -->
-          <div id="stepVerifyBox" class="hidden space-y-3">
+        <!-- FORM MASUK -->
+        <div id="loginFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6">
+          <div class="flex items-center justify-between mb-5">
             <div>
-              <label class="block text-[11px] font-medium text-zinc-300 mb-1">Magic Link Verifikasi</label>
-              <input type="text" id="inputLink" placeholder="https://..." class="w-full px-3 py-2 rounded-xl text-xs border" />
+              <div class="section-label mb-1.5">Account</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Masuk ke akun</h2>
             </div>
-            <div class="flex space-x-2">
-              <button onclick="handleVerifyMagicLink()" class="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 hover:bg-emerald-500 transition">
-                <i class="fa-solid fa-check mr-1"></i> Verifikasi Link
-              </button>
-              <button onclick="resetInjectFlow()" class="px-3 py-2.5 rounded-xl bg-zinc-800 text-zinc-300 hover:text-white text-xs border border-white/5" title="Batal / Ulangi">
-                <i class="fa-solid fa-rotate-left"></i>
-              </button>
+            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-violet-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+              <i class="fa-solid fa-arrow-right-to-bracket text-[11px]"></i>
             </div>
           </div>
-        </div>
 
-        <div id="sendResult" class="hidden p-3 rounded-xl text-xs bg-zinc-900/80 border border-white/10 space-y-2"></div>
-      </div>
-
-      <!-- Tab Bulk Generator -->
-      <div id="contentBulk" class="p-5 space-y-4 hidden">
-        <div class="space-y-1">
-          <h2 class="font-display font-bold text-sm text-white">Bulk Generator</h2>
-          <p class="text-[11px] text-zinc-400">Buat banyak akun AM Premium sekaligus (1 - 100).</p>
-        </div>
-
-        <div class="space-y-3">
-          <div>
-            <label class="block text-[11px] font-medium text-zinc-300 mb-1">Jumlah (1 - 100)</label>
-            <input type="number" id="inputBulkAmount" min="1" max="100" value="5" class="w-full px-3 py-2 rounded-xl text-xs border" />
-          </div>
-
-          <button onclick="runBulkInject()" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">
-            <i class="fa-solid fa-bolt mr-1"></i> Generate Bulk
-          </button>
-        </div>
-
-        <div id="bulkResult" class="hidden p-3 rounded-xl text-xs bg-zinc-900/80 border border-white/10 space-y-2 max-h-60 overflow-y-auto"></div>
-      </div>
-
-      <!-- Tab Inbox Temp Mail -->
-      <div id="contentInbox" class="p-5 space-y-4 hidden">
-        <div class="space-y-1">
-          <h2 class="font-display font-bold text-sm text-white">Pindai Inbox Temp Mail</h2>
-          <p class="text-[11px] text-zinc-400">Cek pesan masuk untuk mendapatkan link verifikasi otomatis.</p>
-        </div>
-
-        <div class="space-y-3">
-          <div>
-            <label class="block text-[11px] font-medium text-zinc-300 mb-1">Email Temp Mail</label>
-            <input type="email" id="inputInboxEmail" placeholder="email@tempmail.com" class="w-full px-3 py-2 rounded-xl text-xs border" />
-          </div>
-
-          <button onclick="runInboxCheck()" class="w-full py-2.5 rounded-xl bg-brand text-white font-bold text-xs shadow-lg shadow-brand/30 hover:bg-brand-hover transition">
-            <i class="fa-solid fa-inbox mr-1"></i> Pindai Pesan
-          </button>
-        </div>
-
-        <div id="inboxNotice" class="hidden"></div>
-        <div id="inboxResult" class="space-y-2 max-h-60 overflow-y-auto"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Container Admin Panel Sesuai Tema Web -->
-  <div id="adminContainer" class="w-full max-w-2xl my-auto space-y-4 hidden">
-    <div class="glass-card p-5 rounded-2xl space-y-4">
-      <div class="flex items-center justify-between pb-3 border-b border-brand/20">
-        <div class="flex items-center space-x-2 text-brand">
-          <i class="fa-solid fa-user-shield text-lg"></i>
-          <h2 class="font-display font-bold text-base text-white">Admin Dashboard</h2>
-        </div>
-        <button onclick="handleLogout()" class="px-3 py-1.5 rounded-xl bg-surface-card border border-brand/30 text-zinc-300 hover:text-white text-xs transition">
-          <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar Admin
-        </button>
-      </div>
-
-      <!-- Statistik Admin -->
-      <div class="grid grid-cols-4 gap-2 text-center">
-        <div class="p-3 rounded-xl bg-surface-card border border-brand/20">
-          <div class="text-[10px] text-zinc-400">Total Users</div>
-          <div class="font-display font-bold text-base text-white" id="admTotalUsers">0</div>
-        </div>
-        <div class="p-3 rounded-xl bg-surface-card border border-brand/20">
-          <div class="text-[10px] text-zinc-400">Active</div>
-          <div class="font-display font-bold text-base text-emerald-400" id="admActiveUsers">0</div>
-        </div>
-        <div class="p-3 rounded-xl bg-surface-card border border-brand/20">
-          <div class="text-[10px] text-zinc-400">Disabled</div>
-          <div class="font-display font-bold text-base text-red-400" id="admDisabledUsers">0</div>
-        </div>
-        <div class="p-3 rounded-xl bg-surface-card border border-brand/20">
-          <div class="text-[10px] text-zinc-400">Total Inject</div>
-          <div class="font-display font-bold text-base text-brand" id="admTotalInjects">0</div>
-        </div>
-      </div>
-
-      <!-- Grid Pengelolaan User (Reset Limit, Reset Password, Add Limit) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <!-- Kotak Reset Limit via Username (used_count jadi 0) -->
-        <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
-          <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-rotate-right text-brand"></i> Reset Limit User (0/5)
-          </h3>
-          <div class="space-y-2">
-            <input type="text" id="admResetLimitUsername" placeholder="Target Username" class="w-full px-3 py-2 rounded-xl text-xs border" />
-            <p class="text-[10px] text-zinc-400">Mengembalikan limit terpakai user menjadi 0.</p>
-          </div>
-          <button onclick="admResetLimitByUsername()" class="w-full py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition shadow-[0_0_15px_rgba(139,92,246,0.3)]">Reset Limit (0/5)</button>
-        </div>
-
-        <!-- Kotak Reset Password User -->
-        <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
-          <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-key text-brand"></i> Reset Password User
-          </h3>
-          <div class="space-y-2">
-            <input type="text" id="admResetUsername" placeholder="Target Username" class="w-full px-3 py-2 rounded-xl text-xs border" />
-            <div class="relative">
-              <input type="password" id="admNewTokenVal" placeholder="Token/Password Baru" class="w-full px-3 py-2 pr-9 rounded-xl text-xs border" />
-              <button type="button" onclick="togglePasswordVisibility('admNewTokenVal', 'eyeAdmResetIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white text-xs">
-                <i id="eyeAdmResetIcon" class="fa-solid fa-eye"></i>
-              </button>
+          <div class="space-y-3.5">
+            <div>
+              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Username</label>
+              <input id="loginUsername" type="text" autocomplete="username" placeholder="Masukkan username" class="px-3.5 py-3 text-[11px]" />
             </div>
-          </div>
-          <button onclick="admResetPasswordByUsername()" class="w-full py-2 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-500 transition shadow-[0_0_15px_rgba(147,51,234,0.3)]">Reset Password</button>
-        </div>
-      </div>
 
-      <!-- Grid Pembuatan User & Panel Eksekusi Lengkap -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
-          <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-user-plus text-brand"></i> Buat User Baru
-          </h3>
-          <div class="space-y-2">
-            <input type="text" id="admNewUser" placeholder="Username" class="w-full px-3 py-2 rounded-xl text-xs border" />
-            <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Token / Password</label>
               <div class="relative">
-                <input type="password" id="admNewToken" placeholder="Token" class="w-full px-3 py-2 pr-9 rounded-xl text-xs border" />
-                <button type="button" onclick="togglePasswordVisibility('admNewToken', 'eyeAdmNewIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white text-xs">
-                  <i id="eyeAdmNewIcon" class="fa-solid fa-eye"></i>
+                <input id="loginToken" type="password" autocomplete="current-password" placeholder="Masukkan token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
+                <button type="button" onclick="togglePasswordVisibility('loginToken','eyeLoginIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8] hover:text-white">
+                  <i id="eyeLoginIcon" class="fa-solid fa-eye text-[11px]"></i>
                 </button>
               </div>
-              <input type="number" id="admNewLimit" placeholder="Limit" value="5" class="px-3 py-2 rounded-xl text-xs border" />
+            </div>
+
+            <button onclick="handleLogin()" class="btn btn-primary w-full py-3 text-[11px] font-bold text-white mt-1">
+              Masuk Sistem
+            </button>
+          </div>
+        </div>
+
+        <!-- FORM PENDAFTARAN -->
+        <div id="regFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6 hidden">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <div class="section-label mb-1.5">Registration</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Buat akun baru</h2>
+            </div>
+            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-violet-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+              <i class="fa-solid fa-user-plus text-[11px]"></i>
             </div>
           </div>
-          <button onclick="admCreateUser()" class="w-full py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-500 transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">Buat User</button>
-        </div>
 
-        <!-- Panel Eksekusi Alat Admin -->
-        <div class="p-4 rounded-xl bg-surface-card border border-brand/20 space-y-3">
-          <h3 class="font-display font-bold text-xs text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-toolbox text-brand"></i> Panel Eksekusi Alat
-          </h3>
-          <div class="space-y-2 text-xs">
-            <select id="admToolSelect" onchange="admSwitchToolView()" class="w-full px-3 py-2 rounded-xl border">
-              <option value="inject">AM Inject (Send Email)</option>
-              <option value="verify">AM Verify Link (Magic Link)</option>
-              <option value="bulk">AM Bulk Generator</option>
-              <option value="inbox">Temp Mail Inbox Scanner</option>
-            </select>
-            <input type="text" id="admToolInput" placeholder="Masukkan email target AM..." class="w-full px-3 py-2 rounded-xl border" />
-            <div id="admVerifyLinkBox" class="hidden">
-              <input type="text" id="admToolLink" placeholder="Tempel link verifikasi https://..." class="w-full px-3 py-2 rounded-xl border" />
+          <div class="mb-4 p-3 rounded-[11px] bg-amber-500/[.05] border border-amber-400/[.15] flex gap-2.5">
+            <i class="fa-solid fa-circle-info text-amber-400 text-[11px] mt-0.5"></i>
+            <p class="text-[10px] leading-relaxed text-amber-200/80">
+              Satu perangkat hanya dapat digunakan untuk satu pendaftaran.
+            </p>
+          </div>
+
+          <div class="space-y-3.5">
+            <div>
+              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Username</label>
+              <input id="regUsername" type="text" autocomplete="username" placeholder="contoh: thanz123" class="px-3.5 py-3 text-[11px]" />
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Token Rahasia</label>
+              <div class="relative">
+                <input id="regToken" type="password" autocomplete="new-password" placeholder="Buat token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
+                <button type="button" onclick="togglePasswordVisibility('regToken','eyeRegIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8] hover:text-white">
+                  <i id="eyeRegIcon" class="fa-solid fa-eye text-[11px]"></i>
+                </button>
+              </div>
+            </div>
+
+            <button onclick="handleRegister()" class="btn btn-success w-full py-3 text-[11px] font-bold text-white mt-1">
+              Daftar Sekarang
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASBOR PENGGUNA -->
+      <section id="appContainer" class="dashboard w-full max-w-md mx-auto hidden">
+
+        <div class="account-card glass rounded-[16px] p-4 sm:p-5 mb-3">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="userAvatar" class="avatar w-10 h-10 rounded-[12px] flex items-center justify-center text-violet-200 font-display font-bold text-xs shrink-0">U</div>
+              <div class="min-w-0">
+                <div id="displayUsername" class="font-display font-bold text-[13px] text-white truncate">-</div>
+                <div class="flex items-center gap-1.5 mt-1 text-[9px] text-emerald-400">
+                  <span class="status-dot w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Akun Aktif
+                </div>
+              </div>
+            </div>
+
+            <button onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px] shrink-0">
+              <i class="fa-solid fa-right-from-bracket mr-1"></i>
+              Keluar
+            </button>
+          </div>
+
+          <div class="mt-5 pt-4 border-t border-white/[.06]">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <div class="section-label">Daily usage</div>
+                <div class="mt-1 font-display font-bold text-[13px] text-white">
+                  <span id="statUsed">0</span>
+                  <span class="text-[#7c6f93] font-normal"> / </span>
+                  <span id="statLimit">5</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="section-label">Reset</div>
+                <div id="statReset" class="text-[10px] text-violet-300 mt-1">--:--</div>
+              </div>
+            </div>
+
+            <div class="usage-track">
+              <div id="usageBar" class="usage-bar"></div>
+            </div>
+
+            <div class="flex justify-between mt-2.5">
+              <span class="text-[9px] text-[#948aa8]">Penggunaan hari ini</span>
+              <span class="text-[9px] text-emerald-400"><span id="statRemaining">5</span> tersisa</span>
             </div>
           </div>
-          <button onclick="admRunTool()" class="w-full py-2 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-hover transition shadow-[0_0_15px_rgba(139,92,246,0.3)]">Jalankan Alat</button>
         </div>
-      </div>
 
-      <!-- Hasil Eksekusi Alat di Admin -->
-      <div id="admToolResult" class="hidden p-3 rounded-xl bg-surface-card border border-brand/20 text-xs space-y-2 max-h-40 overflow-y-auto"></div>
+        <div class="glass rounded-[16px] overflow-hidden">
+          <div class="tool-tabs grid grid-cols-3">
+            <button id="tabSend" onclick="switchTab('send')" class="tool-tab active py-3.5 text-[10px] font-semibold">Aktivasi</button>
+            <button id="tabBulk" onclick="switchTab('bulk')" class="tool-tab py-3.5 text-[10px] font-semibold">Bulk</button>
+            <button id="tabInbox" onclick="switchTab('inbox')" class="tool-tab py-3.5 text-[10px] font-semibold">Inbox</button>
+          </div>
 
-      <!-- Tabel Daftar Member -->
-      <div class="space-y-2">
-        <h3 class="font-display font-bold text-xs text-white">Daftar Member</h3>
-        <div class="max-h-60 overflow-y-auto rounded-xl border border-brand/20 bg-surface-card">
-          <table class="w-full text-left text-[11px]">
-            <thead class="bg-zinc-900/90 text-zinc-300 sticky top-0">
-              <tr>
-                <th class="p-2.5">User & Token</th>
-                <th class="p-2.5">Limit / Terpakai</th>
-                <th class="p-2.5">Status</th>
-                <th class="p-2.5 text-right">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="admUserTableBody" class="divide-y divide-brand/10">
-              <!-- Diisi secara dinamis -->
-            </tbody>
-          </table>
+          <!-- TAB AKTIVASI -->
+          <div id="contentSend" class="tool-content p-4 sm:p-5">
+            <div class="mb-5">
+              <div class="section-label mb-1.5">Magic link</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Aktivasi Alight Motion</h2>
+              <p id="flowInstruction" class="text-[10px] text-[#948aa8] mt-1.5 leading-relaxed">
+                Kirim magic link ke email target terlebih dahulu.
+              </p>
+            </div>
+
+            <div id="stepEmailBox" class="space-y-2.5">
+              <input id="inputEmail" type="email" placeholder="email@domain.com" class="px-3.5 py-3 text-[11px]" />
+              <button onclick="handleSendMagicLink()" class="btn btn-primary w-full py-3 text-[10px] font-bold text-white">
+                <i class="fa-solid fa-paper-plane mr-1.5"></i>
+                Kirim Magic Link
+              </button>
+            </div>
+
+            <div id="stepVerifyBox" class="hidden space-y-2.5">
+              <input id="inputLink" type="text" placeholder="Tempel link verifikasi https://..." class="px-3.5 py-3 text-[11px]" />
+              <div class="grid grid-cols-[1fr_auto] gap-2">
+                <button onclick="handleVerifyMagicLink()" class="btn btn-success py-3 text-[10px] font-bold text-white">
+                  Verifikasi Link
+                </button>
+                <button onclick="resetInjectFlow()" class="btn btn-ghost w-11 text-[#c4b5fd]">
+                  <i class="fa-solid fa-rotate-left text-[10px]"></i>
+                </button>
+              </div>
+            </div>
+
+            <div id="sendResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px]"></div>
+          </div>
+
+          <!-- TAB BULK -->
+          <div id="contentBulk" class="tool-content p-4 sm:p-5 hidden">
+            <div class="mb-5">
+              <div class="section-label mb-1.5">Batch tool</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Bulk Generator</h2>
+              <p class="text-[10px] text-[#948aa8] mt-1.5">Buat beberapa akun premium sekaligus.</p>
+            </div>
+
+            <div class="space-y-2.5">
+              <div>
+                <label class="block text-[10px] text-[#c4b5fd] mb-1.5">Jumlah</label>
+                <input id="inputBulkAmount" type="number" min="1" max="100" value="5" class="px-3.5 py-3 text-[11px]" />
+              </div>
+              <button onclick="runBulkInject()" class="btn btn-primary w-full py-3 text-[10px] font-bold text-white">
+                Generate Bulk
+              </button>
+            </div>
+
+            <div id="bulkResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px] max-h-44 overflow-y-auto"></div>
+          </div>
+
+          <!-- TAB INBOX -->
+          <div id="contentInbox" class="tool-content p-4 sm:p-5 hidden">
+            <div class="mb-5">
+              <div class="section-label mb-1.5">Mailbox</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Pindai Inbox</h2>
+              <p class="text-[10px] text-[#948aa8] mt-1.5">Cek pesan masuk untuk mendapatkan link verifikasi.</p>
+            </div>
+
+            <div class="space-y-2.5">
+              <input id="inputInboxEmail" type="email" placeholder="email@tempmail.com" class="px-3.5 py-3 text-[11px]" />
+              <button onclick="runInboxCheck()" class="btn btn-primary w-full py-3 text-[10px] font-bold text-white">
+                <i class="fa-solid fa-inbox mr-1.5"></i>
+                Pindai Pesan
+              </button>
+            </div>
+
+            <div id="inboxNotice" class="hidden mt-3"></div>
+            <div id="inboxResult" class="space-y-2 mt-3 max-h-48 overflow-y-auto"></div>
+          </div>
         </div>
+      </section>
+
+      <!-- DASBOR ADMIN -->
+      <section id="adminContainer" class="admin-shell w-full hidden">
+        <div class="glass rounded-[16px] p-4 sm:p-5">
+
+          <div class="flex items-center justify-between pb-4 border-b border-white/[.06]">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-[11px] bg-violet-500/[.12] border border-violet-400/[.25] flex items-center justify-center text-violet-200 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
+                <i class="fa-solid fa-shield-halved text-[12px]"></i>
+              </div>
+              <div>
+                <div class="section-label mb-1">Administration</div>
+                <h2 class="font-display font-bold text-[14px] text-white">Admin Console</h2>
+              </div>
+            </div>
+            <button onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px]">
+              <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
+            </button>
+          </div>
+
+          <!-- STATISTIK ADMIN -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+            <div class="admin-stat p-3">
+              <div class="section-label">Users</div>
+              <div id="admTotalUsers" class="font-display font-bold text-[16px] text-white mt-1">0</div>
+            </div>
+            <div class="admin-stat p-3">
+              <div class="section-label">Active</div>
+              <div id="admActiveUsers" class="font-display font-bold text-[16px] text-emerald-400 mt-1">0</div>
+            </div>
+            <div class="admin-stat p-3">
+              <div class="section-label">Disabled</div>
+              <div id="admDisabledUsers" class="font-display font-bold text-[16px] text-red-400 mt-1">0</div>
+            </div>
+            <div class="admin-stat p-3">
+              <div class="section-label">Injects</div>
+              <div id="admTotalInjects" class="font-display font-bold text-[16px] text-[#c084fc] mt-1">0</div>
+            </div>
+          </div>
+
+          <!-- AKSI ADMIN -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-4">
+
+            <div class="glass-soft rounded-[12px] p-3.5">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-rotate-right text-violet-300 text-[10px]"></i>
+                <h3 class="text-[10px] font-bold text-white">Reset Limit User</h3>
+              </div>
+              <input id="admResetLimitUsername" type="text" placeholder="Username target" class="px-3 py-2.5 text-[10px] mb-2" />
+              <button onclick="admResetLimitByUsername()" class="btn btn-primary w-full py-2.5 text-[10px] font-bold text-white">Reset Limit</button>
+            </div>
+
+            <div class="glass-soft rounded-[12px] p-3.5">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-key text-violet-300 text-[10px]"></i>
+                <h3 class="text-[10px] font-bold text-white">Reset Password</h3>
+              </div>
+              <input id="admResetUsername" type="text" placeholder="Username target" class="px-3 py-2.5 text-[10px] mb-2" />
+              <div class="relative mb-2">
+                <input id="admNewTokenVal" type="password" placeholder="Password baru" class="px-3 py-2.5 pr-9 text-[10px]" />
+                <button type="button" onclick="togglePasswordVisibility('admNewTokenVal','eyeAdmResetIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8]">
+                  <i id="eyeAdmResetIcon" class="fa-solid fa-eye text-[10px]"></i>
+                </button>
+              </div>
+              <button onclick="admResetPasswordByUsername()" class="btn btn-primary w-full py-2.5 text-[10px] font-bold text-white">Ubah Password</button>
+            </div>
+
+            <div class="glass-soft rounded-[12px] p-3.5">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-user-plus text-emerald-400 text-[10px]"></i>
+                <h3 class="text-[10px] font-bold text-white">Buat User Baru</h3>
+              </div>
+              <input id="admNewUser" type="text" placeholder="Username" class="px-3 py-2.5 text-[10px] mb-2" />
+              <div class="grid grid-cols-2 gap-2 mb-2">
+                <div class="relative">
+                  <input id="admNewToken" type="password" placeholder="Token" class="px-3 py-2.5 pr-8 text-[10px]" />
+                  <button type="button" onclick="togglePasswordVisibility('admNewToken','eyeAdmNewIcon')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#948aa8]">
+                    <i id="eyeAdmNewIcon" class="fa-solid fa-eye text-[10px]"></i>
+                  </button>
+                </div>
+                <input id="admNewLimit" type="number" min="1" value="5" placeholder="Limit" class="px-3 py-2.5 text-[10px]" />
+              </div>
+              <button onclick="admCreateUser()" class="btn btn-success w-full py-2.5 text-[10px] font-bold text-white">Simpan User</button>
+            </div>
+
+            <div class="glass-soft rounded-[12px] p-3.5">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-toolbox text-violet-300 text-[10px]"></i>
+                <h3 class="text-[10px] font-bold text-white">Eksekusi Tool</h3>
+              </div>
+              <select id="admToolSelect" onchange="admSwitchToolView()" class="px-3 py-2.5 text-[10px] mb-2">
+                <option value="inject">AM Inject</option>
+                <option value="verify">AM Verify Link</option>
+                <option value="bulk">AM Bulk Generator</option>
+                <option value="inbox">Temp Mail Inbox</option>
+              </select>
+              <input id="admToolInput" type="text" placeholder="Email target..." class="px-3 py-2.5 text-[10px] mb-2" />
+              <div id="admVerifyLinkBox" class="hidden mb-2">
+                <input id="admToolLink" type="text" placeholder="Link verifikasi https://..." class="px-3 py-2.5 text-[10px]" />
+              </div>
+              <button onclick="admRunTool()" class="btn btn-primary w-full py-2.5 text-[10px] font-bold text-white">Jalankan</button>
+            </div>
+          </div>
+
+          <div id="admToolResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px] max-h-36 overflow-y-auto"></div>
+
+          <!-- TABEL MEMBER -->
+          <div class="mt-5">
+            <div class="flex items-end justify-between mb-2.5">
+              <div>
+                <div class="section-label mb-1">Management</div>
+                <h3 class="font-display font-bold text-[13px] text-white">Daftar Member</h3>
+              </div>
+              <button onclick="loadAdminPanel()" class="btn btn-ghost w-8 h-8 flex items-center justify-center">
+                <i class="fa-solid fa-rotate text-[9px]"></i>
+              </button>
+            </div>
+
+            <div class="admin-table overflow-auto max-h-72 rounded-[12px] border border-white/[.06] bg-black/[.2]">
+              <table class="w-full min-w-[610px] text-left text-[10px]">
+                <thead class="sticky top-0 bg-[#0d0914]/95 backdrop-blur-xl text-[#c4b5fd]">
+                  <tr>
+                    <th class="px-3 py-2.5 font-semibold">User</th>
+                    <th class="px-3 py-2.5 font-semibold">Usage</th>
+                    <th class="px-3 py-2.5 font-semibold">Status</th>
+                    <th class="px-3 py-2.5 font-semibold text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admUserTableBody" class="divide-y divide-white/[.04]"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- KAKI HALAMAN (FOOTER) -->
+    <footer class="text-center pb-2 pt-1">
+      <div class="text-[9px] text-[#7c6f93]">
+        AM Pro Toolkit <span class="mx-1 text-[#c084fc]/55">•</span> Secure Backend <span class="mx-1 text-[#c084fc]/55">•</span> ThanzDev
       </div>
-    </div>
+    </footer>
   </div>
 
-  <!-- Toast Notifikasi -->
-  <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl bg-surface-card border border-brand/40 text-white text-xs shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50"></div>
+  <!-- NOTIFIKASI TOAST -->
+  <div id="toast" class="toast fixed z-50 bottom-5 left-1/2 glass rounded-[12px] px-4 py-3 text-[10px] text-white shadow-2xl max-w-[calc(100vw-32px)]"></div>
 
-  <!-- Footer -->
-  <footer class="mt-8 text-center text-[10px] text-zinc-500">
-    AM Pro Toolkit &bull; Secure Supabase Backend &bull; ThanzDev
-  </footer>
+<script>
+  const SUPABASE_URL = "https://rjssnlfqtywmmokcxdix.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqc3NubGZxdHl3bW1va2N4ZGl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MTUxODMsImV4cCI6MjEwMjE5MTE4M30.bMqR8JrfRyPG4Xx2gHh1t19dkc6_Qyg-G6XjI3KYfgk";
 
-  <script>
-    const SUPABASE_URL = "https://rjssnlfqtywmmokcxdix.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqc3NubGZxdHl3bW1va2N4ZGl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MTUxODMsImV4cCI6MjEwMjE5MTE4M30.bMqR8JrfRyPG4Xx2gHh1t19dkc6_Qyg-G6XjI3KYfgk";
+  let supabaseClient = null;
+  let currentUser = null;
+  let isAdmin = false;
+  let activeInjectEmail = "";
+  let countdownInterval = null;
 
-    let supabaseClient = null;
-    let currentUser = null;
-    let isAdmin = false;
-    let activeInjectEmail = '';
-    let deviceId = localStorage.getItem('am_device_id');
-    if (!deviceId) {
-      deviceId = 'dev_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
-      localStorage.setItem('am_device_id', deviceId);
-    }
+  let deviceId = localStorage.getItem("am_device_id");
+  if (!deviceId) {
+    deviceId = "dev_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
+    localStorage.setItem("am_device_id", deviceId);
+  }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      initSupabase(SUPABASE_URL, SUPABASE_ANON_KEY);
-      checkExistingSession();
-    });
+  let supabaseReady = false;
 
-    function initSupabase(url, key) {
-      try {
-        supabaseClient = window.supabase.createClient(url, key);
-      } catch (e) {
-        console.error(e);
-        showToast('Gagal menginisialisasi Supabase.');
-      }
-    }
+  window.addEventListener("DOMContentLoaded", async () => {
+    await initSupabase(SUPABASE_URL, SUPABASE_ANON_KEY);
+    checkExistingSession();
+  });
 
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.remove('opacity-0', 'pointer-events-none');
-      setTimeout(() => {
-        t.classList.add('opacity-0', 'pointer-events-none');
-      }, 3000);
-    }
-
-    function togglePasswordVisibility(inputId, iconId) {
-      const input = document.getElementById(inputId);
-      const icon = document.getElementById(iconId);
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-      } else {
-        input.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-      }
-    }
-
-    window.soundSuccess = function() {
-      try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(587.33, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1); osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.1); } catch {}
-    };
-    window.soundError = function() {
-      try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(200, ctx.currentTime); osc.frequency.linearRampToValueAtTime(100, ctx.currentTime + 0.15); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15); osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.15); } catch {}
-    };
-
-    function switchAuthTab(tab) {
-      document.getElementById('loginFormCard').classList.add('hidden');
-      document.getElementById('regFormCard').classList.add('hidden');
-      document.getElementById('tabLoginBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
-      document.getElementById('tabRegBtn').className = 'py-2 rounded-lg text-zinc-400 hover:text-white transition';
-
-      if (tab === 'login') {
-        document.getElementById('loginFormCard').classList.remove('hidden');
-        document.getElementById('tabLoginBtn').className = 'py-2 rounded-lg bg-brand text-white transition';
-      } else if (tab === 'register') {
-        document.getElementById('regFormCard').classList.remove('hidden');
-        document.getElementById('tabRegBtn').className = 'py-2 rounded-lg bg-brand text-white transition';
-      }
-    }
-
-    async function handleRegister() {
-      if (!supabaseClient) return showToast('Supabase belum terhubung!');
-      const username = document.getElementById('regUsername').value.trim();
-      const token = document.getElementById('regToken').value.trim();
-
-      if (!username || !token) return showToast('Username dan token wajib diisi!');
-
-      const { data: existingDevice } = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('device_id', deviceId)
-        .maybeSingle();
-
-      if (existingDevice) {
-        window.soundError();
-        return showToast('Device ini sudah pernah melakukan registrasi!');
+  async function initSupabase(url, key) {
+    try {
+      // Tunggu library Supabase jika CDN belum selesai dimuat.
+      for (let i = 0; i < 50 && !window.supabase; i++) {
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
 
-      const { data: existingUser } = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('username', username)
-        .maybeSingle();
-
-      if (existingUser) {
-        window.soundError();
-        return showToast('Username sudah digunakan!');
+      if (!window.supabase || typeof window.supabase.createClient !== "function") {
+        throw new Error("Library Supabase belum termuat.");
       }
 
-      const resetAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-
-      const { error } = await supabaseClient.from('users').insert([{
-        username,
-        token,
-        daily_limit: 5,
-        used_count: 0,
-        reset_at: resetAt,
-        device_id: deviceId,
-        status: 'Active'
-      }]);
-
-      if (error) {
-        window.soundError();
-        showToast('Gagal register: ' + error.message);
-      } else {
-        window.soundSuccess();
-        showToast('Registrasi berhasil! Silakan login.');
-        switchAuthTab('login');
-      }
-    }
-
-    async function handleLogin() {
-      if (!supabaseClient) return showToast('Supabase belum terhubung!');
-      const username = document.getElementById('loginUsername').value.trim();
-      const token = document.getElementById('loginToken').value.trim();
-
-      if (!username || !token) return showToast('Masukkan username dan token!');
-
-      if (username === 'thanz' && token === 'thanzadmin') {
-        isAdmin = true;
-        localStorage.setItem('am_is_admin', 'true');
-        window.soundSuccess();
-        enterAdminDashboard();
-        return;
+      if (!url || !key) {
+        throw new Error("SUPABASE_URL atau SUPABASE_ANON_KEY kosong.");
       }
 
-      const { data: user, error } = await supabaseClient
-        .from('users')
-        .select('*')
-        .eq('username', username)
-        .eq('token', token)
-        .maybeSingle();
-
-      if (error || !user) {
-        window.soundError();
-        return showToast('Username atau token salah!');
-      }
-
-      if (user.status !== 'Active') {
-        window.soundError();
-        return showToast('Akun Anda telah dinonaktifkan oleh Admin.');
-      }
-
-      await supabaseClient.from('users').update({ last_login_at: new Date().toISOString() }).eq('id', user.id);
-
-      isAdmin = false;
-      currentUser = user;
-      localStorage.setItem('am_current_user', JSON.stringify(user));
-      window.soundSuccess();
-      enterUserDashboard();
-    }
-
-    function checkExistingSession() {
-      const savedAdmin = localStorage.getItem('am_is_admin');
-      if (savedAdmin === 'true') {
-        isAdmin = true;
-        enterAdminDashboard();
-        return;
-      }
-
-      const saved = localStorage.getItem('am_current_user');
-      if (saved) {
-        try {
-          currentUser = JSON.parse(saved);
-          refreshUserData().then(success => {
-            if (success) enterUserDashboard();
-          });
-        } catch {
-          localStorage.removeItem('am_current_user');
+      supabaseClient = window.supabase.createClient(url, key, {
+        auth: {
+          persistSession: false,
+          autoRefreshToken: false,
+          detectSessionInUrl: false
+        },
+        global: {
+          headers: {
+            "x-client-info": "am-pro-toolkit"
+          }
         }
-      }
-    }
+      });
 
-    async function refreshUserData() {
-      if (!currentUser || !supabaseClient) return false;
-      const { data, error } = await supabaseClient
-        .from('users')
-        .select('*')
-        .eq('id', currentUser.id)
-        .maybeSingle();
-
-      if (error || !data || data.status !== 'Active') {
-        handleLogout();
-        return false;
-      }
-      currentUser = data;
-      localStorage.setItem('am_current_user', JSON.stringify(currentUser));
+      supabaseReady = true;
+      console.log("Supabase berhasil diinisialisasi.");
       return true;
+    } catch (e) {
+      supabaseClient = null;
+      supabaseReady = false;
+      console.error("Supabase init error:", e);
+      showToast("Gagal terhubung ke database.");
+      return false;
+    }
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+
+  function togglePasswordVisibility(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (!input || !icon) return;
+
+    const isPassword = input.type === "password";
+    input.type = isPassword ? "text" : "password";
+    icon.classList.toggle("fa-eye", !isPassword);
+    icon.classList.toggle("fa-eye-slash", isPassword);
+  }
+
+  function switchAuthTab(tab) {
+    const loginCard = document.getElementById("loginFormCard");
+    const regCard = document.getElementById("regFormCard");
+    const loginBtn = document.getElementById("tabLoginBtn");
+    const regBtn = document.getElementById("tabRegBtn");
+
+    loginCard.classList.toggle("hidden", tab !== "login");
+    regCard.classList.toggle("hidden", tab !== "register");
+    loginBtn.classList.toggle("active", tab === "login");
+    regBtn.classList.toggle("active", tab === "register");
+  }
+
+  async function handleRegister() {
+    if (!supabaseClient || !supabaseReady) return showToast("Database belum terhubung.");
+
+    const username = document.getElementById("regUsername").value.trim();
+    const token = document.getElementById("regToken").value.trim();
+
+    if (!username || !token) return showToast("Username dan token wajib diisi.");
+    if (username.length < 4) return showToast("Username minimal 4 karakter.");
+    if (token.length < 4) return showToast("Token minimal 4 karakter.");
+
+    const { data: existingDevice, error: deviceError } = await supabaseClient
+      .from("users")
+      .select("id")
+      .eq("device_id", deviceId)
+      .maybeSingle();
+
+    if (deviceError) return showToast("Gagal mengecek perangkat.");
+    if (existingDevice) return showToast("Perangkat ini sudah pernah mendaftar.");
+
+    const { data: existingUser, error: userError } = await supabaseClient
+      .from("users")
+      .select("id")
+      .eq("username", username)
+      .maybeSingle();
+
+    if (userError) return showToast("Gagal mengecek username.");
+    if (existingUser) return showToast("Username sudah digunakan.");
+
+    const resetAt = new Date(Date.now() + 86400000).toISOString();
+
+    const { error } = await supabaseClient.from("users").insert([{
+      username,
+      token,
+      daily_limit: 5,
+      used_count: 0,
+      reset_at: resetAt,
+      device_id: deviceId,
+      status: "Active"
+    }]);
+
+    if (error) {
+      showToast("Gagal register: " + error.message);
+    } else {
+      document.getElementById("loginUsername").value = username;
+      document.getElementById("loginToken").value = token;
+      document.getElementById("regUsername").value = "";
+      document.getElementById("regToken").value = "";
+      switchAuthTab("login");
+      showToast("Pendaftaran berhasil. Silakan masuk.");
+    }
+  }
+
+  async function handleLogin() {
+    if (!supabaseClient) return showToast("Database belum terhubung.");
+
+    const username = document.getElementById("loginUsername").value.trim();
+    const token = document.getElementById("loginToken").value.trim();
+
+    if (!username || !token) return showToast("Masukkan username dan password.");
+
+    if (username === "thanz" && token === "thanzadmin") {
+      isAdmin = true;
+      localStorage.setItem("am_is_admin", "true");
+      showToast("Berhasil masuk sebagai Admin.");
+      enterAdminDashboard();
+      return;
     }
 
-    function handleLogout() {
-      currentUser = null;
-      isAdmin = false;
-      localStorage.removeItem('am_current_user');
-      localStorage.removeItem('am_is_admin');
-      document.getElementById('authContainer').classList.remove('hidden');
-      document.getElementById('appContainer').classList.add('hidden');
-      document.getElementById('adminContainer').classList.add('hidden');
-      showToast('Berhasil keluar.');
+    const { data: user, error } = await supabaseClient
+      .from("users")
+      .select("*")
+      .eq("username", username)
+      .eq("token", token)
+      .maybeSingle();
+
+    if (error || !user) return showToast("Username atau password salah.");
+    if (user.status !== "Active") return showToast("Akun Anda dinonaktifkan oleh Administrator.");
+
+    await supabaseClient
+      .from("users")
+      .update({ last_login_at: new Date().toISOString() })
+      .eq("id", user.id);
+
+    isAdmin = false;
+    currentUser = user;
+    localStorage.setItem("am_current_user", JSON.stringify(user));
+
+    showToast("Berhasil masuk.");
+    enterUserDashboard();
+  }
+
+  function checkExistingSession() {
+    const savedAdmin = localStorage.getItem("am_is_admin");
+
+    if (savedAdmin === "true") {
+      isAdmin = true;
+      enterAdminDashboard();
+      return;
     }
 
-    let countdownInterval = null;
+    const saved = localStorage.getItem("am_current_user");
+    if (!saved) return;
 
-    function enterUserDashboard() {
-      document.getElementById('authContainer').classList.add('hidden');
-      document.getElementById('adminContainer').classList.add('hidden');
-      document.getElementById('appContainer').classList.remove('hidden');
+    try {
+      currentUser = JSON.parse(saved);
+      refreshUserData().then(success => {
+        if (success) enterUserDashboard();
+      });
+    } catch {
+      localStorage.removeItem("am_current_user");
+    }
+  }
 
-      document.getElementById('displayUsername').textContent = currentUser.username;
-      document.getElementById('userAvatar').textContent = currentUser.username.charAt(0).toUpperCase();
-      
-      updateLimitDisplay();
-      if (countdownInterval) clearInterval(countdownInterval);
-      countdownInterval = setInterval(updateLimitDisplay, 1000);
+  async function refreshUserData() {
+    if (!currentUser || !supabaseClient) return false;
+
+    const { data, error } = await supabaseClient
+      .from("users")
+      .select("*")
+      .eq("id", currentUser.id)
+      .maybeSingle();
+
+    if (error || !data || data.status !== "Active") {
+      handleLogout();
+      return false;
     }
 
-    function enterAdminDashboard() {
-      document.getElementById('authContainer').classList.add('hidden');
-      document.getElementById('appContainer').classList.add('hidden');
-      document.getElementById('adminContainer').classList.remove('hidden');
-      loadAdminPanel();
+    currentUser = data;
+    localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+    return true;
+  }
+
+  function handleLogout() {
+    currentUser = null;
+    isAdmin = false;
+
+    localStorage.removeItem("am_current_user");
+    localStorage.removeItem("am_is_admin");
+
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
     }
 
-    function updateLimitDisplay() {
-      if (!currentUser) return;
-      
-      const now = new Date().getTime();
-      const resetTime = new Date(currentUser.reset_at).getTime();
+    document.getElementById("authContainer").classList.remove("hidden");
+    document.getElementById("appContainer").classList.add("hidden");
+    document.getElementById("adminContainer").classList.add("hidden");
 
-      if (now >= resetTime) {
-        const newReset = new Date(now + 24 * 60 * 60 * 1000).toISOString();
-        supabaseClient.from('users').update({ used_count: 0, reset_at: newReset }).eq('id', currentUser.id).then(({error}) => {
+    switchAuthTab("login");
+    showToast("Berhasil keluar.");
+  }
+
+  function enterUserDashboard() {
+    document.getElementById("authContainer").classList.add("hidden");
+    document.getElementById("adminContainer").classList.add("hidden");
+    document.getElementById("appContainer").classList.remove("hidden");
+
+    document.getElementById("displayUsername").textContent = currentUser.username;
+    document.getElementById("userAvatar").textContent =
+      currentUser.username.charAt(0).toUpperCase();
+
+    updateLimitDisplay();
+
+    if (countdownInterval) clearInterval(countdownInterval);
+    countdownInterval = setInterval(updateLimitDisplay, 1000);
+  }
+
+  function enterAdminDashboard() {
+    document.getElementById("authContainer").classList.add("hidden");
+    document.getElementById("appContainer").classList.add("hidden");
+    document.getElementById("adminContainer").classList.remove("hidden");
+    loadAdminPanel();
+  }
+
+  function updateLimitDisplay() {
+    if (!currentUser) return;
+
+    const now = Date.now();
+    let resetTime = new Date(currentUser.reset_at).getTime();
+
+    if (now >= resetTime) {
+      const newReset = new Date(now + 86400000).toISOString();
+
+      supabaseClient
+        .from("users")
+        .update({ used_count: 0, reset_at: newReset })
+        .eq("id", currentUser.id)
+        .then(({ error }) => {
           if (!error) {
             currentUser.used_count = 0;
             currentUser.reset_at = newReset;
-            localStorage.setItem('am_current_user', JSON.stringify(currentUser));
+            localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+            updateLimitDisplay();
           }
         });
-      }
 
-      const remaining = Math.max(0, currentUser.daily_limit - currentUser.used_count);
-      document.getElementById('statLimit').textContent = currentUser.daily_limit;
-      document.getElementById('statUsed').textContent = currentUser.used_count;
-      document.getElementById('statRemaining').textContent = remaining;
-
-      const diff = resetTime - now;
-      if (diff > 0) {
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById('statReset').textContent = `${hours}h ${minutes}m ${seconds}s`;
-      } else {
-        document.getElementById('statReset').textContent = 'Resetting...';
-      }
+      resetTime = now;
     }
 
-    function switchTab(tab) {
-      document.getElementById('contentSend').classList.add('hidden');
-      document.getElementById('contentBulk').classList.add('hidden');
-      document.getElementById('contentInbox').classList.add('hidden');
-      document.getElementById('tabSend').className = 'py-3 text-center text-zinc-400 hover:text-white';
-      document.getElementById('tabBulk').className = 'py-3 text-center text-zinc-400 hover:text-white';
-      document.getElementById('tabInbox').className = 'py-3 text-center text-zinc-400 hover:text-white';
+    const limit = Number(currentUser.daily_limit) || 0;
+    const used = Number(currentUser.used_count) || 0;
+    const remaining = Math.max(0, limit - used);
+    const percentage = limit > 0 ? Math.min(100, (used / limit) * 100) : 0;
 
-      if (tab === 'send') {
-        document.getElementById('contentSend').classList.remove('hidden');
-        document.getElementById('tabSend').className = 'py-3 text-center text-brand border-b-2 border-brand bg-brand/5';
-      } else if (tab === 'bulk') {
-        document.getElementById('contentBulk').classList.remove('hidden');
-        document.getElementById('tabBulk').className = 'py-3 text-center text-brand border-b-2 border-brand bg-brand/5';
-      } else if (tab === 'inbox') {
-        document.getElementById('contentInbox').classList.remove('hidden');
-        document.getElementById('tabInbox').className = 'py-3 text-center text-brand border-b-2 border-brand bg-brand/5';
-      }
+    document.getElementById("statLimit").textContent = limit;
+    document.getElementById("statUsed").textContent = used;
+    document.getElementById("statRemaining").textContent = remaining;
+    document.getElementById("usageBar").style.width = percentage + "%";
+
+    const diff = resetTime - now;
+
+    if (diff > 0) {
+      const hours = Math.floor(diff / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+
+      document.getElementById("statReset").textContent =
+        `${hours}j ${minutes}m ${seconds}d`;
+    } else {
+      document.getElementById("statReset").textContent = "Memuat...";
+    }
+  }
+
+  function switchTab(tab) {
+    const contents = {
+      send: document.getElementById("contentSend"),
+      bulk: document.getElementById("contentBulk"),
+      inbox: document.getElementById("contentInbox")
+    };
+
+    const tabs = {
+      send: document.getElementById("tabSend"),
+      bulk: document.getElementById("tabBulk"),
+      inbox: document.getElementById("tabInbox")
+    };
+
+    Object.values(contents).forEach(el => el.classList.add("hidden"));
+    Object.values(tabs).forEach(el => el.classList.remove("active"));
+
+    contents[tab].classList.remove("hidden");
+    tabs[tab].classList.add("active");
+  }
+
+  async function handleSendMagicLink() {
+    const email = document.getElementById("inputEmail").value.trim();
+
+    if (!email || !email.includes("@")) {
+      return showToast("Masukkan email yang valid.");
     }
 
-    async function handleSendMagicLink() {
-      const email = document.getElementById('inputEmail').value.trim();
-      if (!email) return showToast('Masukkan email Alight Motion yang valid.');
+    showToast("Mengirim magic link...");
 
-      showToast('Mengirim magic link...');
-      try {
-        const res = await fetch('/api/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-        const json = await res.json();
-        if (!res.ok || json.status === false) {
-          throw new Error(json.message || 'Gagal mengirim magic link.');
-        }
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
 
-        activeInjectEmail = email;
-        document.getElementById('stepEmailBox').classList.add('hidden');
-        document.getElementById('stepVerifyBox').classList.remove('hidden');
-        document.getElementById('flowInstruction').textContent = `Magic link terkirim ke ${email}. Masukkan link verifikasi di bawah.`;
-        showToast('Magic link berhasil dikirim!');
-        window.soundSuccess();
-      } catch (err) {
-        window.soundError();
-        showToast(err.message || 'Terjadi kesalahan jaringan.');
+      const json = await res.json();
+
+      if (!res.ok || json.status === false) {
+        throw new Error(json.message || "Gagal mengirim magic link.");
       }
+
+      activeInjectEmail = email;
+
+      document.getElementById("stepEmailBox").classList.add("hidden");
+      document.getElementById("stepVerifyBox").classList.remove("hidden");
+      document.getElementById("flowInstruction").textContent =
+        `Magic link terkirim ke ${email}. Masukkan link verifikasi.`;
+
+      showToast("Magic link berhasil dikirim.");
+    } catch (err) {
+      showToast(err.message || "Koneksi gagal.");
+    }
+  }
+
+  async function handleVerifyMagicLink() {
+    const link = document.getElementById("inputLink").value.trim();
+
+    if (!link) return showToast("Masukkan link verifikasi.");
+
+    const valid = await refreshUserData();
+    if (!valid) return showToast("Sesi berakhir.");
+
+    const remaining = currentUser.daily_limit - currentUser.used_count;
+
+    if (remaining <= 0) {
+      return showToast("Limit harian Anda sudah habis.");
     }
 
-    async function handleVerifyMagicLink() {
-      const link = document.getElementById('inputLink').value.trim();
-      if (!link) return showToast('Masukkan link verifikasi.');
+    showToast("Memverifikasi...");
 
-      const valid = await refreshUserData();
-      if (!valid) return showToast('Sesi berakhir atau akun dinonaktifkan.');
+    let success = false;
+    let resultMessage = "";
 
-      if (currentUser.status !== 'Active') {
-        window.soundError();
-        return showToast('Akun Anda tidak aktif.');
-      }
+    try {
+      const res = await fetch("/api/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: activeInjectEmail,
+          link
+        })
+      });
 
-      const remaining = currentUser.daily_limit - currentUser.used_count;
-      if (remaining <= 0) {
-        window.soundError();
-        return showToast('Limit harian Anda sudah habis! Tunggu waktu reset.');
-      }
+      const json = await res.json();
 
-      showToast('Memverifikasi magic link...');
-      let success = false;
-      let resultMessage = '';
+      success = res.ok && json.status !== false;
+      resultMessage = json.message || "Verifikasi berhasil.";
 
-      try {
-        const res = await fetch('/api/verify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: activeInjectEmail, link })
-        });
-        const json = await res.json();
-        success = res.ok && json.status !== false;
-        resultMessage = json.message || 'Verifikasi berhasil!';
-
-        const resEl = document.getElementById('sendResult');
-        resEl.innerHTML = `<div class="${success ? 'text-emerald-400' : 'text-red-400'} font-bold">${success ? 'Berhasil' : 'Gagal'}</div><div class="text-[10px] text-zinc-300 mt-1">${resultMessage}</div>`;
-        resEl.classList.remove('hidden');
-      } catch (err) {
-        success = false;
-        showToast('Terjadi kesalahan jaringan saat verifikasi.');
-      }
-
-      await supabaseClient.from('inject_logs').insert([{
-        user_id: currentUser.id,
-        username: currentUser.username,
-        status: success ? 'SUCCESS' : 'FAILED'
-      }]);
-
-      if (success) {
-        const newUsed = currentUser.used_count + 1;
-        await supabaseClient.from('users').update({ used_count: newUsed }).eq('id', currentUser.id);
-        currentUser.used_count = newUsed;
-        localStorage.setItem('am_current_user', JSON.stringify(currentUser));
-        updateLimitDisplay();
-        window.soundSuccess();
-        showToast('Verifikasi berhasil! Kredit berkurang 1.');
-        resetInjectFlow();
-      } else {
-        window.soundError();
-        showToast('Verifikasi gagal. Kredit tidak dikurangi.');
-      }
+      const result = document.getElementById("sendResult");
+      result.innerHTML = `
+        <div class="${success ? "text-emerald-400" : "text-red-400"} font-bold">
+          ${success ? "Berhasil" : "Gagal"}
+        </div>
+        <div class="text-[10px] text-[#c4b5fd] mt-1 leading-relaxed">
+          ${escapeHtml(resultMessage)}
+        </div>
+      `;
+      result.classList.remove("hidden");
+    } catch (err) {
+      success = false;
+      showToast("Kesalahan jaringan.");
     }
 
-    function resetInjectFlow() {
-      activeInjectEmail = '';
-      document.getElementById('inputEmail').value = '';
-      document.getElementById('inputLink').value = '';
-      document.getElementById('stepVerifyBox').classList.add('hidden');
-      document.getElementById('stepEmailBox').classList.remove('hidden');
-      document.getElementById('flowInstruction').textContent = 'Masukkan email AM untuk mengirimkan magic link.';
-      document.getElementById('sendResult').classList.add('hidden');
+    await supabaseClient.from("inject_logs").insert([{
+      user_id: currentUser.id,
+      username: currentUser.username,
+      status: success ? "SUCCESS" : "FAILED"
+    }]);
+
+    if (success) {
+      const newUsed = currentUser.used_count + 1;
+
+      await supabaseClient
+        .from("users")
+        .update({ used_count: newUsed })
+        .eq("id", currentUser.id);
+
+      currentUser.used_count = newUsed;
+      localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+
+      updateLimitDisplay();
+      showToast("Verifikasi berhasil. Kredit terpakai +1.");
+
+      setTimeout(resetInjectFlow, 900);
+    } else {
+      showToast("Verifikasi gagal.");
+    }
+  }
+
+  function resetInjectFlow() {
+    activeInjectEmail = "";
+
+    document.getElementById("inputEmail").value = "";
+    document.getElementById("inputLink").value = "";
+
+    document.getElementById("stepVerifyBox").classList.add("hidden");
+    document.getElementById("stepEmailBox").classList.remove("hidden");
+
+    document.getElementById("flowInstruction").textContent =
+      "Kirim magic link ke email target terlebih dahulu.";
+
+    document.getElementById("sendResult").classList.add("hidden");
+  }
+
+  async function runBulkInject() {
+    const valid = await refreshUserData();
+    if (!valid) return showToast("Sesi berakhir.");
+
+    const remaining = currentUser.daily_limit - currentUser.used_count;
+    if (remaining <= 0) return showToast("Limit harian habis.");
+
+    const amount = Number(document.getElementById("inputBulkAmount").value);
+
+    if (!amount || amount < 1 || amount > 100) {
+      return showToast("Jumlah harus 1 - 100.");
     }
 
-    async function runBulkInject() {
-      const valid = await refreshUserData();
-      if (!valid) return showToast('Sesi berakhir atau akun dinonaktifkan.');
+    showToast("Memproses bulk...");
 
-      if (currentUser.status !== 'Active') {
-        window.soundError();
-        return showToast('Akun Anda tidak aktif.');
-      }
+    let success = false;
+    let resultMessage = "";
 
-      const remaining = currentUser.daily_limit - currentUser.used_count;
-      if (remaining <= 0) {
-        window.soundError();
-        return showToast('Limit harian Anda sudah habis! Tunggu waktu reset.');
-      }
+    try {
+      const res = await fetch("/api/bulk", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount })
+      });
 
-      const amount = Number(document.getElementById('inputBulkAmount').value);
-      if (!amount || amount < 1 || amount > 100) return showToast('Jumlah bulk 1 - 100.');
+      const json = await res.json();
 
-      showToast('Memproses bulk generator...');
-      let success = false;
-      let resultMessage = '';
+      success = res.ok && json.status !== false;
+      resultMessage = json.message || JSON.stringify(json, null, 2);
 
-      try {
-        const res = await fetch('/api/bulk', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount })
-        });
-        const json = await res.json();
-        success = res.ok && json.status !== false;
-        resultMessage = json.message || JSON.stringify(json, null, 2);
+      const result = document.getElementById("bulkResult");
 
-        const resEl = document.getElementById('bulkResult');
-        resEl.innerHTML = `<div class="${success ? 'text-emerald-400' : 'text-red-400'} font-bold">${success ? 'Berhasil' : 'Gagal'}</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${resultMessage}</pre>`;
-        resEl.classList.remove('hidden');
-      } catch (err) {
-        success = false;
-        showToast('Terjadi kesalahan jaringan.');
-      }
+      result.innerHTML = `
+        <div class="${success ? "text-emerald-400" : "text-red-400"} font-bold">
+          ${success ? "Berhasil" : "Gagal"}
+        </div>
+        <pre class="whitespace-pre-wrap text-[10px] text-[#c4b5fd] mt-1">${escapeHtml(resultMessage)}</pre>
+      `;
 
-      await supabaseClient.from('inject_logs').insert([{
-        user_id: currentUser.id,
-        username: currentUser.username,
-        status: success ? 'SUCCESS' : 'FAILED'
-      }]);
-
-      if (success) {
-        const newUsed = currentUser.used_count + 1;
-        await supabaseClient.from('users').update({ used_count: newUsed }).eq('id', currentUser.id);
-        currentUser.used_count = newUsed;
-        localStorage.setItem('am_current_user', JSON.stringify(currentUser));
-        updateLimitDisplay();
-        window.soundSuccess();
-        showToast('Bulk berhasil! Limit terpakai +1');
-      } else {
-        window.soundError();
-        showToast('Bulk gagal. Limit tidak dikurangi.');
-      }
+      result.classList.remove("hidden");
+    } catch {
+      success = false;
+      showToast("Koneksi gagal.");
     }
 
-    async function runInboxCheck() {
-      const email = document.getElementById('inputInboxEmail').value.trim();
-      const notice = document.getElementById('inboxNotice');
-      const resContainer = document.getElementById('inboxResult');
-      if (!email) return showToast('Masukkan email temp mail.');
+    await supabaseClient.from("inject_logs").insert([{
+      user_id: currentUser.id,
+      username: currentUser.username,
+      status: success ? "SUCCESS" : "FAILED"
+    }]);
 
-      notice.className = 'py-2 px-3 rounded-xl text-[11px] bg-brand/10 border border-brand/30 text-brand';
-      notice.textContent = 'Memindai inbox...';
-      notice.classList.remove('hidden');
-      resContainer.innerHTML = '';
+    if (success) {
+      const newUsed = currentUser.used_count + 1;
 
-      try {
-        const res = await fetch('/api/inbox', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-        const json = await res.json();
-        if (!res.ok || json.status === false) {
-          throw new Error(json.message || 'Gagal mengambil inbox.');
-        }
+      await supabaseClient
+        .from("users")
+        .update({ used_count: newUsed })
+        .eq("id", currentUser.id);
 
-        notice.className = 'py-2 px-3 rounded-xl text-[11px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-400';
-        notice.textContent = 'Inbox berhasil dipindai.';
+      currentUser.used_count = newUsed;
+      localStorage.setItem("am_current_user", JSON.stringify(currentUser));
 
-        const messages = json.data?.messages || [];
-        if (messages.length === 0) {
-          resContainer.innerHTML = '<div class="text-xs text-zinc-400 p-3 text-center">Belum ada pesan.</div>';
-          return;
-        }
-
-        messages.forEach(msg => {
-          const card = document.createElement('div');
-          card.className = 'p-3 rounded-xl bg-zinc-900/80 border border-white/5 space-y-2 text-xs';
-          const link = msg.login_url || '';
-          card.innerHTML = `
-            <div class="font-bold text-white">${msg.subject || 'Tanpa Subjek'}</div>
-            ${link ? `<div class="p-2 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] break-all">${link}</div><button onclick="navigator.clipboard.writeText('${link}');showToast('Link disalin!')" class="w-full py-1 rounded bg-brand text-white font-bold text-[10px]">Salin Link</button>` : '<div class="text-zinc-400 text-[10px]">Link belum tersedia.</div>'}
-          `;
-          resContainer.appendChild(card);
-        });
-      } catch (err) {
-        notice.className = 'py-2 px-3 rounded-xl text-[11px] bg-red-500/10 border border-red-500/30 text-red-400';
-        notice.textContent = err.message;
-      }
+      updateLimitDisplay();
+      showToast("Bulk berhasil. Kredit terpakai +1.");
+    } else {
+      showToast("Bulk gagal.");
     }
+  }
 
-    async function loadAdminPanel() {
-      if (!isAdmin || !supabaseClient) return;
+  async function runInboxCheck() {
+    const email = document.getElementById("inputInboxEmail").value.trim();
+    const notice = document.getElementById("inboxNotice");
+    const container = document.getElementById("inboxResult");
 
-      const { data: users, error: errUsers } = await supabaseClient.from('users').select('*');
-      const { data: logs, error: errLogs } = await supabaseClient.from('inject_logs').select('*');
+    if (!email) return showToast("Masukkan email.");
 
-      if (errUsers || errLogs) {
-        showToast('Gagal memuat data admin.');
+    notice.className =
+      "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-violet-500/[.12] border border-violet-400/[.25] text-violet-200";
+    notice.textContent = "Memindai pesan...";
+    notice.classList.remove("hidden");
+
+    container.innerHTML = "";
+
+    try {
+      const res = await fetch("/api/inbox", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      const json = await res.json();
+
+      if (!res.ok || json.status === false) {
+        throw new Error(json.message || "Gagal mengambil inbox.");
+      }
+
+      notice.className =
+        "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-emerald-500/[.12] border border-emerald-400/[.25] text-emerald-300";
+      notice.textContent = "Inbox berhasil dipindai.";
+
+      const messages = json.data?.messages || [];
+
+      if (!messages.length) {
+        container.innerHTML =
+          '<div class="text-[10px] text-[#7c6f93] p-3 text-center">Belum ada pesan.</div>';
         return;
       }
 
-      const totalUsers = users.length;
-      const activeUsers = users.filter(u => u.status === 'Active').length;
-      const disabledUsers = users.filter(u => u.status === 'Disabled').length;
-      const successInjects = logs.filter(l => l.status === 'SUCCESS').length;
+      messages.forEach(msg => {
+        const card = document.createElement("div");
+        card.className =
+          "glass-soft p-3 rounded-[11px] border border-white/[.06] space-y-2";
 
-      document.getElementById('admTotalUsers').textContent = totalUsers;
-      document.getElementById('admActiveUsers').textContent = activeUsers;
-      document.getElementById('admDisabledUsers').textContent = disabledUsers;
-      document.getElementById('admTotalInjects').textContent = successInjects;
+        const subject = msg.subject || "Tanpa Subjek";
+        const link = msg.login_url || "";
 
-      const tbody = document.getElementById('admUserTableBody');
-      tbody.innerHTML = '';
-
-      users.forEach(u => {
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-brand/5 transition';
-        tr.innerHTML = `
-          <td class="p-2.5">
-            <div class="font-bold text-white">${u.username}</div>
-            <div class="text-[10px] text-zinc-400 font-mono">Token: ${u.token}</div>
-          </td>
-          <td class="p-2.5">
-            <div>Limit: ${u.daily_limit}</div>
-            <div class="text-[10px] text-amber-400">Used: ${u.used_count}</div>
-          </td>
-          <td class="p-2.5">
-            <span class="px-2 py-0.5 rounded text-[10px] ${u.status === 'Active' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">${u.status}</span>
-          </td>
-          <td class="p-2.5 text-right space-x-1">
-            <button onclick="admPromptResetLimit('${u.username}')" class="px-2 py-1 rounded bg-brand/20 text-brand text-[10px] hover:bg-brand/30" title="Reset Limit to 0">Reset Limit</button>
-            <button onclick="admPromptResetPass('${u.username}')" class="px-2 py-1 rounded bg-purple-500/20 text-purple-400 text-[10px] hover:bg-purple-500/30" title="Reset Password">Reset Pass</button>
-            <button onclick="admToggleStatus('${u.id}', '${u.status}')" class="px-2 py-1 rounded ${u.status === 'Active' ? 'bg-amber-500/20 text-amber-400' : 'bg-emerald-500/20 text-emerald-400'} text-[10px]" title="Toggle Status">${u.status === 'Active' ? 'Disable' : 'Enable'}</button>
-            <button onclick="admDeleteUser('${u.id}')" class="px-2 py-1 rounded bg-red-500/20 text-red-400 text-[10px] hover:bg-red-500/30" title="Delete"><i class="fa-solid fa-trash"></i></button>
-          </td>
+        card.innerHTML = `
+          <div class="text-[10px] font-bold text-white">${escapeHtml(subject)}</div>
+          ${
+            link
+              ? `
+                <div class="p-2 rounded-[9px] bg-emerald-500/[.08] border border-emerald-400/[.15] text-emerald-300 text-[9px] break-all">
+                  ${escapeHtml(link)}
+                </div>
+                <button class="btn btn-primary w-full py-2 text-[9px] font-bold text-white">
+                  Salin Link
+                </button>
+              `
+              : `
+                <div class="text-[9px] text-[#7c6f93]">
+                  Link belum tersedia.
+                </div>
+              `
+          }
         `;
-        tbody.appendChild(tr);
-      });
-    }
 
-    async function admCreateUser() {
-      const username = document.getElementById('admNewUser').value.trim();
-      const token = document.getElementById('admNewToken').value.trim();
-      const daily_limit = Number(document.getElementById('admNewLimit').value) || 5;
-
-      if (!username || !token) return showToast('Username dan token wajib diisi.');
-      const resetAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-
-      const { error } = await supabaseClient.from('users').insert([{
-        username,
-        token,
-        daily_limit,
-        used_count: 0,
-        reset_at: resetAt,
-        status: 'Active'
-      }]);
-
-      if (error) showToast('Gagal tambah user: ' + error.message);
-      else {
-        showToast('User berhasil dibuat.');
-        document.getElementById('admNewUser').value = '';
-        document.getElementById('admNewToken').value = '';
-        loadAdminPanel();
-      }
-    }
-
-    async function admResetLimitByUsername() {
-      const targetUsername = document.getElementById('admResetLimitUsername').value.trim();
-
-      if (!targetUsername) return showToast('Masukkan target username.');
-
-      const { data: targetUser, error: fetchErr } = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('username', targetUsername)
-        .maybeSingle();
-
-      if (fetchErr || !targetUser) {
-        return showToast('Username tidak ditemukan di database.');
-      }
-
-      const { error: updateErr } = await supabaseClient
-        .from('users')
-        .update({ used_count: 0 })
-        .eq('id', targetUser.id);
-
-      if (updateErr) {
-        showToast('Gagal mereset limit: ' + updateErr.message);
-      } else {
-        showToast(`Berhasil! Limit user ${targetUsername} direset menjadi 0/5`);
-        document.getElementById('admResetLimitUsername').value = '';
-        loadAdminPanel();
-      }
-    }
-
-    async function admResetPasswordByUsername() {
-      const targetUsername = document.getElementById('admResetUsername').value.trim();
-      const newToken = document.getElementById('admNewTokenVal').value.trim();
-
-      if (!targetUsername || !newToken) return showToast('Username dan token baru wajib diisi.');
-
-      const { data: targetUser, error: fetchErr } = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('username', targetUsername)
-        .maybeSingle();
-
-      if (fetchErr || !targetUser) {
-        return showToast('Username tidak ditemukan di database.');
-      }
-
-      const { error: updateErr } = await supabaseClient
-        .from('users')
-        .update({ token: newToken })
-        .eq('id', targetUser.id);
-
-      if (updateErr) {
-        showToast('Gagal mereset password: ' + updateErr.message);
-      } else {
-        showToast(`Token/password user ${targetUsername} berhasil direset!`);
-        document.getElementById('admResetUsername').value = '';
-        document.getElementById('admNewTokenVal').value = '';
-        loadAdminPanel();
-      }
-    }
-
-    function admPromptResetLimit(username) {
-      document.getElementById('admResetLimitUsername').value = username;
-      document.getElementById('admResetLimitUsername').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      showToast(`Target reset limit diatur ke: ${username}`);
-    }
-
-    function admPromptResetPass(username) {
-      document.getElementById('admResetUsername').value = username;
-      document.getElementById('admResetUsername').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      showToast(`Target reset pass diatur ke: ${username}`);
-    }
-
-    function admSwitchToolView() {
-      const tool = document.getElementById('admToolSelect').value;
-      const input = document.getElementById('admToolInput');
-      const linkBox = document.getElementById('admVerifyLinkBox');
-      
-      linkBox.classList.add('hidden');
-
-      if (tool === 'inject') {
-        input.placeholder = "Masukkan email target AM (cth: user@email.com)";
-      } else if (tool === 'verify') {
-        input.placeholder = "Masukkan email target AM...";
-        linkBox.classList.remove('hidden');
-      } else if (tool === 'bulk') {
-        input.placeholder = "Masukkan jumlah bulk (1 - 100)";
-      } else if (tool === 'inbox') {
-        input.placeholder = "Masukkan email temp mail untuk dipindai";
-      }
-    }
-
-    async function admRunTool() {
-      const tool = document.getElementById('admToolSelect').value;
-      const val = document.getElementById('admToolInput').value.trim();
-      const linkVal = document.getElementById('admToolLink').value.trim();
-      const resContainer = document.getElementById('admToolResult');
-      resContainer.classList.add('hidden');
-      resContainer.innerHTML = '';
-
-      if (!val) return showToast('Masukkan nilai input untuk alat.');
-
-      showToast('Menjalankan alat dari panel admin...');
-
-      try {
-        if (tool === 'inject') {
-          const res = await fetch('/api/send', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: val })
+        if (link) {
+          card.querySelector("button").addEventListener("click", async () => {
+            try {
+              await navigator.clipboard.writeText(link);
+              showToast("Link disalin.");
+            } catch {
+              showToast("Gagal menyalin link.");
+            }
           });
-          const json = await res.json();
-          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">AM Inject Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
-          resContainer.classList.remove('hidden');
-        } else if (tool === 'verify') {
-          if (!linkVal) return showToast('Masukkan link verifikasi.');
-          const res = await fetch('/api/verify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: val, link: linkVal })
-          });
-          const json = await res.json();
-          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">AM Verify Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
-          resContainer.classList.remove('hidden');
-        } else if (tool === 'bulk') {
-          const amount = Number(val);
-          if (isNaN(amount) || amount < 1 || amount > 100) return showToast('Jumlah bulk 1 - 100.');
-          const res = await fetch('/api/bulk', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount })
-          });
-          const json = await res.json();
-          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">Bulk Generator Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
-          resContainer.classList.remove('hidden');
-        } else if (tool === 'inbox') {
-          const res = await fetch('/api/inbox', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: val })
-          });
-          const json = await res.json();
-          resContainer.innerHTML = `<div class="font-bold ${res.ok && json.status !== false ? 'text-emerald-400' : 'text-red-400'}">Inbox Scanner Result:</div><pre class="whitespace-pre-wrap text-[10px] text-zinc-300 mt-1">${JSON.stringify(json, null, 2)}</pre>`;
-          resContainer.classList.remove('hidden');
         }
-        showToast('Eksekusi alat selesai.');
-      } catch (err) {
-        showToast('Gagal mengeksekusi alat: ' + err.message);
-      }
+
+        container.appendChild(card);
+      });
+    } catch (err) {
+      notice.className =
+        "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-red-500/[.12] border border-red-400/[.25] text-red-300";
+      notice.textContent = err.message;
+    }
+  }
+
+  async function loadAdminPanel() {
+    if (!isAdmin || !supabaseClient) return;
+
+    const { data: users, error: errUsers } =
+      await supabaseClient.from("users").select("*");
+
+    const { data: logs, error: errLogs } =
+      await supabaseClient.from("inject_logs").select("*");
+
+    if (errUsers || errLogs) {
+      showToast("Gagal memuat data admin.");
+      return;
     }
 
-    async function admToggleStatus(userId, currentStatus) {
-      const nextStatus = currentStatus === 'Active' ? 'Disabled' : 'Active';
-      const { error } = await supabaseClient.from('users').update({ status: nextStatus }).eq('id', userId);
-      if (error) showToast('Gagal mengubah status.');
-      else {
-        showToast('Status diubah ke ' + nextStatus);
-        loadAdminPanel();
-      }
-    }
+    const safeUsers = users || [];
+    const safeLogs = logs || [];
 
-    async function admDeleteUser(userId) {
-      if (!confirm('Yakin ingin menghapus user ini?')) return;
-      const { error } = await supabaseClient.from('users').delete().eq('id', userId);
-      if (error) showToast('Gagal menghapus user.');
-      else {
-        showToast('User dihapus.');
-        loadAdminPanel();
-      }
+    document.getElementById("admTotalUsers").textContent = safeUsers.length;
+    document.getElementById("admActiveUsers").textContent =
+      safeUsers.filter(u => u.status === "Active").length;
+    document.getElementById("admDisabledUsers").textContent =
+      safeUsers.filter(u => u.status === "Disabled").length;
+    document.getElementById("admTotalInjects").textContent =
+      safeLogs.filter(l => l.status === "SUCCESS").length;
+
+    const tbody = document.getElementById("admUserTableBody");
+    tbody.innerHTML = "";
+
+    safeUsers.forEach(u => {
+      const tr = document.createElement("tr");
+      tr.className = "hover:bg-violet-500/[.04] transition";
+
+      tr.innerHTML = `
+        <td class="px-3 py-3">
+          <div class="font-semibold text-white">${escapeHtml(u.username)}</div>
+          <div class="text-[9px] text-[#7c6f93] font-mono mt-0.5">
+            Token: ${escapeHtml(u.token || "-")}
+          </div>
+        </td>
+
+        <td class="px-3 py-3">
+          <div class="text-[#e9d5ff]">${Number(u.used_count) || 0} / ${Number(u.daily_limit) || 0}</div>
+        </td>
+
+        <td class="px-3 py-3">
+          <span class="px-2 py-1 rounded-full text-[8px] ${
+            u.status === "Active"
+              ? "bg-emerald-500/[.12] text-emerald-300 border border-emerald-400/[.2]"
+              : "bg-red-500/[.12] text-red-300 border border-red-400/[.2]"
+          }">
+            ${escapeHtml(u.status)}
+          </span>
+        </td>
+
+        <td class="px-3 py-3 text-right whitespace-nowrap">
+          <button onclick="admPromptResetLimit('${escapeAttr(u.username)}')" class="btn btn-ghost px-2 py-1.5 text-[8px] mr-1">Limit</button>
+          <button onclick="admPromptResetPass('${escapeAttr(u.username)}')" class="btn btn-ghost px-2 py-1.5 text-[8px] mr-1">Pass</button>
+          <button onclick="admToggleStatus('${escapeAttr(u.id)}','${escapeAttr(u.status)}')" class="btn ${
+            u.status === "Active"
+              ? "bg-amber-500/[.12] text-amber-300 border border-amber-400/[.2]"
+              : "bg-emerald-500/[.12] text-emerald-300 border border-emerald-400/[.2]"
+          } px-2 py-1.5 rounded-[9px] text-[8px] mr-1">
+            ${u.status === "Active" ? "Off" : "On"}
+          </button>
+          <button onclick="admDeleteUser('${escapeAttr(u.id)}')" class="btn bg-red-500/[.1] text-red-300 border border-red-400/[.2] px-2 py-1.5 rounded-[9px] text-[8px]">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  async function admCreateUser() {
+    const username = document.getElementById("admNewUser").value.trim();
+    const token = document.getElementById("admNewToken").value.trim();
+    const daily_limit = Number(document.getElementById("admNewLimit").value) || 5;
+
+    if (!username || !token) return showToast("Username dan token wajib diisi.");
+
+    const resetAt = new Date(Date.now() + 86400000).toISOString();
+
+    const { error } = await supabaseClient.from("users").insert([{
+      username,
+      token,
+      daily_limit,
+      used_count: 0,
+      reset_at: resetAt,
+      status: "Active"
+    }]);
+
+    if (error) {
+      showToast("Gagal: " + error.message);
+    } else {
+      showToast("User berhasil dibuat.");
+      document.getElementById("admNewUser").value = "";
+      document.getElementById("admNewToken").value = "";
+      loadAdminPanel();
     }
-  </script>
+  }
+
+  async function admResetLimitByUsername() {
+    const username = document.getElementById("admResetLimitUsername").value.trim();
+
+    if (!username) return showToast("Masukkan username target.");
+
+    const { data, error } = await supabaseClient
+      .from("users")
+      .select("id")
+      .eq("username", username)
+      .maybeSingle();
+
+    if (error || !data) return showToast("Username tidak ditemukan.");
+
+    const { error: updateError } = await supabaseClient
+      .from("users")
+      .update({
+        used_count: 0,
+        reset_at: new Date(Date.now() + 86400000).toISOString()
+      })
+      .eq("id", data.id);
+
+    if (updateError) {
+      showToast("Gagal reset limit.");
+    } else {
+      showToast(`Limit ${username} berhasil direset.`);
+      document.getElementById("admResetLimitUsername").value = "";
+      loadAdminPanel();
+    }
+  }
+
+  async function admResetPasswordByUsername() {
+    const username = document.getElementById("admResetUsername").value.trim();
+    const token = document.getElementById("admNewTokenVal").value.trim();
+
+    if (!username || !token) return showToast("Isi data lengkap.");
+
+    const { data, error } = await supabaseClient
+      .from("users")
+      .select("id")
+      .eq("username", username)
+      .maybeSingle();
+
+    if (error || !data) return showToast("Username tidak ditemukan.");
+
+    const { error: updateError } = await supabaseClient
+      .from("users")
+      .update({ token })
+      .eq("id", data.id);
+
+    if (updateError) {
+      showToast("Gagal reset password.");
+    } else {
+      showToast("Password berhasil direset.");
+      document.getElementById("admResetUsername").value = "";
+      document.getElementById("admNewTokenVal").value = "";
+      loadAdminPanel();
+    }
+  }
+
+  function admPromptResetLimit(username) {
+    document.getElementById("admResetLimitUsername").value = username;
+    showToast(`Target limit: ${username}`);
+  }
+
+  function admPromptResetPass(username) {
+    document.getElementById("admResetUsername").value = username;
+    showToast(`Target password: ${username}`);
+  }
+
+  function admSwitchToolView() {
+    const tool = document.getElementById("admToolSelect").value;
+    const input = document.getElementById("admToolInput");
+    const linkBox = document.getElementById("admVerifyLinkBox");
+
+    linkBox.classList.add("hidden");
+
+    if (tool === "inject") {
+      input.placeholder = "Email target AM...";
+    } else if (tool === "verify") {
+      input.placeholder = "Email target AM...";
+      linkBox.classList.remove("hidden");
+    } else if (tool === "bulk") {
+      input.placeholder = "Jumlah bulk (1 - 100)...";
+    } else {
+      input.placeholder = "Email temp mail...";
+    }
+  }
+
+  async function admRunTool() {
+    const tool = document.getElementById("admToolSelect").value;
+    const value = document.getElementById("admToolInput").value.trim();
+    const link = document.getElementById("admToolLink").value.trim();
+    const result = document.getElementById("admToolResult");
+
+    result.classList.add("hidden");
+    result.innerHTML = "";
+
+    if (!value) return showToast("Masukkan input.");
+
+    showToast("Menjalankan alat...");
+
+    try {
+      let endpoint = "";
+      let body = {};
+
+      if (tool === "inject") {
+        endpoint = "/api/send";
+        body = { email: value };
+      }
+
+      if (tool === "verify") {
+        if (!link) return showToast("Masukkan link verifikasi.");
+        endpoint = "/api/verify";
+        body = { email: value, link };
+      }
+
+      if (tool === "bulk") {
+        const amount = Number(value);
+        if (!amount || amount < 1 || amount > 100) {
+          return showToast("Jumlah bulk harus 1 - 100.");
+        }
+        endpoint = "/api/bulk";
+        body = { amount };
+      }
+
+      if (tool === "inbox") {
+        endpoint = "/api/inbox";
+        body = { email: value };
+      }
+
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const json = await res.json();
+
+      result.innerHTML = `
+        <div class="font-bold text-white mb-1">Hasil ${escapeHtml(tool)}</div>
+        <pre class="text-[9px] text-[#c4b5fd] whitespace-pre-wrap">${escapeHtml(JSON.stringify(json, null, 2))}</pre>
+      `;
+
+      result.classList.remove("hidden");
+      showToast(res.ok ? "Selesai." : "Request gagal.");
+    } catch (err) {
+      showToast("Gagal: " + err.message);
+    }
+  }
+
+  async function admToggleStatus(userId, currentStatus) {
+    const nextStatus = currentStatus === "Active" ? "Disabled" : "Active";
+
+    const { error } = await supabaseClient
+      .from("users")
+      .update({ status: nextStatus })
+      .eq("id", userId);
+
+    if (error) {
+      showToast("Gagal mengubah status.");
+    } else {
+      showToast("Status berhasil diubah.");
+      loadAdminPanel();
+    }
+  }
+
+  async function admDeleteUser(userId) {
+    if (!confirm("Hapus user ini?")) return;
+
+    const { error } = await supabaseClient
+      .from("users")
+      .delete()
+      .eq("id", userId);
+
+    if (error) {
+      showToast("Gagal menghapus user.");
+    } else {
+      showToast("User dihapus.");
+      loadAdminPanel();
+    }
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function escapeAttr(value) {
+    return String(value ?? "")
+      .replaceAll("\\", "\\\\")
+      .replaceAll("'", "\\'");
+  }
+</script>
 </body>
 </html>
+
