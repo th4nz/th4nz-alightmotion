@@ -1,5 +1,25 @@
+import { createClient } from '@supabase/supabase-js';
+
 const DEFAULT_BASE = "https://api.znn.my.id/alightmotion";
 const DEFAULT_API_ROOT = "https://api.znn.my.id";
+
+// Inisialisasi Supabase Client untuk Backend (Aman menggunakan Service Role / Secret Key)
+let serverSupabase = null;
+export function getServerSupabase() {
+  if (!serverSupabase) {
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!supabaseUrl || !supabaseSecretKey) {
+      throw new Error("Konfigurasi Supabase URL atau Secret Key belum lengkap di Environment Variables Vercel.");
+    }
+
+    serverSupabase = createClient(supabaseUrl, supabaseSecretKey, {
+      auth: { persistSession: false, autoRefreshToken: false }
+    });
+  }
+  return serverSupabase;
+}
 
 function cleanString(value, max = 4000) {
   return String(value ?? "").trim().slice(0, max);
@@ -53,16 +73,6 @@ function sanitize(value, depth = 0) {
   }
 
   return value;
-}
-
-function authorizationValue(token) {
-  const value = cleanString(token, 4096);
-
-  if (/^Bearer\s+/i.test(value)) {
-    return value;
-  }
-
-  return "Bearer " + value;
 }
 
 export async function callAlightMotion(action, params = {}) {
