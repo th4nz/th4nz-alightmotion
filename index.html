@@ -341,12 +341,6 @@
       transition: width .35s ease;
     }
 
-    .stat-box {
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(0, 240, 255, 0.1);
-      border-radius: 12px;
-    }
-
     .tool-tabs {
       background: rgba(0, 0, 0, 0.2);
       border-bottom: 1px solid rgba(0, 240, 255, 0.12);
@@ -442,18 +436,6 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
-
-    @media (max-width: 480px) {
-      .desktop-only {
-        display: none !important;
-      }
-    }
-
-    @media (min-width: 640px) {
-      .mobile-only {
-        display: none !important;
-      }
-    }
   </style>
 </head>
 
@@ -464,7 +446,6 @@
 
   <div class="w-full max-w-2xl mx-auto flex min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-40px)] flex-col">
 
-    <!-- KEPALA APLIKASI (HEADER) -->
     <header class="topbar glass rounded-[16px] px-4 py-3.5 flex items-center justify-between shrink-0">
       <div class="flex items-center gap-3 min-w-0">
         <div class="brand-mark w-9 h-9 rounded-[11px] flex items-center justify-center shrink-0">
@@ -482,15 +463,13 @@
           Sistem Online
         </div>
         <div class="text-[9px] px-2.5 py-1.5 rounded-full bg-[#00f0ff]/[.12] border border-[#00f0ff]/[.25] text-[#00f0ff] shadow-[0_0_10px_rgba(0,240,255,0.2)]">
-          v2.0
+          v2.1
         </div>
       </div>
     </header>
 
-    <!-- KONTEN UTAMA -->
     <main class="flex-1 flex flex-col justify-center py-5">
 
-      <!-- BAGIAN AUTENTIKASI -->
       <section id="authContainer" class="auth-shell w-full max-w-md mx-auto">
         <div class="text-center mb-5">
           <div class="section-label mb-2">Secure access</div>
@@ -509,7 +488,6 @@
           </button>
         </div>
 
-        <!-- FORM MASUK -->
         <div id="loginFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6">
           <div class="flex items-center justify-between mb-5">
             <div>
@@ -543,7 +521,6 @@
           </div>
         </div>
 
-        <!-- FORM PENDAFTARAN -->
         <div id="regFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6 hidden">
           <div class="flex items-center justify-between mb-5">
             <div>
@@ -558,7 +535,7 @@
           <div class="mb-4 p-3 rounded-[11px] bg-amber-500/[.05] border border-amber-400/[.15] flex gap-2.5">
             <i class="fa-solid fa-circle-info text-amber-400 text-[11px] mt-0.5"></i>
             <p class="text-[10px] leading-relaxed text-amber-200/80">
-              Satu perangkat hanya dapat digunakan untuk satu pendaftaran.
+              Satu perangkat hanya dapat digunakan untuk satu pendaftaran aktif.
             </p>
           </div>
 
@@ -585,7 +562,6 @@
         </div>
       </section>
 
-      <!-- DASBOR PENGGUNA -->
       <section id="appContainer" class="dashboard w-full max-w-md mx-auto hidden">
 
         <div class="account-card glass rounded-[16px] p-4 sm:p-5 mb-3">
@@ -641,7 +617,6 @@
             <button id="tabInbox" onclick="switchTab('inbox')" class="tool-tab py-3.5 text-[10px] font-semibold">Inbox</button>
           </div>
 
-          <!-- TAB AKTIVASI -->
           <div id="contentSend" class="tool-content p-4 sm:p-5">
             <div class="mb-5">
               <div class="section-label mb-1.5">Magic link</div>
@@ -674,7 +649,6 @@
             <div id="sendResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px]"></div>
           </div>
 
-          <!-- TAB BULK -->
           <div id="contentBulk" class="tool-content p-4 sm:p-5 hidden">
             <div class="mb-5">
               <div class="section-label mb-1.5">Batch tool</div>
@@ -695,7 +669,6 @@
             <div id="bulkResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px] max-h-44 overflow-y-auto"></div>
           </div>
 
-          <!-- TAB INBOX -->
           <div id="contentInbox" class="tool-content p-4 sm:p-5 hidden">
             <div class="mb-5">
               <div class="section-label mb-1.5">Mailbox</div>
@@ -717,7 +690,6 @@
         </div>
       </section>
 
-      <!-- DASBOR ADMIN -->
       <section id="adminContainer" class="admin-shell w-full hidden">
         <div class="glass rounded-[16px] p-4 sm:p-5">
 
@@ -736,7 +708,6 @@
             </button>
           </div>
 
-          <!-- STATISTIK ADMIN -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
             <div class="admin-stat p-3">
               <div class="section-label">Users</div>
@@ -756,7 +727,6 @@
             </div>
           </div>
 
-          <!-- AKSI ADMIN -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-4">
 
             <div class="glass-soft rounded-[12px] p-3.5">
@@ -822,7 +792,6 @@
 
           <div id="admToolResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px] max-h-36 overflow-y-auto"></div>
 
-          <!-- TABEL MEMBER -->
           <div class="mt-5">
             <div class="flex items-end justify-between mb-2.5">
               <div>
@@ -861,7 +830,6 @@
       </section>
     </main>
 
-    <!-- KAKI HALAMAN (FOOTER) -->
     <footer class="text-center pb-2 pt-1">
       <div class="text-[9px] text-[#64748b]">
         AM Pro Toolkit <span class="mx-1 text-[#00f0ff]/55">•</span> Secure Backend <span class="mx-1 text-[#00f0ff]/55">•</span> ThanzDev
@@ -869,7 +837,6 @@
     </footer>
   </div>
 
-  <!-- NOTIFIKASI TOAST -->
   <div id="toast" class="toast fixed z-50 bottom-5 left-1/2 glass rounded-[12px] px-4 py-3 text-[10px] text-white shadow-2xl max-w-[calc(100vw-32px)]"></div>
 
 <script>
@@ -1084,6 +1051,11 @@
           localStorage.setItem("am_current_user", JSON.stringify(currentUser));
           enterUserDashboard();
           return;
+        } else {
+          // Jika row user terhapus di database, jangan biarkan masuk dengan cache lama
+          localStorage.removeItem("am_current_user");
+          showToast("Sesi akun kedaluwarsa atau telah dihapus, silakan login ulang.");
+          return;
         }
       }
 
@@ -1111,6 +1083,10 @@
         }
         currentUser = data;
         localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+      } else {
+        handleLogout();
+        showToast("Akun tidak ditemukan di database.");
+        return false;
       }
     } catch (e) {
       console.warn("Gagal menyinkronkan data user terkini:", e);
@@ -1268,7 +1244,9 @@
 
     if (!link) return showToast("Masukkan link verifikasi.");
 
-    await refreshUserData();
+    const isValid = await refreshUserData();
+    if (!isValid || !currentUser) return;
+
     const remaining = currentUser.daily_limit - currentUser.used_count;
 
     if (remaining <= 0) {
@@ -1354,7 +1332,9 @@
   }
 
   async function runBulkInject() {
-    await refreshUserData();
+    const isValid = await refreshUserData();
+    if (!isValid || !currentUser) return;
+
     const remaining = currentUser.daily_limit - currentUser.used_count;
     if (remaining <= 0) return showToast("Limit harian habis.");
 
@@ -1824,7 +1804,7 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
-  }
+    }
 
   function escapeAttr(value) {
     return String(value ?? "")
