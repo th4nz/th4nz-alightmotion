@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#05020a" />
-  <meta name="description" content="AM Pro Toolkit — Electric Violet Neon Edition" />
+  <meta name="theme-color" content="#020810" />
+  <meta name="description" content="AM Pro Toolkit — Electric Blue Neon Edition" />
   <title>AM Pro Toolkit | ThanzDev</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -27,10 +27,10 @@
           },
           colors: {
             violetx: {
-              400: '#c084fc',
-              500: '#a855f7',
-              600: '#9333ea',
-              700: '#7e22ce'
+              400: '#38bdf8',
+              500: '#00f0ff',
+              600: '#0284c7',
+              700: '#0369a1'
             }
           }
         }
@@ -40,16 +40,16 @@
 
   <style>
     :root {
-      --bg: #05020a;
-      --panel: rgba(15, 10, 26, 0.78);
+      --bg: #020810;
+      --panel: rgba(8, 18, 30, 0.78);
       --panel-soft: rgba(255, 255, 255, 0.03);
-      --line: rgba(192, 132, 252, 0.18);
-      --line-soft: rgba(192, 132, 252, 0.08);
+      --line: rgba(0, 240, 255, 0.18);
+      --line-soft: rgba(0, 240, 255, 0.08);
       --text: #f8fafc;
       --muted: #94a3b8;
-      --neon-violet: #a855f7;
-      --neon-bright: #c084fc;
-      --neon-glow: rgba(168, 85, 247, 0.45);
+      --neon-violet: #00f0ff;
+      --neon-bright: #38bdf8;
+      --neon-glow: rgba(0, 240, 255, 0.45);
       --green: #34d399;
     }
 
@@ -69,8 +69,8 @@
       overflow-x: hidden;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 10%, rgba(168, 85, 247, 0.16), transparent 30%),
-        radial-gradient(circle at 85% 90%, rgba(192, 132, 252, 0.12), transparent 35%),
+        radial-gradient(circle at 15% 10%, rgba(0, 240, 255, 0.16), transparent 30%),
+        radial-gradient(circle at 85% 90%, rgba(56, 189, 248, 0.12), transparent 35%),
         var(--bg);
       font-family: Inter, sans-serif;
     }
@@ -111,13 +111,13 @@
     .ambient.one {
       left: -160px;
       top: 50px;
-      background: rgba(168, 85, 247, 0.28);
+      background: rgba(0, 240, 255, 0.28);
     }
 
     .ambient.two {
       right: -170px;
       bottom: 60px;
-      background: rgba(192, 132, 252, 0.22);
+      background: rgba(56, 189, 248, 0.22);
     }
 
     .glass {
@@ -127,7 +127,7 @@
       -webkit-backdrop-filter: blur(24px) saturate(140%);
       box-shadow:
         0 22px 60px rgba(0, 0, 0, 0.45),
-        0 0 25px rgba(168, 85, 247, 0.08),
+        0 0 25px rgba(0, 240, 255, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
@@ -141,14 +141,14 @@
     .topbar {
       box-shadow:
         0 16px 45px rgba(0, 0, 0, 0.35),
-        0 0 20px rgba(168, 85, 247, 0.1),
+        0 0 20px rgba(0, 240, 255, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .brand-mark {
-      background: linear-gradient(145deg, rgba(168, 85, 247, 0.3), rgba(168, 85, 247, 0.08));
-      border: 1px solid rgba(192, 132, 252, 0.35);
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+      background: linear-gradient(145deg, rgba(0, 240, 255, 0.3), rgba(0, 240, 255, 0.08));
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
     }
 
     .status-dot {
@@ -159,32 +159,32 @@
     select {
       width: 100%;
       color: #f8fafc !important;
-      background: rgba(8, 5, 15, 0.85) !important;
-      border: 1px solid rgba(192, 132, 252, 0.15) !important;
+      background: rgba(3, 10, 20, 0.85) !important;
+      border: 1px solid rgba(0, 240, 255, 0.15) !important;
       border-radius: 11px !important;
       outline: none;
       transition: .2s ease;
     }
 
     input::placeholder {
-      color: #7c6f93;
+      color: #64748b;
     }
 
     input:hover,
     select:hover {
-      border-color: rgba(192, 132, 252, 0.35) !important;
+      border-color: rgba(0, 240, 255, 0.35) !important;
     }
 
     input:focus,
     select:focus {
       border-color: var(--neon-bright) !important;
       box-shadow:
-        0 0 0 3px rgba(168, 85, 247, 0.2),
-        0 0 20px rgba(168, 85, 247, 0.35) !important;
+        0 0 0 3px rgba(0, 240, 255, 0.2),
+        0 0 20px rgba(0, 240, 255, 0.35) !important;
     }
 
     select option {
-      background: #100c17;
+      background: #061424;
       color: white;
     }
 
@@ -199,52 +199,55 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #a855f7, #7c3aed);
-      border: 1px solid rgba(216, 180, 254, 0.4);
+      background: linear-gradient(135deg, #00f0ff, #0284c7);
+      border: 1px solid rgba(125, 211, 252, 0.4);
       box-shadow: 
-        0 4px 15px rgba(168, 85, 247, 0.4),
-        0 0 25px rgba(168, 85, 247, 0.25),
+        0 4px 15px rgba(0, 240, 255, 0.4),
+        0 0 25px rgba(0, 240, 255, 0.25),
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      color: #030712 !important;
     }
 
     .btn-primary:hover {
-      background: linear-gradient(135deg, #c084fc, #9333ea);
+      background: linear-gradient(135deg, #38bdf8, #00f0ff);
       transform: translateY(-1px);
       box-shadow: 
-        0 6px 22px rgba(168, 85, 247, 0.6),
-        0 0 35px rgba(192, 132, 252, 0.4),
+        0 6px 22px rgba(0, 240, 255, 0.6),
+        0 0 35px rgba(56, 189, 248, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.35);
     }
 
     .btn-success {
-      background: linear-gradient(135deg, #059669, #047857);
-      border: 1px solid rgba(110, 231, 183, 0.3);
+      background: linear-gradient(135deg, #00f0ff, #0284c7);
+      border: 1px solid rgba(125, 211, 252, 0.4);
       box-shadow: 
-        0 4px 15px rgba(5, 150, 105, 0.35),
-        0 0 20px rgba(52, 211, 153, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 4px 15px rgba(0, 240, 255, 0.4),
+        0 0 25px rgba(0, 240, 255, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      color: #030712 !important;
     }
 
     .btn-success:hover {
-      background: linear-gradient(135deg, #10b981, #059669);
+      background: linear-gradient(135deg, #38bdf8, #00f0ff);
       transform: translateY(-1px);
       box-shadow: 
-        0 6px 22px rgba(16, 185, 129, 0.5),
-        0 0 30px rgba(52, 211, 153, 0.35);
+        0 6px 22px rgba(0, 240, 255, 0.6),
+        0 0 35px rgba(56, 189, 248, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
     }
 
     .btn-ghost {
       background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(192, 132, 252, 0.12);
-      color: #c4b5fd;
-      box-shadow: 0 0 10px rgba(168, 85, 247, 0.05);
+      border: 1px solid rgba(0, 240, 255, 0.12);
+      color: #7dd3fc;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.05);
     }
 
     .btn-ghost:hover {
       color: white;
-      background: rgba(168, 85, 247, 0.1);
-      border-color: rgba(192, 132, 252, 0.3);
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+      background: rgba(0, 240, 255, 0.1);
+      border-color: rgba(0, 240, 255, 0.3);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
     }
 
     .auth-shell {
@@ -264,7 +267,7 @@
       right: -90px;
       top: -100px;
       border-radius: 50%;
-      background: rgba(192, 132, 252, 0.18);
+      background: rgba(0, 240, 255, 0.18);
       filter: blur(40px);
       pointer-events: none;
     }
@@ -272,27 +275,27 @@
     .auth-tabs {
       padding: 4px;
       background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(192, 132, 252, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.12);
     }
 
     .auth-tab {
-      color: #948aa8;
+      color: #94a3b8;
       transition: .2s ease;
     }
 
     .auth-tab.active {
-      color: white;
-      background: linear-gradient(135deg, #a855f7, #7c3aed);
-      box-shadow: 0 4px 18px rgba(168, 85, 247, 0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+      color: #030712;
+      background: linear-gradient(135deg, #00f0ff, #0284c7);
+      box-shadow: 0 4px 18px rgba(0, 240, 255, 0.4), inset 0 1px 0 rgba(255,255,255,0.2);
     }
 
     .section-label {
-      color: #c084fc;
+      color: #00f0ff;
       font-size: 9px;
       font-weight: 700;
       letter-spacing: .14em;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
     }
 
     .dashboard {
@@ -311,14 +314,14 @@
       height: 150px;
       right: -120px;
       top: -85px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.22), transparent 68%);
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.22), transparent 68%);
       pointer-events: none;
     }
 
     .avatar {
-      background: linear-gradient(145deg, rgba(168, 85, 247, 0.35), rgba(168, 85, 247, 0.1));
-      border: 1px solid rgba(192, 132, 252, 0.35);
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+      background: linear-gradient(145deg, rgba(0, 240, 255, 0.35), rgba(0, 240, 255, 0.1));
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
     }
 
     .usage-track {
@@ -333,35 +336,35 @@
       height: 100%;
       width: 0%;
       border-radius: inherit;
-      background: linear-gradient(90deg, #7c3aed, #c084fc);
-      box-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
+      background: linear-gradient(90deg, #0284c7, #00f0ff);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
       transition: width .35s ease;
     }
 
     .stat-box {
       background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(192, 132, 252, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.1);
       border-radius: 12px;
     }
 
     .tool-tabs {
       background: rgba(0, 0, 0, 0.2);
-      border-bottom: 1px solid rgba(192, 132, 252, 0.12);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.12);
     }
 
     .tool-tab {
       position: relative;
-      color: #948aa8;
+      color: #94a3b8;
       transition: .2s ease;
     }
 
     .tool-tab:hover {
-      color: #e9d5ff;
+      color: #e0f2fe;
     }
 
     .tool-tab.active {
-      color: #c084fc;
-      text-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
+      color: #00f0ff;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
     }
 
     .tool-tab.active::after {
@@ -372,8 +375,8 @@
       bottom: -1px;
       height: 2px;
       border-radius: 10px;
-      background: #c084fc;
-      box-shadow: 0 0 12px rgba(192, 132, 252, 0.8);
+      background: #00f0ff;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
     }
 
     .tool-content {
@@ -381,9 +384,9 @@
     }
 
     .result-box {
-      background: rgba(8, 5, 15, 0.7);
-      border: 1px solid rgba(192, 132, 252, 0.15);
-      box-shadow: inset 0 0 15px rgba(168, 85, 247, 0.05);
+      background: rgba(3, 10, 20, 0.7);
+      border: 1px solid rgba(0, 240, 255, 0.15);
+      box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.05);
     }
 
     .admin-shell {
@@ -392,13 +395,13 @@
 
     .admin-stat {
       background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(192, 132, 252, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.1);
       border-radius: 12px;
     }
 
     .admin-table {
       scrollbar-width: thin;
-      scrollbar-color: rgba(168, 85, 247, 0.4) transparent;
+      scrollbar-color: rgba(0, 240, 255, 0.4) transparent;
     }
 
     .admin-table::-webkit-scrollbar {
@@ -407,7 +410,7 @@
     }
 
     .admin-table::-webkit-scrollbar-thumb {
-      background: rgba(168, 85, 247, 0.4);
+      background: rgba(0, 240, 255, 0.4);
       border-radius: 99px;
     }
 
@@ -416,9 +419,9 @@
       opacity: 0;
       pointer-events: none;
       transition: .25s ease;
-      background: rgba(15, 10, 26, 0.92);
-      border: 1px solid rgba(192, 132, 252, 0.3);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(168, 85, 247, 0.25);
+      background: rgba(8, 18, 30, 0.92);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(0, 240, 255, 0.25);
     }
 
     .toast.show {
@@ -465,20 +468,20 @@
     <header class="topbar glass rounded-[16px] px-4 py-3.5 flex items-center justify-between shrink-0">
       <div class="flex items-center gap-3 min-w-0">
         <div class="brand-mark w-9 h-9 rounded-[11px] flex items-center justify-center shrink-0">
-          <i class="fa-solid fa-wand-magic-sparkles text-violet-300 text-sm drop-shadow-[0_0_8px_rgba(192,132,252,0.8)]"></i>
+          <i class="fa-solid fa-wand-magic-sparkles text-[#00f0ff] text-sm drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]"></i>
         </div>
         <div class="min-w-0">
-          <div class="font-display font-bold text-[13px] text-white tracking-tight truncate drop-shadow-[0_0_10px_rgba(192,132,252,0.3)]">AM Pro Toolkit</div>
-          <div class="text-[9px] text-[#c084fc] mt-0.5 tracking-wide">Thanz Dev</div>
+          <div class="font-display font-bold text-[13px] text-white tracking-tight truncate drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]">AM Pro Toolkit</div>
+          <div class="text-[9px] text-[#00f0ff] mt-0.5 tracking-wide">Thanz Dev</div>
         </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/[.03] border border-white/[.06] text-[9px] text-[#a78bfa]">
+        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/[.03] border border-white/[.06] text-[9px] text-[#38bdf8]">
           <span class="status-dot w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
           Sistem Online
         </div>
-        <div class="text-[9px] px-2.5 py-1.5 rounded-full bg-violet-500/[.12] border border-violet-400/[.25] text-violet-200 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+        <div class="text-[9px] px-2.5 py-1.5 rounded-full bg-[#00f0ff]/[.12] border border-[#00f0ff]/[.25] text-[#00f0ff] shadow-[0_0_10px_rgba(0,240,255,0.2)]">
           v2.0
         </div>
       </div>
@@ -491,8 +494,8 @@
       <section id="authContainer" class="auth-shell w-full max-w-md mx-auto">
         <div class="text-center mb-5">
           <div class="section-label mb-2">Secure access</div>
-          <h1 class="font-marker font-normal text-[26px] sm:text-[30px] text-white tracking-wide drop-shadow-[0_0_18px_rgba(192,132,252,0.35)] py-1">Aktivasi</h1>
-          <p class="text-[11px] text-[#948aa8] mt-1.5 leading-relaxed">
+          <h1 class="font-marker font-normal text-[26px] sm:text-[30px] text-white tracking-wide drop-shadow-[0_0_18px_rgba(0,240,255,0.35)] py-1">Aktivasi</h1>
+          <p class="text-[11px] text-[#94a3b8] mt-1.5 leading-relaxed">
             ©THANZ DEV SINCE 2026
           </p>
         </div>
@@ -513,22 +516,22 @@
               <div class="section-label mb-1.5">Account</div>
               <h2 class="font-display font-bold text-[14px] text-white">Masuk ke akun</h2>
             </div>
-            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-violet-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-[#00f0ff] shadow-[0_0_10px_rgba(0,240,255,0.2)]">
               <i class="fa-solid fa-arrow-right-to-bracket text-[11px]"></i>
             </div>
           </div>
 
           <div class="space-y-3.5">
             <div>
-              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Username</label>
+              <label class="block text-[10px] font-medium text-[#7dd3fc] mb-1.5">Username</label>
               <input id="loginUsername" type="text" autocomplete="username" placeholder="Masukkan username" class="px-3.5 py-3 text-[11px]" />
             </div>
 
             <div>
-              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Token / Password</label>
+              <label class="block text-[10px] font-medium text-[#7dd3fc] mb-1.5">Token / Password</label>
               <div class="relative">
                 <input id="loginToken" type="password" autocomplete="current-password" placeholder="Masukkan token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
-                <button type="button" onclick="togglePasswordVisibility('loginToken','eyeLoginIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8] hover:text-white">
+                <button type="button" onclick="togglePasswordVisibility('loginToken','eyeLoginIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-white">
                   <i id="eyeLoginIcon" class="fa-solid fa-eye text-[11px]"></i>
                 </button>
               </div>
@@ -547,7 +550,7 @@
               <div class="section-label mb-1.5">Registration</div>
               <h2 class="font-display font-bold text-[14px] text-white">Buat akun baru</h2>
             </div>
-            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-violet-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-[#00f0ff] shadow-[0_0_10px_rgba(0,240,255,0.2)]">
               <i class="fa-solid fa-user-plus text-[11px]"></i>
             </div>
           </div>
@@ -561,15 +564,15 @@
 
           <div class="space-y-3.5">
             <div>
-              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Username</label>
+              <label class="block text-[10px] font-medium text-[#7dd3fc] mb-1.5">Username</label>
               <input id="regUsername" type="text" autocomplete="username" placeholder="contoh: thanz123" class="px-3.5 py-3 text-[11px]" />
             </div>
 
             <div>
-              <label class="block text-[10px] font-medium text-[#c4b5fd] mb-1.5">Token Rahasia</label>
+              <label class="block text-[10px] font-medium text-[#7dd3fc] mb-1.5">Token Rahasia</label>
               <div class="relative">
                 <input id="regToken" type="password" autocomplete="new-password" placeholder="Buat token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
-                <button type="button" onclick="togglePasswordVisibility('regToken','eyeRegIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8] hover:text-white">
+                <button type="button" onclick="togglePasswordVisibility('regToken','eyeRegIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-white">
                   <i id="eyeRegIcon" class="fa-solid fa-eye text-[11px]"></i>
                 </button>
               </div>
@@ -588,7 +591,7 @@
         <div class="account-card glass rounded-[16px] p-4 sm:p-5 mb-3">
           <div class="flex items-center justify-between gap-3">
             <div class="flex items-center gap-3 min-w-0">
-              <div id="userAvatar" class="avatar w-10 h-10 rounded-[12px] flex items-center justify-center text-violet-200 font-display font-bold text-xs shrink-0">U</div>
+              <div id="userAvatar" class="avatar w-10 h-10 rounded-[12px] flex items-center justify-center text-[#00f0ff] font-display font-bold text-xs shrink-0">U</div>
               <div class="min-w-0">
                 <div id="displayUsername" class="font-display font-bold text-[13px] text-white truncate">-</div>
                 <div class="flex items-center gap-1.5 mt-1 text-[9px] text-emerald-400">
@@ -610,13 +613,13 @@
                 <div class="section-label">Daily usage</div>
                 <div class="mt-1 font-display font-bold text-[13px] text-white">
                   <span id="statUsed">0</span>
-                  <span class="text-[#7c6f93] font-normal"> / </span>
+                  <span class="text-[#64748b] font-normal"> / </span>
                   <span id="statLimit">5</span>
                 </div>
               </div>
               <div class="text-right">
                 <div class="section-label">Reset</div>
-                <div id="statReset" class="text-[10px] text-violet-300 mt-1">--:--</div>
+                <div id="statReset" class="text-[10px] text-[#00f0ff] mt-1">--:--</div>
               </div>
             </div>
 
@@ -625,7 +628,7 @@
             </div>
 
             <div class="flex justify-between mt-2.5">
-              <span class="text-[9px] text-[#948aa8]">Penggunaan hari ini</span>
+              <span class="text-[9px] text-[#94a3b8]">Penggunaan hari ini</span>
               <span class="text-[9px] text-emerald-400"><span id="statRemaining">5</span> tersisa</span>
             </div>
           </div>
@@ -643,7 +646,7 @@
             <div class="mb-5">
               <div class="section-label mb-1.5">Magic link</div>
               <h2 class="font-display font-bold text-[14px] text-white">Aktivasi Alight Motion</h2>
-              <p id="flowInstruction" class="text-[10px] text-[#948aa8] mt-1.5 leading-relaxed">
+              <p id="flowInstruction" class="text-[10px] text-[#94a3b8] mt-1.5 leading-relaxed">
                 Kirim magic link ke email aktif terlebih dahulu.
               </p>
             </div>
@@ -662,7 +665,7 @@
                 <button onclick="handleVerifyMagicLink()" class="btn btn-success py-3 text-[10px] font-bold text-white">
                   Verifikasi Link
                 </button>
-                <button onclick="resetInjectFlow()" class="btn btn-ghost w-11 text-[#c4b5fd]">
+                <button onclick="resetInjectFlow()" class="btn btn-ghost w-11 text-[#7dd3fc]">
                   <i class="fa-solid fa-rotate-left text-[10px]"></i>
                 </button>
               </div>
@@ -676,12 +679,12 @@
             <div class="mb-5">
               <div class="section-label mb-1.5">Batch tool</div>
               <h2 class="font-display font-bold text-[14px] text-white">Bulk Generator</h2>
-              <p class="text-[10px] text-[#948aa8] mt-1.5">Buat beberapa akun premium sekaligus.</p>
+              <p class="text-[10px] text-[#94a3b8] mt-1.5">Buat beberapa akun premium sekaligus.</p>
             </div>
 
             <div class="space-y-2.5">
               <div>
-                <label class="block text-[10px] text-[#c4b5fd] mb-1.5">Jumlah</label>
+                <label class="block text-[10px] text-[#7dd3fc] mb-1.5">Jumlah</label>
                 <input id="inputBulkAmount" type="number" min="1" max="100" value="5" class="px-3.5 py-3 text-[11px]" />
               </div>
               <button onclick="runBulkInject()" class="btn btn-primary w-full py-3 text-[10px] font-bold text-white">
@@ -697,7 +700,7 @@
             <div class="mb-5">
               <div class="section-label mb-1.5">Mailbox</div>
               <h2 class="font-display font-bold text-[14px] text-white">Pindai Inbox</h2>
-              <p class="text-[10px] text-[#948aa8] mt-1.5">Cek pesan masuk untuk mendapatkan link verifikasi.</p>
+              <p class="text-[10px] text-[#94a3b8] mt-1.5">Cek pesan masuk untuk mendapatkan link verifikasi.</p>
             </div>
 
             <div class="space-y-2.5">
@@ -720,7 +723,7 @@
 
           <div class="flex items-center justify-between pb-4 border-b border-white/[.06]">
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-[11px] bg-violet-500/[.12] border border-violet-400/[.25] flex items-center justify-center text-violet-200 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
+              <div class="w-9 h-9 rounded-[11px] bg-[#00f0ff]/[.12] border border-[#00f0ff]/[.25] flex items-center justify-center text-[#00f0ff] shadow-[0_0_12px_rgba(0,240,255,0.3)]">
                 <i class="fa-solid fa-shield-halved text-[12px]"></i>
               </div>
               <div>
@@ -749,7 +752,7 @@
             </div>
             <div class="admin-stat p-3">
               <div class="section-label">Injects</div>
-              <div id="admTotalInjects" class="font-display font-bold text-[16px] text-[#c084fc] mt-1">0</div>
+              <div id="admTotalInjects" class="font-display font-bold text-[16px] text-[#00f0ff] mt-1">0</div>
             </div>
           </div>
 
@@ -758,7 +761,7 @@
 
             <div class="glass-soft rounded-[12px] p-3.5">
               <div class="flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-rotate-right text-violet-300 text-[10px]"></i>
+                <i class="fa-solid fa-rotate-right text-[#00f0ff] text-[10px]"></i>
                 <h3 class="text-[10px] font-bold text-white">Reset Limit User</h3>
               </div>
               <input id="admResetLimitUsername" type="text" placeholder="Username target" class="px-3 py-2.5 text-[10px] mb-2" />
@@ -767,13 +770,13 @@
 
             <div class="glass-soft rounded-[12px] p-3.5">
               <div class="flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-key text-violet-300 text-[10px]"></i>
+                <i class="fa-solid fa-key text-[#00f0ff] text-[10px]"></i>
                 <h3 class="text-[10px] font-bold text-white">Reset Password</h3>
               </div>
               <input id="admResetUsername" type="text" placeholder="Username target" class="px-3 py-2.5 text-[10px] mb-2" />
               <div class="relative mb-2">
                 <input id="admNewTokenVal" type="password" placeholder="Password baru" class="px-3 py-2.5 pr-9 text-[10px]" />
-                <button type="button" onclick="togglePasswordVisibility('admNewTokenVal','eyeAdmResetIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#948aa8]">
+                <button type="button" onclick="togglePasswordVisibility('admNewTokenVal','eyeAdmResetIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#94a3b8]">
                   <i id="eyeAdmResetIcon" class="fa-solid fa-eye text-[10px]"></i>
                 </button>
               </div>
@@ -789,7 +792,7 @@
               <div class="grid grid-cols-2 gap-2 mb-2">
                 <div class="relative">
                   <input id="admNewToken" type="password" placeholder="Token" class="px-3 py-2.5 pr-8 text-[10px]" />
-                  <button type="button" onclick="togglePasswordVisibility('admNewToken','eyeAdmNewIcon')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#948aa8]">
+                  <button type="button" onclick="togglePasswordVisibility('admNewToken','eyeAdmNewIcon')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#94a3b8]">
                     <i id="eyeAdmNewIcon" class="fa-solid fa-eye text-[10px]"></i>
                   </button>
                 </div>
@@ -800,7 +803,7 @@
 
             <div class="glass-soft rounded-[12px] p-3.5">
               <div class="flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-toolbox text-violet-300 text-[10px]"></i>
+                <i class="fa-solid fa-toolbox text-[#00f0ff] text-[10px]"></i>
                 <h3 class="text-[10px] font-bold text-white">Eksekusi Tool</h3>
               </div>
               <select id="admToolSelect" onchange="admSwitchToolView()" class="px-3 py-2.5 text-[10px] mb-2">
@@ -838,10 +841,10 @@
 
             <div class="admin-table overflow-auto max-h-72 rounded-[12px] border border-white/[.06] bg-black/[.2]">
               <table class="w-full min-w-[610px] text-left text-[10px]">
-                <thead class="sticky top-0 bg-[#0d0914]/95 backdrop-blur-xl text-[#c4b5fd]">
+                <thead class="sticky top-0 bg-[#06121e]/95 backdrop-blur-xl text-[#7dd3fc]">
                   <tr>
                     <th class="px-3 py-2.5 w-8">
-                      <input type="checkbox" id="selectAllCheckbox" onchange="admToggleSelectAll(this)" class="w-3.5 h-3.5 accent-purple-500 cursor-pointer" />
+                      <input type="checkbox" id="selectAllCheckbox" onchange="admToggleSelectAll(this)" class="w-3.5 h-3.5 accent-[#00f0ff] cursor-pointer" />
                     </th>
                     <th class="px-3 py-2.5 font-semibold">User</th>
                     <th class="px-3 py-2.5 font-semibold">Usage</th>
@@ -860,8 +863,8 @@
 
     <!-- KAKI HALAMAN (FOOTER) -->
     <footer class="text-center pb-2 pt-1">
-      <div class="text-[9px] text-[#7c6f93]">
-        AM Pro Toolkit <span class="mx-1 text-[#c084fc]/55">•</span> Secure Backend <span class="mx-1 text-[#c084fc]/55">•</span> ThanzDev
+      <div class="text-[9px] text-[#64748b]">
+        AM Pro Toolkit <span class="mx-1 text-[#00f0ff]/55">•</span> Secure Backend <span class="mx-1 text-[#00f0ff]/55">•</span> ThanzDev
       </div>
     </footer>
   </div>
@@ -1301,7 +1304,7 @@
         <div class="${success ? "text-emerald-400" : "text-red-400"} font-bold">
           ${success ? "Berhasil" : "Gagal"}
         </div>
-        <div class="text-[10px] text-[#c4b5fd] mt-1 leading-relaxed">
+        <div class="text-[10px] text-[#7dd3fc] mt-1 leading-relaxed">
           ${escapeHtml(resultMessage)}
         </div>
       `;
@@ -1388,7 +1391,7 @@
         <div class="${success ? "text-emerald-400" : "text-red-400"} font-bold">
           ${success ? "Berhasil" : "Gagal"}
         </div>
-        <pre class="whitespace-pre-wrap text-[10px] text-[#c4b5fd] mt-1">${escapeHtml(resultMessage)}</pre>
+        <pre class="whitespace-pre-wrap text-[10px] text-[#7dd3fc] mt-1">${escapeHtml(resultMessage)}</pre>
       `;
 
       result.classList.remove("hidden");
@@ -1429,7 +1432,7 @@
     if (!email) return showToast("Masukkan email.");
 
     notice.className =
-      "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-violet-500/[.12] border border-violet-400/[.25] text-violet-200";
+      "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-[#00f0ff]/[.12] border border-[#00f0ff]/[.25] text-[#00f0ff]";
     notice.textContent = "Memindai pesan...";
     notice.classList.remove("hidden");
 
@@ -1456,7 +1459,7 @@
 
       if (!messages.length) {
         container.innerHTML =
-          '<div class="text-[10px] text-[#7c6f93] p-3 text-center">Belum ada pesan.</div>';
+          '<div class="text-[10px] text-[#64748b] p-3 text-center">Belum ada pesan.</div>';
         return;
       }
 
@@ -1481,7 +1484,7 @@
                 </button>
               `
               : `
-                <div class="text-[9px] text-[#7c6f93]">
+                <div class="text-[9px] text-[#64748b]">
                   Link belum tersedia.
                 </div>
               `
@@ -1539,21 +1542,21 @@
 
     safeUsers.forEach(u => {
       const tr = document.createElement("tr");
-      tr.className = "hover:bg-violet-500/[.04] transition";
+      tr.className = "hover:bg-[#00f0ff]/[.04] transition";
 
       tr.innerHTML = `
         <td class="px-3 py-3 w-8">
-          <input type="checkbox" value="${escapeAttr(u.id)}" class="user-checkbox w-3.5 h-3.5 accent-purple-500 cursor-pointer" />
+          <input type="checkbox" value="${escapeAttr(u.id)}" class="user-checkbox w-3.5 h-3.5 accent-[#00f0ff] cursor-pointer" />
         </td>
         <td class="px-3 py-3">
           <div class="font-semibold text-white">${escapeHtml(u.username)}</div>
-          <div class="text-[9px] text-[#7c6f93] font-mono mt-0.5">
+          <div class="text-[9px] text-[#64748b] font-mono mt-0.5">
             Token: ${escapeHtml(u.token || "-")}
           </div>
         </td>
 
         <td class="px-3 py-3">
-          <div class="text-[#e9d5ff]">${Number(u.used_count) || 0} / ${Number(u.daily_limit) || 0}</div>
+          <div class="text-[#e0f2fe]">${Number(u.used_count) || 0} / ${Number(u.daily_limit) || 0}</div>
         </td>
 
         <td class="px-3 py-3">
@@ -1768,7 +1771,7 @@
       }
 
       if (tool === "inbox") {
-        endpoint = "/api/inbox";
+        endpoint = "https://api.internal/inbox";
         body = { email: value };
       }
 
@@ -1782,7 +1785,7 @@
 
       result.innerHTML = `
         <div class="font-bold text-white mb-1">Hasil ${escapeHtml(tool)}</div>
-        <pre class="text-[9px] text-[#c4b5fd] whitespace-pre-wrap">${escapeHtml(JSON.stringify(json, null, 2))}</pre>
+        <pre class="text-[9px] text-[#7dd3fc] whitespace-pre-wrap">${escapeHtml(JSON.stringify(json, null, 2))}</pre>
       `;
 
       result.classList.remove("hidden");
@@ -1841,3 +1844,4 @@
 </script>
 </body>
 </html>
+
