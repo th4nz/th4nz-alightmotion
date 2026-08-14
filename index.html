@@ -3,18 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#020810" />
-  <meta name="description" content="AM Pro Toolkit — Electric Blue Neon Edition" />
-  <title>AM Pro Toolkit | ThanzDev</title>
-
+  <title>AM Pro Toolkit | Maintenance By Thanz</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -22,1796 +12,228 @@
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
-            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-            marker: ['Permanent Marker', 'cursive', 'sans-serif']
+            display: ['Outfit', 'sans-serif'],
           },
           colors: {
-            violetx: {
-              400: '#38bdf8',
-              500: '#00f0ff',
-              600: '#0284c7',
-              700: '#0369a1'
+            brand: {
+              DEFAULT: '#8b5cf6',
+              hover: '#7c3aed',
+              muted: 'rgba(139, 92, 246, 0.15)',
+              glow: '#a78bfa',
+            },
+            surface: {
+              DEFAULT: '#09090b',
+              card: 'rgba(24, 24, 27, 0.85)',
+              border: 'rgba(139, 92, 246, 0.2)'
             }
           }
         }
       }
-    };
+    }
   </script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #020810;
-      --panel: rgba(8, 18, 30, 0.78);
-      --panel-soft: rgba(255, 255, 255, 0.03);
-      --line: rgba(0, 240, 255, 0.18);
-      --line-soft: rgba(0, 240, 255, 0.08);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --neon-violet: #00f0ff;
-      --neon-bright: #38bdf8;
-      --neon-glow: rgba(0, 240, 255, 0.45);
-      --green: #34d399;
-    }
-
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      background: var(--bg);
-    }
-
-    body {
+    html, body {
       margin: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 15% 10%, rgba(0, 240, 255, 0.16), transparent 30%),
-        radial-gradient(circle at 85% 90%, rgba(56, 189, 248, 0.12), transparent 35%),
-        var(--bg);
-      font-family: Inter, sans-serif;
+      width: 100%;
+      min-height: 100%;
+      background: #09090b;
+      font-family: 'Inter', sans-serif;
     }
-
-    body::before {
-      content: "";
+    #particles {
       position: fixed;
       inset: 0;
-      z-index: -3;
-      pointer-events: none;
-      opacity: .035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
-    }
-
-    button, input, select {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    .font-display {
-      font-family: "Plus Jakarta Sans", Inter, sans-serif;
-    }
-
-    .ambient {
-      position: fixed;
-      width: 380px;
-      height: 380px;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: -1;
-      filter: blur(80px);
-      opacity: 0.55;
-    }
-
-    .ambient.one {
-      left: -160px;
-      top: 50px;
-      background: rgba(0, 240, 255, 0.28);
-    }
-
-    .ambient.two {
-      right: -170px;
-      bottom: 60px;
-      background: rgba(56, 189, 248, 0.22);
-    }
-
-    .glass {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(24px) saturate(140%);
-      -webkit-backdrop-filter: blur(24px) saturate(140%);
-      box-shadow:
-        0 22px 60px rgba(0, 0, 0, 0.45),
-        0 0 25px rgba(0, 240, 255, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .glass-soft {
-      background: var(--panel-soft);
-      border: 1px solid var(--line-soft);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-
-    .topbar {
-      box-shadow:
-        0 16px 45px rgba(0, 0, 0, 0.35),
-        0 0 20px rgba(0, 240, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .brand-mark {
-      background: linear-gradient(145deg, rgba(0, 240, 255, 0.3), rgba(0, 240, 255, 0.08));
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-    }
-
-    .status-dot {
-      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.08), 0 0 12px rgba(52, 211, 153, 0.55);
-    }
-
-    input,
-    select {
       width: 100%;
-      color: #f8fafc !important;
-      background: rgba(3, 10, 20, 0.85) !important;
-      border: 1px solid rgba(0, 240, 255, 0.15) !important;
-      border-radius: 11px !important;
-      outline: none;
-      transition: .2s ease;
-    }
-
-    input::placeholder {
-      color: #64748b;
-    }
-
-    input:hover,
-    select:hover {
-      border-color: rgba(0, 240, 255, 0.35) !important;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: var(--neon-bright) !important;
-      box-shadow:
-        0 0 0 3px rgba(0, 240, 255, 0.2),
-        0 0 20px rgba(0, 240, 255, 0.35) !important;
-    }
-
-    select option {
-      background: #061424;
-      color: white;
-    }
-
-    .btn {
-      border-radius: 11px;
-      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
-      position: relative;
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #00f0ff, #0284c7);
-      border: 1px solid rgba(125, 211, 252, 0.4);
-      box-shadow: 
-        0 4px 15px rgba(0, 240, 255, 0.4),
-        0 0 25px rgba(0, 240, 255, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-      color: #030712 !important;
-    }
-
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #38bdf8, #00f0ff);
-      transform: translateY(-1px);
-      box-shadow: 
-        0 6px 22px rgba(0, 240, 255, 0.6),
-        0 0 35px rgba(56, 189, 248, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
-    }
-
-    .btn-success {
-      background: linear-gradient(135deg, #00f0ff, #0284c7);
-      border: 1px solid rgba(125, 211, 252, 0.4);
-      box-shadow: 
-        0 4px 15px rgba(0, 240, 255, 0.4),
-        0 0 25px rgba(0, 240, 255, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-      color: #030712 !important;
-    }
-
-    .btn-success:hover {
-      background: linear-gradient(135deg, #38bdf8, #00f0ff);
-      transform: translateY(-1px);
-      box-shadow: 
-        0 6px 22px rgba(0, 240, 255, 0.6),
-        0 0 35px rgba(56, 189, 248, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.35);
-    }
-
-    .btn-ghost {
-      background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(0, 240, 255, 0.12);
-      color: #7dd3fc;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.05);
-    }
-
-    .btn-ghost:hover {
-      color: white;
-      background: rgba(0, 240, 255, 0.1);
-      border-color: rgba(0, 240, 255, 0.3);
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-    }
-
-    .auth-shell {
-      animation: appear .45s ease both;
-    }
-
-    .auth-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .auth-card::before {
-      content: "";
-      position: absolute;
-      width: 180px;
-      height: 180px;
-      right: -90px;
-      top: -100px;
-      border-radius: 50%;
-      background: rgba(0, 240, 255, 0.18);
-      filter: blur(40px);
-      pointer-events: none;
-    }
-
-    .auth-tabs {
-      padding: 4px;
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(0, 240, 255, 0.12);
-    }
-
-    .auth-tab {
-      color: #94a3b8;
-      transition: .2s ease;
-    }
-
-    .auth-tab.active {
-      color: #030712;
-      background: linear-gradient(135deg, #00f0ff, #0284c7);
-      box-shadow: 0 4px 18px rgba(0, 240, 255, 0.4), inset 0 1px 0 rgba(255,255,255,0.2);
-    }
-
-    .section-label {
-      color: #00f0ff;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
-    }
-
-    .dashboard {
-      animation: appear .35s ease both;
-    }
-
-    .account-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .account-card::after {
-      content: "";
-      position: absolute;
-      width: 260px;
-      height: 150px;
-      right: -120px;
-      top: -85px;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.22), transparent 68%);
-      pointer-events: none;
-    }
-
-    .avatar {
-      background: linear-gradient(145deg, rgba(0, 240, 255, 0.35), rgba(0, 240, 255, 0.1));
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
-    }
-
-    .usage-track {
-      height: 6px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
-    }
-
-    .usage-bar {
       height: 100%;
-      width: 0%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #0284c7, #00f0ff);
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
-      transition: width .35s ease;
-    }
-
-    .tool-tabs {
-      background: rgba(0, 0, 0, 0.2);
-      border-bottom: 1px solid rgba(0, 240, 255, 0.12);
-    }
-
-    .tool-tab {
-      position: relative;
-      color: #94a3b8;
-      transition: .2s ease;
-    }
-
-    .tool-tab:hover {
-      color: #e0f2fe;
-    }
-
-    .tool-tab.active {
-      color: #00f0ff;
-      text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
-    }
-
-    .tool-tab.active::after {
-      content: "";
-      position: absolute;
-      left: 20%;
-      right: 20%;
-      bottom: -1px;
-      height: 2px;
-      border-radius: 10px;
-      background: #00f0ff;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
-    }
-
-    .tool-content {
-      animation: fade .22s ease both;
-    }
-
-    .result-box {
-      background: rgba(3, 10, 20, 0.7);
-      border: 1px solid rgba(0, 240, 255, 0.15);
-      box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.05);
-    }
-
-    .admin-shell {
-      animation: appear .35s ease both;
-    }
-
-    .admin-stat {
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(0, 240, 255, 0.1);
-      border-radius: 12px;
-    }
-
-    .admin-table {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(0, 240, 255, 0.4) transparent;
-    }
-
-    .admin-table::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
-    }
-
-    .admin-table::-webkit-scrollbar-thumb {
-      background: rgba(0, 240, 255, 0.4);
-      border-radius: 99px;
-    }
-
-    .toast {
-      transform: translate(-50%, 14px);
-      opacity: 0;
+      z-index: 0;
       pointer-events: none;
-      transition: .25s ease;
-      background: rgba(8, 18, 30, 0.92);
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(0, 240, 255, 0.25);
     }
-
-    .toast.show {
-      transform: translate(-50%, 0);
-      opacity: 1;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    @keyframes appear {
-      from { opacity: 0; transform: translateY(7px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .glass-card {
+      background: rgba(24, 24, 27, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.1);
     }
   </style>
 </head>
+<body class="text-zinc-100 min-h-screen flex flex-col items-center justify-between relative selection:bg-brand selection:text-white antialiased p-4">
 
-<body class="min-h-screen px-3 py-3 sm:px-5 sm:py-5">
+  <canvas id="particles"></canvas>
 
-  <div class="ambient one"></div>
-  <div class="ambient two"></div>
-
-  <div class="w-full max-w-2xl mx-auto flex min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-40px)] flex-col">
-
-    <header class="topbar glass rounded-[16px] px-4 py-3.5 flex items-center justify-between shrink-0">
-      <div class="flex items-center gap-3 min-w-0">
-        <div class="brand-mark w-9 h-9 rounded-[11px] flex items-center justify-center shrink-0">
-          <i class="fa-solid fa-wand-magic-sparkles text-[#00f0ff] text-sm drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]"></i>
-        </div>
-        <div class="min-w-0">
-          <div class="font-display font-bold text-[13px] text-white tracking-tight truncate drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]">AM Pro Toolkit</div>
-          <div class="text-[9px] text-[#00f0ff] mt-0.5 tracking-wide">Thanz Dev</div>
-        </div>
+  <!-- LOADING SCREEN -->
+  <div id="loadingScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#09090b] transition-opacity duration-500">
+    <div class="relative flex items-center justify-center">
+      <div class="w-14 h-14 rounded-full border-2 border-zinc-800 border-t-brand animate-spin shadow-[0_0_20px_rgba(139,92,246,0.5)]"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <i class="fa-solid fa-bolt text-brand text-xs animate-pulse"></i>
       </div>
-
-      <div class="flex items-center gap-2">
-        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/[.03] border border-white/[.06] text-[9px] text-[#38bdf8]">
-          <span class="status-dot w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          Sistem Online
-        </div>
-        <div class="text-[9px] px-2.5 py-1.5 rounded-full bg-[#00f0ff]/[.12] border border-[#00f0ff]/[.25] text-[#00f0ff] shadow-[0_0_10px_rgba(0,240,255,0.2)]">
-          v2.1
-        </div>
-      </div>
-    </header>
-
-    <main class="flex-1 flex flex-col justify-center py-5">
-
-      <section id="authContainer" class="auth-shell w-full max-w-md mx-auto">
-        <div class="text-center mb-5">
-          <div class="section-label mb-2">Secure access</div>
-          <h1 class="font-marker font-normal text-[26px] sm:text-[30px] text-white tracking-wide drop-shadow-[0_0_18px_rgba(0,240,255,0.35)] py-1">Aktivasi</h1>
-          <p class="text-[11px] text-[#94a3b8] mt-1.5 leading-relaxed">
-            ©THANZ DEV SINCE 2026
-          </p>
-        </div>
-
-        <div class="auth-tabs rounded-[13px] grid grid-cols-2 gap-1 mb-3">
-          <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="auth-tab active py-2.5 rounded-[9px] text-[11px] font-semibold">
-            Masuk
-          </button>
-          <button id="tabRegBtn" onclick="switchAuthTab('register')" class="auth-tab py-2.5 rounded-[9px] text-[11px] font-semibold">
-            Daftar
-          </button>
-        </div>
-
-        <div id="loginFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6">
-          <div class="flex items-center justify-between mb-5">
-            <div>
-              <div class="section-label mb-1.5">Account</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Masuk ke akun</h2>
-            </div>
-            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-[#00f0ff] shadow-[0_0_10px_rgba(0,240,255,0.2)]">
-              <i class="fa-solid fa-arrow-right-to-bracket text-[11px]"></i>
-            </div>
-          </div>
-
-          <div class="space-y-3.5">
-            <div>
-              <label class="block text-[10px] font-medium text-[#7dd3fc] mb-1.5">Username</label>
-              <input id="loginUsername" type="text" autocomplete="username" placeholder="Masukkan username" class="px-3.5 py-3 text-[11px]" />
-            </div>
-
-            <div>
-              <label class="block text-[10px] font-medium text-[#7dd3fc] mb-1.5">Token / Password</label>
-              <div class="relative">
-                <input id="loginToken" type="password" autocomplete="current-password" placeholder="Masukkan token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
-                <button type="button" onclick="togglePasswordVisibility('loginToken','eyeLoginIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-white">
-                  <i id="eyeLoginIcon" class="fa-solid fa-eye text-[11px]"></i>
-                </button>
-              </div>
-            </div>
-
-            <button onclick="handleLogin()" class="btn btn-primary w-full py-3 text-[11px] font-bold text-white mt-1">
-              Masuk Sistem
-            </button>
-          </div>
-        </div>
-
-        <div id="regFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6 hidden">
-          <div class="flex items-center justify-between mb-5">
-            <div>
-              <div class="section-label mb-1.5">Registration</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Buat akun baru</h2>
-            </div>
-            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-[#00f0ff] shadow-[0_0_10px_rgba(0,240,255,0.2)]">
-              <i class="fa-solid fa-user-plus text-[11px]"></i>
-            </div>
-          </div>
-
-          <div class="mb-4 p-3 rounded-[11px] bg-amber-500/[.05] border border-amber-400/[.15] flex gap-2.5">
-            <i class="fa-solid fa-circle-info text-amber-400 text-[11px] mt-0.5"></i>
-            <p class="text-[10px] leading-relaxed text-amber-200/80">
-              Satu perangkat hanya dapat digunakan untuk satu pendaftaran aktif.
-            </p>
-          </div>
-
-          <div class="space-y-3.5">
-            <div>
-              <label class="block text-[10px] font-medium text-[#7dd3fc] mb-1.5">Username</label>
-              <input id="regUsername" type="text" autocomplete="username" placeholder="contoh: thanz123" class="px-3.5 py-3 text-[11px]" />
-            </div>
-
-            <div>
-              <label class="block text-[10px] font-medium text-[#7dd3fc] mb-1.5">Token Rahasia</label>
-              <div class="relative">
-                <input id="regToken" type="password" autocomplete="new-password" placeholder="Buat token akses" class="px-3.5 py-3 pr-10 text-[11px]" />
-                <button type="button" onclick="togglePasswordVisibility('regToken','eyeRegIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-white">
-                  <i id="eyeRegIcon" class="fa-solid fa-eye text-[11px]"></i>
-                </button>
-              </div>
-            </div>
-
-            <button onclick="handleRegister()" class="btn btn-success w-full py-3 text-[11px] font-bold text-white mt-1">
-              Daftar Sekarang
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section id="appContainer" class="dashboard w-full max-w-md mx-auto hidden">
-
-        <div class="account-card glass rounded-[16px] p-4 sm:p-5 mb-3">
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <div id="userAvatar" class="avatar w-10 h-10 rounded-[12px] flex items-center justify-center text-[#00f0ff] font-display font-bold text-xs shrink-0">U</div>
-              <div class="min-w-0">
-                <div id="displayUsername" class="font-display font-bold text-[13px] text-white truncate">-</div>
-                <div class="flex items-center gap-1.5 mt-1 text-[9px] text-emerald-400">
-                  <span class="status-dot w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  Online
-                </div>
-              </div>
-            </div>
-
-            <button onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px] shrink-0">
-              <i class="fa-solid fa-right-from-bracket mr-1"></i>
-              Keluar
-            </button>
-          </div>
-
-          <div class="mt-5 pt-4 border-t border-white/[.06]">
-            <div class="flex items-center justify-between mb-2">
-              <div>
-                <div class="section-label">Daily usage</div>
-                <div class="mt-1 font-display font-bold text-[13px] text-white">
-                  <span id="statUsed">0</span>
-                  <span class="text-[#64748b] font-normal"> / </span>
-                  <span id="statLimit">5</span>
-                </div>
-              </div>
-              <div class="text-right">
-                <div class="section-label">Reset</div>
-                <div id="statReset" class="text-[10px] text-[#00f0ff] mt-1">--:--</div>
-              </div>
-            </div>
-
-            <div class="usage-track">
-              <div id="usageBar" class="usage-bar"></div>
-            </div>
-
-            <div class="flex justify-between mt-2.5">
-              <span class="text-[9px] text-[#94a3b8]">Penggunaan hari ini</span>
-              <span class="text-[9px] text-emerald-400"><span id="statRemaining">5</span> tersisa</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass rounded-[16px] overflow-hidden">
-          <div class="tool-tabs grid grid-cols-3">
-            <button id="tabSend" onclick="switchTab('send')" class="tool-tab active py-3.5 text-[10px] font-semibold">Aktivasi</button>
-            <button id="tabBulk" onclick="switchTab('bulk')" class="tool-tab py-3.5 text-[10px] font-semibold">Bulk</button>
-            <button id="tabInbox" onclick="switchTab('inbox')" class="tool-tab py-3.5 text-[10px] font-semibold">Inbox</button>
-          </div>
-
-          <div id="contentSend" class="tool-content p-4 sm:p-5">
-            <div class="mb-5">
-              <div class="section-label mb-1.5">Magic link</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Aktivasi Alight Motion</h2>
-              <p id="flowInstruction" class="text-[10px] text-[#94a3b8] mt-1.5 leading-relaxed">
-                Kirim magic link ke email aktif terlebih dahulu.
-              </p>
-            </div>
-
-            <div id="stepEmailBox" class="space-y-2.5">
-              <input id="inputEmail" type="email" placeholder="email@domain.com" class="px-3.5 py-3 text-[11px]" />
-              <button onclick="handleSendMagicLink()" class="btn btn-primary w-full py-3 text-[10px] font-bold text-white">
-                <i class="fa-solid fa-paper-plane mr-1.5"></i>
-                Kirim Magic Link
-              </button>
-            </div>
-
-            <div id="stepVerifyBox" class="hidden space-y-2.5">
-              <input id="inputLink" type="text" placeholder="Tempel link verifikasi https://..." class="px-3.5 py-3 text-[11px]" />
-              <div class="grid grid-cols-[1fr_auto] gap-2">
-                <button onclick="handleVerifyMagicLink()" class="btn btn-success py-3 text-[10px] font-bold text-white">
-                  Verifikasi Link
-                </button>
-                <button onclick="resetInjectFlow()" class="btn btn-ghost w-11 text-[#7dd3fc]">
-                  <i class="fa-solid fa-rotate-left text-[10px]"></i>
-                </button>
-              </div>
-            </div>
-
-            <div id="sendResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px]"></div>
-          </div>
-
-          <div id="contentBulk" class="tool-content p-4 sm:p-5 hidden">
-            <div class="mb-5">
-              <div class="section-label mb-1.5">Batch tool</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Bulk Generator</h2>
-              <p class="text-[10px] text-[#94a3b8] mt-1.5">Buat beberapa akun premium sekaligus.</p>
-            </div>
-
-            <div class="space-y-2.5">
-              <div>
-                <label class="block text-[10px] text-[#7dd3fc] mb-1.5">Jumlah</label>
-                <input id="inputBulkAmount" type="number" min="1" max="100" value="5" class="px-3.5 py-3 text-[11px]" />
-              </div>
-              <button onclick="runBulkInject()" class="btn btn-primary w-full py-3 text-[10px] font-bold text-white">
-                Generate Bulk
-              </button>
-            </div>
-
-            <div id="bulkResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px] max-h-44 overflow-y-auto"></div>
-          </div>
-
-          <div id="contentInbox" class="tool-content p-4 sm:p-5 hidden">
-            <div class="mb-5">
-              <div class="section-label mb-1.5">Mailbox</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Pindai Inbox</h2>
-              <p class="text-[10px] text-[#94a3b8] mt-1.5">Cek pesan masuk untuk mendapatkan link verifikasi.</p>
-            </div>
-
-            <div class="space-y-2.5">
-              <input id="inputInboxEmail" type="email" placeholder="email@tempmail.com" class="px-3.5 py-3 text-[11px]" />
-              <button onclick="runInboxCheck()" class="btn btn-primary w-full py-3 text-[10px] font-bold text-white">
-                <i class="fa-solid fa-inbox mr-1.5"></i>
-                Pindai Pesan
-              </button>
-            </div>
-
-            <div id="inboxNotice" class="hidden mt-3"></div>
-            <div id="inboxResult" class="space-y-2 mt-3 max-h-48 overflow-y-auto"></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="adminContainer" class="admin-shell w-full hidden">
-        <div class="glass rounded-[16px] p-4 sm:p-5">
-
-          <div class="flex items-center justify-between pb-4 border-b border-white/[.06]">
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-[11px] bg-[#00f0ff]/[.12] border border-[#00f0ff]/[.25] flex items-center justify-center text-[#00f0ff] shadow-[0_0_12px_rgba(0,240,255,0.3)]">
-                <i class="fa-solid fa-shield-halved text-[12px]"></i>
-              </div>
-              <div>
-                <div class="section-label mb-1">Administration</div>
-                <h2 class="font-display font-bold text-[14px] text-white">Admin Console</h2>
-              </div>
-            </div>
-            <button onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px]">
-              <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
-            </button>
-          </div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
-            <div class="admin-stat p-3">
-              <div class="section-label">Users</div>
-              <div id="admTotalUsers" class="font-display font-bold text-[16px] text-white mt-1">0</div>
-            </div>
-            <div class="admin-stat p-3">
-              <div class="section-label">Active</div>
-              <div id="admActiveUsers" class="font-display font-bold text-[16px] text-emerald-400 mt-1">0</div>
-            </div>
-            <div class="admin-stat p-3">
-              <div class="section-label">Disabled</div>
-              <div id="admDisabledUsers" class="font-display font-bold text-[16px] text-red-400 mt-1">0</div>
-            </div>
-            <div class="admin-stat p-3">
-              <div class="section-label">Injects</div>
-              <div id="admTotalInjects" class="font-display font-bold text-[16px] text-[#00f0ff] mt-1">0</div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-4">
-
-            <div class="glass-soft rounded-[12px] p-3.5">
-              <div class="flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-rotate-right text-[#00f0ff] text-[10px]"></i>
-                <h3 class="text-[10px] font-bold text-white">Reset Limit User</h3>
-              </div>
-              <input id="admResetLimitUsername" type="text" placeholder="Username target" class="px-3 py-2.5 text-[10px] mb-2" />
-              <button onclick="admResetLimitByUsername()" class="btn btn-primary w-full py-2.5 text-[10px] font-bold text-white">Reset Limit</button>
-            </div>
-
-            <div class="glass-soft rounded-[12px] p-3.5">
-              <div class="flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-key text-[#00f0ff] text-[10px]"></i>
-                <h3 class="text-[10px] font-bold text-white">Reset Password</h3>
-              </div>
-              <input id="admResetUsername" type="text" placeholder="Username target" class="px-3 py-2.5 text-[10px] mb-2" />
-              <div class="relative mb-2">
-                <input id="admNewTokenVal" type="password" placeholder="Password baru" class="px-3 py-2.5 pr-9 text-[10px]" />
-                <button type="button" onclick="togglePasswordVisibility('admNewTokenVal','eyeAdmResetIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#94a3b8]">
-                  <i id="eyeAdmResetIcon" class="fa-solid fa-eye text-[10px]"></i>
-                </button>
-              </div>
-              <button onclick="admResetPasswordByUsername()" class="btn btn-primary w-full py-2.5 text-[10px] font-bold text-white">Ubah Password</button>
-            </div>
-
-            <div class="glass-soft rounded-[12px] p-3.5">
-              <div class="flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-user-plus text-emerald-400 text-[10px]"></i>
-                <h3 class="text-[10px] font-bold text-white">Buat User Baru</h3>
-              </div>
-              <input id="admNewUser" type="text" placeholder="Username" class="px-3 py-2.5 text-[10px] mb-2" />
-              <div class="grid grid-cols-2 gap-2 mb-2">
-                <div class="relative">
-                  <input id="admNewToken" type="password" placeholder="Token" class="px-3 py-2.5 pr-8 text-[10px]" />
-                  <button type="button" onclick="togglePasswordVisibility('admNewToken','eyeAdmNewIcon')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#94a3b8]">
-                    <i id="eyeAdmNewIcon" class="fa-solid fa-eye text-[10px]"></i>
-                  </button>
-                </div>
-                <input id="admNewLimit" type="number" min="1" value="5" placeholder="Limit" class="px-3 py-2.5 text-[10px]" />
-              </div>
-              <button onclick="admCreateUser()" class="btn btn-success w-full py-2.5 text-[10px] font-bold text-white">Simpan User</button>
-            </div>
-
-            <div class="glass-soft rounded-[12px] p-3.5">
-              <div class="flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-toolbox text-[#00f0ff] text-[10px]"></i>
-                <h3 class="text-[10px] font-bold text-white">Eksekusi Tool</h3>
-              </div>
-              <select id="admToolSelect" onchange="admSwitchToolView()" class="px-3 py-2.5 text-[10px] mb-2">
-                <option value="inject">AM Inject</option>
-                <option value="verify">AM Verify Link</option>
-                <option value="bulk">AM Bulk Generator</option>
-                <option value="inbox">Temp Mail Inbox</option>
-              </select>
-              <input id="admToolInput" type="text" placeholder="Email target..." class="px-3 py-2.5 text-[10px] mb-2" />
-              <div id="admVerifyLinkBox" class="hidden mb-2">
-                <input id="admToolLink" type="text" placeholder="Link verifikasi https://..." class="px-3 py-2.5 text-[10px]" />
-              </div>
-              <button onclick="admRunTool()" class="btn btn-primary w-full py-2.5 text-[10px] font-bold text-white">Jalankan</button>
-            </div>
-          </div>
-
-          <div id="admToolResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px] max-h-36 overflow-y-auto"></div>
-
-          <div class="mt-5">
-            <div class="flex items-end justify-between mb-2.5">
-              <div>
-                <div class="section-label mb-1">Management</div>
-                <h3 class="font-display font-bold text-[13px] text-white">Daftar Member</h3>
-              </div>
-              <div class="flex items-center gap-2">
-                <button onclick="admDeleteSelectedUsers()" class="btn bg-red-500/[.12] text-red-300 border border-red-400/[.25] px-2.5 py-1.5 text-[9px] font-semibold flex items-center gap-1.5">
-                  <i class="fa-solid fa-trash-can"></i> Hapus Ditandai
-                </button>
-                <button onclick="loadAdminPanel()" class="btn btn-ghost w-8 h-8 flex items-center justify-center">
-                  <i class="fa-solid fa-rotate text-[9px]"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="admin-table overflow-auto max-h-72 rounded-[12px] border border-white/[.06] bg-black/[.2]">
-              <table class="w-full min-w-[610px] text-left text-[10px]">
-                <thead class="sticky top-0 bg-[#06121e]/95 backdrop-blur-xl text-[#7dd3fc]">
-                  <tr>
-                    <th class="px-3 py-2.5 w-8">
-                      <input type="checkbox" id="selectAllCheckbox" onchange="admToggleSelectAll(this)" class="w-3.5 h-3.5 accent-[#00f0ff] cursor-pointer" />
-                    </th>
-                    <th class="px-3 py-2.5 font-semibold">User</th>
-                    <th class="px-3 py-2.5 font-semibold">Usage</th>
-                    <th class="px-3 py-2.5 font-semibold">Status</th>
-                    <th class="px-3 py-2.5 font-semibold text-right">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="admUserTableBody" class="divide-y divide-white/[.04]"></tbody>
-              </table>
-            </div>
-          </div>
-
-        </div>
-      </section>
-    </main>
-
-    <footer class="text-center pb-2 pt-1">
-      <div class="text-[9px] text-[#64748b]">
-        AM Pro Toolkit <span class="mx-1 text-[#00f0ff]/55">•</span> Secure Backend <span class="mx-1 text-[#00f0ff]/55">•</span> ThanzDev
-      </div>
-    </footer>
+    </div>
+    <p class="font-display text-zinc-500 text-xs tracking-[0.2em] uppercase mt-4">Loading Thanz Sistem...</p>
   </div>
 
-  <div id="toast" class="toast fixed z-50 bottom-5 left-1/2 glass rounded-[12px] px-4 py-3 text-[10px] text-white shadow-2xl max-w-[calc(100vw-32px)]"></div>
+  <!-- MAIN MAINTENANCE CONTAINER -->
+  <main class="w-full max-w-[380px] z-10 my-auto flex flex-col items-center space-y-4 py-4">
+    
+    <!-- Branding Header -->
+    <div class="text-center">
+      <div class="w-14 h-14 rounded-2xl bg-brand/10 border border-brand/30 mx-auto flex items-center justify-center shadow-[0_0_25px_rgba(139,92,246,0.25)] mb-3 backdrop-blur-md">
+        <i class="fa-solid fa-screwdriver-wrench text-brand text-xl animate-bounce"></i>
+      </div>
+      <h1 class="font-display text-2xl font-bold tracking-tight text-white mb-1">Thanz<span class="text-brand">Toolkit</span></h1>
+      <p class="text-zinc-400 text-xs tracking-wide uppercase">© POWERED BY THANZ SINCE 2026</p>
+    </div>
 
-<script>
-  const SUPABASE_URL = "https://rjssnlfqtywmmokcxdix.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqc3NubGZxdHl3bW1va2N4ZGl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MTUxODMsImV4cCI6MjEwMjE5MTE4M30.bMqR8JrfRyPG4Xx2gHh1t19dkc6_Qyg-G6XjI3KYfgk";
-
-  let supabaseClient = null;
-  let currentUser = null;
-  let isAdmin = false;
-  let activeInjectEmail = "";
-  let countdownInterval = null;
-
-  let deviceId = localStorage.getItem("am_device_id");
-  if (!deviceId) {
-    deviceId = "dev_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
-    localStorage.setItem("am_device_id", deviceId);
-  }
-
-  let supabaseReady = false;
-
-  window.addEventListener("DOMContentLoaded", async () => {
-    await initSupabase(SUPABASE_URL, SUPABASE_ANON_KEY);
-    checkExistingSession();
-  });
-
-  async function initSupabase(url, key) {
-    try {
-      for (let i = 0; i < 50 && !window.supabase; i++) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-
-      if (!window.supabase || typeof window.supabase.createClient !== "function") {
-        throw new Error("Library Supabase belum termuat.");
-      }
-
-      if (!url || !key) {
-        throw new Error("SUPABASE_URL atau SUPABASE_ANON_KEY kosong.");
-      }
-
-      supabaseClient = window.supabase.createClient(url, key, {
-        auth: {
-          persistSession: false,
-          autoRefreshToken: false,
-          detectSessionInUrl: false
-        },
-        global: {
-          headers: {
-            "x-client-info": "am-pro-toolkit"
-          }
-        }
-      });
-
-      supabaseReady = true;
-      return true;
-    } catch (e) {
-      supabaseClient = null;
-      supabaseReady = false;
-      showToast("Gagal terhubung ke database.");
-      return false;
-    }
-  }
-
-  function showToast(message) {
-    const toast = document.getElementById("toast");
-    toast.textContent = message;
-    toast.classList.add("show");
-    clearTimeout(window.__toastTimer);
-    window.__toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
-  }
-
-  function togglePasswordVisibility(inputId, iconId) {
-    const input = document.getElementById(inputId);
-    const icon = document.getElementById(iconId);
-    if (!input || !icon) return;
-
-    const isPassword = input.type === "password";
-    input.type = isPassword ? "text" : "password";
-    icon.classList.toggle("fa-eye", !isPassword);
-    icon.classList.toggle("fa-eye-slash", isPassword);
-  }
-
-  function switchAuthTab(tab) {
-    const loginCard = document.getElementById("loginFormCard");
-    const regCard = document.getElementById("regFormCard");
-    const loginBtn = document.getElementById("tabLoginBtn");
-    const regBtn = document.getElementById("tabRegBtn");
-
-    loginCard.classList.toggle("hidden", tab !== "login");
-    regCard.classList.toggle("hidden", tab !== "register");
-    loginBtn.classList.toggle("active", tab === "login");
-    regBtn.classList.toggle("active", tab === "register");
-  }
-
-  async function handleRegister() {
-    if (!supabaseClient || !supabaseReady) return showToast("Database belum terhubung.");
-
-    const username = document.getElementById("regUsername").value.trim();
-    const token = document.getElementById("regToken").value.trim();
-
-    if (!username || !token) return showToast("Username dan token wajib diisi.");
-    if (username.length < 4) return showToast("Username minimal 4 karakter.");
-    if (token.length < 4) return showToast("Token minimal 4 karakter.");
-
-    const { data: existingDevice } = await supabaseClient
-      .from("users")
-      .select("id")
-      .eq("device_id", deviceId)
-      .maybeSingle();
-
-    if (existingDevice) return showToast("Perangkat ini sudah pernah mendaftar.");
-
-    const { data: existingUser } = await supabaseClient
-      .from("users")
-      .select("id")
-      .eq("username", username)
-      .maybeSingle();
-
-    if (existingUser) return showToast("Username sudah digunakan.");
-
-    const resetAt = new Date(Date.now() + 86400000).toISOString();
-
-    const { error } = await supabaseClient.from("users").insert([{
-      username,
-      token,
-      daily_limit: 5,
-      used_count: 0,
-      reset_at: resetAt,
-      device_id: deviceId,
-      status: "Active"
-    }]);
-
-    if (error) {
-      showToast("Gagal register: " + error.message);
-    } else {
-      document.getElementById("loginUsername").value = username;
-      document.getElementById("loginToken").value = token;
-      document.getElementById("regUsername").value = "";
-      document.getElementById("regToken").value = "";
-      switchAuthTab("login");
-      showToast("Pendaftaran berhasil. Silakan masuk.");
-    }
-  }
-
-  async function handleLogin() {
-    if (!supabaseClient) return showToast("Database belum terhubung.");
-
-    const username = document.getElementById("loginUsername").value.trim();
-    const token = document.getElementById("loginToken").value.trim();
-
-    if (!username || !token) return showToast("Masukkan username dan password.");
-
-    if (username === "thanz" && token === "thanzadmin") {
-      isAdmin = true;
-      localStorage.setItem("am_is_admin", "true");
-      showToast("Berhasil masuk sebagai Admin.");
-      enterAdminDashboard();
-      return;
-    }
-
-    const { data: user, error } = await supabaseClient
-      .from("users")
-      .select("*")
-      .eq("username", username)
-      .eq("token", token)
-      .maybeSingle();
-
-    if (error || !user) return showToast("Username atau password salah.");
-    if (user.status !== "Active") return showToast("Akun Anda dinonaktifkan oleh Administrator.");
-
-    await supabaseClient
-      .from("users")
-      .update({ last_login_at: new Date().toISOString() })
-      .eq("id", user.id);
-
-    isAdmin = false;
-    currentUser = user;
-    localStorage.setItem("am_current_user", JSON.stringify(user));
-
-    showToast("Berhasil masuk.");
-    enterUserDashboard();
-  }
-
-  async function checkExistingSession() {
-    const savedAdmin = localStorage.getItem("am_is_admin");
-
-    if (savedAdmin === "true") {
-      isAdmin = true;
-      enterAdminDashboard();
-      return;
-    }
-
-    const saved = localStorage.getItem("am_current_user");
-    if (!saved) return;
-
-    try {
-      const localUser = JSON.parse(saved);
+    <!-- Maintenance Status Card -->
+    <div class="glass-card rounded-[24px] p-5 shadow-2xl w-full text-center space-y-4 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand via-indigo-500 to-brand animate-pulse"></div>
       
-      if (supabaseClient && localUser && localUser.id) {
-        const { data: freshUser, error } = await supabaseClient
-          .from("users")
-          .select("*")
-          .eq("id", localUser.id)
-          .maybeSingle();
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/15 border border-brand/35 text-brand text-[11px] font-semibold">
+        <span class="w-2 h-2 rounded-full bg-brand animate-ping"></span>
+        Sistem Sedang Maintenance
+      </div>
 
-        if (!error && freshUser) {
-          if (freshUser.status !== "Active") {
-            showToast("Akun Anda dinonaktifkan.");
-            handleLogout();
-            return;
-          }
-          currentUser = freshUser;
-          localStorage.setItem("am_current_user", JSON.stringify(currentUser));
-          enterUserDashboard();
-          return;
-        } else {
-          // Jika row user terhapus di database, jangan biarkan masuk dengan cache lama
-          localStorage.removeItem("am_current_user");
-          showToast("Sesi akun kedaluwarsa atau telah dihapus, silakan login ulang.");
-          return;
+      <p class="text-xs text-zinc-300 leading-relaxed px-1">
+        Kami sedang melakukan pemeliharaan server dan peningkatan performa sistem demi kenyamanan Anda. Mohon kembali beberapa saat lagi!
+      </p>
+
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <a href="https://whatsapp.com/channel/0029VbDkINSH5JM0fCnF4v2w" target="_blank" class="py-2.5 px-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-medium transition flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp text-sm"></i> Saluran WA
+        </a>
+        <a href="https://wa.me/6287792643974?text=Halo%20Admin,%20mau%20tanya%20progres%20maintenance." target="_blank" class="py-2.5 px-3 rounded-xl bg-surface-card hover:bg-brand/15 border border-brand/30 text-zinc-200 text-xs font-medium transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-headset text-brand text-sm"></i> Hubungi Admin
+        </a>
+      </div>
+    </div>
+
+    <!-- QRIS Support Developer Card -->
+    <div class="glass-card rounded-[24px] p-5 shadow-2xl w-full text-center space-y-3">
+      <div class="flex items-center justify-center gap-2 text-pink-400 font-display text-xs font-semibold">
+        <i class="fa-solid fa-hand-holding-heart text-sm"></i> Support Developer
+      </div>
+      <p class="text-[10px] text-zinc-400 leading-relaxed px-1">
+        Dukungan sukarela Anda sangat membantu kelangsungan server dan pengembangan fitur toolkit gratis. Scan QRIS di bawah ini:
+      </p>
+
+      <!-- Frame Gambar QR Code -->
+      <div class="bg-white p-2.5 rounded-2xl mx-auto inline-block shadow-[0_0_20px_rgba(236,72,153,0.2)]">
+        <img src="https://c.termai.cc/i135/v4q39Z.jpg" alt="QRIS Support Dev" class="w-44 h-44 object-cover rounded-xl" onerror="this.src='https://placehold.co/200x200?text=QR+Not+Found'">
+      </div>
+
+      <div class="pt-1">
+        <button onclick="copyQrisInfo()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand to-indigo-500 text-white font-medium text-xs hover:opacity-95 active:scale-[0.98] transition shadow-[0_0_15px_rgba(139,92,246,0.3)]">
+          <i class="fa-solid fa-qrcode mr-1.5"></i> Donasi via QRIS
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer Info -->
+  <footer class="z-10 text-center py-2 text-[10px] text-zinc-500">
+    © 2026 Thanz Toolkit Engine. All rights reserved.
+  </footer>
+
+  <!-- Toast Notifikasi -->
+  <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 -translate-y-20 opacity-0 transition-all duration-400 glass-card text-white px-3.5 py-2 rounded-xl text-[10px] font-medium shadow-2xl flex items-center space-x-2 z-50 pointer-events-none border border-brand/40">
+    <i class="fa-solid fa-circle-info text-brand text-xs"></i>
+    <span id="toastMessage">Pemberitahuan</span>
+  </div>
+
+  <!-- Skrip Background Partikel -->
+  <script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    let w, h;
+    let particles = [];
+
+    function resize(){
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        init();
+    }
+
+    window.addEventListener("resize", resize);
+
+    class Particle {
+        constructor(){
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.size = Math.random() * 1.5 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.2;
+            this.speedY = (Math.random() - 0.5) * 0.2;
+            this.alpha = Math.random() * 0.5 + 0.1;
         }
-      }
 
-      currentUser = localUser;
-      enterUserDashboard();
-    } catch {
-      localStorage.removeItem("am_current_user");
-    }
-  }
+        update(){
+            this.x += this.speedX;
+            this.y += this.speedY;
 
-  async function refreshUserData() {
-    if (!currentUser || !supabaseClient) return true;
-
-    try {
-      const { data, error } = await supabaseClient
-        .from("users")
-        .select("*")
-        .eq("id", currentUser.id)
-        .maybeSingle();
-
-      if (!error && data) {
-        if (data.status !== "Active") {
-          handleLogout();
-          return false;
+            if(this.x < 0) this.x = w;
+            if(this.x > w) this.x = 0;
+            if(this.y < 0) this.y = h;
+            if(this.y > h) this.y = 0;
         }
-        currentUser = data;
-        localStorage.setItem("am_current_user", JSON.stringify(currentUser));
-      } else {
-        handleLogout();
-        showToast("Akun tidak ditemukan di database.");
-        return false;
-      }
-    } catch (e) {
-      console.warn("Gagal menyinkronkan data user terkini:", e);
-    }
-    return true;
-  }
 
-  function handleLogout() {
-    currentUser = null;
-    isAdmin = false;
-
-    localStorage.removeItem("am_current_user");
-    localStorage.removeItem("am_is_admin");
-
-    if (countdownInterval) {
-      clearInterval(countdownInterval);
-      countdownInterval = null;
+        draw(){
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(139, 92, 246, ${this.alpha})`;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = "#8b5cf6";
+            ctx.fill();
+        }
     }
 
-    document.getElementById("authContainer").classList.remove("hidden");
-    document.getElementById("appContainer").classList.add("hidden");
-    document.getElementById("adminContainer").classList.add("hidden");
+    function init(){
+        particles = [];
+        let count = Math.floor((w * h) / 7000);
+        for(let i = 0; i < count; i++){
+            particles.push(new Particle());
+        }
+    }
 
-    switchAuthTab("login");
-    showToast("Berhasil keluar.");
-  }
-
-  function enterUserDashboard() {
-    document.getElementById("authContainer").classList.add("hidden");
-    document.getElementById("adminContainer").classList.add("hidden");
-    document.getElementById("appContainer").classList.remove("hidden");
-
-    document.getElementById("displayUsername").textContent = currentUser.username;
-    document.getElementById("userAvatar").textContent =
-      currentUser.username.charAt(0).toUpperCase();
-
-    updateLimitDisplay();
-
-    if (countdownInterval) clearInterval(countdownInterval);
-    countdownInterval = setInterval(updateLimitDisplay, 1000);
-  }
-
-  function enterAdminDashboard() {
-    document.getElementById("authContainer").classList.add("hidden");
-    document.getElementById("appContainer").classList.add("hidden");
-    document.getElementById("adminContainer").classList.remove("hidden");
-    loadAdminPanel();
-  }
-
-  function updateLimitDisplay() {
-    if (!currentUser) return;
-
-    const now = Date.now();
-    let resetTime = new Date(currentUser.reset_at || now).getTime();
-
-    if (now >= resetTime) {
-      const newReset = new Date(now + 86400000).toISOString();
-
-      supabaseClient
-        .from("users")
-        .update({ used_count: 0, reset_at: newReset })
-        .eq("id", currentUser.id)
-        .then(({ error }) => {
-          if (!error) {
-            currentUser.used_count = 0;
-            currentUser.reset_at = newReset;
-            localStorage.setItem("am_current_user", JSON.stringify(currentUser));
-          }
+    function animate(){
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
         });
-
-      resetTime = now;
+        requestAnimationFrame(animate);
     }
 
-    const limit = Number(currentUser.daily_limit) || 0;
-    const used = Number(currentUser.used_count) || 0;
-    const remaining = Math.max(0, limit - used);
-    const percentage = limit > 0 ? Math.min(100, (used / limit) * 100) : 0;
+    resize();
+    animate();
 
-    document.getElementById("statLimit").textContent = limit;
-    document.getElementById("statUsed").textContent = used;
-    document.getElementById("statRemaining").textContent = remaining;
-    document.getElementById("usageBar").style.width = percentage + "%";
-
-    const diff = resetTime - now;
-
-    if (diff > 0) {
-      const hours = Math.floor(diff / 3600000);
-      const minutes = Math.floor((diff % 3600000) / 60000);
-      const seconds = Math.floor((diff % 60000) / 1000);
-
-      document.getElementById("statReset").textContent =
-        `${hours}j ${minutes}m ${seconds}d`;
-    } else {
-      document.getElementById("statReset").textContent = "0j 0m 0d";
-    }
-  }
-
-  function switchTab(tab) {
-    const contents = {
-      send: document.getElementById("contentSend"),
-      bulk: document.getElementById("contentBulk"),
-      inbox: document.getElementById("contentInbox")
-    };
-
-    const tabs = {
-      send: document.getElementById("tabSend"),
-      bulk: document.getElementById("tabBulk"),
-      inbox: document.getElementById("tabInbox")
-    };
-
-    Object.values(contents).forEach(el => el.classList.add("hidden"));
-    Object.values(tabs).forEach(el => el.classList.remove("active"));
-
-    contents[tab].classList.remove("hidden");
-    tabs[tab].classList.add("active");
-  }
-
-  async function handleSendMagicLink() {
-    const email = document.getElementById("inputEmail").value.trim();
-
-    if (!email || !email.includes("@")) {
-      return showToast("Masukkan email yang valid.");
-    }
-
-    showToast("Mengirim magic link...");
-
-    try {
-      const res = await fetch("/api/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-      });
-
-      const json = await res.json();
-
-      if (!res.ok || json.status === false) {
-        throw new Error(json.message || "Gagal mengirim magic link.");
+    // Hide Loading screen on load
+    window.addEventListener('load', () => {
+      const loadingScreen = document.getElementById('loadingScreen');
+      if (loadingScreen) {
+        setTimeout(() => {
+          loadingScreen.classList.add('opacity-0', 'pointer-events-none');
+          setTimeout(() => loadingScreen.classList.add('hidden'), 400);
+        }, 300);
       }
-
-      activeInjectEmail = email;
-
-      document.getElementById("stepEmailBox").classList.add("hidden");
-      document.getElementById("stepVerifyBox").classList.remove("hidden");
-      document.getElementById("flowInstruction").textContent =
-        `Magic link terkirim ke folder spam ${email}. Masukkan link verifikasi.`;
-
-      showToast("Magic link berhasil dikirim.");
-    } catch (err) {
-      showToast(err.message || "Koneksi gagal.");
-    }
-  }
-
-  async function handleVerifyMagicLink() {
-    const link = document.getElementById("inputLink").value.trim();
-
-    if (!link) return showToast("Masukkan link verifikasi.");
-
-    const isValid = await refreshUserData();
-    if (!isValid || !currentUser) return;
-
-    const remaining = currentUser.daily_limit - currentUser.used_count;
-
-    if (remaining <= 0) {
-      return showToast("Limit harian Anda sudah habis.");
-    }
-
-    showToast("Memverifikasi...");
-
-    let success = false;
-    let resultMessage = "";
-
-    try {
-      const res = await fetch("/api/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: activeInjectEmail,
-          link
-        })
-      });
-
-      const json = await res.json();
-
-      success = res.ok && json.status !== false;
-      resultMessage = json.message || "Verifikasi berhasil.";
-
-      const result = document.getElementById("sendResult");
-      result.innerHTML = `
-        <div class="${success ? "text-emerald-400" : "text-red-400"} font-bold">
-          ${success ? "Berhasil" : "Gagal"}
-        </div>
-        <div class="text-[10px] text-[#7dd3fc] mt-1 leading-relaxed">
-          ${escapeHtml(resultMessage)}
-        </div>
-      `;
-      result.classList.remove("hidden");
-    } catch (err) {
-      success = false;
-      showToast("Kesalahan jaringan.");
-    }
-
-    if (supabaseClient && currentUser) {
-      await supabaseClient.from("inject_logs").insert([{
-        user_id: currentUser.id,
-        username: currentUser.username,
-        status: success ? "SUCCESS" : "FAILED"
-      }]);
-    }
-
-    if (success) {
-      const newUsed = (currentUser.used_count || 0) + 1;
-
-      await supabaseClient
-        .from("users")
-        .update({ used_count: newUsed })
-        .eq("id", currentUser.id);
-
-      currentUser.used_count = newUsed;
-      localStorage.setItem("am_current_user", JSON.stringify(currentUser));
-
-      updateLimitDisplay();
-      showToast("Verifikasi berhasil. Kredit terpakai +1.");
-
-      setTimeout(resetInjectFlow, 900);
-    } else {
-      showToast("Verifikasi gagal.");
-    }
-  }
-
-  function resetInjectFlow() {
-    activeInjectEmail = "";
-
-    document.getElementById("inputEmail").value = "";
-    document.getElementById("inputLink").value = "";
-
-    document.getElementById("stepVerifyBox").classList.add("hidden");
-    document.getElementById("stepEmailBox").classList.remove("hidden");
-
-    document.getElementById("flowInstruction").textContent =
-      "Kirim magic link ke email aktif terlebih dahulu.";
-
-    document.getElementById("sendResult").classList.add("hidden");
-  }
-
-  async function runBulkInject() {
-    const isValid = await refreshUserData();
-    if (!isValid || !currentUser) return;
-
-    const remaining = currentUser.daily_limit - currentUser.used_count;
-    if (remaining <= 0) return showToast("Limit harian habis.");
-
-    const amount = Number(document.getElementById("inputBulkAmount").value);
-
-    if (!amount || amount < 1 || amount > 100) {
-      return showToast("Jumlah harus 1 - 100.");
-    }
-
-    showToast("Memproses bulk...");
-
-    let success = false;
-    let resultMessage = "";
-
-    try {
-      const res = await fetch("/api/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount })
-      });
-
-      const json = await res.json();
-
-      success = res.ok && json.status !== false;
-      resultMessage = json.message || JSON.stringify(json, null, 2);
-
-      const result = document.getElementById("bulkResult");
-
-      result.innerHTML = `
-        <div class="${success ? "text-emerald-400" : "text-red-400"} font-bold">
-          ${success ? "Berhasil" : "Gagal"}
-        </div>
-        <pre class="whitespace-pre-wrap text-[10px] text-[#7dd3fc] mt-1">${escapeHtml(resultMessage)}</pre>
-      `;
-
-      result.classList.remove("hidden");
-    } catch {
-      success = false;
-      showToast("Koneksi gagal.");
-    }
-
-    if (supabaseClient && currentUser) {
-      await supabaseClient.from("inject_logs").insert([{
-        user_id: currentUser.id,
-        username: currentUser.username,
-        status: success ? "SUCCESS" : "FAILED"
-      }]);
-    }
-
-    if (success) {
-      const newUsed = (currentUser.used_count || 0) + 1;
-
-      await supabaseClient
-        .from("users")
-        .update({ used_count: newUsed })
-        .eq("id", currentUser.id);
-
-      currentUser.used_count = newUsed;
-      localStorage.setItem("am_current_user", JSON.stringify(currentUser));
-
-      updateLimitDisplay();
-      showToast("Bulk berhasil. Kredit terpakai +1.");
-    } else {
-      showToast("Bulk gagal.");
-    }
-  }
-
-  async function runInboxCheck() {
-    const email = document.getElementById("inputInboxEmail").value.trim();
-    const notice = document.getElementById("inboxNotice");
-    const container = document.getElementById("inboxResult");
-
-    if (!email) return showToast("Masukkan email.");
-
-    notice.className =
-      "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-[#00f0ff]/[.12] border border-[#00f0ff]/[.25] text-[#00f0ff]";
-    notice.textContent = "Memindai pesan...";
-    notice.classList.remove("hidden");
-
-    container.innerHTML = "";
-
-    try {
-      const res = await fetch("/api/inbox", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-      });
-
-      const json = await res.json();
-
-      if (!res.ok || json.status === false) {
-        throw new Error(json.message || "Gagal mengambil inbox.");
-      }
-
-      notice.className =
-        "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-emerald-500/[.12] border border-emerald-400/[.25] text-emerald-300";
-      notice.textContent = "Inbox berhasil dipindai.";
-
-      const messages = json.data?.messages || [];
-
-      if (!messages.length) {
-        container.innerHTML =
-          '<div class="text-[10px] text-[#64748b] p-3 text-center">Belum ada pesan.</div>';
-        return;
-      }
-
-      messages.forEach(msg => {
-        const card = document.createElement("div");
-        card.className =
-          "glass-soft p-3 rounded-[11px] border border-white/[.06] space-y-2";
-
-        const subject = msg.subject || "Tanpa Subjek";
-        const link = msg.login_url || "";
-
-        card.innerHTML = `
-          <div class="text-[10px] font-bold text-white">${escapeHtml(subject)}</div>
-          ${
-            link
-              ? `
-                <div class="p-2 rounded-[9px] bg-emerald-500/[.08] border border-emerald-400/[.15] text-emerald-300 text-[9px] break-all">
-                  ${escapeHtml(link)}
-                </div>
-                <button class="btn btn-primary w-full py-2 text-[9px] font-bold text-white">
-                  Salin Link
-                </button>
-              `
-              : `
-                <div class="text-[9px] text-[#64748b]">
-                  Link belum tersedia.
-                </div>
-              `
-          }
-        `;
-
-        if (link) {
-          card.querySelector("button").addEventListener("click", async () => {
-            try {
-              await navigator.clipboard.writeText(link);
-              showToast("Link disalin.");
-            } catch {
-              showToast("Gagal menyalin link.");
-            }
-          });
-        }
-
-        container.appendChild(card);
-      });
-    } catch (err) {
-      notice.className =
-        "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-red-500/[.12] border border-red-400/[.25] text-red-300";
-      notice.textContent = err.message;
-    }
-  }
-
-  async function loadAdminPanel() {
-    if (!isAdmin || !supabaseClient) return;
-
-    const { data: users } = await supabaseClient.from("users").select("*");
-    const { data: logs } = await supabaseClient.from("inject_logs").select("*");
-
-    const safeUsers = users || [];
-    const safeLogs = logs || [];
-
-    document.getElementById("admTotalUsers").textContent = safeUsers.length;
-    document.getElementById("admActiveUsers").textContent =
-      safeUsers.filter(u => u.status === "Active").length;
-    document.getElementById("admDisabledUsers").textContent =
-      safeUsers.filter(u => u.status === "Disabled").length;
-    document.getElementById("admTotalInjects").textContent =
-      safeLogs.filter(l => l.status === "SUCCESS").length;
-
-    const tbody = document.getElementById("admUserTableBody");
-    tbody.innerHTML = "";
-    document.getElementById("selectAllCheckbox").checked = false;
-
-    safeUsers.forEach(u => {
-      const tr = document.createElement("tr");
-      tr.className = "hover:bg-[#00f0ff]/[.04] transition";
-
-      tr.innerHTML = `
-        <td class="px-3 py-3 w-8">
-          <input type="checkbox" value="${escapeAttr(u.id)}" class="user-checkbox w-3.5 h-3.5 accent-[#00f0ff] cursor-pointer" />
-        </td>
-        <td class="px-3 py-3">
-          <div class="font-semibold text-white">${escapeHtml(u.username)}</div>
-          <div class="text-[9px] text-[#64748b] font-mono mt-0.5">
-            Token: ${escapeHtml(u.token || "-")}
-          </div>
-        </td>
-
-        <td class="px-3 py-3">
-          <div class="text-[#e0f2fe]">${Number(u.used_count) || 0} / ${Number(u.daily_limit) || 0}</div>
-        </td>
-
-        <td class="px-3 py-3">
-          <span class="px-2 py-1 rounded-full text-[8px] ${
-            u.status === "Active"
-              ? "bg-emerald-500/[.12] text-emerald-300 border border-emerald-400/[.2]"
-              : "bg-red-500/[.12] text-red-300 border border-red-400/[.2]"
-          }">
-            ${escapeHtml(u.status)}
-          </span>
-        </td>
-
-        <td class="px-3 py-3 text-right whitespace-nowrap">
-          <button onclick="admPromptResetLimit('${escapeAttr(u.username)}')" class="btn btn-ghost px-2 py-1.5 text-[8px] mr-1">Limit</button>
-          <button onclick="admPromptResetPass('${escapeAttr(u.username)}')" class="btn btn-ghost px-2 py-1.5 text-[8px] mr-1">Pass</button>
-          <button onclick="admToggleStatus('${escapeAttr(u.id)}','${escapeAttr(u.status)}')" class="btn ${
-            u.status === "Active"
-              ? "bg-amber-500/[.12] text-amber-300 border border-amber-400/[.2]"
-              : "bg-emerald-500/[.12] text-emerald-300 border border-emerald-400/[.2]"
-          } px-2 py-1.5 rounded-[9px] text-[8px] mr-1">
-            ${u.status === "Active" ? "Off" : "On"}
-          </button>
-          <button onclick="admDeleteUser('${escapeAttr(u.id)}')" class="btn bg-red-500/[.1] text-red-300 border border-red-400/[.2] px-2 py-1.5 rounded-[9px] text-[8px]">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </td>
-      `;
-
-      tbody.appendChild(tr);
     });
-  }
 
-  function admToggleSelectAll(source) {
-    const checkboxes = document.querySelectorAll(".user-checkbox");
-    checkboxes.forEach(cb => cb.checked = source.checked);
-  }
-
-  async function admDeleteSelectedUsers() {
-    const checkboxes = document.querySelectorAll(".user-checkbox:checked");
-    if (checkboxes.length === 0) {
-      return showToast("Tidak ada user yang ditandai.");
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.remove('-translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('-translate-y-20', 'opacity-0');
+      }, 3000);
     }
 
-    if (!confirm(`Hapus ${checkboxes.length} user yang ditandai?`)) return;
-
-    const idsToDelete = Array.from(checkboxes).map(cb => cb.value);
-
-    const { error } = await supabaseClient
-      .from("users")
-      .delete()
-      .in("id", idsToDelete);
-
-    if (error) {
-      showToast("Gagal menghapus user terpilih.");
-    } else {
-      showToast(`${checkboxes.length} user berhasil dihapus.`);
-      loadAdminPanel();
+    function copyQrisInfo() {
+      showToast("Silakan scan QRIS di atas untuk mendukung Developer!");
     }
-  }
-
-  async function admCreateUser() {
-    const username = document.getElementById("admNewUser").value.trim();
-    const token = document.getElementById("admNewToken").value.trim();
-    const daily_limit = Number(document.getElementById("admNewLimit").value) || 5;
-
-    if (!username || !token) return showToast("Username dan token wajib diisi.");
-
-    const resetAt = new Date(Date.now() + 86400000).toISOString();
-
-    const { error } = await supabaseClient.from("users").insert([{
-      username,
-      token,
-      daily_limit,
-      used_count: 0,
-      reset_at: resetAt,
-      status: "Active"
-    }]);
-
-    if (error) {
-      showToast("Gagal: " + error.message);
-    } else {
-      showToast("User berhasil dibuat.");
-      document.getElementById("admNewUser").value = "";
-      document.getElementById("admNewToken").value = "";
-      loadAdminPanel();
-    }
-  }
-
-  async function admResetLimitByUsername() {
-    const username = document.getElementById("admResetLimitUsername").value.trim();
-
-    if (!username) return showToast("Masukkan username target.");
-
-    const { data, error } = await supabaseClient
-      .from("users")
-      .select("id")
-      .eq("username", username)
-      .maybeSingle();
-
-    if (error || !data) return showToast("Username tidak ditemukan.");
-
-    const { error: updateError } = await supabaseClient
-      .from("users")
-      .update({
-        used_count: 0,
-        reset_at: new Date(Date.now() + 86400000).toISOString()
-      })
-      .eq("id", data.id);
-
-    if (updateError) {
-      showToast("Gagal reset limit.");
-    } else {
-      showToast(`Limit ${username} berhasil direset.`);
-      document.getElementById("admResetLimitUsername").value = "";
-      loadAdminPanel();
-    }
-  }
-
-  async function admResetPasswordByUsername() {
-    const username = document.getElementById("admResetUsername").value.trim();
-    const token = document.getElementById("admNewTokenVal").value.trim();
-
-    if (!username || !token) return showToast("Isi data lengkap.");
-
-    const { data, error } = await supabaseClient
-      .from("users")
-      .select("id")
-      .eq("username", username)
-      .maybeSingle();
-
-    if (error || !data) return showToast("Username tidak ditemukan.");
-
-    const { error: updateError } = await supabaseClient
-      .from("users")
-      .update({ token })
-      .eq("id", data.id);
-
-    if (updateError) {
-      showToast("Gagal reset password.");
-    } else {
-      showToast("Password berhasil direset.");
-      document.getElementById("admResetUsername").value = "";
-      document.getElementById("admNewTokenVal").value = "";
-      loadAdminPanel();
-    }
-  }
-
-  function admPromptResetLimit(username) {
-    document.getElementById("admResetLimitUsername").value = username;
-    showToast(`Target limit: ${username}`);
-  }
-
-  function admPromptResetPass(username) {
-    document.getElementById("admResetUsername").value = username;
-    showToast(`Target password: ${username}`);
-  }
-
-  function admSwitchToolView() {
-    const tool = document.getElementById("admToolSelect").value;
-    const input = document.getElementById("admToolInput");
-    const linkBox = document.getElementById("admVerifyLinkBox");
-
-    linkBox.classList.add("hidden");
-
-    if (tool === "inject") {
-      input.placeholder = "Email target AM...";
-    } else if (tool === "verify") {
-      input.placeholder = "Email target AM...";
-      linkBox.classList.remove("hidden");
-    } else if (tool === "bulk") {
-      input.placeholder = "Jumlah bulk (1 - 100)...";
-    } else {
-      input.placeholder = "Email temp mail...";
-    }
-  }
-
-  async function admRunTool() {
-    const tool = document.getElementById("admToolSelect").value;
-    const value = document.getElementById("admToolInput").value.trim();
-    const link = document.getElementById("admToolLink").value.trim();
-    const result = document.getElementById("admToolResult");
-
-    result.classList.add("hidden");
-    result.innerHTML = "";
-
-    if (!value) return showToast("Masukkan input.");
-
-    showToast("Menjalankan alat...");
-
-    try {
-      let endpoint = "";
-      let body = {};
-
-      if (tool === "inject") {
-        endpoint = "/api/send";
-        body = { email: value };
-      }
-
-      if (tool === "verify") {
-        if (!link) return showToast("Masukkan link verifikasi.");
-        endpoint = "/api/verify";
-        body = { email: value, link };
-      }
-
-      if (tool === "bulk") {
-        const amount = Number(value);
-        if (!amount || amount < 1 || amount > 100) {
-          return showToast("Jumlah bulk harus 1 - 100.");
-        }
-        endpoint = "/api/bulk";
-        body = { amount };
-      }
-
-      if (tool === "inbox") {
-        endpoint = "https://api.internal/inbox";
-        body = { email: value };
-      }
-
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
-
-      const json = await res.json();
-
-      result.innerHTML = `
-        <div class="font-bold text-white mb-1">Hasil ${escapeHtml(tool)}</div>
-        <pre class="text-[9px] text-[#7dd3fc] whitespace-pre-wrap">${escapeHtml(JSON.stringify(json, null, 2))}</pre>
-      `;
-
-      result.classList.remove("hidden");
-      showToast(res.ok ? "Selesai." : "Request gagal.");
-    } catch (err) {
-      showToast("Gagal: " + err.message);
-    }
-  }
-
-  async function admToggleStatus(userId, currentStatus) {
-    const nextStatus = currentStatus === "Active" ? "Disabled" : "Active";
-
-    const { error } = await supabaseClient
-      .from("users")
-      .update({ status: nextStatus })
-      .eq("id", userId);
-
-    if (error) {
-      showToast("Gagal mengubah status.");
-    } else {
-      showToast("Status berhasil diubah.");
-      loadAdminPanel();
-    }
-  }
-
-  async function admDeleteUser(userId) {
-    if (!confirm("Hapus user ini?")) return;
-
-    const { error } = await supabaseClient
-      .from("users")
-      .delete()
-      .eq("id", userId);
-
-    if (error) {
-      showToast("Gagal menghapus user.");
-    } else {
-      showToast("User dihapus.");
-      loadAdminPanel();
-    }
-  }
-
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-    }
-
-  function escapeAttr(value) {
-    return String(value ?? "")
-      .replaceAll("\\", "\\\\")
-      .replaceAll("'", "\\'");
-  }
-</script>
+  </script>
 </body>
 </html>
 
