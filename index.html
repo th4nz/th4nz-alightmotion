@@ -280,6 +280,7 @@
     .auth-tab {
       color: #64748b;
       transition: .2s ease;
+      cursor: pointer;
     }
 
     .auth-tab.active {
@@ -350,6 +351,7 @@
       position: relative;
       color: #64748b;
       transition: .2s ease;
+      cursor: pointer;
     }
 
     .tool-tab:hover {
@@ -464,7 +466,7 @@
           Secure Mode
         </div>
         <div class="text-[9px] px-2.5 py-1.5 rounded-full bg-[#00FFFF]/[.12] border border-[#00FFFF]/[.3] text-[#00FFFF] shadow-[0_0_12px_rgba(0,255,255,0.25)] font-bold">
-          v3.1
+          v3.2
         </div>
       </div>
     </header>
@@ -483,10 +485,10 @@
         </div>
 
         <div class="auth-tabs rounded-[13px] grid grid-cols-2 gap-1 mb-3">
-          <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="auth-tab active py-2.5 rounded-[9px] text-[11px]">
+          <button id="tabLoginBtn" type="button" onclick="switchAuthTab('login')" class="auth-tab active py-2.5 rounded-[9px] text-[11px]">
             Login
           </button>
-          <button id="tabRegBtn" onclick="switchAuthTab('register')" class="auth-tab py-2.5 rounded-[9px] text-[11px]">
+          <button id="tabRegBtn" type="button" onclick="switchAuthTab('register')" class="auth-tab py-2.5 rounded-[9px] text-[11px]">
             Register
           </button>
         </div>
@@ -519,7 +521,7 @@
               </div>
             </div>
 
-            <button onclick="handleLogin()" class="btn btn-primary w-full py-3 text-[11px] mt-1">
+            <button type="button" onclick="handleLogin()" class="btn btn-primary w-full py-3 text-[11px] mt-1">
               Login
             </button>
           </div>
@@ -550,7 +552,7 @@
               <input id="regUsername" type="text" autocomplete="username" placeholder="contoh: thanzuser" class="px-3.5 py-3 text-[11px]" />
             </div>
 
-            <button onclick="handleRegister()" class="btn btn-success w-full py-3 text-[11px] font-bold text-white mt-1">
+            <button type="button" onclick="handleRegister()" class="btn btn-success w-full py-3 text-[11px] font-bold text-white mt-1">
               Generate & Daftar
             </button>
           </div>
@@ -569,7 +571,7 @@
             <div class="p-3 rounded-xl bg-black/60 border border-[#00FFFF]/40 font-mono text-xs text-[#00FFFF] tracking-wider font-bold select-all" id="generatedKeyDisplay">
               THANZ-XXXX
             </div>
-            <button onclick="closeKeyPopup()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#0891b2] text-black font-bold text-xs shadow hover:opacity-95 transition">
+            <button type="button" onclick="closeKeyPopup()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#0891b2] text-black font-bold text-xs shadow hover:opacity-95 transition">
               Salin & Masuk Aplikasi
             </button>
           </div>
@@ -592,7 +594,7 @@
               </div>
             </div>
 
-            <button onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px] shrink-0">
+            <button type="button" onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px] shrink-0">
               <i class="fa-solid fa-right-from-bracket mr-1"></i>
               Keluar
             </button>
@@ -627,9 +629,9 @@
 
         <div class="glass rounded-[16px] overflow-hidden">
           <div class="tool-tabs grid grid-cols-3">
-            <button id="tabSend" onclick="switchTab('send')" class="tool-tab active py-3.5 text-[10px] font-semibold">Aktivasi</button>
-            <button id="tabBulk" onclick="switchTab('bulk')" class="tool-tab py-3.5 text-[10px] font-semibold">Bulk</button>
-            <button id="tabInbox" onclick="switchTab('inbox')" class="tool-tab py-3.5 text-[10px] font-semibold">Inbox</button>
+            <button type="button" id="tabSend" onclick="switchTab('send')" class="tool-tab active py-3.5 text-[10px] font-semibold">Aktivasi</button>
+            <button type="button" id="tabBulk" onclick="switchTab('bulk')" class="tool-tab py-3.5 text-[10px] font-semibold">Bulk</button>
+            <button type="button" id="tabInbox" onclick="switchTab('inbox')" class="tool-tab py-3.5 text-[10px] font-semibold">Inbox</button>
           </div>
 
           <!-- TAB AKTIVASI -->
@@ -644,7 +646,7 @@
 
             <div id="stepEmailBox" class="space-y-2.5">
               <input id="inputEmail" type="email" placeholder="email@domain.com" class="px-3.5 py-3 text-[11px]" />
-              <button onclick="handleSendMagicLink()" class="btn btn-primary w-full py-3 text-[11px]">
+              <button type="button" onclick="handleSendMagicLink()" class="btn btn-primary w-full py-3 text-[11px]">
                 <i class="fa-solid fa-paper-plane mr-1.5"></i>
                 Kirim Magic Link
               </button>
@@ -653,10 +655,10 @@
             <div id="stepVerifyBox" class="hidden space-y-2.5">
               <input id="inputLink" type="text" placeholder="Tempel link verifikasi https://..." class="px-3.5 py-3 text-[11px]" />
               <div class="grid grid-cols-[1fr_auto] gap-2">
-                <button onclick="handleVerifyMagicLink()" class="btn btn-success py-3 text-[10px] font-bold text-white">
+                <button type="button" onclick="handleVerifyMagicLink()" class="btn btn-success py-3 text-[10px] font-bold text-white">
                   Verifikasi Link
                 </button>
-                <button onclick="resetInjectFlow()" class="btn btn-ghost w-11 text-[#cffafe]">
+                <button type="button" onclick="resetInjectFlow()" class="btn btn-ghost w-11 text-[#cffafe]">
                   <i class="fa-solid fa-rotate-left text-[10px]"></i>
                 </button>
               </div>
@@ -678,7 +680,7 @@
                 <label class="block text-[10px] text-[#cffafe] mb-1.5">Jumlah</label>
                 <input id="inputBulkAmount" type="number" min="1" max="100" value="5" class="px-3.5 py-3 text-[11px]" />
               </div>
-              <button onclick="runBulkInject()" class="btn btn-primary w-full py-3 text-[11px]">
+              <button type="button" onclick="runBulkInject()" class="btn btn-primary w-full py-3 text-[11px]">
                 Generate Bulk
               </button>
             </div>
@@ -696,7 +698,7 @@
 
             <div class="space-y-2.5">
               <input id="inputInboxEmail" type="email" placeholder="email@tempmail.com" class="px-3.5 py-3 text-[11px]" />
-              <button onclick="runInboxCheck()" class="btn btn-primary w-full py-3 text-[11px]">
+              <button type="button" onclick="runInboxCheck()" class="btn btn-primary w-full py-3 text-[11px]">
                 <i class="fa-solid fa-inbox mr-1.5"></i>
                 Pindai Pesan
               </button>
@@ -722,7 +724,7 @@
                 <h2 class="font-display font-bold text-[14px] text-white">Admin Console (Env Protected)</h2>
               </div>
             </div>
-            <button onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px]">
+            <button type="button" onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px]">
               <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
             </button>
           </div>
@@ -743,7 +745,7 @@
             </div>
             <div class="admin-stat p-3">
               <div class="section-label">Version</div>
-              <div class="font-display font-bold text-[16px] text-[#00FFFF] mt-1">v3.1</div>
+              <div class="font-display font-bold text-[16px] text-[#00FFFF] mt-1">v3.2</div>
             </div>
           </div>
 
@@ -764,7 +766,7 @@
               <div id="admVerifyLinkBox" class="hidden mb-2">
                 <input id="admToolLink" type="text" placeholder="Link verifikasi https://..." class="px-3 py-2.5 text-[10px]" />
               </div>
-              <button onclick="admRunTool()" class="btn btn-primary w-full py-2.5 text-[10px]">Jalankan via API</button>
+              <button type="button" onclick="admRunTool()" class="btn btn-primary w-full py-2.5 text-[10px]">Jalankan via API</button>
             </div>
 
             <div class="glass-soft rounded-[12px] p-3.5 flex flex-col justify-between">
@@ -855,10 +857,12 @@
     const loginBtn = document.getElementById("tabLoginBtn");
     const regBtn = document.getElementById("tabRegBtn");
 
-    loginCard.classList.toggle("hidden", tab !== "login");
-    regCard.classList.toggle("hidden", tab !== "register");
-    loginBtn.classList.toggle("active", tab === "login");
-    regBtn.classList.toggle("active", tab === "register");
+    if (loginCard && regCard && loginBtn && regBtn) {
+      loginCard.classList.toggle("hidden", tab !== "login");
+      regCard.classList.toggle("hidden", tab !== "register");
+      loginBtn.classList.toggle("active", tab === "login");
+      regBtn.classList.toggle("active", tab === "register");
+    }
   }
 
   function generateRandomKey() {
@@ -871,7 +875,10 @@
   }
 
   function handleRegister() {
-    const username = document.getElementById("regUsername").value.trim();
+    const usernameInput = document.getElementById("regUsername");
+    if (!usernameInput) return;
+    const username = usernameInput.value.trim();
+
     if (!username) return showToast("Username wajib diisi.");
     if (username.length < 3) return showToast("Username minimal 3 karakter.");
 
@@ -905,26 +912,38 @@
     users.push(newUser);
     saveLocalDB(users);
 
-    document.getElementById("generatedKeyDisplay").textContent = uniqueKey;
-    document.getElementById("keyPopupModal").classList.remove("hidden");
+    const keyDisplay = document.getElementById("generatedKeyDisplay");
+    const keyModal = document.getElementById("keyPopupModal");
+    if (keyDisplay) keyDisplay.textContent = uniqueKey;
+    if (keyModal) keyModal.classList.remove("hidden");
 
-    document.getElementById("loginUsername").value = username;
-    document.getElementById("loginToken").value = uniqueKey;
+    const loginUser = document.getElementById("loginUsername");
+    const loginPass = document.getElementById("loginToken");
+    if (loginUser) loginUser.value = username;
+    if (loginPass) loginPass.value = uniqueKey;
     switchAuthTab("login");
   }
 
   function closeKeyPopup() {
-    const keyText = document.getElementById("generatedKeyDisplay").textContent;
-    try {
-      navigator.clipboard.writeText(keyText);
-      showToast("Access Key disalin ke clipboard!");
-    } catch {}
-    document.getElementById("keyPopupModal").classList.add("hidden");
+    const keyTextEl = document.getElementById("generatedKeyDisplay");
+    if (keyTextEl) {
+      const keyText = keyTextEl.textContent;
+      try {
+        navigator.clipboard.writeText(keyText);
+        showToast("Access Key disalin ke clipboard!");
+      } catch {}
+    }
+    const modal = document.getElementById("keyPopupModal");
+    if (modal) modal.classList.add("hidden");
   }
 
   async function handleLogin() {
-    const username = document.getElementById("loginUsername").value.trim();
-    const token = document.getElementById("loginToken").value.trim();
+    const usernameInput = document.getElementById("loginUsername");
+    const tokenInput = document.getElementById("loginToken");
+    if (!usernameInput || !tokenInput) return;
+
+    const username = usernameInput.value.trim();
+    const token = tokenInput.value.trim();
 
     if (!username || !token) return showToast("Masukkan username dan access key.");
 
@@ -944,7 +963,7 @@
         return;
       }
     } catch (e) {
-      // Jika fetch gagal atau offline di mode preview lokal, gunakan fallback
+      // Fallback jika dijalankan di preview statis lokal
     }
 
     // Login User Biasa dari Database Lokal
@@ -999,28 +1018,42 @@
     localStorage.removeItem("am_current_user");
     localStorage.removeItem("am_is_admin");
 
-    document.getElementById("authContainer").classList.remove("hidden");
-    document.getElementById("appContainer").classList.add("hidden");
-    document.getElementById("adminContainer").classList.add("hidden");
+    const authContainer = document.getElementById("authContainer");
+    const appContainer = document.getElementById("appContainer");
+    const adminContainer = document.getElementById("adminContainer");
+
+    if (authContainer) authContainer.classList.remove("hidden");
+    if (appContainer) appContainer.classList.add("hidden");
+    if (adminContainer) adminContainer.classList.add("hidden");
 
     showToast("Berhasil keluar.");
   }
 
   function enterUserDashboard() {
-    document.getElementById("authContainer").classList.add("hidden");
-    document.getElementById("adminContainer").classList.add("hidden");
-    document.getElementById("appContainer").classList.remove("hidden");
+    const authContainer = document.getElementById("authContainer");
+    const adminContainer = document.getElementById("adminContainer");
+    const appContainer = document.getElementById("appContainer");
 
-    document.getElementById("displayUsername").textContent = currentUser.username;
-    document.getElementById("userAvatar").textContent = currentUser.username.charAt(0).toUpperCase();
+    if (authContainer) authContainer.classList.add("hidden");
+    if (adminContainer) adminContainer.classList.add("hidden");
+    if (appContainer) appContainer.classList.remove("hidden");
+
+    const displayUsername = document.getElementById("displayUsername");
+    const userAvatar = document.getElementById("userAvatar");
+    if (displayUsername) displayUsername.textContent = currentUser.username;
+    if (userAvatar) userAvatar.textContent = currentUser.username.charAt(0).toUpperCase();
 
     updateLimitDisplay();
   }
 
   function enterAdminDashboard() {
-    document.getElementById("authContainer").classList.add("hidden");
-    document.getElementById("appContainer").classList.add("hidden");
-    document.getElementById("adminContainer").classList.remove("hidden");
+    const authContainer = document.getElementById("authContainer");
+    const appContainer = document.getElementById("appContainer");
+    const adminContainer = document.getElementById("adminContainer");
+
+    if (authContainer) authContainer.classList.add("hidden");
+    if (appContainer) appContainer.classList.add("hidden");
+    if (adminContainer) adminContainer.classList.remove("hidden");
   }
 
   function updateLimitDisplay() {
@@ -1030,10 +1063,15 @@
     const remaining = Math.max(0, limit - used);
     const percentage = limit > 0 ? Math.min(100, (used / limit) * 100) : 0;
 
-    document.getElementById("statLimit").textContent = limit;
-    document.getElementById("statUsed").textContent = used;
-    document.getElementById("statRemaining").textContent = remaining;
-    document.getElementById("usageBar").style.width = percentage + "%";
+    const statLimit = document.getElementById("statLimit");
+    const statUsed = document.getElementById("statUsed");
+    const statRemaining = document.getElementById("statRemaining");
+    const usageBar = document.getElementById("usageBar");
+
+    if (statLimit) statLimit.textContent = limit;
+    if (statUsed) statUsed.textContent = used;
+    if (statRemaining) statRemaining.textContent = remaining;
+    if (usageBar) usageBar.style.width = percentage + "%";
   }
 
   function switchTab(tab) {
@@ -1049,15 +1087,18 @@
       inbox: document.getElementById("tabInbox")
     };
 
-    Object.values(contents).forEach(el => el.classList.add("hidden"));
-    Object.values(tabs).forEach(el => el.classList.remove("active"));
+    Object.values(contents).forEach(el => { if (el) el.classList.add("hidden"); });
+    Object.values(tabs).forEach(el => { if (el) el.classList.remove("active"); });
 
-    contents[tab].classList.remove("hidden");
-    tabs[tab].classList.add("active");
+    if (contents[tab]) contents[tab].classList.remove("hidden");
+    if (tabs[tab]) tabs[tab].classList.add("active");
   }
 
   async function handleSendMagicLink() {
-    const email = document.getElementById("inputEmail").value.trim();
+    const inputEmailEl = document.getElementById("inputEmail");
+    if (!inputEmailEl) return;
+    const email = inputEmailEl.value.trim();
+
     if (!email || !email.includes("@")) return showToast("Masukkan email yang valid.");
 
     showToast("Mengirim magic link...");
@@ -1069,9 +1110,13 @@
       if (!json.status) throw new Error(json.error || json.message || "Gagal mengirim.");
 
       activeInjectEmail = email;
-      document.getElementById("stepEmailBox").classList.add("hidden");
-      document.getElementById("stepVerifyBox").classList.remove("hidden");
-      document.getElementById("flowInstruction").textContent = `Magic link terkirim ke ${email}. Masukkan link verifikasi.`;
+      const stepEmailBox = document.getElementById("stepEmailBox");
+      const stepVerifyBox = document.getElementById("stepVerifyBox");
+      const flowInstruction = document.getElementById("flowInstruction");
+
+      if (stepEmailBox) stepEmailBox.classList.add("hidden");
+      if (stepVerifyBox) stepVerifyBox.classList.remove("hidden");
+      if (flowInstruction) flowInstruction.textContent = `Magic link terkirim ke ${email}. Masukkan link verifikasi.`;
       showToast("Magic link berhasil dikirim.");
     } catch (err) {
       showToast(err.message || "Koneksi gagal.");
@@ -1079,7 +1124,10 @@
   }
 
   async function handleVerifyMagicLink() {
-    const link = document.getElementById("inputLink").value.trim();
+    const inputLinkEl = document.getElementById("inputLink");
+    if (!inputLinkEl || !currentUser) return;
+    const link = inputLinkEl.value.trim();
+
     if (!link) return showToast("Masukkan link verifikasi.");
 
     if (currentUser.used_count >= currentUser.daily_limit) {
@@ -1096,15 +1144,17 @@
       const resultMessage = json.message || json.error || "Verifikasi selesai.";
 
       const result = document.getElementById("sendResult");
-      result.innerHTML = `
-        <div class="${success ? "text-emerald-400" : "text-red-400"} font-bold">
-          ${success ? "Berhasil" : "Gagal"}
-        </div>
-        <div class="text-[10px] text-[#cffafe] mt-1 leading-relaxed">
-          ${escapeHtml(resultMessage)}
-        </div>
-      `;
-      result.classList.remove("hidden");
+      if (result) {
+        result.innerHTML = `
+          <div class="${success ? "text-emerald-400" : "text-red-400"} font-bold">
+            ${success ? "Berhasil" : "Gagal"}
+          </div>
+          <div class="text-[10px] text-[#cffafe] mt-1 leading-relaxed">
+            ${escapeHtml(resultMessage)}
+          </div>
+        `;
+        result.classList.remove("hidden");
+      }
 
       if (success) {
         currentUser.used_count += 1;
@@ -1129,24 +1179,36 @@
 
   function resetInjectFlow() {
     activeInjectEmail = "";
-    document.getElementById("inputEmail").value = "";
-    document.getElementById("inputLink").value = "";
-    document.getElementById("stepVerifyBox").classList.add("hidden");
-    document.getElementById("stepEmailBox").classList.remove("hidden");
-    document.getElementById("flowInstruction").textContent = "Kirim magic link ke email aktif terlebih dahulu.";
-    document.getElementById("sendResult").classList.add("hidden");
+    const inputEmail = document.getElementById("inputEmail");
+    const inputLink = document.getElementById("inputLink");
+    const stepVerifyBox = document.getElementById("stepVerifyBox");
+    const stepEmailBox = document.getElementById("stepEmailBox");
+    const flowInstruction = document.getElementById("flowInstruction");
+    const sendResult = document.getElementById("sendResult");
+
+    if (inputEmail) inputEmail.value = "";
+    if (inputLink) inputLink.value = "";
+    if (stepVerifyBox) stepVerifyBox.classList.add("hidden");
+    if (stepEmailBox) stepEmailBox.classList.remove("hidden");
+    if (flowInstruction) flowInstruction.textContent = "Kirim magic link ke email aktif terlebih dahulu.";
+    if (sendResult) sendResult.classList.add("hidden");
   }
 
   async function runBulkInject() {
-    if (currentUser.used_count >= currentUser.daily_limit) return showToast("Limit harian habis.");
+    if (!currentUser || currentUser.used_count >= currentUser.daily_limit) return showToast("Limit harian habis.");
 
-    const amount = Number(document.getElementById("inputBulkAmount").value);
+    const inputBulkAmountEl = document.getElementById("inputBulkAmount");
+    if (!inputBulkAmountEl) return;
+    const amount = Number(inputBulkAmountEl.value);
+
     if (!amount || amount < 1 || amount > 100) return showToast("Jumlah harus 1 - 100.");
 
     showToast("Memproses bulk...");
     const result = document.getElementById("bulkResult");
-    result.innerHTML = `<div class="text-[#00FFFF]">Memproses ${amount} akun...</div>`;
-    result.classList.remove("hidden");
+    if (result) {
+      result.innerHTML = `<div class="text-[#00FFFF]">Memproses ${amount} akun...</div>`;
+      result.classList.remove("hidden");
+    }
 
     setTimeout(() => {
       currentUser.used_count += 1;
@@ -1158,33 +1220,42 @@
       }
       localStorage.setItem("am_current_user", JSON.stringify(currentUser));
       updateLimitDisplay();
-      result.innerHTML = `<div class="text-emerald-400 font-bold">Bulk Berhasil Diproses (${amount} Akun)!</div>`;
+      if (result) {
+        result.innerHTML = `<div class="text-emerald-400 font-bold">Bulk Berhasil Diproses (${amount} Akun)!</div>`;
+      }
       showToast("Bulk berhasil dijalankan.");
     }, 1200);
   }
 
   async function runInboxCheck() {
-    const email = document.getElementById("inputInboxEmail").value.trim();
+    const inputInboxEmailEl = document.getElementById("inputInboxEmail");
+    if (!inputInboxEmailEl) return;
+    const email = inputInboxEmailEl.value.trim();
+
     const notice = document.getElementById("inboxNotice");
     const container = document.getElementById("inboxResult");
 
     if (!email) return showToast("Masukkan email.");
 
-    notice.className = "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-[#00FFFF]/[.12] border border-[#00FFFF]/[.3] text-[#00FFFF]";
-    notice.textContent = "Memindai pesan...";
-    notice.classList.remove("hidden");
-    container.innerHTML = "";
+    if (notice) {
+      notice.className = "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-[#00FFFF]/[.12] border border-[#00FFFF]/[.3] text-[#00FFFF]";
+      notice.textContent = "Memindai pesan...";
+      notice.classList.remove("hidden");
+    }
+    if (container) container.innerHTML = "";
 
     try {
       const res = await fetch(`https://restapidhan.vercel.app/api/inbox?email=${encodeURIComponent(email)}`);
       const json = await res.json();
 
-      notice.className = "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-emerald-500/[.12] border border-emerald-400/[.25] text-emerald-300";
-      notice.textContent = "Inbox berhasil dipindai.";
+      if (notice) {
+        notice.className = "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-emerald-500/[.12] border border-emerald-400/[.25] text-emerald-300";
+        notice.textContent = "Inbox berhasil dipindai.";
+      }
 
       const messages = json.messages || json.data?.messages || [];
       if (!messages.length) {
-        container.innerHTML = '<div class="text-[10px] text-[#64748b] p-3 text-center">Belum ada pesan.</div>';
+        if (container) container.innerHTML = '<div class="text-[10px] text-[#64748b] p-3 text-center">Belum ada pesan.</div>';
         return;
       }
 
@@ -1192,18 +1263,23 @@
         const card = document.createElement("div");
         card.className = "glass-soft p-3 rounded-[11px] border border-white/[.06] space-y-2";
         card.innerHTML = `<div class="text-[10px] font-bold text-white">${escapeHtml(msg.subject || "Pesan Masuk")}</div>`;
-        container.appendChild(card);
+        if (container) container.appendChild(card);
       });
     } catch {
-      notice.className = "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-red-500/[.12] border border-red-400/[.25] text-red-300";
-      notice.textContent = "Gagal mengambil inbox.";
+      if (notice) {
+        notice.className = "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-red-500/[.12] border border-red-400/[.25] text-red-300";
+        notice.textContent = "Gagal mengambil inbox.";
+      }
     }
   }
 
   function admSwitchToolView() {
-    const tool = document.getElementById("admToolSelect").value;
+    const toolSelect = document.getElementById("admToolSelect");
     const input = document.getElementById("admToolInput");
     const linkBox = document.getElementById("admVerifyLinkBox");
+    if (!toolSelect || !input || !linkBox) return;
+
+    const tool = toolSelect.value;
     linkBox.classList.add("hidden");
 
     if (tool === "inject") input.placeholder = "Email target AM...";
@@ -1216,10 +1292,14 @@
   }
 
   async function admRunTool() {
-    const tool = document.getElementById("admToolSelect").value;
-    const value = document.getElementById("admToolInput").value.trim();
+    const toolSelect = document.getElementById("admToolSelect");
+    const inputVal = document.getElementById("admToolInput");
     const result = document.getElementById("admToolResult");
-    result.classList.add("hidden");
+    if (!toolSelect || !inputVal) return;
+
+    const tool = toolSelect.value;
+    const value = inputVal.value.trim();
+    if (result) result.classList.add("hidden");
 
     if (!value) return showToast("Masukkan input.");
     showToast("Menjalankan alat...");
@@ -1234,13 +1314,15 @@
         resData = await res.json();
       }
 
-      result.innerHTML = `
-        <div class="font-bold text-white mb-1">Hasil (${escapeHtml(tool)})</div>
-        <pre class="text-[9px] text-[#cffafe] whitespace-pre-wrap">${escapeHtml(JSON.stringify(resData, null, 2))}</pre>
-      `;
-      result.classList.remove("hidden");
+      if (result) {
+        result.innerHTML = `
+          <div class="font-bold text-white mb-1">Hasil (${escapeHtml(tool)})</div>
+          <pre class="text-[9px] text-[#cffafe] whitespace-pre-wrap">${escapeHtml(JSON.stringify(resData, null, 2))}</pre>
+        `;
+        result.classList.remove("hidden");
+      }
       showToast("Selesai dieksekusi.");
-    } tab (err) {
+    } catch (err) {
       showToast("Gagal: " + err.message);
     }
   }
