@@ -1,1 +1,1580 @@
-<script language=javascript>document.write(unescape('%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22id%22%20class%3D%22dark%22%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22UTF-8%22%20/%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1.0%2C%20maximum-scale%3D1.0%2C%20user-scalable%3Dno%22%20/%3E%0A%20%20%3Cmeta%20name%3D%22theme-color%22%20content%3D%22%23000000%22%20/%3E%0A%20%20%3Cmeta%20name%3D%22description%22%20content%3D%22AM%20Pro%20Toolkit%20%u2014%20Cyan%20Neon%20Edition%22%20/%3E%0A%20%20%3Ctitle%3EAM%20Pro%20Toolkit%20%7C%20ThanzDev%3C/title%3E%0A%0A%20%20%3Cscript%20src%3D%22https%3A//cdn.tailwindcss.com%22%3E%3C/script%3E%0A%20%20%3Cscript%20src%3D%22https%3A//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js%22%3E%3C/script%3E%0A%0A%20%20%3Clink%20rel%3D%22preconnect%22%20href%3D%22https%3A//fonts.googleapis.com%22%3E%0A%20%20%3Clink%20rel%3D%22preconnect%22%20href%3D%22https%3A//fonts.gstatic.com%22%20crossorigin%3E%0A%20%20%3Clink%20href%3D%22https%3A//fonts.googleapis.com/css2%3Ffamily%3DInter%3Awght@400%3B500%3B600%3B700%26family%3DPermanent+Marker%26family%3DPlus+Jakarta+Sans%3Awght@600%3B700%3B800%26display%3Dswap%22%20rel%3D%22stylesheet%22%3E%0A%0A%20%20%3Cscript%3E%0A%20%20%20%20tailwind.config%20%3D%20%7B%0A%20%20%20%20%20%20darkMode%3A%20%27class%27%2C%0A%20%20%20%20%20%20theme%3A%20%7B%0A%20%20%20%20%20%20%20%20extend%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20fontFamily%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20sans%3A%20%5B%27Inter%27%2C%20%27sans-serif%27%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20display%3A%20%5B%27Plus%20Jakarta%20Sans%27%2C%20%27Inter%27%2C%20%27sans-serif%27%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20marker%3A%20%5B%27Permanent%20Marker%27%2C%20%27cursive%27%2C%20%27sans-serif%27%5D%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20colors%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20cyanx%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20400%3A%20%27%2322d3ee%27%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20500%3A%20%27%2306b6d4%27%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20600%3A%20%27%230891b2%27%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20700%3A%20%27%230e7490%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%3B%0A%20%20%3C/script%3E%0A%0A%20%20%3Cstyle%3E%0A%20%20%20%20%3Aroot%20%7B%0A%20%20%20%20%20%20--bg%3A%20%23000308%3B%0A%20%20%20%20%20%20--panel%3A%20rgba%282%2C%2012%2C%2024%2C%200.82%29%3B%0A%20%20%20%20%20%20--panel-soft%3A%20rgba%280%2C%20255%2C%20255%2C%200.03%29%3B%0A%20%20%20%20%20%20--line%3A%20rgba%280%2C%20255%2C%20255%2C%200.22%29%3B%0A%20%20%20%20%20%20--line-soft%3A%20rgba%280%2C%20255%2C%20255%2C%200.08%29%3B%0A%20%20%20%20%20%20--text%3A%20%23f8fafc%3B%0A%20%20%20%20%20%20--muted%3A%20%2394a3b8%3B%0A%20%20%20%20%20%20--neon-cyan%3A%20%2300FFFF%3B%0A%20%20%20%20%20%20--neon-bright%3A%20%2333ffff%3B%0A%20%20%20%20%20%20--neon-glow%3A%20rgba%280%2C%20255%2C%20255%2C%200.45%29%3B%0A%20%20%20%20%20%20--green%3A%20%2334d399%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20*%20%7B%0A%20%20%20%20%20%20box-sizing%3A%20border-box%3B%0A%20%20%20%20%20%20-webkit-tap-highlight-color%3A%20transparent%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20html%20%7B%0A%20%20%20%20%20%20scroll-behavior%3A%20smooth%3B%0A%20%20%20%20%20%20background%3A%20var%28--bg%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20body%20%7B%0A%20%20%20%20%20%20margin%3A%200%3B%0A%20%20%20%20%20%20min-height%3A%20100vh%3B%0A%20%20%20%20%20%20overflow-x%3A%20hidden%3B%0A%20%20%20%20%20%20color%3A%20var%28--text%29%3B%0A%20%20%20%20%20%20background%3A%0A%20%20%20%20%20%20%20%20radial-gradient%28circle%20at%2015%25%2010%25%2C%20rgba%280%2C%20255%2C%20255%2C%200.16%29%2C%20transparent%2030%25%29%2C%0A%20%20%20%20%20%20%20%20radial-gradient%28circle%20at%2085%25%2090%25%2C%20rgba%280%2C%20200%2C%20255%2C%200.12%29%2C%20transparent%2035%25%29%2C%0A%20%20%20%20%20%20%20%20var%28--bg%29%3B%0A%20%20%20%20%20%20font-family%3A%20Inter%2C%20sans-serif%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20body%3A%3Abefore%20%7B%0A%20%20%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20inset%3A%200%3B%0A%20%20%20%20%20%20z-index%3A%20-3%3B%0A%20%20%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20%20%20opacity%3A%20.035%3B%0A%20%20%20%20%20%20background-image%3A%20url%28%22data%3Aimage/svg+xml%2C%253Csvg%20viewBox%3D%270%200%20180%20180%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%253E%253Cfilter%20id%3D%27n%27%253E%253CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%27.85%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27/%253E%253C/filter%253E%253Crect%20width%3D%27100%2525%27%20height%3D%27100%2525%27%20filter%3D%27url%28%2523n%29%27%20opacity%3D%27.75%27/%253E%253C/svg%253E%22%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20button%2C%20input%2C%20select%20%7B%0A%20%20%20%20%20%20font%3A%20inherit%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20button%20%7B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.font-display%20%7B%0A%20%20%20%20%20%20font-family%3A%20%22Plus%20Jakarta%20Sans%22%2C%20Inter%2C%20sans-serif%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.ambient%20%7B%0A%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20width%3A%20380px%3B%0A%20%20%20%20%20%20height%3A%20380px%3B%0A%20%20%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20%20%20z-index%3A%20-1%3B%0A%20%20%20%20%20%20filter%3A%20blur%2880px%29%3B%0A%20%20%20%20%20%20opacity%3A%200.55%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.ambient.one%20%7B%0A%20%20%20%20%20%20left%3A%20-160px%3B%0A%20%20%20%20%20%20top%3A%2050px%3B%0A%20%20%20%20%20%20background%3A%20rgba%280%2C%20255%2C%20255%2C%200.25%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.ambient.two%20%7B%0A%20%20%20%20%20%20right%3A%20-170px%3B%0A%20%20%20%20%20%20bottom%3A%2060px%3B%0A%20%20%20%20%20%20background%3A%20rgba%280%2C%20200%2C%20255%2C%200.2%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.glass%20%7B%0A%20%20%20%20%20%20background%3A%20var%28--panel%29%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20var%28--line%29%3B%0A%20%20%20%20%20%20backdrop-filter%3A%20blur%2824px%29%20saturate%28140%25%29%3B%0A%20%20%20%20%20%20-webkit-backdrop-filter%3A%20blur%2824px%29%20saturate%28140%25%29%3B%0A%20%20%20%20%20%20box-shadow%3A%0A%20%20%20%20%20%20%20%200%2022px%2060px%20rgba%280%2C%200%2C%200%2C%200.5%29%2C%0A%20%20%20%20%20%20%20%200%200%2025px%20rgba%280%2C%20255%2C%20255%2C%200.1%29%2C%0A%20%20%20%20%20%20%20%20inset%200%201px%200%20rgba%28255%2C%20255%2C%20255%2C%200.08%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.glass-soft%20%7B%0A%20%20%20%20%20%20background%3A%20var%28--panel-soft%29%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20var%28--line-soft%29%3B%0A%20%20%20%20%20%20backdrop-filter%3A%20blur%2816px%29%3B%0A%20%20%20%20%20%20-webkit-backdrop-filter%3A%20blur%2816px%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.topbar%20%7B%0A%20%20%20%20%20%20box-shadow%3A%0A%20%20%20%20%20%20%20%200%2016px%2045px%20rgba%280%2C%200%2C%200%2C%200.35%29%2C%0A%20%20%20%20%20%20%20%200%200%2020px%20rgba%280%2C%20255%2C%20255%2C%200.12%29%2C%0A%20%20%20%20%20%20%20%20inset%200%201px%200%20rgba%28255%2C%20255%2C%20255%2C%200.08%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.brand-mark%20%7B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28145deg%2C%20rgba%280%2C%20255%2C%20255%2C%200.3%29%2C%20rgba%280%2C%20255%2C%20255%2C%200.08%29%29%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.4%29%3B%0A%20%20%20%20%20%20box-shadow%3A%200%200%2020px%20rgba%280%2C%20255%2C%20255%2C%200.35%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.status-dot%20%7B%0A%20%20%20%20%20%20box-shadow%3A%200%200%200%203px%20rgba%2852%2C%20211%2C%20153%2C%200.08%29%2C%200%200%2012px%20rgba%2852%2C%20211%2C%20153%2C%200.55%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20input%2C%0A%20%20%20%20select%20%7B%0A%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20color%3A%20%23f8fafc%20%21important%3B%0A%20%20%20%20%20%20background%3A%20rgba%280%2C%205%2C%2012%2C%200.85%29%20%21important%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.2%29%20%21important%3B%0A%20%20%20%20%20%20border-radius%3A%2011px%20%21important%3B%0A%20%20%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20%20%20transition%3A%20.2s%20ease%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20input%3A%3Aplaceholder%20%7B%0A%20%20%20%20%20%20color%3A%20%2364748b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20input%3Ahover%2C%0A%20%20%20%20select%3Ahover%20%7B%0A%20%20%20%20%20%20border-color%3A%20rgba%280%2C%20255%2C%20255%2C%200.4%29%20%21important%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20input%3Afocus%2C%0A%20%20%20%20select%3Afocus%20%7B%0A%20%20%20%20%20%20border-color%3A%20%2300FFFF%20%21important%3B%0A%20%20%20%20%20%20box-shadow%3A%0A%20%20%20%20%20%20%20%200%200%200%203px%20rgba%280%2C%20255%2C%20255%2C%200.2%29%2C%0A%20%20%20%20%20%20%20%200%200%2020px%20rgba%280%2C%20255%2C%20255%2C%200.4%29%20%21important%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20select%20option%20%7B%0A%20%20%20%20%20%20background%3A%20%23020b14%3B%0A%20%20%20%20%20%20color%3A%20white%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.btn%20%7B%0A%20%20%20%20%20%20border-radius%3A%2011px%3B%0A%20%20%20%20%20%20transition%3A%20transform%20.18s%20ease%2C%20background%20.18s%20ease%2C%20border-color%20.18s%20ease%2C%20box-shadow%20.18s%20ease%3B%0A%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.btn%3Aactive%20%7B%0A%20%20%20%20%20%20transform%3A%20scale%280.98%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.btn-primary%20%7B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28135deg%2C%20%2300FFFF%2C%20%230891b2%29%3B%0A%20%20%20%20%20%20color%3A%20%23000308%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.6%29%3B%0A%20%20%20%20%20%20box-shadow%3A%20%0A%20%20%20%20%20%20%20%200%204px%2015px%20rgba%280%2C%20255%2C%20255%2C%200.35%29%2C%0A%20%20%20%20%20%20%20%200%200%2025px%20rgba%280%2C%20255%2C%20255%2C%200.25%29%2C%0A%20%20%20%20%20%20%20%20inset%200%201px%200%20rgba%28255%2C%20255%2C%20255%2C%200.4%29%3B%0A%20%20%20%20%20%20font-weight%3A%20700%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.btn-primary%3Ahover%20%7B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28135deg%2C%20%2333ffff%2C%20%2306b6d4%29%3B%0A%20%20%20%20%20%20transform%3A%20translateY%28-1px%29%3B%0A%20%20%20%20%20%20box-shadow%3A%20%0A%20%20%20%20%20%20%20%200%206px%2022px%20rgba%280%2C%20255%2C%20255%2C%200.6%29%2C%0A%20%20%20%20%20%20%20%200%200%2035px%20rgba%280%2C%20255%2C%20255%2C%200.45%29%2C%0A%20%20%20%20%20%20%20%20inset%200%201px%200%20rgba%28255%2C%20255%2C%20255%2C%200.5%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.btn-success%20%7B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28135deg%2C%20%23059669%2C%20%23047857%29%3B%0A%20%20%20%20%20%20color%3A%20white%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%28110%2C%20231%2C%20183%2C%200.3%29%3B%0A%20%20%20%20%20%20box-shadow%3A%20%0A%20%20%20%20%20%20%20%200%204px%2015px%20rgba%285%2C%20150%2C%20105%2C%200.35%29%2C%0A%20%20%20%20%20%20%20%200%200%2020px%20rgba%2852%2C%20211%2C%20153%2C%200.2%29%2C%0A%20%20%20%20%20%20%20%20inset%200%201px%200%20rgba%28255%2C%20255%2C%20255%2C%200.2%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.btn-success%3Ahover%20%7B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28135deg%2C%20%2310b981%2C%20%23059669%29%3B%0A%20%20%20%20%20%20transform%3A%20translateY%28-1px%29%3B%0A%20%20%20%20%20%20box-shadow%3A%20%0A%20%20%20%20%20%20%20%200%206px%2022px%20rgba%2816%2C%20185%2C%20129%2C%200.5%29%2C%0A%20%20%20%20%20%20%20%200%200%2030px%20rgba%2852%2C%20211%2C%20153%2C%200.35%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.btn-ghost%20%7B%0A%20%20%20%20%20%20background%3A%20rgba%28255%2C%20255%2C%20255%2C%200.035%29%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.15%29%3B%0A%20%20%20%20%20%20color%3A%20%23a5f3fc%3B%0A%20%20%20%20%20%20box-shadow%3A%200%200%2010px%20rgba%280%2C%20255%2C%20255%2C%200.05%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.btn-ghost%3Ahover%20%7B%0A%20%20%20%20%20%20color%3A%20white%3B%0A%20%20%20%20%20%20background%3A%20rgba%280%2C%20255%2C%20255%2C%200.1%29%3B%0A%20%20%20%20%20%20border-color%3A%20rgba%280%2C%20255%2C%20255%2C%200.35%29%3B%0A%20%20%20%20%20%20box-shadow%3A%200%200%2015px%20rgba%280%2C%20255%2C%20255%2C%200.2%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.auth-shell%20%7B%0A%20%20%20%20%20%20animation%3A%20appear%20.45s%20ease%20both%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.auth-card%20%7B%0A%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.auth-card%3A%3Abefore%20%7B%0A%20%20%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%20%20width%3A%20180px%3B%0A%20%20%20%20%20%20height%3A%20180px%3B%0A%20%20%20%20%20%20right%3A%20-90px%3B%0A%20%20%20%20%20%20top%3A%20-100px%3B%0A%20%20%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20%20%20background%3A%20rgba%280%2C%20255%2C%20255%2C%200.15%29%3B%0A%20%20%20%20%20%20filter%3A%20blur%2840px%29%3B%0A%20%20%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.auth-tabs%20%7B%0A%20%20%20%20%20%20padding%3A%204px%3B%0A%20%20%20%20%20%20background%3A%20rgba%28255%2C%20255%2C%20255%2C%200.025%29%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.15%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.auth-tab%20%7B%0A%20%20%20%20%20%20color%3A%20%2364748b%3B%0A%20%20%20%20%20%20transition%3A%20.2s%20ease%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.auth-tab.active%20%7B%0A%20%20%20%20%20%20color%3A%20%23000308%3B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28135deg%2C%20%2300FFFF%2C%20%230891b2%29%3B%0A%20%20%20%20%20%20font-weight%3A%20700%3B%0A%20%20%20%20%20%20box-shadow%3A%200%204px%2018px%20rgba%280%2C%20255%2C%20255%2C%200.4%29%2C%20inset%200%201px%200%20rgba%28255%2C255%2C255%2C0.4%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.section-label%20%7B%0A%20%20%20%20%20%20color%3A%20%2300FFFF%3B%0A%20%20%20%20%20%20font-size%3A%209px%3B%0A%20%20%20%20%20%20font-weight%3A%20700%3B%0A%20%20%20%20%20%20letter-spacing%3A%20.14em%3B%0A%20%20%20%20%20%20text-transform%3A%20uppercase%3B%0A%20%20%20%20%20%20text-shadow%3A%200%200%2010px%20rgba%280%2C%20255%2C%20255%2C%200.4%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.dashboard%20%7B%0A%20%20%20%20%20%20animation%3A%20appear%20.35s%20ease%20both%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.account-card%20%7B%0A%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.account-card%3A%3Aafter%20%7B%0A%20%20%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%20%20width%3A%20260px%3B%0A%20%20%20%20%20%20height%3A%20150px%3B%0A%20%20%20%20%20%20right%3A%20-120px%3B%0A%20%20%20%20%20%20top%3A%20-85px%3B%0A%20%20%20%20%20%20background%3A%20radial-gradient%28circle%2C%20rgba%280%2C%20255%2C%20255%2C%200.2%29%2C%20transparent%2068%25%29%3B%0A%20%20%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.avatar%20%7B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28145deg%2C%20rgba%280%2C%20255%2C%20255%2C%200.35%29%2C%20rgba%280%2C%20255%2C%20255%2C%200.08%29%29%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.4%29%3B%0A%20%20%20%20%20%20box-shadow%3A%200%200%2015px%20rgba%280%2C%20255%2C%20255%2C%200.3%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.usage-track%20%7B%0A%20%20%20%20%20%20height%3A%206px%3B%0A%20%20%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20%20%20border-radius%3A%20999px%3B%0A%20%20%20%20%20%20background%3A%20rgba%28255%2C%20255%2C%20255%2C%200.06%29%3B%0A%20%20%20%20%20%20box-shadow%3A%20inset%200%201px%203px%20rgba%280%2C0%2C0%2C0.5%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.usage-bar%20%7B%0A%20%20%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20%20%20width%3A%200%25%3B%0A%20%20%20%20%20%20border-radius%3A%20inherit%3B%0A%20%20%20%20%20%20background%3A%20linear-gradient%2890deg%2C%20%230891b2%2C%20%2300FFFF%29%3B%0A%20%20%20%20%20%20box-shadow%3A%200%200%2015px%20rgba%280%2C%20255%2C%20255%2C%200.7%29%3B%0A%20%20%20%20%20%20transition%3A%20width%20.35s%20ease%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.tool-tabs%20%7B%0A%20%20%20%20%20%20background%3A%20rgba%280%2C%200%2C%200%2C%200.2%29%3B%0A%20%20%20%20%20%20border-bottom%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.15%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.tool-tab%20%7B%0A%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%20%20color%3A%20%2364748b%3B%0A%20%20%20%20%20%20transition%3A%20.2s%20ease%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.tool-tab%3Ahover%20%7B%0A%20%20%20%20%20%20color%3A%20%23cffafe%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.tool-tab.active%20%7B%0A%20%20%20%20%20%20color%3A%20%2300FFFF%3B%0A%20%20%20%20%20%20text-shadow%3A%200%200%2010px%20rgba%280%2C%20255%2C%20255%2C%200.6%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.tool-tab.active%3A%3Aafter%20%7B%0A%20%20%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%20%20left%3A%2020%25%3B%0A%20%20%20%20%20%20right%3A%2020%25%3B%0A%20%20%20%20%20%20bottom%3A%20-1px%3B%0A%20%20%20%20%20%20height%3A%202px%3B%0A%20%20%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20%20%20background%3A%20%2300FFFF%3B%0A%20%20%20%20%20%20box-shadow%3A%200%200%2012px%20rgba%280%2C%20255%2C%20255%2C%200.9%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.tool-content%20%7B%0A%20%20%20%20%20%20animation%3A%20fade%20.22s%20ease%20both%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.result-box%20%7B%0A%20%20%20%20%20%20background%3A%20rgba%280%2C%205%2C%2012%2C%200.75%29%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.2%29%3B%0A%20%20%20%20%20%20box-shadow%3A%20inset%200%200%2015px%20rgba%280%2C%20255%2C%20255%2C%200.08%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.admin-shell%20%7B%0A%20%20%20%20%20%20animation%3A%20appear%20.35s%20ease%20both%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.admin-stat%20%7B%0A%20%20%20%20%20%20background%3A%20rgba%28255%2C%20255%2C%20255%2C%200.025%29%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.12%29%3B%0A%20%20%20%20%20%20border-radius%3A%2012px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.admin-table%20%7B%0A%20%20%20%20%20%20scrollbar-width%3A%20thin%3B%0A%20%20%20%20%20%20scrollbar-color%3A%20rgba%280%2C%20255%2C%20255%2C%200.4%29%20transparent%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.admin-table%3A%3A-webkit-scrollbar%20%7B%0A%20%20%20%20%20%20width%3A%205px%3B%0A%20%20%20%20%20%20height%3A%205px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.admin-table%3A%3A-webkit-scrollbar-thumb%20%7B%0A%20%20%20%20%20%20background%3A%20rgba%280%2C%20255%2C%20255%2C%200.4%29%3B%0A%20%20%20%20%20%20border-radius%3A%2099px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.toast%20%7B%0A%20%20%20%20%20%20transform%3A%20translate%28-50%25%2C%2014px%29%3B%0A%20%20%20%20%20%20opacity%3A%200%3B%0A%20%20%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20%20%20transition%3A%20.25s%20ease%3B%0A%20%20%20%20%20%20background%3A%20rgba%282%2C%2012%2C%2024%2C%200.94%29%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20rgba%280%2C%20255%2C%20255%2C%200.35%29%3B%0A%20%20%20%20%20%20box-shadow%3A%200%2015px%2035px%20rgba%280%2C0%2C0%2C0.6%29%2C%200%200%2022px%20rgba%280%2C%20255%2C%20255%2C%200.3%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.toast.show%20%7B%0A%20%20%20%20%20%20transform%3A%20translate%28-50%25%2C%200%29%3B%0A%20%20%20%20%20%20opacity%3A%201%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hidden%20%7B%0A%20%20%20%20%20%20display%3A%20none%20%21important%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20@keyframes%20appear%20%7B%0A%20%20%20%20%20%20from%20%7B%20opacity%3A%200%3B%20transform%3A%20translateY%287px%29%3B%20%7D%0A%20%20%20%20%20%20to%20%7B%20opacity%3A%201%3B%20transform%3A%20translateY%280%29%3B%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20@keyframes%20fade%20%7B%0A%20%20%20%20%20%20from%20%7B%20opacity%3A%200%3B%20%7D%0A%20%20%20%20%20%20to%20%7B%20opacity%3A%201%3B%20%7D%0A%20%20%20%20%7D%0A%20%20%3C/style%3E%0A%3C/head%3E%0A%0A%3Cbody%20class%3D%22min-h-screen%20px-3%20py-3%20sm%3Apx-5%20sm%3Apy-5%22%3E%0A%0A%20%20%3Cdiv%20class%3D%22ambient%20one%22%3E%3C/div%3E%0A%20%20%3Cdiv%20class%3D%22ambient%20two%22%3E%3C/div%3E%0A%0A%20%20%3Cdiv%20class%3D%22w-full%20max-w-2xl%20mx-auto%20flex%20min-h-%5Bcalc%28100vh-24px%29%5D%20sm%3Amin-h-%5Bcalc%28100vh-40px%29%5D%20flex-col%22%3E%0A%0A%20%20%20%20%3C%21--%20KEPALA%20HALAMAN%20--%3E%0A%20%20%20%20%3Cheader%20class%3D%22topbar%20glass%20rounded-%5B16px%5D%20px-4%20py-3.5%20flex%20items-center%20justify-between%20shrink-0%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-3%20min-w-0%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22brand-mark%20w-9%20h-9%20rounded-%5B11px%5D%20flex%20items-center%20justify-center%20shrink-0%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-wand-magic-sparkles%20text-%5B%2300FFFF%5D%20text-sm%20drop-shadow-%5B0_0_10px_rgba%280%2C255%2C255%2C0.9%29%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22min-w-0%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22font-display%20font-bold%20text-%5B13px%5D%20text-white%20tracking-tight%20truncate%20drop-shadow-%5B0_0_10px_rgba%280%2C255%2C255%2C0.4%29%5D%22%3EAM%20Pro%20Toolkit%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22text-%5B9px%5D%20text-%5B%2300FFFF%5D%20mt-0.5%20tracking-wide%22%3EThanz%20Dev%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-2%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22hidden%20sm%3Aflex%20items-center%20gap-1.5%20px-2.5%20py-1.5%20rounded-full%20bg-white/%5B.03%5D%20border%20border-white/%5B.06%5D%20text-%5B9px%5D%20text-%5B%23a5f3fc%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22status-dot%20w-1.5%20h-1.5%20rounded-full%20bg-emerald-400%22%3E%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20Lokal%20Mode%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22text-%5B9px%5D%20px-2.5%20py-1.5%20rounded-full%20bg-%5B%2300FFFF%5D/%5B.12%5D%20border%20border-%5B%2300FFFF%5D/%5B.3%5D%20text-%5B%2300FFFF%5D%20shadow-%5B0_0_12px_rgba%280%2C255%2C255%2C0.25%29%5D%20font-bold%22%3E%0A%20%20%20%20%20%20%20%20%20%20v2.4%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%3C/header%3E%0A%0A%20%20%20%20%3C%21--%20KONTEN%20UTAMA%20--%3E%0A%20%20%20%20%3Cmain%20class%3D%22flex-1%20flex%20flex-col%20justify-center%20py-5%22%3E%0A%0A%20%20%20%20%20%20%3C%21--%20BAGIAN%20AUTENTIKASI%20--%3E%0A%20%20%20%20%20%20%3Csection%20id%3D%22authContainer%22%20class%3D%22auth-shell%20w-full%20max-w-md%20mx-auto%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22text-center%20mb-5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%20mb-2%22%3EWELCOME%20ALL%2CSELAMAT%20MEMAKAI%20FITURNYA%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ch1%20class%3D%22font-marker%20font-normal%20text-%5B26px%5D%20sm%3Atext-%5B30px%5D%20text-white%20tracking-wide%20drop-shadow-%5B0_0_18px_rgba%280%2C255%2C255%2C0.4%29%5D%20py-1%22%3EAktivasi%3C/h1%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%20class%3D%22text-%5B11px%5D%20text-%5B%2364748b%5D%20mt-1.5%20leading-relaxed%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%A9THANZ%20DEV%20SINCE%202026%0A%20%20%20%20%20%20%20%20%20%20%3C/p%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22auth-tabs%20rounded-%5B13px%5D%20grid%20grid-cols-2%20gap-1%20mb-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22tabLoginBtn%22%20onclick%3D%22switchAuthTab%28%27login%27%29%22%20class%3D%22auth-tab%20active%20py-2.5%20rounded-%5B9px%5D%20text-%5B11px%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20Login%0A%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22tabRegBtn%22%20onclick%3D%22switchAuthTab%28%27register%27%29%22%20class%3D%22auth-tab%20py-2.5%20rounded-%5B9px%5D%20text-%5B11px%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20Register%0A%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%3C%21--%20FORM%20MASUK%20--%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22loginFormCard%22%20class%3D%22auth-card%20glass%20rounded-%5B16px%5D%20p-5%20sm%3Ap-6%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20justify-between%20mb-5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%20mb-1.5%22%3EAccount%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch2%20class%3D%22font-display%20font-bold%20text-%5B14px%5D%20text-white%22%3EMasuk%20ke%20akun%3C/h2%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22w-8%20h-8%20rounded-%5B10px%5D%20glass-soft%20flex%20items-center%20justify-center%20text-%5B%2300FFFF%5D%20shadow-%5B0_0_10px_rgba%280%2C255%2C255%2C0.25%29%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-arrow-right-to-bracket%20text-%5B11px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22space-y-3.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22block%20text-%5B10px%5D%20font-medium%20text-%5B%23cffafe%5D%20mb-1.5%22%3EUsername%3C/label%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22loginUsername%22%20type%3D%22text%22%20autocomplete%3D%22username%22%20placeholder%3D%22Masukkan%20username%22%20class%3D%22px-3.5%20py-3%20text-%5B11px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22block%20text-%5B10px%5D%20font-medium%20text-%5B%23cffafe%5D%20mb-1.5%22%3EAccess%20Key%20%28THANZ-XXXX%29%3C/label%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22relative%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22loginToken%22%20type%3D%22password%22%20autocomplete%3D%22current-password%22%20placeholder%3D%22THANZ-XXXX%22%20class%3D%22px-3.5%20py-3%20pr-10%20text-%5B11px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20type%3D%22button%22%20onclick%3D%22togglePasswordVisibility%28%27loginToken%27%2C%27eyeLoginIcon%27%29%22%20class%3D%22absolute%20right-3%20top-1/2%20-translate-y-1/2%20text-%5B%2364748b%5D%20hover%3Atext-white%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20id%3D%22eyeLoginIcon%22%20class%3D%22fa-solid%20fa-eye%20text-%5B11px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22handleLogin%28%29%22%20class%3D%22btn%20btn-primary%20w-full%20py-3%20text-%5B11px%5D%20mt-1%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20Login%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%3C%21--%20FORM%20PENDAFTARAN%20MANDIRI%20--%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22regFormCard%22%20class%3D%22auth-card%20glass%20rounded-%5B16px%5D%20p-5%20sm%3Ap-6%20hidden%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20justify-between%20mb-5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%20mb-1.5%22%3ESelf%20Registration%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch2%20class%3D%22font-display%20font-bold%20text-%5B14px%5D%20text-white%22%3EBuat%20Akun%20Otomatis%3C/h2%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22w-8%20h-8%20rounded-%5B10px%5D%20glass-soft%20flex%20items-center%20justify-center%20text-%5B%2300FFFF%5D%20shadow-%5B0_0_10px_rgba%280%2C255%2C255%2C0.25%29%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-user-plus%20text-%5B11px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22mb-4%20p-3%20rounded-%5B11px%5D%20bg-%5B%2300FFFF%5D/%5B.05%5D%20border%20border-%5B%2300FFFF%5D/%5B.2%5D%20flex%20gap-2.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-circle-info%20text-%5B%2300FFFF%5D%20text-%5B11px%5D%20mt-0.5%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%20class%3D%22text-%5B10px%5D%20leading-relaxed%20text-cyan-200/80%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20Sistem%20akan%20menghasilkan%20Access%20Key%20acak%20%3Cb%3ETHANZ-XXXX%3C/b%3E%20dan%20tersimpan%20di%20perangkat%20ini%20%281%20akun%20per%20perangkat%29.%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/p%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22space-y-3.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22block%20text-%5B10px%5D%20font-medium%20text-%5B%23cffafe%5D%20mb-1.5%22%3EUsername%20Pilihan%3C/label%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22regUsername%22%20type%3D%22text%22%20autocomplete%3D%22username%22%20placeholder%3D%22contoh%3A%20thanzuser%22%20class%3D%22px-3.5%20py-3%20text-%5B11px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22handleRegister%28%29%22%20class%3D%22btn%20btn-success%20w-full%20py-3%20text-%5B11px%5D%20font-bold%20text-white%20mt-1%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20Generate%20%26%20Login%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%3C%21--%20POPUP%20KUNCI%20AKSES%20--%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22keyPopupModal%22%20class%3D%22fixed%20inset-0%20bg-black/80%20backdrop-blur-md%20z-50%20flex%20items-center%20justify-center%20p-4%20hidden%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22glass%20max-w-%5B320px%5D%20w-full%20rounded-%5B20px%5D%20p-5%20relative%20shadow-2xl%20text-center%20space-y-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22w-12%20h-12%20rounded-2xl%20bg-emerald-500/10%20border%20border-emerald-500/30%20flex%20items-center%20justify-center%20text-emerald-400%20text-2xl%20mx-auto%20shadow-%5B0_0_20px_rgba%2816%2C185%2C129%2C0.2%29%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-key%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%20class%3D%22font-display%20font-semibold%20text-sm%20text-white%22%3EPendaftaran%20Berhasil%21%3C/h3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%20class%3D%22text-%5B10px%5D%20text-zinc-300%20leading-relaxed%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20Simpan%20Access%20Key%20acak%20Anda%20di%20bawah%20ini%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/p%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22p-3%20rounded-xl%20bg-black/60%20border%20border-%5B%2300FFFF%5D/40%20font-mono%20text-xs%20text-%5B%2300FFFF%5D%20tracking-wider%20font-bold%20select-all%22%20id%3D%22generatedKeyDisplay%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20THANZ-XXXX%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22closeKeyPopup%28%29%22%20class%3D%22w-full%20py-2.5%20rounded-xl%20bg-gradient-to-r%20from-%5B%2300FFFF%5D%20to-%5B%230891b2%5D%20text-black%20font-bold%20text-xs%20shadow%20hover%3Aopacity-95%20transition%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20Salin%20%26%20Masuk%20Aplikasi%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%3C/section%3E%0A%0A%20%20%20%20%20%20%3C%21--%20DASBOR%20PENGGUNA%20--%3E%0A%20%20%20%20%20%20%3Csection%20id%3D%22appContainer%22%20class%3D%22dashboard%20w-full%20max-w-md%20mx-auto%20hidden%22%3E%0A%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22account-card%20glass%20rounded-%5B16px%5D%20p-4%20sm%3Ap-5%20mb-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20justify-between%20gap-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-3%20min-w-0%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22userAvatar%22%20class%3D%22avatar%20w-10%20h-10%20rounded-%5B12px%5D%20flex%20items-center%20justify-center%20text-%5B%2300FFFF%5D%20font-display%20font-bold%20text-xs%20shrink-0%22%3EU%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22min-w-0%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22displayUsername%22%20class%3D%22font-display%20font-bold%20text-%5B13px%5D%20text-white%20truncate%22%3E-%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-1.5%20mt-1%20text-%5B9px%5D%20text-emerald-400%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22status-dot%20w-1.5%20h-1.5%20rounded-full%20bg-emerald-400%22%3E%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Online%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22handleLogout%28%29%22%20class%3D%22btn%20btn-ghost%20px-3%20py-2%20text-%5B9px%5D%20shrink-0%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-right-from-bracket%20mr-1%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20Keluar%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22mt-5%20pt-4%20border-t%20border-white/%5B.06%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20justify-between%20mb-2%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%22%3EDaily%20usage%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22mt-1%20font-display%20font-bold%20text-%5B13px%5D%20text-white%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20id%3D%22statUsed%22%3E0%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22text-%5B%2364748b%5D%20font-normal%22%3E%20/%20%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20id%3D%22statLimit%22%3E5%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22text-right%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%22%3EReset%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22statReset%22%20class%3D%22text-%5B10px%5D%20text-%5B%2300FFFF%5D%20mt-1%22%3E--%3A--%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22usage-track%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22usageBar%22%20class%3D%22usage-bar%22%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20justify-between%20mt-2.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22text-%5B9px%5D%20text-%5B%2364748b%5D%22%3EPenggunaan%20hari%20ini%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22text-%5B9px%5D%20text-emerald-400%22%3E%3Cspan%20id%3D%22statRemaining%22%3E5%3C/span%3E%20tersisa%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22glass%20rounded-%5B16px%5D%20overflow-hidden%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22tool-tabs%20grid%20grid-cols-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22tabSend%22%20onclick%3D%22switchTab%28%27send%27%29%22%20class%3D%22tool-tab%20active%20py-3.5%20text-%5B10px%5D%20font-semibold%22%3EAktivasi%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22tabBulk%22%20onclick%3D%22switchTab%28%27bulk%27%29%22%20class%3D%22tool-tab%20py-3.5%20text-%5B10px%5D%20font-semibold%22%3EBulk%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22tabInbox%22%20onclick%3D%22switchTab%28%27inbox%27%29%22%20class%3D%22tool-tab%20py-3.5%20text-%5B10px%5D%20font-semibold%22%3EInbox%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3C%21--%20TAB%20AKTIVASI%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22contentSend%22%20class%3D%22tool-content%20p-4%20sm%3Ap-5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22mb-5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%20mb-1.5%22%3EMagic%20link%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch2%20class%3D%22font-display%20font-bold%20text-%5B14px%5D%20text-white%22%3EAktivasi%20Alight%20Motion%3C/h2%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%20id%3D%22flowInstruction%22%20class%3D%22text-%5B10px%5D%20text-%5B%2364748b%5D%20mt-1.5%20leading-relaxed%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Kirim%20magic%20link%20ke%20email%20aktif%20terlebih%20dahulu.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/p%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22stepEmailBox%22%20class%3D%22space-y-2.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22inputEmail%22%20type%3D%22email%22%20placeholder%3D%22email@domain.com%22%20class%3D%22px-3.5%20py-3%20text-%5B11px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22handleSendMagicLink%28%29%22%20class%3D%22btn%20btn-primary%20w-full%20py-3%20text-%5B11px%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-paper-plane%20mr-1.5%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Kirim%20Magic%20Link%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22stepVerifyBox%22%20class%3D%22hidden%20space-y-2.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22inputLink%22%20type%3D%22text%22%20placeholder%3D%22Tempel%20link%20verifikasi%20https%3A//...%22%20class%3D%22px-3.5%20py-3%20text-%5B11px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22grid%20grid-cols-%5B1fr_auto%5D%20gap-2%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22handleVerifyMagicLink%28%29%22%20class%3D%22btn%20btn-success%20py-3%20text-%5B10px%5D%20font-bold%20text-white%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Verifikasi%20Link%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22resetInjectFlow%28%29%22%20class%3D%22btn%20btn-ghost%20w-11%20text-%5B%23cffafe%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-rotate-left%20text-%5B10px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22sendResult%22%20class%3D%22result-box%20hidden%20mt-3%20p-3%20rounded-%5B11px%5D%20text-%5B10px%5D%22%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3C%21--%20TAB%20BULK%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22contentBulk%22%20class%3D%22tool-content%20p-4%20sm%3Ap-5%20hidden%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22mb-5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%20mb-1.5%22%3EBatch%20tool%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch2%20class%3D%22font-display%20font-bold%20text-%5B14px%5D%20text-white%22%3EBulk%20Generator%3C/h2%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%20class%3D%22text-%5B10px%5D%20text-%5B%2364748b%5D%20mt-1.5%22%3EBuat%20beberapa%20akun%20premium%20sekaligus.%3C/p%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22space-y-2.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22block%20text-%5B10px%5D%20text-%5B%23cffafe%5D%20mb-1.5%22%3EJumlah%3C/label%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22inputBulkAmount%22%20type%3D%22number%22%20min%3D%221%22%20max%3D%22100%22%20value%3D%225%22%20class%3D%22px-3.5%20py-3%20text-%5B11px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22runBulkInject%28%29%22%20class%3D%22btn%20btn-primary%20w-full%20py-3%20text-%5B11px%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Generate%20Bulk%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22bulkResult%22%20class%3D%22result-box%20hidden%20mt-3%20p-3%20rounded-%5B11px%5D%20text-%5B10px%5D%20max-h-44%20overflow-y-auto%22%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3C%21--%20TAB%20INBOX%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22contentInbox%22%20class%3D%22tool-content%20p-4%20sm%3Ap-5%20hidden%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22mb-5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%20mb-1.5%22%3EMailbox%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch2%20class%3D%22font-display%20font-bold%20text-%5B14px%5D%20text-white%22%3EPindai%20Inbox%3C/h2%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%20class%3D%22text-%5B10px%5D%20text-%5B%2364748b%5D%20mt-1.5%22%3ECek%20pesan%20masuk%20untuk%20mendapatkan%20link%20verifikasi.%3C/p%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22space-y-2.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22inputInboxEmail%22%20type%3D%22email%22%20placeholder%3D%22email@tempmail.com%22%20class%3D%22px-3.5%20py-3%20text-%5B11px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22runInboxCheck%28%29%22%20class%3D%22btn%20btn-primary%20w-full%20py-3%20text-%5B11px%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-inbox%20mr-1.5%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Pindai%20Pesan%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22inboxNotice%22%20class%3D%22hidden%20mt-3%22%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22inboxResult%22%20class%3D%22space-y-2%20mt-3%20max-h-48%20overflow-y-auto%22%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%3C/section%3E%0A%0A%20%20%20%20%20%20%3C%21--%20DASBOR%20ADMIN%20--%3E%0A%20%20%20%20%20%20%3Csection%20id%3D%22adminContainer%22%20class%3D%22admin-shell%20w-full%20hidden%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22glass%20rounded-%5B16px%5D%20p-4%20sm%3Ap-5%22%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20justify-between%20pb-4%20border-b%20border-white/%5B.06%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22w-9%20h-9%20rounded-%5B11px%5D%20bg-%5B%2300FFFF%5D/%5B.12%5D%20border%20border-%5B%2300FFFF%5D/%5B.3%5D%20flex%20items-center%20justify-center%20text-%5B%2300FFFF%5D%20shadow-%5B0_0_12px_rgba%280%2C255%2C255%2C0.3%29%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-shield-halved%20text-%5B12px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%20mb-1%22%3EAdministration%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch2%20class%3D%22font-display%20font-bold%20text-%5B14px%5D%20text-white%22%3EAdmin%20Console%20%28Lokal%29%3C/h2%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22handleLogout%28%29%22%20class%3D%22btn%20btn-ghost%20px-3%20py-2%20text-%5B9px%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-right-from-bracket%20mr-1%22%3E%3C/i%3E%20Keluar%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3C%21--%20STATS%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22grid%20grid-cols-2%20sm%3Agrid-cols-4%20gap-2%20mt-4%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22admin-stat%20p-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%22%3EUsers%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22admTotalUsers%22%20class%3D%22font-display%20font-bold%20text-%5B16px%5D%20text-white%20mt-1%22%3E0%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22admin-stat%20p-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%22%3EActive%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22admActiveUsers%22%20class%3D%22font-display%20font-bold%20text-%5B16px%5D%20text-emerald-400%20mt-1%22%3E0%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22admin-stat%20p-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%22%3EDisabled%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22admDisabledUsers%22%20class%3D%22font-display%20font-bold%20text-%5B16px%5D%20text-red-400%20mt-1%22%3E0%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22admin-stat%20p-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%22%3EInjects%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22admTotalInjects%22%20class%3D%22font-display%20font-bold%20text-%5B16px%5D%20text-%5B%2300FFFF%5D%20mt-1%22%3E0%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3C%21--%20AKSI%20ADMIN%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22grid%20grid-cols-1%20sm%3Agrid-cols-2%20gap-2.5%20mt-4%22%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22glass-soft%20rounded-%5B12px%5D%20p-3.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-2%20mb-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-rotate-right%20text-%5B%2300FFFF%5D%20text-%5B10px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%20class%3D%22text-%5B10px%5D%20font-bold%20text-white%22%3EReset%20Limit%20User%3C/h3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22admResetLimitUsername%22%20type%3D%22text%22%20placeholder%3D%22Username%20target%22%20class%3D%22px-3%20py-2.5%20text-%5B10px%5D%20mb-2%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22admResetLimitByUsername%28%29%22%20class%3D%22btn%20btn-primary%20w-full%20py-2.5%20text-%5B10px%5D%22%3EReset%20Limit%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22glass-soft%20rounded-%5B12px%5D%20p-3.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-2%20mb-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-key%20text-%5B%2300FFFF%5D%20text-%5B10px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%20class%3D%22text-%5B10px%5D%20font-bold%20text-white%22%3EUbah%20Access%20Key%3C/h3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22admResetUsername%22%20type%3D%22text%22%20placeholder%3D%22Username%20target%22%20class%3D%22px-3%20py-2.5%20text-%5B10px%5D%20mb-2%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22relative%20mb-2%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22admNewTokenVal%22%20type%3D%22text%22%20placeholder%3D%22Key%20baru%20%28THANZ-XXXX%29%22%20class%3D%22px-3%20py-2.5%20text-%5B10px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22admResetPasswordByUsername%28%29%22%20class%3D%22btn%20btn-primary%20w-full%20py-2.5%20text-%5B10px%5D%22%3EUbah%20Key%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22glass-soft%20rounded-%5B12px%5D%20p-3.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-2%20mb-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-user-plus%20text-emerald-400%20text-%5B10px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%20class%3D%22text-%5B10px%5D%20font-bold%20text-white%22%3EBuat%20User%20Baru%3C/h3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22admNewUser%22%20type%3D%22text%22%20placeholder%3D%22Username%22%20class%3D%22px-3%20py-2.5%20text-%5B10px%5D%20mb-2%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22grid%20grid-cols-2%20gap-2%20mb-2%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22admNewToken%22%20type%3D%22text%22%20placeholder%3D%22Token/Key%20%28Opsional%29%22%20class%3D%22px-3%20py-2.5%20text-%5B10px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22admNewLimit%22%20type%3D%22number%22%20min%3D%221%22%20value%3D%225%22%20placeholder%3D%22Limit%22%20class%3D%22px-3%20py-2.5%20text-%5B10px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22admCreateUser%28%29%22%20class%3D%22btn%20btn-success%20w-full%20py-2.5%20text-%5B10px%5D%20font-bold%20text-white%22%3ESimpan%20User%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22glass-soft%20rounded-%5B12px%5D%20p-3.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-2%20mb-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-toolbox%20text-%5B%2300FFFF%5D%20text-%5B10px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%20class%3D%22text-%5B10px%5D%20font-bold%20text-white%22%3EEksekusi%20Tool%3C/h3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cselect%20id%3D%22admToolSelect%22%20onchange%3D%22admSwitchToolView%28%29%22%20class%3D%22px-3%20py-2.5%20text-%5B10px%5D%20mb-2%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Coption%20value%3D%22inject%22%3EAM%20Inject%3C/option%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Coption%20value%3D%22verify%22%3EAM%20Verify%20Link%3C/option%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Coption%20value%3D%22bulk%22%3EAM%20Bulk%20Generator%3C/option%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Coption%20value%3D%22inbox%22%3ETemp%20Mail%20Inbox%3C/option%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/select%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22admToolInput%22%20type%3D%22text%22%20placeholder%3D%22Email%20target...%22%20class%3D%22px-3%20py-2.5%20text-%5B10px%5D%20mb-2%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22admVerifyLinkBox%22%20class%3D%22hidden%20mb-2%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22admToolLink%22%20type%3D%22text%22%20placeholder%3D%22Link%20verifikasi%20https%3A//...%22%20class%3D%22px-3%20py-2.5%20text-%5B10px%5D%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22admRunTool%28%29%22%20class%3D%22btn%20btn-primary%20w-full%20py-2.5%20text-%5B10px%5D%22%3EJalankan%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22admToolResult%22%20class%3D%22result-box%20hidden%20mt-3%20p-3%20rounded-%5B11px%5D%20text-%5B10px%5D%20max-h-36%20overflow-y-auto%22%3E%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%3C%21--%20TABEL%20MEMBER%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22mt-5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-end%20justify-between%20mb-2.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22section-label%20mb-1%22%3EManagement%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%20class%3D%22font-display%20font-bold%20text-%5B13px%5D%20text-white%22%3EDaftar%20Member%20Lokal%3C/h3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22flex%20items-center%20gap-2%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22admDeleteSelectedUsers%28%29%22%20class%3D%22btn%20bg-red-500/%5B.12%5D%20text-red-300%20border%20border-red-400/%5B.25%5D%20px-2.5%20py-1.5%20text-%5B9px%5D%20font-semibold%20flex%20items-center%20gap-1.5%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-trash-can%22%3E%3C/i%3E%20Hapus%20Ditandai%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22loadAdminPanel%28%29%22%20class%3D%22btn%20btn-ghost%20w-8%20h-8%20flex%20items-center%20justify-center%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-rotate%20text-%5B9px%5D%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22admin-table%20overflow-auto%20max-h-72%20rounded-%5B12px%5D%20border%20border-white/%5B.06%5D%20bg-black/%5B.2%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ctable%20class%3D%22w-full%20min-w-%5B610px%5D%20text-left%20text-%5B10px%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cthead%20class%3D%22sticky%20top-0%20bg-%5B%2300060e%5D/95%20backdrop-blur-xl%20text-%5B%23cffafe%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ctr%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cth%20class%3D%22px-3%20py-2.5%20w-8%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20id%3D%22selectAllCheckbox%22%20onchange%3D%22admToggleSelectAll%28this%29%22%20class%3D%22w-3.5%20h-3.5%20accent-cyan-400%20cursor-pointer%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/th%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cth%20class%3D%22px-3%20py-2.5%20font-semibold%22%3EUser%3C/th%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cth%20class%3D%22px-3%20py-2.5%20font-semibold%22%3EAccess%20Key%3C/th%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cth%20class%3D%22px-3%20py-2.5%20font-semibold%22%3EUsage%3C/th%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cth%20class%3D%22px-3%20py-2.5%20font-semibold%22%3EStatus%3C/th%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cth%20class%3D%22px-3%20py-2.5%20font-semibold%20text-right%22%3EAction%3C/th%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/tr%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/thead%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ctbody%20id%3D%22admUserTableBody%22%20class%3D%22divide-y%20divide-white/%5B.04%5D%22%3E%3C/tbody%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/table%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%3C/section%3E%0A%20%20%20%20%3C/main%3E%0A%0A%20%20%20%20%3C%21--%20KAKI%20HALAMAN%20--%3E%0A%20%20%20%20%3Cfooter%20class%3D%22text-center%20pb-2%20pt-1%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22text-%5B9px%5D%20text-%5B%2364748b%5D%22%3E%0A%20%20%20%20%20%20%20%20AM%20Pro%20Toolkit%20%3Cspan%20class%3D%22mx-1%20text-%5B%2300FFFF%5D/55%22%3E%u2022%3C/span%3E%20Since%202026%20%3Cspan%20class%3D%22mx-1%20text-%5B%2300FFFF%5D/55%22%3E%u2022%3C/span%3E%20ThanzDev%0A%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%3C/footer%3E%0A%20%20%3C/div%3E%0A%0A%20%20%3C%21--%20TOAST%20NOTIFIKASI%20--%3E%0A%20%20%3Cdiv%20id%3D%22toast%22%20class%3D%22toast%20fixed%20z-50%20bottom-5%20left-1/2%20glass%20rounded-%5B12px%5D%20px-4%20py-3%20text-%5B10px%5D%20text-white%20shadow-2xl%20max-w-%5Bcalc%28100vw-32px%29%5D%22%3E%3C/div%3E%0A%0A%3Cscript%3E%0A%20%20let%20currentUser%20%3D%20null%3B%0A%20%20let%20isAdmin%20%3D%20false%3B%0A%20%20let%20activeInjectEmail%20%3D%20%22%22%3B%0A%20%20let%20countdownInterval%20%3D%20null%3B%0A%0A%20%20let%20deviceId%20%3D%20localStorage.getItem%28%22am_device_id%22%29%3B%0A%20%20if%20%28%21deviceId%29%20%7B%0A%20%20%20%20deviceId%20%3D%20%22dev_%22%20+%20Math.random%28%29.toString%2836%29.substring%282%29%20+%20Date.now%28%29.toString%2836%29%3B%0A%20%20%20%20localStorage.setItem%28%22am_device_id%22%2C%20deviceId%29%3B%0A%20%20%7D%0A%0A%20%20function%20getLocalDB%28%29%20%7B%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20const%20data%20%3D%20localStorage.getItem%28%22am_local_users_db%22%29%3B%0A%20%20%20%20%20%20return%20data%20%3F%20JSON.parse%28data%29%20%3A%20%5B%5D%3B%0A%20%20%20%20%7D%20catch%20%7B%20return%20%5B%5D%3B%20%7D%0A%20%20%7D%0A%0A%20%20function%20saveLocalDB%28users%29%20%7B%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20localStorage.setItem%28%22am_local_users_db%22%2C%20JSON.stringify%28users%29%29%3B%0A%20%20%20%20%7D%20catch%20%7B%7D%0A%20%20%7D%0A%0A%20%20function%20getLocalLogs%28%29%20%7B%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20const%20data%20%3D%20localStorage.getItem%28%22am_local_logs_db%22%29%3B%0A%20%20%20%20%20%20return%20data%20%3F%20JSON.parse%28data%29%20%3A%20%5B%5D%3B%0A%20%20%20%20%7D%20catch%20%7B%20return%20%5B%5D%3B%20%7D%0A%20%20%7D%0A%0A%20%20function%20saveLocalLogs%28logs%29%20%7B%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20localStorage.setItem%28%22am_local_logs_db%22%2C%20JSON.stringify%28logs%29%29%3B%0A%20%20%20%20%7D%20catch%20%7B%7D%0A%20%20%7D%0A%0A%20%20window.addEventListener%28%22DOMContentLoaded%22%2C%20%28%29%20%3D%3E%20%7B%0A%20%20%20%20checkExistingSession%28%29%3B%0A%20%20%7D%29%3B%0A%0A%20%20function%20showToast%28message%29%20%7B%0A%20%20%20%20const%20toast%20%3D%20document.getElementById%28%22toast%22%29%3B%0A%20%20%20%20toast.textContent%20%3D%20message%3B%0A%20%20%20%20toast.classList.add%28%22show%22%29%3B%0A%20%20%20%20clearTimeout%28window.__toastTimer%29%3B%0A%20%20%20%20window.__toastTimer%20%3D%20setTimeout%28%28%29%20%3D%3E%20toast.classList.remove%28%22show%22%29%2C%203000%29%3B%0A%20%20%7D%0A%0A%20%20function%20togglePasswordVisibility%28inputId%2C%20iconId%29%20%7B%0A%20%20%20%20const%20input%20%3D%20document.getElementById%28inputId%29%3B%0A%20%20%20%20const%20icon%20%3D%20document.getElementById%28iconId%29%3B%0A%20%20%20%20if%20%28%21input%20%7C%7C%20%21icon%29%20return%3B%0A%0A%20%20%20%20const%20isPassword%20%3D%20input.type%20%3D%3D%3D%20%22password%22%3B%0A%20%20%20%20input.type%20%3D%20isPassword%20%3F%20%22text%22%20%3A%20%22password%22%3B%0A%20%20%20%20icon.classList.toggle%28%22fa-eye%22%2C%20%21isPassword%29%3B%0A%20%20%20%20icon.classList.toggle%28%22fa-eye-slash%22%2C%20isPassword%29%3B%0A%20%20%7D%0A%0A%20%20function%20switchAuthTab%28tab%29%20%7B%0A%20%20%20%20const%20loginCard%20%3D%20document.getElementById%28%22loginFormCard%22%29%3B%0A%20%20%20%20const%20regCard%20%3D%20document.getElementById%28%22regFormCard%22%29%3B%0A%20%20%20%20const%20loginBtn%20%3D%20document.getElementById%28%22tabLoginBtn%22%29%3B%0A%20%20%20%20const%20regBtn%20%3D%20document.getElementById%28%22tabRegBtn%22%29%3B%0A%0A%20%20%20%20loginCard.classList.toggle%28%22hidden%22%2C%20tab%20%21%3D%3D%20%22login%22%29%3B%0A%20%20%20%20regCard.classList.toggle%28%22hidden%22%2C%20tab%20%21%3D%3D%20%22register%22%29%3B%0A%20%20%20%20loginBtn.classList.toggle%28%22active%22%2C%20tab%20%3D%3D%3D%20%22login%22%29%3B%0A%20%20%20%20regBtn.classList.toggle%28%22active%22%2C%20tab%20%3D%3D%3D%20%22register%22%29%3B%0A%20%20%7D%0A%0A%20%20function%20generateRandomKey%28%29%20%7B%0A%20%20%20%20const%20chars%20%3D%20%22ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%22%3B%0A%20%20%20%20let%20randStr%20%3D%20%22%22%3B%0A%20%20%20%20for%20%28let%20i%20%3D%200%3B%20i%20%3C%204%3B%20i++%29%20%7B%0A%20%20%20%20%20%20randStr%20+%3D%20chars.charAt%28Math.floor%28Math.random%28%29%20*%20chars.length%29%29%3B%0A%20%20%20%20%7D%0A%20%20%20%20return%20%60THANZ-%24%7BrandStr%7D%60%3B%0A%20%20%7D%0A%0A%20%20function%20handleRegister%28%29%20%7B%0A%20%20%20%20const%20username%20%3D%20document.getElementById%28%22regUsername%22%29.value.trim%28%29%3B%0A%20%20%20%20if%20%28%21username%29%20return%20showToast%28%22Username%20wajib%20diisi.%22%29%3B%0A%20%20%20%20if%20%28username.length%20%3C%203%29%20return%20showToast%28%22Username%20minimal%203%20karakter.%22%29%3B%0A%0A%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%0A%20%20%20%20const%20existingDev%20%3D%20users.find%28u%20%3D%3E%20u.device_id%20%3D%3D%3D%20deviceId%29%3B%0A%20%20%20%20if%20%28existingDev%29%20%7B%0A%20%20%20%20%20%20return%20showToast%28%22Perangkat%20ini%20sudah%20pernah%20melakukan%20pendaftaran%20akun%20sebelumnya%21%22%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20const%20existingUsr%20%3D%20users.find%28u%20%3D%3E%20u.username.toLowerCase%28%29%20%3D%3D%3D%20username.toLowerCase%28%29%29%3B%0A%20%20%20%20if%20%28existingUsr%29%20%7B%0A%20%20%20%20%20%20return%20showToast%28%22Username%20sudah%20digunakan%2C%20pilih%20nama%20lain.%22%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20let%20uniqueKey%20%3D%20%22%22%3B%0A%20%20%20%20let%20isUnique%20%3D%20false%3B%0A%20%20%20%20while%20%28%21isUnique%29%20%7B%0A%20%20%20%20%20%20uniqueKey%20%3D%20generateRandomKey%28%29%3B%0A%20%20%20%20%20%20const%20check%20%3D%20users.find%28u%20%3D%3E%20u.token%20%3D%3D%3D%20uniqueKey%29%3B%0A%20%20%20%20%20%20if%20%28%21check%29%20isUnique%20%3D%20true%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20const%20newUser%20%3D%20%7B%0A%20%20%20%20%20%20id%3A%20%22usr_%22%20+%20Math.random%28%29.toString%2836%29.substring%282%2C%209%29%2C%0A%20%20%20%20%20%20username%2C%0A%20%20%20%20%20%20token%3A%20uniqueKey%2C%0A%20%20%20%20%20%20daily_limit%3A%205%2C%0A%20%20%20%20%20%20used_count%3A%200%2C%0A%20%20%20%20%20%20reset_at%3A%20new%20Date%28Date.now%28%29%20+%2086400000%29.toISOString%28%29%2C%0A%20%20%20%20%20%20device_id%3A%20deviceId%2C%0A%20%20%20%20%20%20status%3A%20%22Active%22%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20users.push%28newUser%29%3B%0A%20%20%20%20saveLocalDB%28users%29%3B%0A%0A%20%20%20%20document.getElementById%28%22generatedKeyDisplay%22%29.textContent%20%3D%20uniqueKey%3B%0A%20%20%20%20document.getElementById%28%22keyPopupModal%22%29.classList.remove%28%22hidden%22%29%3B%0A%0A%20%20%20%20document.getElementById%28%22loginUsername%22%29.value%20%3D%20username%3B%0A%20%20%20%20document.getElementById%28%22loginToken%22%29.value%20%3D%20uniqueKey%3B%0A%20%20%20%20switchAuthTab%28%22login%22%29%3B%0A%20%20%7D%0A%0A%20%20function%20closeKeyPopup%28%29%20%7B%0A%20%20%20%20const%20keyText%20%3D%20document.getElementById%28%22generatedKeyDisplay%22%29.textContent%3B%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20navigator.clipboard.writeText%28keyText%29%3B%0A%20%20%20%20%20%20showToast%28%22Access%20Key%20disalin%20ke%20clipboard%21%22%29%3B%0A%20%20%20%20%7D%20catch%20%7B%7D%0A%20%20%20%20document.getElementById%28%22keyPopupModal%22%29.classList.add%28%22hidden%22%29%3B%0A%20%20%7D%0A%0A%20%20function%20handleLogin%28%29%20%7B%0A%20%20%20%20const%20username%20%3D%20document.getElementById%28%22loginUsername%22%29.value.trim%28%29%3B%0A%20%20%20%20const%20token%20%3D%20document.getElementById%28%22loginToken%22%29.value.trim%28%29%3B%0A%0A%20%20%20%20if%20%28%21username%20%7C%7C%20%21token%29%20return%20showToast%28%22Masukkan%20username%20dan%20access%20key.%22%29%3B%0A%0A%20%20%20%20if%20%28username%20%3D%3D%3D%20%22thanz%22%20%26%26%20token%20%3D%3D%3D%20%22thanzadmin%22%29%20%7B%0A%20%20%20%20%20%20isAdmin%20%3D%20true%3B%0A%20%20%20%20%20%20localStorage.setItem%28%22am_is_admin%22%2C%20%22true%22%29%3B%0A%20%20%20%20%20%20showToast%28%22Berhasil%20masuk%20sebagai%20Admin.%22%29%3B%0A%20%20%20%20%20%20enterAdminDashboard%28%29%3B%0A%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20const%20user%20%3D%20users.find%28u%20%3D%3E%20u.username.toLowerCase%28%29%20%3D%3D%3D%20username.toLowerCase%28%29%20%26%26%20u.token%20%3D%3D%3D%20token%29%3B%0A%0A%20%20%20%20if%20%28%21user%29%20return%20showToast%28%22Username%20atau%20Access%20Key%20salah.%22%29%3B%0A%20%20%20%20if%20%28user.status%20%21%3D%3D%20%22Active%22%29%20return%20showToast%28%22Akun%20Anda%20dinonaktifkan%20oleh%20Administrator.%22%29%3B%0A%0A%20%20%20%20user.last_login_at%20%3D%20new%20Date%28%29.toISOString%28%29%3B%0A%20%20%20%20saveLocalDB%28users%29%3B%0A%0A%20%20%20%20isAdmin%20%3D%20false%3B%0A%20%20%20%20currentUser%20%3D%20user%3B%0A%20%20%20%20localStorage.setItem%28%22am_current_user%22%2C%20JSON.stringify%28user%29%29%3B%0A%0A%20%20%20%20showToast%28%22Berhasil%20masuk.%22%29%3B%0A%20%20%20%20enterUserDashboard%28%29%3B%0A%20%20%7D%0A%0A%20%20function%20checkExistingSession%28%29%20%7B%0A%20%20%20%20const%20savedAdmin%20%3D%20localStorage.getItem%28%22am_is_admin%22%29%3B%0A%20%20%20%20if%20%28savedAdmin%20%3D%3D%3D%20%22true%22%29%20%7B%0A%20%20%20%20%20%20isAdmin%20%3D%20true%3B%0A%20%20%20%20%20%20enterAdminDashboard%28%29%3B%0A%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20const%20saved%20%3D%20localStorage.getItem%28%22am_current_user%22%29%3B%0A%20%20%20%20if%20%28%21saved%29%20return%3B%0A%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20const%20localUser%20%3D%20JSON.parse%28saved%29%3B%0A%20%20%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20%20%20const%20freshUser%20%3D%20users.find%28u%20%3D%3E%20u.id%20%3D%3D%3D%20localUser.id%29%3B%0A%0A%20%20%20%20%20%20if%20%28freshUser%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28freshUser.status%20%21%3D%3D%20%22Active%22%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20showToast%28%22Akun%20Anda%20dinonaktifkan.%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20handleLogout%28%29%3B%0A%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20currentUser%20%3D%20freshUser%3B%0A%20%20%20%20%20%20%20%20localStorage.setItem%28%22am_current_user%22%2C%20JSON.stringify%28currentUser%29%29%3B%0A%20%20%20%20%20%20%20%20enterUserDashboard%28%29%3B%0A%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20localStorage.removeItem%28%22am_current_user%22%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%20catch%20%7B%0A%20%20%20%20%20%20localStorage.removeItem%28%22am_current_user%22%29%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20function%20refreshUserData%28%29%20%7B%0A%20%20%20%20if%20%28%21currentUser%29%20return%20false%3B%0A%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20const%20fresh%20%3D%20users.find%28u%20%3D%3E%20u.id%20%3D%3D%3D%20currentUser.id%29%3B%0A%20%20%20%20if%20%28%21fresh%20%7C%7C%20fresh.status%20%21%3D%3D%20%22Active%22%29%20%7B%0A%20%20%20%20%20%20handleLogout%28%29%3B%0A%20%20%20%20%20%20return%20false%3B%0A%20%20%20%20%7D%0A%20%20%20%20currentUser%20%3D%20fresh%3B%0A%20%20%20%20localStorage.setItem%28%22am_current_user%22%2C%20JSON.stringify%28currentUser%29%29%3B%0A%20%20%20%20return%20true%3B%0A%20%20%7D%0A%0A%20%20function%20handleLogout%28%29%20%7B%0A%20%20%20%20currentUser%20%3D%20null%3B%0A%20%20%20%20isAdmin%20%3D%20false%3B%0A%0A%20%20%20%20localStorage.removeItem%28%22am_current_user%22%29%3B%0A%20%20%20%20localStorage.removeItem%28%22am_is_admin%22%29%3B%0A%0A%20%20%20%20if%20%28countdownInterval%29%20%7B%0A%20%20%20%20%20%20clearInterval%28countdownInterval%29%3B%0A%20%20%20%20%20%20countdownInterval%20%3D%20null%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20document.getElementById%28%22authContainer%22%29.classList.remove%28%22hidden%22%29%3B%0A%20%20%20%20document.getElementById%28%22appContainer%22%29.classList.add%28%22hidden%22%29%3B%0A%20%20%20%20document.getElementById%28%22adminContainer%22%29.classList.add%28%22hidden%22%29%3B%0A%0A%20%20%20%20showToast%28%22Berhasil%20keluar.%22%29%3B%0A%20%20%7D%0A%0A%20%20function%20enterUserDashboard%28%29%20%7B%0A%20%20%20%20document.getElementById%28%22authContainer%22%29.classList.add%28%22hidden%22%29%3B%0A%20%20%20%20document.getElementById%28%22adminContainer%22%29.classList.add%28%22hidden%22%29%3B%0A%20%20%20%20document.getElementById%28%22appContainer%22%29.classList.remove%28%22hidden%22%29%3B%0A%0A%20%20%20%20document.getElementById%28%22displayUsername%22%29.textContent%20%3D%20currentUser.username%3B%0A%20%20%20%20document.getElementById%28%22userAvatar%22%29.textContent%20%3D%20currentUser.username.charAt%280%29.toUpperCase%28%29%3B%0A%0A%20%20%20%20updateLimitDisplay%28%29%3B%0A%0A%20%20%20%20if%20%28countdownInterval%29%20clearInterval%28countdownInterval%29%3B%0A%20%20%20%20countdownInterval%20%3D%20setInterval%28updateLimitDisplay%2C%201000%29%3B%0A%20%20%7D%0A%0A%20%20function%20enterAdminDashboard%28%29%20%7B%0A%20%20%20%20document.getElementById%28%22authContainer%22%29.classList.add%28%22hidden%22%29%3B%0A%20%20%20%20document.getElementById%28%22appContainer%22%29.classList.add%28%22hidden%22%29%3B%0A%20%20%20%20document.getElementById%28%22adminContainer%22%29.classList.remove%28%22hidden%22%29%3B%0A%20%20%20%20loadAdminPanel%28%29%3B%0A%20%20%7D%0A%0A%20%20function%20updateLimitDisplay%28%29%20%7B%0A%20%20%20%20if%20%28%21currentUser%29%20return%3B%0A%0A%20%20%20%20const%20now%20%3D%20Date.now%28%29%3B%0A%20%20%20%20let%20resetTime%20%3D%20new%20Date%28currentUser.reset_at%29.getTime%28%29%3B%0A%0A%20%20%20%20if%20%28now%20%3E%3D%20resetTime%29%20%7B%0A%20%20%20%20%20%20const%20newReset%20%3D%20new%20Date%28now%20+%2086400000%29.toISOString%28%29%3B%0A%20%20%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20%20%20const%20idx%20%3D%20users.findIndex%28u%20%3D%3E%20u.id%20%3D%3D%3D%20currentUser.id%29%3B%0A%20%20%20%20%20%20if%20%28idx%20%21%3D%3D%20-1%29%20%7B%0A%20%20%20%20%20%20%20%20users%5Bidx%5D.used_count%20%3D%200%3B%0A%20%20%20%20%20%20%20%20users%5Bidx%5D.reset_at%20%3D%20newReset%3B%0A%20%20%20%20%20%20%20%20saveLocalDB%28users%29%3B%0A%20%20%20%20%20%20%20%20currentUser%20%3D%20users%5Bidx%5D%3B%0A%20%20%20%20%20%20%20%20localStorage.setItem%28%22am_current_user%22%2C%20JSON.stringify%28currentUser%29%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20resetTime%20%3D%20now%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20const%20limit%20%3D%20Number%28currentUser.daily_limit%29%20%7C%7C%200%3B%0A%20%20%20%20const%20used%20%3D%20Number%28currentUser.used_count%29%20%7C%7C%200%3B%0A%20%20%20%20const%20remaining%20%3D%20Math.max%280%2C%20limit%20-%20used%29%3B%0A%20%20%20%20const%20percentage%20%3D%20limit%20%3E%200%20%3F%20Math.min%28100%2C%20%28used%20/%20limit%29%20*%20100%29%20%3A%200%3B%0A%0A%20%20%20%20document.getElementById%28%22statLimit%22%29.textContent%20%3D%20limit%3B%0A%20%20%20%20document.getElementById%28%22statUsed%22%29.textContent%20%3D%20used%3B%0A%20%20%20%20document.getElementById%28%22statRemaining%22%29.textContent%20%3D%20remaining%3B%0A%20%20%20%20document.getElementById%28%22usageBar%22%29.style.width%20%3D%20percentage%20+%20%22%25%22%3B%0A%0A%20%20%20%20const%20diff%20%3D%20resetTime%20-%20now%3B%0A%0A%20%20%20%20if%20%28diff%20%3E%200%29%20%7B%0A%20%20%20%20%20%20const%20hours%20%3D%20Math.floor%28diff%20/%203600000%29%3B%0A%20%20%20%20%20%20const%20minutes%20%3D%20Math.floor%28%28diff%20%25%203600000%29%20/%2060000%29%3B%0A%20%20%20%20%20%20const%20seconds%20%3D%20Math.floor%28%28diff%20%25%2060000%29%20/%201000%29%3B%0A%0A%20%20%20%20%20%20document.getElementById%28%22statReset%22%29.textContent%20%3D%20%60%24%7Bhours%7Dj%20%24%7Bminutes%7Dm%20%24%7Bseconds%7Dd%60%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20document.getElementById%28%22statReset%22%29.textContent%20%3D%20%22Memuat...%22%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20function%20switchTab%28tab%29%20%7B%0A%20%20%20%20const%20contents%20%3D%20%7B%0A%20%20%20%20%20%20send%3A%20document.getElementById%28%22contentSend%22%29%2C%0A%20%20%20%20%20%20bulk%3A%20document.getElementById%28%22contentBulk%22%29%2C%0A%20%20%20%20%20%20inbox%3A%20document.getElementById%28%22contentInbox%22%29%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20const%20tabs%20%3D%20%7B%0A%20%20%20%20%20%20send%3A%20document.getElementById%28%22tabSend%22%29%2C%0A%20%20%20%20%20%20bulk%3A%20document.getElementById%28%22tabBulk%22%29%2C%0A%20%20%20%20%20%20inbox%3A%20document.getElementById%28%22tabInbox%22%29%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20Object.values%28contents%29.forEach%28el%20%3D%3E%20el.classList.add%28%22hidden%22%29%29%3B%0A%20%20%20%20Object.values%28tabs%29.forEach%28el%20%3D%3E%20el.classList.remove%28%22active%22%29%29%3B%0A%0A%20%20%20%20contents%5Btab%5D.classList.remove%28%22hidden%22%29%3B%0A%20%20%20%20tabs%5Btab%5D.classList.add%28%22active%22%29%3B%0A%20%20%7D%0A%0A%20%20async%20function%20handleSendMagicLink%28%29%20%7B%0A%20%20%20%20const%20email%20%3D%20document.getElementById%28%22inputEmail%22%29.value.trim%28%29%3B%0A%0A%20%20%20%20if%20%28%21email%20%7C%7C%20%21email.includes%28%22@%22%29%29%20%7B%0A%20%20%20%20%20%20return%20showToast%28%22Masukkan%20email%20yang%20valid.%22%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20showToast%28%22Mengirim%20magic%20link...%22%29%3B%0A%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20const%20res%20%3D%20await%20fetch%28%22https%3A//restapidhan.vercel.app/api/am%3Faction%3Dsend%26apikey%3Dfreeapikeydhan26%26email%3D%22%20+%20encodeURIComponent%28email%29%29%3B%0A%20%20%20%20%20%20const%20json%20%3D%20await%20res.json%28%29%3B%0A%0A%20%20%20%20%20%20if%20%28%21json.status%29%20%7B%0A%20%20%20%20%20%20%20%20throw%20new%20Error%28json.error%20%7C%7C%20json.message%20%7C%7C%20%22Gagal%20mengirim%20magic%20link.%22%29%3B%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20activeInjectEmail%20%3D%20email%3B%0A%0A%20%20%20%20%20%20document.getElementById%28%22stepEmailBox%22%29.classList.add%28%22hidden%22%29%3B%0A%20%20%20%20%20%20document.getElementById%28%22stepVerifyBox%22%29.classList.remove%28%22hidden%22%29%3B%0A%20%20%20%20%20%20document.getElementById%28%22flowInstruction%22%29.textContent%20%3D%20%60Magic%20link%20terkirim%20ke%20%24%7Bemail%7D.%20Masukkan%20link%20verifikasi.%60%3B%0A%0A%20%20%20%20%20%20showToast%28%22Magic%20link%20berhasil%20dikirim.%22%29%3B%0A%20%20%20%20%7D%20catch%20%28err%29%20%7B%0A%20%20%20%20%20%20showToast%28err.message%20%7C%7C%20%22Koneksi%20gagal.%22%29%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20async%20function%20handleVerifyMagicLink%28%29%20%7B%0A%20%20%20%20const%20link%20%3D%20document.getElementById%28%22inputLink%22%29.value.trim%28%29%3B%0A%20%20%20%20if%20%28%21link%29%20return%20showToast%28%22Masukkan%20link%20verifikasi.%22%29%3B%0A%0A%20%20%20%20if%20%28%21refreshUserData%28%29%29%20return%20showToast%28%22Sesi%20berakhir.%22%29%3B%0A%0A%20%20%20%20const%20remaining%20%3D%20currentUser.daily_limit%20-%20currentUser.used_count%3B%0A%20%20%20%20if%20%28remaining%20%3C%3D%200%29%20return%20showToast%28%22Limit%20harian%20Anda%20sudah%20habis.%22%29%3B%0A%0A%20%20%20%20showToast%28%22Memverifikasi...%22%29%3B%0A%0A%20%20%20%20let%20success%20%3D%20false%3B%0A%20%20%20%20let%20resultMessage%20%3D%20%22%22%3B%0A%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20const%20res%20%3D%20await%20fetch%28%60https%3A//restapidhan.vercel.app/api/am%3Faction%3Dverif%26apikey%3Dfreeapikeydhan26%26email%3D%24%7BencodeURIComponent%28activeInjectEmail%29%7D%26url%3D%24%7BencodeURIComponent%28link%29%7D%60%29%3B%0A%20%20%20%20%20%20const%20json%20%3D%20await%20res.json%28%29%3B%0A%0A%20%20%20%20%20%20success%20%3D%20json.status%20%3D%3D%3D%20true%3B%0A%20%20%20%20%20%20resultMessage%20%3D%20json.message%20%7C%7C%20json.error%20%7C%7C%20%22Verifikasi%20berhasil.%22%3B%0A%0A%20%20%20%20%20%20const%20result%20%3D%20document.getElementById%28%22sendResult%22%29%3B%0A%20%20%20%20%20%20result.innerHTML%20%3D%20%60%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22%24%7Bsuccess%20%3F%20%22text-emerald-400%22%20%3A%20%22text-red-400%22%7D%20font-bold%22%3E%0A%20%20%20%20%20%20%20%20%20%20%24%7Bsuccess%20%3F%20%22Berhasil%22%20%3A%20%22Gagal%22%7D%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22text-%5B10px%5D%20text-%5B%23cffafe%5D%20mt-1%20leading-relaxed%22%3E%0A%20%20%20%20%20%20%20%20%20%20%24%7BescapeHtml%28resultMessage%29%7D%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%60%3B%0A%20%20%20%20%20%20result.classList.remove%28%22hidden%22%29%3B%0A%20%20%20%20%7D%20catch%20%7B%0A%20%20%20%20%20%20success%20%3D%20false%3B%0A%20%20%20%20%20%20showToast%28%22Kesalahan%20jaringan.%22%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20const%20logs%20%3D%20getLocalLogs%28%29%3B%0A%20%20%20%20logs.push%28%7B%0A%20%20%20%20%20%20user_id%3A%20currentUser.id%2C%0A%20%20%20%20%20%20username%3A%20currentUser.username%2C%0A%20%20%20%20%20%20status%3A%20success%20%3F%20%22SUCCESS%22%20%3A%20%22FAILED%22%2C%0A%20%20%20%20%20%20created_at%3A%20new%20Date%28%29.toISOString%28%29%0A%20%20%20%20%7D%29%3B%0A%20%20%20%20saveLocalLogs%28logs%29%3B%0A%0A%20%20%20%20if%20%28success%29%20%7B%0A%20%20%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20%20%20const%20idx%20%3D%20users.findIndex%28u%20%3D%3E%20u.id%20%3D%3D%3D%20currentUser.id%29%3B%0A%20%20%20%20%20%20if%20%28idx%20%21%3D%3D%20-1%29%20%7B%0A%20%20%20%20%20%20%20%20users%5Bidx%5D.used_count%20+%3D%201%3B%0A%20%20%20%20%20%20%20%20saveLocalDB%28users%29%3B%0A%20%20%20%20%20%20%20%20currentUser%20%3D%20users%5Bidx%5D%3B%0A%20%20%20%20%20%20%20%20localStorage.setItem%28%22am_current_user%22%2C%20JSON.stringify%28currentUser%29%29%3B%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20updateLimitDisplay%28%29%3B%0A%20%20%20%20%20%20showToast%28%22Verifikasi%20berhasil.%20Kredit%20terpakai%20+1.%22%29%3B%0A%20%20%20%20%20%20setTimeout%28resetInjectFlow%2C%20900%29%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20showToast%28%22Verifikasi%20gagal.%22%29%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20function%20resetInjectFlow%28%29%20%7B%0A%20%20%20%20activeInjectEmail%20%3D%20%22%22%3B%0A%20%20%20%20document.getElementById%28%22inputEmail%22%29.value%20%3D%20%22%22%3B%0A%20%20%20%20document.getElementById%28%22inputLink%22%29.value%20%3D%20%22%22%3B%0A%20%20%20%20document.getElementById%28%22stepVerifyBox%22%29.classList.add%28%22hidden%22%29%3B%0A%20%20%20%20document.getElementById%28%22stepEmailBox%22%29.classList.remove%28%22hidden%22%29%3B%0A%20%20%20%20document.getElementById%28%22flowInstruction%22%29.textContent%20%3D%20%22Kirim%20magic%20link%20ke%20email%20aktif%20terlebih%20dahulu.%22%3B%0A%20%20%20%20document.getElementById%28%22sendResult%22%29.classList.add%28%22hidden%22%29%3B%0A%20%20%7D%0A%0A%20%20async%20function%20runBulkInject%28%29%20%7B%0A%20%20%20%20if%20%28%21refreshUserData%28%29%29%20return%20showToast%28%22Sesi%20berakhir.%22%29%3B%0A%0A%20%20%20%20const%20remaining%20%3D%20currentUser.daily_limit%20-%20currentUser.used_count%3B%0A%20%20%20%20if%20%28remaining%20%3C%3D%200%29%20return%20showToast%28%22Limit%20harian%20habis.%22%29%3B%0A%0A%20%20%20%20const%20amount%20%3D%20Number%28document.getElementById%28%22inputBulkAmount%22%29.value%29%3B%0A%20%20%20%20if%20%28%21amount%20%7C%7C%20amount%20%3C%201%20%7C%7C%20amount%20%3E%20100%29%20return%20showToast%28%22Jumlah%20harus%201%20-%20100.%22%29%3B%0A%0A%20%20%20%20showToast%28%22Memproses%20bulk...%22%29%3B%0A%0A%20%20%20%20const%20result%20%3D%20document.getElementById%28%22bulkResult%22%29%3B%0A%20%20%20%20result.innerHTML%20%3D%20%60%3Cdiv%20class%3D%22text-%5B%2300FFFF%5D%22%3EMemproses%20%24%7Bamount%7D%20akun...%3C/div%3E%60%3B%0A%20%20%20%20result.classList.remove%28%22hidden%22%29%3B%0A%0A%20%20%20%20setTimeout%28%28%29%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20%20%20const%20idx%20%3D%20users.findIndex%28u%20%3D%3E%20u.id%20%3D%3D%3D%20currentUser.id%29%3B%0A%20%20%20%20%20%20if%20%28idx%20%21%3D%3D%20-1%29%20%7B%0A%20%20%20%20%20%20%20%20users%5Bidx%5D.used_count%20+%3D%201%3B%0A%20%20%20%20%20%20%20%20saveLocalDB%28users%29%3B%0A%20%20%20%20%20%20%20%20currentUser%20%3D%20users%5Bidx%5D%3B%0A%20%20%20%20%20%20%20%20localStorage.setItem%28%22am_current_user%22%2C%20JSON.stringify%28currentUser%29%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20updateLimitDisplay%28%29%3B%0A%20%20%20%20%20%20result.innerHTML%20%3D%20%60%3Cdiv%20class%3D%22text-emerald-400%20font-bold%22%3EBulk%20Berhasil%20Diproses%20%28%24%7Bamount%7D%20Akun%29%21%3C/div%3E%60%3B%0A%20%20%20%20%20%20showToast%28%22Bulk%20berhasil%20dijalankan.%22%29%3B%0A%20%20%20%20%7D%2C%201200%29%3B%0A%20%20%7D%0A%0A%20%20async%20function%20runInboxCheck%28%29%20%7B%0A%20%20%20%20const%20email%20%3D%20document.getElementById%28%22inputInboxEmail%22%29.value.trim%28%29%3B%0A%20%20%20%20const%20notice%20%3D%20document.getElementById%28%22inboxNotice%22%29%3B%0A%20%20%20%20const%20container%20%3D%20document.getElementById%28%22inboxResult%22%29%3B%0A%0A%20%20%20%20if%20%28%21email%29%20return%20showToast%28%22Masukkan%20email.%22%29%3B%0A%0A%20%20%20%20notice.className%20%3D%20%22mt-3%20py-2.5%20px-3%20rounded-%5B11px%5D%20text-%5B10px%5D%20bg-%5B%2300FFFF%5D/%5B.12%5D%20border%20border-%5B%2300FFFF%5D/%5B.3%5D%20text-%5B%2300FFFF%5D%22%3B%0A%20%20%20%20notice.textContent%20%3D%20%22Memindai%20pesan...%22%3B%0A%20%20%20%20notice.classList.remove%28%22hidden%22%29%3B%0A%20%20%20%20container.innerHTML%20%3D%20%22%22%3B%0A%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20const%20res%20%3D%20await%20fetch%28%60https%3A//restapidhan.vercel.app/api/inbox%3Femail%3D%24%7BencodeURIComponent%28email%29%7D%60%29%3B%0A%20%20%20%20%20%20const%20json%20%3D%20await%20res.json%28%29%3B%0A%0A%20%20%20%20%20%20notice.className%20%3D%20%22mt-3%20py-2.5%20px-3%20rounded-%5B11px%5D%20text-%5B10px%5D%20bg-emerald-500/%5B.12%5D%20border%20border-emerald-400/%5B.25%5D%20text-emerald-300%22%3B%0A%20%20%20%20%20%20notice.textContent%20%3D%20%22Inbox%20berhasil%20dipindai.%22%3B%0A%0A%20%20%20%20%20%20const%20messages%20%3D%20json.messages%20%7C%7C%20json.data%3F.messages%20%7C%7C%20%5B%5D%3B%0A%20%20%20%20%20%20if%20%28%21messages.length%29%20%7B%0A%20%20%20%20%20%20%20%20container.innerHTML%20%3D%20%27%3Cdiv%20class%3D%22text-%5B10px%5D%20text-%5B%2364748b%5D%20p-3%20text-center%22%3EBelum%20ada%20pesan.%3C/div%3E%27%3B%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20messages.forEach%28msg%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20card%20%3D%20document.createElement%28%22div%22%29%3B%0A%20%20%20%20%20%20%20%20card.className%20%3D%20%22glass-soft%20p-3%20rounded-%5B11px%5D%20border%20border-white/%5B.06%5D%20space-y-2%22%3B%0A%20%20%20%20%20%20%20%20card.innerHTML%20%3D%20%60%3Cdiv%20class%3D%22text-%5B10px%5D%20font-bold%20text-white%22%3E%24%7BescapeHtml%28msg.subject%20%7C%7C%20%22Pesan%20Masuk%22%29%7D%3C/div%3E%60%3B%0A%20%20%20%20%20%20%20%20container.appendChild%28card%29%3B%0A%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%7D%20catch%20%7B%0A%20%20%20%20%20%20notice.className%20%3D%20%22mt-3%20py-2.5%20px-3%20rounded-%5B11px%5D%20text-%5B10px%5D%20bg-red-500/%5B.12%5D%20border%20border-red-400/%5B.25%5D%20text-red-300%22%3B%0A%20%20%20%20%20%20notice.textContent%20%3D%20%22Gagal%20mengambil%20inbox.%22%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20function%20loadAdminPanel%28%29%20%7B%0A%20%20%20%20if%20%28%21isAdmin%29%20return%3B%0A%0A%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20const%20logs%20%3D%20getLocalLogs%28%29%3B%0A%0A%20%20%20%20document.getElementById%28%22admTotalUsers%22%29.textContent%20%3D%20users.length%3B%0A%20%20%20%20document.getElementById%28%22admActiveUsers%22%29.textContent%20%3D%20users.filter%28u%20%3D%3E%20u.status%20%3D%3D%3D%20%22Active%22%29.length%3B%0A%20%20%20%20document.getElementById%28%22admDisabledUsers%22%29.textContent%20%3D%20users.filter%28u%20%3D%3E%20u.status%20%3D%3D%3D%20%22Disabled%22%29.length%3B%0A%20%20%20%20document.getElementById%28%22admTotalInjects%22%29.textContent%20%3D%20logs.filter%28l%20%3D%3E%20l.status%20%3D%3D%3D%20%22SUCCESS%22%29.length%3B%0A%0A%20%20%20%20const%20tbody%20%3D%20document.getElementById%28%22admUserTableBody%22%29%3B%0A%20%20%20%20tbody.innerHTML%20%3D%20%22%22%3B%0A%20%20%20%20document.getElementById%28%22selectAllCheckbox%22%29.checked%20%3D%20false%3B%0A%0A%20%20%20%20users.forEach%28u%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20tr%20%3D%20document.createElement%28%22tr%22%29%3B%0A%20%20%20%20%20%20tr.className%20%3D%20%22hover%3Abg-%5B%2300FFFF%5D/%5B.04%5D%20transition%22%3B%0A%0A%20%20%20%20%20%20tr.innerHTML%20%3D%20%60%0A%20%20%20%20%20%20%20%20%3Ctd%20class%3D%22px-3%20py-3%20w-8%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20value%3D%22%24%7BescapeAttr%28u.id%29%7D%22%20class%3D%22user-checkbox%20w-3.5%20h-3.5%20accent-cyan-400%20cursor-pointer%22%20/%3E%0A%20%20%20%20%20%20%20%20%3C/td%3E%0A%20%20%20%20%20%20%20%20%3Ctd%20class%3D%22px-3%20py-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22font-semibold%20text-white%22%3E%24%7BescapeHtml%28u.username%29%7D%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/td%3E%0A%20%20%20%20%20%20%20%20%3Ctd%20class%3D%22px-3%20py-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22text-%5B10px%5D%20text-%5B%2300FFFF%5D%20font-mono%20font-bold%22%3E%24%7BescapeHtml%28u.token%20%7C%7C%20%22-%22%29%7D%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/td%3E%0A%20%20%20%20%20%20%20%20%3Ctd%20class%3D%22px-3%20py-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22text-%5B%23cffafe%5D%22%3E%24%7BNumber%28u.used_count%29%20%7C%7C%200%7D%20/%20%24%7BNumber%28u.daily_limit%29%20%7C%7C%200%7D%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/td%3E%0A%20%20%20%20%20%20%20%20%3Ctd%20class%3D%22px-3%20py-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22px-2%20py-1%20rounded-full%20text-%5B8px%5D%20%24%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20u.status%20%3D%3D%3D%20%22Active%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%22bg-emerald-500/%5B.12%5D%20text-emerald-300%20border%20border-emerald-400/%5B.2%5D%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20%22bg-red-500/%5B.12%5D%20text-red-300%20border%20border-red-400/%5B.2%5D%22%0A%20%20%20%20%20%20%20%20%20%20%7D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%24%7BescapeHtml%28u.status%29%7D%0A%20%20%20%20%20%20%20%20%20%20%3C/span%3E%0A%20%20%20%20%20%20%20%20%3C/td%3E%0A%20%20%20%20%20%20%20%20%3Ctd%20class%3D%22px-3%20py-3%20text-right%20whitespace-nowrap%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22admPromptResetLimit%28%27%24%7BescapeAttr%28u.username%29%7D%27%29%22%20class%3D%22btn%20btn-ghost%20px-2%20py-1.5%20text-%5B8px%5D%20mr-1%22%3ELimit%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22admPromptResetPass%28%27%24%7BescapeAttr%28u.username%29%7D%27%29%22%20class%3D%22btn%20btn-ghost%20px-2%20py-1.5%20text-%5B8px%5D%20mr-1%22%3EKey%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22admToggleStatus%28%27%24%7BescapeAttr%28u.id%29%7D%27%2C%27%24%7BescapeAttr%28u.status%29%7D%27%29%22%20class%3D%22btn%20%24%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20u.status%20%3D%3D%3D%20%22Active%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%22bg-amber-500/%5B.12%5D%20text-amber-300%20border%20border-amber-400/%5B.2%5D%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20%22bg-emerald-500/%5B.12%5D%20text-emerald-300%20border%20border-emerald-400/%5B.2%5D%22%0A%20%20%20%20%20%20%20%20%20%20%7D%20px-2%20py-1.5%20rounded-%5B9px%5D%20text-%5B8px%5D%20mr-1%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%24%7Bu.status%20%3D%3D%3D%20%22Active%22%20%3F%20%22Off%22%20%3A%20%22On%22%7D%0A%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cbutton%20onclick%3D%22admDeleteUser%28%27%24%7BescapeAttr%28u.id%29%7D%27%29%22%20class%3D%22btn%20bg-red-500/%5B.1%5D%20text-red-300%20border%20border-red-400/%5B.2%5D%20px-2%20py-1.5%20rounded-%5B9px%5D%20text-%5B8px%5D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ci%20class%3D%22fa-solid%20fa-trash%22%3E%3C/i%3E%0A%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%3C/td%3E%0A%20%20%20%20%20%20%60%3B%0A%20%20%20%20%20%20tbody.appendChild%28tr%29%3B%0A%20%20%20%20%7D%29%3B%0A%20%20%7D%0A%0A%20%20function%20admToggleSelectAll%28source%29%20%7B%0A%20%20%20%20const%20checkboxes%20%3D%20document.querySelectorAll%28%22.user-checkbox%22%29%3B%0A%20%20%20%20checkboxes.forEach%28cb%20%3D%3E%20cb.checked%20%3D%20source.checked%29%3B%0A%20%20%7D%0A%0A%20%20function%20admDeleteSelectedUsers%28%29%20%7B%0A%20%20%20%20const%20checkboxes%20%3D%20document.querySelectorAll%28%22.user-checkbox%3Achecked%22%29%3B%0A%20%20%20%20if%20%28checkboxes.length%20%3D%3D%3D%200%29%20return%20showToast%28%22Tidak%20ada%20user%20yang%20ditandai.%22%29%3B%0A%20%20%20%20if%20%28%21confirm%28%60Hapus%20%24%7Bcheckboxes.length%7D%20user%20yang%20ditandai%3F%60%29%29%20return%3B%0A%0A%20%20%20%20const%20ids%20%3D%20Array.from%28checkboxes%29.map%28cb%20%3D%3E%20cb.value%29%3B%0A%20%20%20%20let%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20users%20%3D%20users.filter%28u%20%3D%3E%20%21ids.includes%28u.id%29%29%3B%0A%20%20%20%20saveLocalDB%28users%29%3B%0A%20%20%20%20showToast%28%22User%20terpilih%20berhasil%20dihapus.%22%29%3B%0A%20%20%20%20loadAdminPanel%28%29%3B%0A%20%20%7D%0A%0A%20%20function%20admCreateUser%28%29%20%7B%0A%20%20%20%20const%20username%20%3D%20document.getElementById%28%22admNewUser%22%29.value.trim%28%29%3B%0A%20%20%20%20let%20token%20%3D%20document.getElementById%28%22admNewToken%22%29.value.trim%28%29%3B%0A%20%20%20%20const%20daily_limit%20%3D%20Number%28document.getElementById%28%22admNewLimit%22%29.value%29%20%7C%7C%205%3B%0A%0A%20%20%20%20if%20%28%21username%29%20return%20showToast%28%22Username%20wajib%20diisi.%22%29%3B%0A%20%20%20%20if%20%28%21token%29%20token%20%3D%20generateRandomKey%28%29%3B%0A%0A%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20const%20newUser%20%3D%20%7B%0A%20%20%20%20%20%20id%3A%20%22usr_%22%20+%20Math.random%28%29.toString%2836%29.substring%282%2C%209%29%2C%0A%20%20%20%20%20%20username%2C%0A%20%20%20%20%20%20token%2C%0A%20%20%20%20%20%20daily_limit%2C%0A%20%20%20%20%20%20used_count%3A%200%2C%0A%20%20%20%20%20%20reset_at%3A%20new%20Date%28Date.now%28%29%20+%2086400000%29.toISOString%28%29%2C%0A%20%20%20%20%20%20status%3A%20%22Active%22%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20users.push%28newUser%29%3B%0A%20%20%20%20saveLocalDB%28users%29%3B%0A%20%20%20%20showToast%28%22User%20baru%20dibuat%20dengan%20key%3A%20%22%20+%20token%29%3B%0A%20%20%20%20document.getElementById%28%22admNewUser%22%29.value%20%3D%20%22%22%3B%0A%20%20%20%20document.getElementById%28%22admNewToken%22%29.value%20%3D%20%22%22%3B%0A%20%20%20%20loadAdminPanel%28%29%3B%0A%20%20%7D%0A%0A%20%20function%20admResetLimitByUsername%28%29%20%7B%0A%20%20%20%20const%20username%20%3D%20document.getElementById%28%22admResetLimitUsername%22%29.value.trim%28%29%3B%0A%20%20%20%20if%20%28%21username%29%20return%20showToast%28%22Masukkan%20username%20target.%22%29%3B%0A%0A%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20const%20idx%20%3D%20users.findIndex%28u%20%3D%3E%20u.username.toLowerCase%28%29%20%3D%3D%3D%20username.toLowerCase%28%29%29%3B%0A%20%20%20%20if%20%28idx%20%3D%3D%3D%20-1%29%20return%20showToast%28%22Username%20tidak%20ditemukan.%22%29%3B%0A%0A%20%20%20%20users%5Bidx%5D.used_count%20%3D%200%3B%0A%20%20%20%20users%5Bidx%5D.reset_at%20%3D%20new%20Date%28Date.now%28%29%20+%2086400000%29.toISOString%28%29%3B%0A%20%20%20%20saveLocalDB%28users%29%3B%0A%20%20%20%20showToast%28%60Limit%20%24%7Busername%7D%20berhasil%20direset.%60%29%3B%0A%20%20%20%20document.getElementById%28%22admResetLimitUsername%22%29.value%20%3D%20%22%22%3B%0A%20%20%20%20loadAdminPanel%28%29%3B%0A%20%20%7D%0A%0A%20%20function%20admResetPasswordByUsername%28%29%20%7B%0A%20%20%20%20const%20username%20%3D%20document.getElementById%28%22admResetUsername%22%29.value.trim%28%29%3B%0A%20%20%20%20let%20token%20%3D%20document.getElementById%28%22admNewTokenVal%22%29.value.trim%28%29%3B%0A%20%20%20%20if%20%28%21username%29%20return%20showToast%28%22Isi%20username%20target.%22%29%3B%0A%20%20%20%20if%20%28%21token%29%20token%20%3D%20generateRandomKey%28%29%3B%0A%0A%20%20%20%20const%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20const%20idx%20%3D%20users.findIndex%28u%20%3D%3E%20u.username.toLowerCase%28%29%20%3D%3D%3D%20username.toLowerCase%28%29%29%3B%0A%20%20%20%20if%20%28idx%20%3D%3D%3D%20-1%29%20return%20showToast%28%22Username%20tidak%20ditemukan.%22%29%3B%0A%0A%20%20%20%20users%5Bidx%5D.token%20%3D%20token%3B%0A%20%20%20%20saveLocalDB%28users%29%3B%0A%20%20%20%20showToast%28%22Access%20Key%20diubah%20menjadi%3A%20%22%20+%20token%29%3B%0A%20%20%20%20document.getElementById%28%22admResetUsername%22%29.value%20%3D%20%22%22%3B%0A%20%20%20%20document.getElementById%28%22admNewTokenVal%22%29.value%20%3D%20%22%22%3B%0A%20%20%20%20loadAdminPanel%28%29%3B%0A%20%20%7D%0A%0A%20%20function%20admPromptResetLimit%28username%29%20%7B%0A%20%20%20%20document.getElementById%28%22admResetLimitUsername%22%29.value%20%3D%20username%3B%0A%20%20%20%20showToast%28%60Target%20limit%3A%20%24%7Busername%7D%60%29%3B%0A%20%20%7D%0A%0A%20%20function%20admPromptResetPass%28username%29%20%7B%0A%20%20%20%20document.getElementById%28%22admResetUsername%22%29.value%20%3D%20username%3B%0A%20%20%20%20document.getElementById%28%22admNewTokenVal%22%29.value%20%3D%20generateRandomKey%28%29%3B%0A%20%20%20%20showToast%28%60Generate%20key%20baru%20untuk%3A%20%24%7Busername%7D%60%29%3B%0A%20%20%7D%0A%0A%20%20function%20admSwitchToolView%28%29%20%7B%0A%20%20%20%20const%20tool%20%3D%20document.getElementById%28%22admToolSelect%22%29.value%3B%0A%20%20%20%20const%20input%20%3D%20document.getElementById%28%22admToolInput%22%29%3B%0A%20%20%20%20const%20linkBox%20%3D%20document.getElementById%28%22admVerifyLinkBox%22%29%3B%0A%20%20%20%20linkBox.classList.add%28%22hidden%22%29%3B%0A%0A%20%20%20%20if%20%28tool%20%3D%3D%3D%20%22inject%22%29%20input.placeholder%20%3D%20%22Email%20target%20AM...%22%3B%0A%20%20%20%20else%20if%20%28tool%20%3D%3D%3D%20%22verify%22%29%20%7B%0A%20%20%20%20%20%20input.placeholder%20%3D%20%22Email%20target%20AM...%22%3B%0A%20%20%20%20%20%20linkBox.classList.remove%28%22hidden%22%29%3B%0A%20%20%20%20%7D%20else%20if%20%28tool%20%3D%3D%3D%20%22bulk%22%29%20input.placeholder%20%3D%20%22Jumlah%20bulk%20%281%20-%20100%29...%22%3B%0A%20%20%20%20else%20input.placeholder%20%3D%20%22Email%20temp%20mail...%22%3B%0A%20%20%7D%0A%0A%20%20async%20function%20admRunTool%28%29%20%7B%0A%20%20%20%20const%20tool%20%3D%20document.getElementById%28%22admToolSelect%22%29.value%3B%0A%20%20%20%20const%20value%20%3D%20document.getElementById%28%22admToolInput%22%29.value.trim%28%29%3B%0A%20%20%20%20const%20result%20%3D%20document.getElementById%28%22admToolResult%22%29%3B%0A%20%20%20%20result.classList.add%28%22hidden%22%29%3B%0A%0A%20%20%20%20if%20%28%21value%29%20return%20showToast%28%22Masukkan%20input.%22%29%3B%0A%20%20%20%20showToast%28%22Menjalankan%20alat...%22%29%3B%0A%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20let%20resData%20%3D%20%7B%7D%3B%0A%20%20%20%20%20%20if%20%28tool%20%3D%3D%3D%20%22inject%22%29%20%7B%0A%20%20%20%20%20%20%20%20const%20res%20%3D%20await%20fetch%28%22https%3A//restapidhan.vercel.app/api/am%3Faction%3Dsend%26apikey%3Dfreeapikeydhan26%26email%3D%22%20+%20encodeURIComponent%28value%29%29%3B%0A%20%20%20%20%20%20%20%20resData%20%3D%20await%20res.json%28%29%3B%0A%20%20%20%20%20%20%7D%20else%20if%20%28tool%20%3D%3D%3D%20%22bulk%22%29%20%7B%0A%20%20%20%20%20%20%20%20resData%20%3D%20%7B%20status%3A%20true%2C%20message%3A%20%60Bulk%20%24%7Bvalue%7D%20akun%20berhasil%20disimulasikan.%60%20%7D%3B%0A%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20const%20res%20%3D%20await%20fetch%28%60https%3A//restapidhan.vercel.app/api/inbox%3Femail%3D%24%7BencodeURIComponent%28value%29%7D%60%29%3B%0A%20%20%20%20%20%20%20%20resData%20%3D%20await%20res.json%28%29%3B%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20result.innerHTML%20%3D%20%60%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22font-bold%20text-white%20mb-1%22%3EHasil%20%24%7BescapeHtml%28tool%29%7D%3C/div%3E%0A%20%20%20%20%20%20%20%20%3Cpre%20class%3D%22text-%5B9px%5D%20text-%5B%23cffafe%5D%20whitespace-pre-wrap%22%3E%24%7BescapeHtml%28JSON.stringify%28resData%2C%20null%2C%202%29%29%7D%3C/pre%3E%0A%20%20%20%20%20%20%60%3B%0A%20%20%20%20%20%20result.classList.remove%28%22hidden%22%29%3B%0A%20%20%20%20%20%20showToast%28%22Selesai.%22%29%3B%0A%20%20%20%20%7D%20catch%20%28err%29%20%7B%0A%20%20%20%20%20%20showToast%28%22Gagal%3A%20%22%20+%20err.message%29%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20function%20admToggleStatus%28userId%2C%20currentStatus%29%20%7B%0A%20%20%20%20const%20nextStatus%20%3D%20currentStatus%20%3D%3D%3D%20%22Active%22%20%3F%20%22Disabled%22%20%3A%20%22Active%22%3B%0A%20%20%20%20let%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20const%20idx%20%3D%20users.findIndex%28u%20%3D%3E%20u.id%20%3D%3D%3D%20userId%29%3B%0A%20%20%20%20if%20%28idx%20%21%3D%3D%20-1%29%20%7B%0A%20%20%20%20%20%20users%5Bidx%5D.status%20%3D%20nextStatus%3B%0A%20%20%20%20%20%20saveLocalDB%28users%29%3B%0A%20%20%20%20%20%20showToast%28%22Status%20berhasil%20diubah.%22%29%3B%0A%20%20%20%20%20%20loadAdminPanel%28%29%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20function%20admDeleteUser%28userId%29%20%7B%0A%20%20%20%20if%20%28%21confirm%28%22Hapus%20user%20ini%3F%22%29%29%20return%3B%0A%20%20%20%20let%20users%20%3D%20getLocalDB%28%29%3B%0A%20%20%20%20users%20%3D%20users.filter%28u%20%3D%3E%20u.id%20%21%3D%3D%20userId%29%3B%0A%20%20%20%20saveLocalDB%28users%29%3B%0A%20%20%20%20showToast%28%22User%20dihapus.%22%29%3B%0A%20%20%20%20loadAdminPanel%28%29%3B%0A%20%20%7D%0A%0A%20%20function%20escapeHtml%28value%29%20%7B%0A%20%20%20%20return%20String%28value%20%3F%3F%20%22%22%29%0A%20%20%20%20%20%20.replaceAll%28%22%26%22%2C%20%22%26amp%3B%22%29%0A%20%20%20%20%20%20.replaceAll%28%22%3C%22%2C%20%22%26lt%3B%22%29%0A%20%20%20%20%20%20.replaceAll%28%22%3E%22%2C%20%22%26gt%3B%22%29%0A%20%20%20%20%20%20.replaceAll%28%27%22%27%2C%20%22%26quot%3B%22%29%0A%20%20%20%20%20%20.replaceAll%28%22%27%22%2C%20%22%26%23039%3B%22%29%3B%0A%20%20%7D%0A%0A%20%20function%20escapeAttr%28value%29%20%7B%0A%20%20%20%20return%20String%28value%20%3F%3F%20%22%22%29%0A%20%20%20%20%20%20.replaceAll%28%22%5C%5C%22%2C%20%22%5C%5C%5C%5C%22%29%0A%20%20%20%20%20%20.replaceAll%28%22%27%22%2C%20%22%5C%5C%27%22%29%3B%0A%20%20%7D%0A%3C/script%3E%0A%3C/body%3E%0A%3C/html%3E%0A%0A'))</script>
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="AM Pro Toolkit — Cyan Neon Edition" />
+  <title>AM Pro Toolkit | ThanzDev</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            marker: ['Permanent Marker', 'cursive', 'sans-serif']
+          },
+          colors: {
+            cyanx: {
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              700: '#0e7490'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg: #000308;
+      --panel: rgba(2, 12, 24, 0.82);
+      --panel-soft: rgba(0, 255, 255, 0.03);
+      --line: rgba(0, 255, 255, 0.22);
+      --line-soft: rgba(0, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --neon-cyan: #00FFFF;
+      --neon-bright: #33ffff;
+      --neon-glow: rgba(0, 255, 255, 0.45);
+      --green: #34d399;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(0, 255, 255, 0.16), transparent 30%),
+        radial-gradient(circle at 85% 90%, rgba(0, 200, 255, 0.12), transparent 35%),
+        var(--bg);
+      font-family: Inter, sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .font-display {
+      font-family: "Plus Jakarta Sans", Inter, sans-serif;
+    }
+
+    .ambient {
+      position: fixed;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(80px);
+      opacity: 0.55;
+    }
+
+    .ambient.one {
+      left: -160px;
+      top: 50px;
+      background: rgba(0, 255, 255, 0.25);
+    }
+
+    .ambient.two {
+      right: -170px;
+      bottom: 60px;
+      background: rgba(0, 200, 255, 0.2);
+    }
+
+    .glass {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      box-shadow:
+        0 22px 60px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(0, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-soft {
+      background: var(--panel-soft);
+      border: 1px solid var(--line-soft);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .topbar {
+      box-shadow:
+        0 16px 45px rgba(0, 0, 0, 0.35),
+        0 0 20px rgba(0, 255, 255, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-mark {
+      background: linear-gradient(145deg, rgba(0, 255, 255, 0.3), rgba(0, 255, 255, 0.08));
+      border: 1px solid rgba(0, 255, 255, 0.4);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.35);
+    }
+
+    .status-dot {
+      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.08), 0 0 12px rgba(52, 211, 153, 0.55);
+    }
+
+    input,
+    select {
+      width: 100%;
+      color: #f8fafc !important;
+      background: rgba(0, 5, 12, 0.85) !important;
+      border: 1px solid rgba(0, 255, 255, 0.2) !important;
+      border-radius: 11px !important;
+      outline: none;
+      transition: .2s ease;
+    }
+
+    input::placeholder {
+      color: #64748b;
+    }
+
+    input:hover,
+    select:hover {
+      border-color: rgba(0, 255, 255, 0.4) !important;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #00FFFF !important;
+      box-shadow:
+        0 0 0 3px rgba(0, 255, 255, 0.2),
+        0 0 20px rgba(0, 255, 255, 0.4) !important;
+    }
+
+    select option {
+      background: #020b14;
+      color: white;
+    }
+
+    .btn {
+      border-radius: 11px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      position: relative;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00FFFF, #0891b2);
+      color: #000308;
+      border: 1px solid rgba(0, 255, 255, 0.6);
+      box-shadow: 
+        0 4px 15px rgba(0, 255, 255, 0.35),
+        0 0 25px rgba(0, 255, 255, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #33ffff, #06b6d4);
+      transform: translateY(-1px);
+      box-shadow: 
+        0 6px 22px rgba(0, 255, 255, 0.6),
+        0 0 35px rgba(0, 255, 255, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: white;
+      border: 1px solid rgba(110, 231, 183, 0.3);
+      box-shadow: 
+        0 4px 15px rgba(5, 150, 105, 0.35),
+        0 0 20px rgba(52, 211, 153, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, #10b981, #059669);
+      transform: translateY(-1px);
+      box-shadow: 
+        0 6px 22px rgba(16, 185, 129, 0.5),
+        0 0 30px rgba(52, 211, 153, 0.35);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(0, 255, 255, 0.15);
+      color: #a5f3fc;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
+    }
+
+    .btn-ghost:hover {
+      color: white;
+      background: rgba(0, 255, 255, 0.1);
+      border-color: rgba(0, 255, 255, 0.35);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    }
+
+    .auth-shell {
+      animation: appear .45s ease both;
+    }
+
+    .auth-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -90px;
+      top: -100px;
+      border-radius: 50%;
+      background: rgba(0, 255, 255, 0.15);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .auth-tabs {
+      padding: 4px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(0, 255, 255, 0.15);
+    }
+
+    .auth-tab {
+      color: #64748b;
+      transition: .2s ease;
+    }
+
+    .auth-tab.active {
+      color: #000308;
+      background: linear-gradient(135deg, #00FFFF, #0891b2);
+      font-weight: 700;
+      box-shadow: 0 4px 18px rgba(0, 255, 255, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+    }
+
+    .section-label {
+      color: #00FFFF;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+    }
+
+    .dashboard {
+      animation: appear .35s ease both;
+    }
+
+    .account-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .account-card::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 150px;
+      right: -120px;
+      top: -85px;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.2), transparent 68%);
+      pointer-events: none;
+    }
+
+    .avatar {
+      background: linear-gradient(145deg, rgba(0, 255, 255, 0.35), rgba(0, 255, 255, 0.08));
+      border: 1px solid rgba(0, 255, 255, 0.4);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    }
+
+    .usage-track {
+      height: 6px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .usage-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #0891b2, #00FFFF);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+      transition: width .35s ease;
+    }
+
+    .tool-tabs {
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+    }
+
+    .tool-tab {
+      position: relative;
+      color: #64748b;
+      transition: .2s ease;
+    }
+
+    .tool-tab:hover {
+      color: #cffafe;
+    }
+
+    .tool-tab.active {
+      color: #00FFFF;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+    }
+
+    .tool-tab.active::after {
+      content: "";
+      position: absolute;
+      left: 20%;
+      right: 20%;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 10px;
+      background: #00FFFF;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.9);
+    }
+
+    .tool-content {
+      animation: fade .22s ease both;
+    }
+
+    .result-box {
+      background: rgba(0, 5, 12, 0.75);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.08);
+    }
+
+    .admin-shell {
+      animation: appear .35s ease both;
+    }
+
+    .admin-stat {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(0, 255, 255, 0.12);
+      border-radius: 12px;
+    }
+
+    .admin-table {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 255, 255, 0.4) transparent;
+    }
+
+    .admin-table::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    .admin-table::-webkit-scrollbar-thumb {
+      background: rgba(0, 255, 255, 0.4);
+      border-radius: 99px;
+    }
+
+    .toast {
+      transform: translate(-50%, 14px);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      background: rgba(2, 12, 24, 0.94);
+      border: 1px solid rgba(0, 255, 255, 0.35);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 22px rgba(0, 255, 255, 0.3);
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(7px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen px-3 py-3 sm:px-5 sm:py-5">
+
+  <div class="ambient one"></div>
+  <div class="ambient two"></div>
+
+  <div class="w-full max-w-2xl mx-auto flex min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-40px)] flex-col">
+
+    <!-- KEPALA HALAMAN -->
+    <header class="topbar glass rounded-[16px] px-4 py-3.5 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="brand-mark w-9 h-9 rounded-[11px] flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-wand-magic-sparkles text-[#00FFFF] text-sm drop-shadow-[0_0_10px_rgba(0,255,255,0.9)]"></i>
+        </div>
+        <div class="min-w-0">
+          <div class="font-display font-bold text-[13px] text-white tracking-tight truncate drop-shadow-[0_0_10px_rgba(0,255,255,0.4)]">AM Pro Toolkit</div>
+          <div class="text-[9px] text-[#00FFFF] mt-0.5 tracking-wide">Thanz Dev</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/[.03] border border-white/[.06] text-[9px] text-[#a5f3fc]">
+          <span class="status-dot w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Lokal Mode
+        </div>
+        <div class="text-[9px] px-2.5 py-1.5 rounded-full bg-[#00FFFF]/[.12] border border-[#00FFFF]/[.3] text-[#00FFFF] shadow-[0_0_12px_rgba(0,255,255,0.25)] font-bold">
+          v2.4
+        </div>
+      </div>
+    </header>
+
+    <!-- KONTEN UTAMA -->
+    <main class="flex-1 flex flex-col justify-center py-5">
+
+      <!-- BAGIAN AUTENTIKASI -->
+      <section id="authContainer" class="auth-shell w-full max-w-md mx-auto">
+        <div class="text-center mb-5">
+          <div class="section-label mb-2">WELCOME ALL,SELAMAT MEMAKAI FITURNYA</div>
+          <h1 class="font-marker font-normal text-[26px] sm:text-[30px] text-white tracking-wide drop-shadow-[0_0_18px_rgba(0,255,255,0.4)] py-1">Aktivasi</h1>
+          <p class="text-[11px] text-[#64748b] mt-1.5 leading-relaxed">
+            ©THANZ DEV SINCE 2026
+          </p>
+        </div>
+
+        <div class="auth-tabs rounded-[13px] grid grid-cols-2 gap-1 mb-3">
+          <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="auth-tab active py-2.5 rounded-[9px] text-[11px]">
+            Login
+          </button>
+          <button id="tabRegBtn" onclick="switchAuthTab('register')" class="auth-tab py-2.5 rounded-[9px] text-[11px]">
+            Register
+          </button>
+        </div>
+
+        <!-- FORM MASUK -->
+        <div id="loginFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <div class="section-label mb-1.5">Account</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Masuk ke akun</h2>
+            </div>
+            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-[#00FFFF] shadow-[0_0_10px_rgba(0,255,255,0.25)]">
+              <i class="fa-solid fa-arrow-right-to-bracket text-[11px]"></i>
+            </div>
+          </div>
+
+          <div class="space-y-3.5">
+            <div>
+              <label class="block text-[10px] font-medium text-[#cffafe] mb-1.5">Username</label>
+              <input id="loginUsername" type="text" autocomplete="username" placeholder="Masukkan username" class="px-3.5 py-3 text-[11px]" />
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-medium text-[#cffafe] mb-1.5">Access Key (THANZ-XXXX)</label>
+              <div class="relative">
+                <input id="loginToken" type="password" autocomplete="current-password" placeholder="THANZ-XXXX" class="px-3.5 py-3 pr-10 text-[11px]" />
+                <button type="button" onclick="togglePasswordVisibility('loginToken','eyeLoginIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748b] hover:text-white">
+                  <i id="eyeLoginIcon" class="fa-solid fa-eye text-[11px]"></i>
+                </button>
+              </div>
+            </div>
+
+            <button onclick="handleLogin()" class="btn btn-primary w-full py-3 text-[11px] mt-1">
+              Login
+            </button>
+          </div>
+        </div>
+
+        <!-- FORM PENDAFTARAN MANDIRI -->
+        <div id="regFormCard" class="auth-card glass rounded-[16px] p-5 sm:p-6 hidden">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <div class="section-label mb-1.5">Self Registration</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Buat Akun Otomatis</h2>
+            </div>
+            <div class="w-8 h-8 rounded-[10px] glass-soft flex items-center justify-center text-[#00FFFF] shadow-[0_0_10px_rgba(0,255,255,0.25)]">
+              <i class="fa-solid fa-user-plus text-[11px]"></i>
+            </div>
+          </div>
+
+          <div class="mb-4 p-3 rounded-[11px] bg-[#00FFFF]/[.05] border border-[#00FFFF]/[.2] flex gap-2.5">
+            <i class="fa-solid fa-circle-info text-[#00FFFF] text-[11px] mt-0.5"></i>
+            <p class="text-[10px] leading-relaxed text-cyan-200/80">
+              Sistem akan menghasilkan Access Key acak <b>THANZ-XXXX</b> dan tersimpan di perangkat ini (1 akun per perangkat).
+            </p>
+          </div>
+
+          <div class="space-y-3.5">
+            <div>
+              <label class="block text-[10px] font-medium text-[#cffafe] mb-1.5">Username Pilihan</label>
+              <input id="regUsername" type="text" autocomplete="username" placeholder="contoh: thanzuser" class="px-3.5 py-3 text-[11px]" />
+            </div>
+
+            <button onclick="handleRegister()" class="btn btn-success w-full py-3 text-[11px] font-bold text-white mt-1">
+              Generate & Login
+            </button>
+          </div>
+        </div>
+
+        <!-- POPUP KUNCI AKSES -->
+        <div id="keyPopupModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+          <div class="glass max-w-[320px] w-full rounded-[20px] p-5 relative shadow-2xl text-center space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl mx-auto shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+              <i class="fa-solid fa-key"></i>
+            </div>
+            <h3 class="font-display font-semibold text-sm text-white">Pendaftaran Berhasil!</h3>
+            <p class="text-[10px] text-zinc-300 leading-relaxed">
+              Simpan Access Key acak Anda di bawah ini:
+            </p>
+            <div class="p-3 rounded-xl bg-black/60 border border-[#00FFFF]/40 font-mono text-xs text-[#00FFFF] tracking-wider font-bold select-all" id="generatedKeyDisplay">
+              THANZ-XXXX
+            </div>
+            <button onclick="closeKeyPopup()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#00FFFF] to-[#0891b2] text-black font-bold text-xs shadow hover:opacity-95 transition">
+              Salin & Masuk Aplikasi
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASBOR PENGGUNA -->
+      <section id="appContainer" class="dashboard w-full max-w-md mx-auto hidden">
+
+        <div class="account-card glass rounded-[16px] p-4 sm:p-5 mb-3">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="userAvatar" class="avatar w-10 h-10 rounded-[12px] flex items-center justify-center text-[#00FFFF] font-display font-bold text-xs shrink-0">U</div>
+              <div class="min-w-0">
+                <div id="displayUsername" class="font-display font-bold text-[13px] text-white truncate">-</div>
+                <div class="flex items-center gap-1.5 mt-1 text-[9px] text-emerald-400">
+                  <span class="status-dot w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Online
+                </div>
+              </div>
+            </div>
+
+            <button onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px] shrink-0">
+              <i class="fa-solid fa-right-from-bracket mr-1"></i>
+              Keluar
+            </button>
+          </div>
+
+          <div class="mt-5 pt-4 border-t border-white/[.06]">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <div class="section-label">Daily usage</div>
+                <div class="mt-1 font-display font-bold text-[13px] text-white">
+                  <span id="statUsed">0</span>
+                  <span class="text-[#64748b] font-normal"> / </span>
+                  <span id="statLimit">5</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="section-label">Reset</div>
+                <div id="statReset" class="text-[10px] text-[#00FFFF] mt-1">--:--</div>
+              </div>
+            </div>
+
+            <div class="usage-track">
+              <div id="usageBar" class="usage-bar"></div>
+            </div>
+
+            <div class="flex justify-between mt-2.5">
+              <span class="text-[9px] text-[#64748b]">Penggunaan hari ini</span>
+              <span class="text-[9px] text-emerald-400"><span id="statRemaining">5</span> tersisa</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass rounded-[16px] overflow-hidden">
+          <div class="tool-tabs grid grid-cols-3">
+            <button id="tabSend" onclick="switchTab('send')" class="tool-tab active py-3.5 text-[10px] font-semibold">Aktivasi</button>
+            <button id="tabBulk" onclick="switchTab('bulk')" class="tool-tab py-3.5 text-[10px] font-semibold">Bulk</button>
+            <button id="tabInbox" onclick="switchTab('inbox')" class="tool-tab py-3.5 text-[10px] font-semibold">Inbox</button>
+          </div>
+
+          <!-- TAB AKTIVASI -->
+          <div id="contentSend" class="tool-content p-4 sm:p-5">
+            <div class="mb-5">
+              <div class="section-label mb-1.5">Magic link</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Aktivasi Alight Motion</h2>
+              <p id="flowInstruction" class="text-[10px] text-[#64748b] mt-1.5 leading-relaxed">
+                Kirim magic link ke email aktif terlebih dahulu.
+              </p>
+            </div>
+
+            <div id="stepEmailBox" class="space-y-2.5">
+              <input id="inputEmail" type="email" placeholder="email@domain.com" class="px-3.5 py-3 text-[11px]" />
+              <button onclick="handleSendMagicLink()" class="btn btn-primary w-full py-3 text-[11px]">
+                <i class="fa-solid fa-paper-plane mr-1.5"></i>
+                Kirim Magic Link
+              </button>
+            </div>
+
+            <div id="stepVerifyBox" class="hidden space-y-2.5">
+              <input id="inputLink" type="text" placeholder="Tempel link verifikasi https://..." class="px-3.5 py-3 text-[11px]" />
+              <div class="grid grid-cols-[1fr_auto] gap-2">
+                <button onclick="handleVerifyMagicLink()" class="btn btn-success py-3 text-[10px] font-bold text-white">
+                  Verifikasi Link
+                </button>
+                <button onclick="resetInjectFlow()" class="btn btn-ghost w-11 text-[#cffafe]">
+                  <i class="fa-solid fa-rotate-left text-[10px]"></i>
+                </button>
+              </div>
+            </div>
+
+            <div id="sendResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px]"></div>
+          </div>
+
+          <!-- TAB BULK -->
+          <div id="contentBulk" class="tool-content p-4 sm:p-5 hidden">
+            <div class="mb-5">
+              <div class="section-label mb-1.5">Batch tool</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Bulk Generator</h2>
+              <p class="text-[10px] text-[#64748b] mt-1.5">Buat beberapa akun premium sekaligus.</p>
+            </div>
+
+            <div class="space-y-2.5">
+              <div>
+                <label class="block text-[10px] text-[#cffafe] mb-1.5">Jumlah</label>
+                <input id="inputBulkAmount" type="number" min="1" max="100" value="5" class="px-3.5 py-3 text-[11px]" />
+              </div>
+              <button onclick="runBulkInject()" class="btn btn-primary w-full py-3 text-[11px]">
+                Generate Bulk
+              </button>
+            </div>
+
+            <div id="bulkResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px] max-h-44 overflow-y-auto"></div>
+          </div>
+
+          <!-- TAB INBOX -->
+          <div id="contentInbox" class="tool-content p-4 sm:p-5 hidden">
+            <div class="mb-5">
+              <div class="section-label mb-1.5">Mailbox</div>
+              <h2 class="font-display font-bold text-[14px] text-white">Pindai Inbox</h2>
+              <p class="text-[10px] text-[#64748b] mt-1.5">Cek pesan masuk untuk mendapatkan link verifikasi.</p>
+            </div>
+
+            <div class="space-y-2.5">
+              <input id="inputInboxEmail" type="email" placeholder="email@tempmail.com" class="px-3.5 py-3 text-[11px]" />
+              <button onclick="runInboxCheck()" class="btn btn-primary w-full py-3 text-[11px]">
+                <i class="fa-solid fa-inbox mr-1.5"></i>
+                Pindai Pesan
+              </button>
+            </div>
+
+            <div id="inboxNotice" class="hidden mt-3"></div>
+            <div id="inboxResult" class="space-y-2 mt-3 max-h-48 overflow-y-auto"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASBOR ADMIN -->
+      <section id="adminContainer" class="admin-shell w-full hidden">
+        <div class="glass rounded-[16px] p-4 sm:p-5">
+
+          <div class="flex items-center justify-between pb-4 border-b border-white/[.06]">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-[11px] bg-[#00FFFF]/[.12] border border-[#00FFFF]/[.3] flex items-center justify-center text-[#00FFFF] shadow-[0_0_12px_rgba(0,255,255,0.3)]">
+                <i class="fa-solid fa-shield-halved text-[12px]"></i>
+              </div>
+              <div>
+                <div class="section-label mb-1">Administration</div>
+                <h2 class="font-display font-bold text-[14px] text-white">Admin Console (Lokal)</h2>
+              </div>
+            </div>
+            <button onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px]">
+              <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
+            </button>
+          </div>
+
+          <!-- STATS -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+            <div class="admin-stat p-3">
+              <div class="section-label">Users</div>
+              <div id="admTotalUsers" class="font-display font-bold text-[16px] text-white mt-1">0</div>
+            </div>
+            <div class="admin-stat p-3">
+              <div class="section-label">Active</div>
+              <div id="admActiveUsers" class="font-display font-bold text-[16px] text-emerald-400 mt-1">0</div>
+            </div>
+            <div class="admin-stat p-3">
+              <div class="section-label">Disabled</div>
+              <div id="admDisabledUsers" class="font-display font-bold text-[16px] text-red-400 mt-1">0</div>
+            </div>
+            <div class="admin-stat p-3">
+              <div class="section-label">Injects</div>
+              <div id="admTotalInjects" class="font-display font-bold text-[16px] text-[#00FFFF] mt-1">0</div>
+            </div>
+          </div>
+
+          <!-- AKSI ADMIN -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-4">
+
+            <div class="glass-soft rounded-[12px] p-3.5">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-rotate-right text-[#00FFFF] text-[10px]"></i>
+                <h3 class="text-[10px] font-bold text-white">Reset Limit User</h3>
+              </div>
+              <input id="admResetLimitUsername" type="text" placeholder="Username target" class="px-3 py-2.5 text-[10px] mb-2" />
+              <button onclick="admResetLimitByUsername()" class="btn btn-primary w-full py-2.5 text-[10px]">Reset Limit</button>
+            </div>
+
+            <div class="glass-soft rounded-[12px] p-3.5">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-key text-[#00FFFF] text-[10px]"></i>
+                <h3 class="text-[10px] font-bold text-white">Ubah Access Key</h3>
+              </div>
+              <input id="admResetUsername" type="text" placeholder="Username target" class="px-3 py-2.5 text-[10px] mb-2" />
+              <div class="relative mb-2">
+                <input id="admNewTokenVal" type="text" placeholder="Key baru (THANZ-XXXX)" class="px-3 py-2.5 text-[10px]" />
+              </div>
+              <button onclick="admResetPasswordByUsername()" class="btn btn-primary w-full py-2.5 text-[10px]">Ubah Key</button>
+            </div>
+
+            <div class="glass-soft rounded-[12px] p-3.5">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-user-plus text-emerald-400 text-[10px]"></i>
+                <h3 class="text-[10px] font-bold text-white">Buat User Baru</h3>
+              </div>
+              <input id="admNewUser" type="text" placeholder="Username" class="px-3 py-2.5 text-[10px] mb-2" />
+              <div class="grid grid-cols-2 gap-2 mb-2">
+                <input id="admNewToken" type="text" placeholder="Token/Key (Opsional)" class="px-3 py-2.5 text-[10px]" />
+                <input id="admNewLimit" type="number" min="1" value="5" placeholder="Limit" class="px-3 py-2.5 text-[10px]" />
+              </div>
+              <button onclick="admCreateUser()" class="btn btn-success w-full py-2.5 text-[10px] font-bold text-white">Simpan User</button>
+            </div>
+
+            <div class="glass-soft rounded-[12px] p-3.5">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-toolbox text-[#00FFFF] text-[10px]"></i>
+                <h3 class="text-[10px] font-bold text-white">Eksekusi Tool</h3>
+              </div>
+              <select id="admToolSelect" onchange="admSwitchToolView()" class="px-3 py-2.5 text-[10px] mb-2">
+                <option value="inject">AM Inject</option>
+                <option value="verify">AM Verify Link</option>
+                <option value="bulk">AM Bulk Generator</option>
+                <option value="inbox">Temp Mail Inbox</option>
+              </select>
+              <input id="admToolInput" type="text" placeholder="Email target..." class="px-3 py-2.5 text-[10px] mb-2" />
+              <div id="admVerifyLinkBox" class="hidden mb-2">
+                <input id="admToolLink" type="text" placeholder="Link verifikasi https://..." class="px-3 py-2.5 text-[10px]" />
+              </div>
+              <button onclick="admRunTool()" class="btn btn-primary w-full py-2.5 text-[10px]">Jalankan</button>
+            </div>
+          </div>
+
+          <div id="admToolResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px] max-h-36 overflow-y-auto"></div>
+
+          <!-- TABEL MEMBER -->
+          <div class="mt-5">
+            <div class="flex items-end justify-between mb-2.5">
+              <div>
+                <div class="section-label mb-1">Management</div>
+                <h3 class="font-display font-bold text-[13px] text-white">Daftar Member Lokal</h3>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="admDeleteSelectedUsers()" class="btn bg-red-500/[.12] text-red-300 border border-red-400/[.25] px-2.5 py-1.5 text-[9px] font-semibold flex items-center gap-1.5">
+                  <i class="fa-solid fa-trash-can"></i> Hapus Ditandai
+                </button>
+                <button onclick="loadAdminPanel()" class="btn btn-ghost w-8 h-8 flex items-center justify-center">
+                  <i class="fa-solid fa-rotate text-[9px]"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-table overflow-auto max-h-72 rounded-[12px] border border-white/[.06] bg-black/[.2]">
+              <table class="w-full min-w-[610px] text-left text-[10px]">
+                <thead class="sticky top-0 bg-[#00060e]/95 backdrop-blur-xl text-[#cffafe]">
+                  <tr>
+                    <th class="px-3 py-2.5 w-8">
+                      <input type="checkbox" id="selectAllCheckbox" onchange="admToggleSelectAll(this)" class="w-3.5 h-3.5 accent-cyan-400 cursor-pointer" />
+                    </th>
+                    <th class="px-3 py-2.5 font-semibold">User</th>
+                    <th class="px-3 py-2.5 font-semibold">Access Key</th>
+                    <th class="px-3 py-2.5 font-semibold">Usage</th>
+                    <th class="px-3 py-2.5 font-semibold">Status</th>
+                    <th class="px-3 py-2.5 font-semibold text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admUserTableBody" class="divide-y divide-white/[.04]"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- KAKI HALAMAN -->
+    <footer class="text-center pb-2 pt-1">
+      <div class="text-[9px] text-[#64748b]">
+        AM Pro Toolkit <span class="mx-1 text-[#00FFFF]/55">•</span> Since 2026 <span class="mx-1 text-[#00FFFF]/55">•</span> ThanzDev
+      </div>
+    </footer>
+  </div>
+
+  <!-- TOAST NOTIFIKASI -->
+  <div id="toast" class="toast fixed z-50 bottom-5 left-1/2 glass rounded-[12px] px-4 py-3 text-[10px] text-white shadow-2xl max-w-[calc(100vw-32px)]"></div>
+
+<script>
+  let currentUser = null;
+  let isAdmin = false;
+  let activeInjectEmail = "";
+  let countdownInterval = null;
+
+  let deviceId = localStorage.getItem("am_device_id");
+  if (!deviceId) {
+    deviceId = "dev_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
+    localStorage.setItem("am_device_id", deviceId);
+  }
+
+  function getLocalDB() {
+    try {
+      const data = localStorage.getItem("am_local_users_db");
+      return data ? JSON.parse(data) : [];
+    } catch { return []; }
+  }
+
+  function saveLocalDB(users) {
+    try {
+      localStorage.setItem("am_local_users_db", JSON.stringify(users));
+    } catch {}
+  }
+
+  function getLocalLogs() {
+    try {
+      const data = localStorage.getItem("am_local_logs_db");
+      return data ? JSON.parse(data) : [];
+    } catch { return []; }
+  }
+
+  function saveLocalLogs(logs) {
+    try {
+      localStorage.setItem("am_local_logs_db", JSON.stringify(logs));
+    } catch {}
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    checkExistingSession();
+  });
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+
+  function togglePasswordVisibility(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (!input || !icon) return;
+
+    const isPassword = input.type === "password";
+    input.type = isPassword ? "text" : "password";
+    icon.classList.toggle("fa-eye", !isPassword);
+    icon.classList.toggle("fa-eye-slash", isPassword);
+  }
+
+  function switchAuthTab(tab) {
+    const loginCard = document.getElementById("loginFormCard");
+    const regCard = document.getElementById("regFormCard");
+    const loginBtn = document.getElementById("tabLoginBtn");
+    const regBtn = document.getElementById("tabRegBtn");
+
+    loginCard.classList.toggle("hidden", tab !== "login");
+    regCard.classList.toggle("hidden", tab !== "register");
+    loginBtn.classList.toggle("active", tab === "login");
+    regBtn.classList.toggle("active", tab === "register");
+  }
+
+  function generateRandomKey() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let randStr = "";
+    for (let i = 0; i < 4; i++) {
+      randStr += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return `THANZ-${randStr}`;
+  }
+
+  function handleRegister() {
+    const username = document.getElementById("regUsername").value.trim();
+    if (!username) return showToast("Username wajib diisi.");
+    if (username.length < 3) return showToast("Username minimal 3 karakter.");
+
+    const users = getLocalDB();
+
+    const existingDev = users.find(u => u.device_id === deviceId);
+    if (existingDev) {
+      return showToast("Perangkat ini sudah pernah melakukan pendaftaran akun sebelumnya!");
+    }
+
+    const existingUsr = users.find(u => u.username.toLowerCase() === username.toLowerCase());
+    if (existingUsr) {
+      return showToast("Username sudah digunakan, pilih nama lain.");
+    }
+
+    let uniqueKey = "";
+    let isUnique = false;
+    while (!isUnique) {
+      uniqueKey = generateRandomKey();
+      const check = users.find(u => u.token === uniqueKey);
+      if (!check) isUnique = true;
+    }
+
+    const newUser = {
+      id: "usr_" + Math.random().toString(36).substring(2, 9),
+      username,
+      token: uniqueKey,
+      daily_limit: 5,
+      used_count: 0,
+      reset_at: new Date(Date.now() + 86400000).toISOString(),
+      device_id: deviceId,
+      status: "Active"
+    };
+
+    users.push(newUser);
+    saveLocalDB(users);
+
+    document.getElementById("generatedKeyDisplay").textContent = uniqueKey;
+    document.getElementById("keyPopupModal").classList.remove("hidden");
+
+    document.getElementById("loginUsername").value = username;
+    document.getElementById("loginToken").value = uniqueKey;
+    switchAuthTab("login");
+  }
+
+  function closeKeyPopup() {
+    const keyText = document.getElementById("generatedKeyDisplay").textContent;
+    try {
+      navigator.clipboard.writeText(keyText);
+      showToast("Access Key disalin ke clipboard!");
+    } catch {}
+    document.getElementById("keyPopupModal").classList.add("hidden");
+  }
+
+  function handleLogin() {
+    const username = document.getElementById("loginUsername").value.trim();
+    const token = document.getElementById("loginToken").value.trim();
+
+    if (!username || !token) return showToast("Masukkan username dan access key.");
+
+    if (username === "thanz" && token === "thanzadmin") {
+      isAdmin = true;
+      localStorage.setItem("am_is_admin", "true");
+      showToast("Berhasil masuk sebagai Admin.");
+      enterAdminDashboard();
+      return;
+    }
+
+    const users = getLocalDB();
+    const user = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.token === token);
+
+    if (!user) return showToast("Username atau Access Key salah.");
+    if (user.status !== "Active") return showToast("Akun Anda dinonaktifkan oleh Administrator.");
+
+    user.last_login_at = new Date().toISOString();
+    saveLocalDB(users);
+
+    isAdmin = false;
+    currentUser = user;
+    localStorage.setItem("am_current_user", JSON.stringify(user));
+
+    showToast("Berhasil masuk.");
+    enterUserDashboard();
+  }
+
+  function checkExistingSession() {
+    const savedAdmin = localStorage.getItem("am_is_admin");
+    if (savedAdmin === "true") {
+      isAdmin = true;
+      enterAdminDashboard();
+      return;
+    }
+
+    const saved = localStorage.getItem("am_current_user");
+    if (!saved) return;
+
+    try {
+      const localUser = JSON.parse(saved);
+      const users = getLocalDB();
+      const freshUser = users.find(u => u.id === localUser.id);
+
+      if (freshUser) {
+        if (freshUser.status !== "Active") {
+          showToast("Akun Anda dinonaktifkan.");
+          handleLogout();
+          return;
+        }
+        currentUser = freshUser;
+        localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+        enterUserDashboard();
+      } else {
+        localStorage.removeItem("am_current_user");
+      }
+    } catch {
+      localStorage.removeItem("am_current_user");
+    }
+  }
+
+  function refreshUserData() {
+    if (!currentUser) return false;
+    const users = getLocalDB();
+    const fresh = users.find(u => u.id === currentUser.id);
+    if (!fresh || fresh.status !== "Active") {
+      handleLogout();
+      return false;
+    }
+    currentUser = fresh;
+    localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+    return true;
+  }
+
+  function handleLogout() {
+    currentUser = null;
+    isAdmin = false;
+
+    localStorage.removeItem("am_current_user");
+    localStorage.removeItem("am_is_admin");
+
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+    }
+
+    document.getElementById("authContainer").classList.remove("hidden");
+    document.getElementById("appContainer").classList.add("hidden");
+    document.getElementById("adminContainer").classList.add("hidden");
+
+    showToast("Berhasil keluar.");
+  }
+
+  function enterUserDashboard() {
+    document.getElementById("authContainer").classList.add("hidden");
+    document.getElementById("adminContainer").classList.add("hidden");
+    document.getElementById("appContainer").classList.remove("hidden");
+
+    document.getElementById("displayUsername").textContent = currentUser.username;
+    document.getElementById("userAvatar").textContent = currentUser.username.charAt(0).toUpperCase();
+
+    updateLimitDisplay();
+
+    if (countdownInterval) clearInterval(countdownInterval);
+    countdownInterval = setInterval(updateLimitDisplay, 1000);
+  }
+
+  function enterAdminDashboard() {
+    document.getElementById("authContainer").classList.add("hidden");
+    document.getElementById("appContainer").classList.add("hidden");
+    document.getElementById("adminContainer").classList.remove("hidden");
+    loadAdminPanel();
+  }
+
+  function updateLimitDisplay() {
+    if (!currentUser) return;
+
+    const now = Date.now();
+    let resetTime = new Date(currentUser.reset_at).getTime();
+
+    if (now >= resetTime) {
+      const newReset = new Date(now + 86400000).toISOString();
+      const users = getLocalDB();
+      const idx = users.findIndex(u => u.id === currentUser.id);
+      if (idx !== -1) {
+        users[idx].used_count = 0;
+        users[idx].reset_at = newReset;
+        saveLocalDB(users);
+        currentUser = users[idx];
+        localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+      }
+      resetTime = now;
+    }
+
+    const limit = Number(currentUser.daily_limit) || 0;
+    const used = Number(currentUser.used_count) || 0;
+    const remaining = Math.max(0, limit - used);
+    const percentage = limit > 0 ? Math.min(100, (used / limit) * 100) : 0;
+
+    document.getElementById("statLimit").textContent = limit;
+    document.getElementById("statUsed").textContent = used;
+    document.getElementById("statRemaining").textContent = remaining;
+    document.getElementById("usageBar").style.width = percentage + "%";
+
+    const diff = resetTime - now;
+
+    if (diff > 0) {
+      const hours = Math.floor(diff / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+
+      document.getElementById("statReset").textContent = `${hours}j ${minutes}m ${seconds}d`;
+    } else {
+      document.getElementById("statReset").textContent = "Memuat...";
+    }
+  }
+
+  function switchTab(tab) {
+    const contents = {
+      send: document.getElementById("contentSend"),
+      bulk: document.getElementById("contentBulk"),
+      inbox: document.getElementById("contentInbox")
+    };
+
+    const tabs = {
+      send: document.getElementById("tabSend"),
+      bulk: document.getElementById("tabBulk"),
+      inbox: document.getElementById("tabInbox")
+    };
+
+    Object.values(contents).forEach(el => el.classList.add("hidden"));
+    Object.values(tabs).forEach(el => el.classList.remove("active"));
+
+    contents[tab].classList.remove("hidden");
+    tabs[tab].classList.add("active");
+  }
+
+  async function handleSendMagicLink() {
+    const email = document.getElementById("inputEmail").value.trim();
+
+    if (!email || !email.includes("@")) {
+      return showToast("Masukkan email yang valid.");
+    }
+
+    showToast("Mengirim magic link...");
+
+    try {
+      const res = await fetch("https://restapidhan.vercel.app/api/am?action=send&apikey=freeapikeydhan26&email=" + encodeURIComponent(email));
+      const json = await res.json();
+
+      if (!json.status) {
+        throw new Error(json.error || json.message || "Gagal mengirim magic link.");
+      }
+
+      activeInjectEmail = email;
+
+      document.getElementById("stepEmailBox").classList.add("hidden");
+      document.getElementById("stepVerifyBox").classList.remove("hidden");
+      document.getElementById("flowInstruction").textContent = `Magic link terkirim ke ${email}. Masukkan link verifikasi.`;
+
+      showToast("Magic link berhasil dikirim.");
+    } catch (err) {
+      showToast(err.message || "Koneksi gagal.");
+    }
+  }
+
+  async function handleVerifyMagicLink() {
+    const link = document.getElementById("inputLink").value.trim();
+    if (!link) return showToast("Masukkan link verifikasi.");
+
+    if (!refreshUserData()) return showToast("Sesi berakhir.");
+
+    const remaining = currentUser.daily_limit - currentUser.used_count;
+    if (remaining <= 0) return showToast("Limit harian Anda sudah habis.");
+
+    showToast("Memverifikasi...");
+
+    let success = false;
+    let resultMessage = "";
+
+    try {
+      const res = await fetch(`https://restapidhan.vercel.app/api/am?action=verif&apikey=freeapikeydhan26&email=${encodeURIComponent(activeInjectEmail)}&url=${encodeURIComponent(link)}`);
+      const json = await res.json();
+
+      success = json.status === true;
+      resultMessage = json.message || json.error || "Verifikasi berhasil.";
+
+      const result = document.getElementById("sendResult");
+      result.innerHTML = `
+        <div class="${success ? "text-emerald-400" : "text-red-400"} font-bold">
+          ${success ? "Berhasil" : "Gagal"}
+        </div>
+        <div class="text-[10px] text-[#cffafe] mt-1 leading-relaxed">
+          ${escapeHtml(resultMessage)}
+        </div>
+      `;
+      result.classList.remove("hidden");
+    } catch {
+      success = false;
+      showToast("Kesalahan jaringan.");
+    }
+
+    const logs = getLocalLogs();
+    logs.push({
+      user_id: currentUser.id,
+      username: currentUser.username,
+      status: success ? "SUCCESS" : "FAILED",
+      created_at: new Date().toISOString()
+    });
+    saveLocalLogs(logs);
+
+    if (success) {
+      const users = getLocalDB();
+      const idx = users.findIndex(u => u.id === currentUser.id);
+      if (idx !== -1) {
+        users[idx].used_count += 1;
+        saveLocalDB(users);
+        currentUser = users[idx];
+        localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+      }
+
+      updateLimitDisplay();
+      showToast("Verifikasi berhasil. Kredit terpakai +1.");
+      setTimeout(resetInjectFlow, 900);
+    } else {
+      showToast("Verifikasi gagal.");
+    }
+  }
+
+  function resetInjectFlow() {
+    activeInjectEmail = "";
+    document.getElementById("inputEmail").value = "";
+    document.getElementById("inputLink").value = "";
+    document.getElementById("stepVerifyBox").classList.add("hidden");
+    document.getElementById("stepEmailBox").classList.remove("hidden");
+    document.getElementById("flowInstruction").textContent = "Kirim magic link ke email aktif terlebih dahulu.";
+    document.getElementById("sendResult").classList.add("hidden");
+  }
+
+  async function runBulkInject() {
+    if (!refreshUserData()) return showToast("Sesi berakhir.");
+
+    const remaining = currentUser.daily_limit - currentUser.used_count;
+    if (remaining <= 0) return showToast("Limit harian habis.");
+
+    const amount = Number(document.getElementById("inputBulkAmount").value);
+    if (!amount || amount < 1 || amount > 100) return showToast("Jumlah harus 1 - 100.");
+
+    showToast("Memproses bulk...");
+
+    const result = document.getElementById("bulkResult");
+    result.innerHTML = `<div class="text-[#00FFFF]">Memproses ${amount} akun...</div>`;
+    result.classList.remove("hidden");
+
+    setTimeout(() => {
+      const users = getLocalDB();
+      const idx = users.findIndex(u => u.id === currentUser.id);
+      if (idx !== -1) {
+        users[idx].used_count += 1;
+        saveLocalDB(users);
+        currentUser = users[idx];
+        localStorage.setItem("am_current_user", JSON.stringify(currentUser));
+      }
+      updateLimitDisplay();
+      result.innerHTML = `<div class="text-emerald-400 font-bold">Bulk Berhasil Diproses (${amount} Akun)!</div>`;
+      showToast("Bulk berhasil dijalankan.");
+    }, 1200);
+  }
+
+  async function runInboxCheck() {
+    const email = document.getElementById("inputInboxEmail").value.trim();
+    const notice = document.getElementById("inboxNotice");
+    const container = document.getElementById("inboxResult");
+
+    if (!email) return showToast("Masukkan email.");
+
+    notice.className = "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-[#00FFFF]/[.12] border border-[#00FFFF]/[.3] text-[#00FFFF]";
+    notice.textContent = "Memindai pesan...";
+    notice.classList.remove("hidden");
+    container.innerHTML = "";
+
+    try {
+      const res = await fetch(`https://restapidhan.vercel.app/api/inbox?email=${encodeURIComponent(email)}`);
+      const json = await res.json();
+
+      notice.className = "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-emerald-500/[.12] border border-emerald-400/[.25] text-emerald-300";
+      notice.textContent = "Inbox berhasil dipindai.";
+
+      const messages = json.messages || json.data?.messages || [];
+      if (!messages.length) {
+        container.innerHTML = '<div class="text-[10px] text-[#64748b] p-3 text-center">Belum ada pesan.</div>';
+        return;
+      }
+
+      messages.forEach(msg => {
+        const card = document.createElement("div");
+        card.className = "glass-soft p-3 rounded-[11px] border border-white/[.06] space-y-2";
+        card.innerHTML = `<div class="text-[10px] font-bold text-white">${escapeHtml(msg.subject || "Pesan Masuk")}</div>`;
+        container.appendChild(card);
+      });
+    } catch {
+      notice.className = "mt-3 py-2.5 px-3 rounded-[11px] text-[10px] bg-red-500/[.12] border border-red-400/[.25] text-red-300";
+      notice.textContent = "Gagal mengambil inbox.";
+    }
+  }
+
+  function loadAdminPanel() {
+    if (!isAdmin) return;
+
+    const users = getLocalDB();
+    const logs = getLocalLogs();
+
+    document.getElementById("admTotalUsers").textContent = users.length;
+    document.getElementById("admActiveUsers").textContent = users.filter(u => u.status === "Active").length;
+    document.getElementById("admDisabledUsers").textContent = users.filter(u => u.status === "Disabled").length;
+    document.getElementById("admTotalInjects").textContent = logs.filter(l => l.status === "SUCCESS").length;
+
+    const tbody = document.getElementById("admUserTableBody");
+    tbody.innerHTML = "";
+    document.getElementById("selectAllCheckbox").checked = false;
+
+    users.forEach(u => {
+      const tr = document.createElement("tr");
+      tr.className = "hover:bg-[#00FFFF]/[.04] transition";
+
+      tr.innerHTML = `
+        <td class="px-3 py-3 w-8">
+          <input type="checkbox" value="${escapeAttr(u.id)}" class="user-checkbox w-3.5 h-3.5 accent-cyan-400 cursor-pointer" />
+        </td>
+        <td class="px-3 py-3">
+          <div class="font-semibold text-white">${escapeHtml(u.username)}</div>
+        </td>
+        <td class="px-3 py-3">
+          <div class="text-[10px] text-[#00FFFF] font-mono font-bold">${escapeHtml(u.token || "-")}</div>
+        </td>
+        <td class="px-3 py-3">
+          <div class="text-[#cffafe]">${Number(u.used_count) || 0} / ${Number(u.daily_limit) || 0}</div>
+        </td>
+        <td class="px-3 py-3">
+          <span class="px-2 py-1 rounded-full text-[8px] ${
+            u.status === "Active"
+              ? "bg-emerald-500/[.12] text-emerald-300 border border-emerald-400/[.2]"
+              : "bg-red-500/[.12] text-red-300 border border-red-400/[.2]"
+          }">
+            ${escapeHtml(u.status)}
+          </span>
+        </td>
+        <td class="px-3 py-3 text-right whitespace-nowrap">
+          <button onclick="admPromptResetLimit('${escapeAttr(u.username)}')" class="btn btn-ghost px-2 py-1.5 text-[8px] mr-1">Limit</button>
+          <button onclick="admPromptResetPass('${escapeAttr(u.username)}')" class="btn btn-ghost px-2 py-1.5 text-[8px] mr-1">Key</button>
+          <button onclick="admToggleStatus('${escapeAttr(u.id)}','${escapeAttr(u.status)}')" class="btn ${
+            u.status === "Active"
+              ? "bg-amber-500/[.12] text-amber-300 border border-amber-400/[.2]"
+              : "bg-emerald-500/[.12] text-emerald-300 border border-emerald-400/[.2]"
+          } px-2 py-1.5 rounded-[9px] text-[8px] mr-1">
+            ${u.status === "Active" ? "Off" : "On"}
+          </button>
+          <button onclick="admDeleteUser('${escapeAttr(u.id)}')" class="btn bg-red-500/[.1] text-red-300 border border-red-400/[.2] px-2 py-1.5 rounded-[9px] text-[8px]">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function admToggleSelectAll(source) {
+    const checkboxes = document.querySelectorAll(".user-checkbox");
+    checkboxes.forEach(cb => cb.checked = source.checked);
+  }
+
+  function admDeleteSelectedUsers() {
+    const checkboxes = document.querySelectorAll(".user-checkbox:checked");
+    if (checkboxes.length === 0) return showToast("Tidak ada user yang ditandai.");
+    if (!confirm(`Hapus ${checkboxes.length} user yang ditandai?`)) return;
+
+    const ids = Array.from(checkboxes).map(cb => cb.value);
+    let users = getLocalDB();
+    users = users.filter(u => !ids.includes(u.id));
+    saveLocalDB(users);
+    showToast("User terpilih berhasil dihapus.");
+    loadAdminPanel();
+  }
+
+  function admCreateUser() {
+    const username = document.getElementById("admNewUser").value.trim();
+    let token = document.getElementById("admNewToken").value.trim();
+    const daily_limit = Number(document.getElementById("admNewLimit").value) || 5;
+
+    if (!username) return showToast("Username wajib diisi.");
+    if (!token) token = generateRandomKey();
+
+    const users = getLocalDB();
+    const newUser = {
+      id: "usr_" + Math.random().toString(36).substring(2, 9),
+      username,
+      token,
+      daily_limit,
+      used_count: 0,
+      reset_at: new Date(Date.now() + 86400000).toISOString(),
+      status: "Active"
+    };
+
+    users.push(newUser);
+    saveLocalDB(users);
+    showToast("User baru dibuat dengan key: " + token);
+    document.getElementById("admNewUser").value = "";
+    document.getElementById("admNewToken").value = "";
+    loadAdminPanel();
+  }
+
+  function admResetLimitByUsername() {
+    const username = document.getElementById("admResetLimitUsername").value.trim();
+    if (!username) return showToast("Masukkan username target.");
+
+    const users = getLocalDB();
+    const idx = users.findIndex(u => u.username.toLowerCase() === username.toLowerCase());
+    if (idx === -1) return showToast("Username tidak ditemukan.");
+
+    users[idx].used_count = 0;
+    users[idx].reset_at = new Date(Date.now() + 86400000).toISOString();
+    saveLocalDB(users);
+    showToast(`Limit ${username} berhasil direset.`);
+    document.getElementById("admResetLimitUsername").value = "";
+    loadAdminPanel();
+  }
+
+  function admResetPasswordByUsername() {
+    const username = document.getElementById("admResetUsername").value.trim();
+    let token = document.getElementById("admNewTokenVal").value.trim();
+    if (!username) return showToast("Isi username target.");
+    if (!token) token = generateRandomKey();
+
+    const users = getLocalDB();
+    const idx = users.findIndex(u => u.username.toLowerCase() === username.toLowerCase());
+    if (idx === -1) return showToast("Username tidak ditemukan.");
+
+    users[idx].token = token;
+    saveLocalDB(users);
+    showToast("Access Key diubah menjadi: " + token);
+    document.getElementById("admResetUsername").value = "";
+    document.getElementById("admNewTokenVal").value = "";
+    loadAdminPanel();
+  }
+
+  function admPromptResetLimit(username) {
+    document.getElementById("admResetLimitUsername").value = username;
+    showToast(`Target limit: ${username}`);
+  }
+
+  function admPromptResetPass(username) {
+    document.getElementById("admResetUsername").value = username;
+    document.getElementById("admNewTokenVal").value = generateRandomKey();
+    showToast(`Generate key baru untuk: ${username}`);
+  }
+
+  function admSwitchToolView() {
+    const tool = document.getElementById("admToolSelect").value;
+    const input = document.getElementById("admToolInput");
+    const linkBox = document.getElementById("admVerifyLinkBox");
+    linkBox.classList.add("hidden");
+
+    if (tool === "inject") input.placeholder = "Email target AM...";
+    else if (tool === "verify") {
+      input.placeholder = "Email target AM...";
+      linkBox.classList.remove("hidden");
+    } else if (tool === "bulk") input.placeholder = "Jumlah bulk (1 - 100)...";
+    else input.placeholder = "Email temp mail...";
+  }
+
+  async function admRunTool() {
+    const tool = document.getElementById("admToolSelect").value;
+    const value = document.getElementById("admToolInput").value.trim();
+    const result = document.getElementById("admToolResult");
+    result.classList.add("hidden");
+
+    if (!value) return showToast("Masukkan input.");
+    showToast("Menjalankan alat...");
+
+    try {
+      let resData = {};
+      if (tool === "inject") {
+        const res = await fetch("https://restapidhan.vercel.app/api/am?action=send&apikey=freeapikeydhan26&email=" + encodeURIComponent(value));
+        resData = await res.json();
+      } else if (tool === "bulk") {
+        resData = { status: true, message: `Bulk ${value} akun berhasil disimulasikan.` };
+      } else {
+        const res = await fetch(`https://restapidhan.vercel.app/api/inbox?email=${encodeURIComponent(value)}`);
+        resData = await res.json();
+      }
+
+      result.innerHTML = `
+        <div class="font-bold text-white mb-1">Hasil ${escapeHtml(tool)}</div>
+        <pre class="text-[9px] text-[#cffafe] whitespace-pre-wrap">${escapeHtml(JSON.stringify(resData, null, 2))}</pre>
+      `;
+      result.classList.remove("hidden");
+      showToast("Selesai.");
+    } catch (err) {
+      showToast("Gagal: " + err.message);
+    }
+  }
+
+  function admToggleStatus(userId, currentStatus) {
+    const nextStatus = currentStatus === "Active" ? "Disabled" : "Active";
+    let users = getLocalDB();
+    const idx = users.findIndex(u => u.id === userId);
+    if (idx !== -1) {
+      users[idx].status = nextStatus;
+      saveLocalDB(users);
+      showToast("Status berhasil diubah.");
+      loadAdminPanel();
+    }
+  }
+
+  function admDeleteUser(userId) {
+    if (!confirm("Hapus user ini?")) return;
+    let users = getLocalDB();
+    users = users.filter(u => u.id !== userId);
+    saveLocalDB(users);
+    showToast("User dihapus.");
+    loadAdminPanel();
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function escapeAttr(value) {
+    return String(value ?? "")
+      .replaceAll("\\", "\\\\")
+      .replaceAll("'", "\\'");
+  }
+</script>
+</body>
+</html>
+
