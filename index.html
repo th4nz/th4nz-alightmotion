@@ -1,1015 +1,680 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="AM Pro Toolkit — Direct Access Cyan Neon Edition" />
-  <title>AM Pro Toolkit | ThanzDev</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Produk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Neon Blue Theme Variables */
+    --bg: #02060d;
+    --neon-blue: #00f3ff;
+    --neon-blue-dim: rgba(0, 243, 255, 0.15);
+    --neon-glow: 0 0 15px rgba(0, 243, 255, 0.4), 0 0 30px rgba(0, 243, 255, 0.2);
+    --neon-red: #ff3366;
+    --neon-red-glow: 0 0 15px rgba(255, 51, 102, 0.4), 0 0 30px rgba(255, 51, 102, 0.2);
+    
+    /* Extreme Glassmorphism Variables */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-blur: blur(24px);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.25);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    
+    --text: #ffffff;
+    --text-dim: #94a3b8;
+    --green: #4ADE80;
+    --green-glow: 0 0 15px rgba(74, 222, 128, 0.4);
+  }
+  
+  *{box-sizing:border-box; margin:0; padding:0;}
+  
+  body{
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  /* Animated Background Blobs */
+  .bg-blobs {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.6;
+    animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .blob-1 {
+    top: -10%; left: -10%;
+    width: 60vw; height: 60vw;
+    background: rgba(0, 243, 255, 0.25);
+  }
+  .blob-2 {
+    bottom: -20%; right: -10%;
+    width: 70vw; height: 70vw;
+    background: rgba(30, 58, 138, 0.5);
+    animation-delay: -5s;
+  }
+  .blob-3 {
+    top: 30%; left: 50%;
+    width: 50vw; height: 50vw;
+    background: rgba(0, 243, 255, 0.15);
+    animation-delay: -10s;
+  }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  .wrap{
+    position: relative;
+    z-index: 10;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 20px 140px;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--neon-blue);
+    margin-bottom: 14px;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+  }
+  .eyebrow::before{
+    content:"";
+    width:6px; height:6px;
+    background: var(--neon-blue);
+    border-radius:50%;
+    display:inline-block;
+    box-shadow: 0 0 8px var(--neon-blue);
+  }
+
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 6vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+
+  .sub{
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 46ch;
+    margin-bottom: 40px;
+  }
+
+  .section-label{
+    font-size: 13px;
+    color: var(--neon-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    opacity: 0.8;
+  }
+  .section{ margin-bottom: 36px; }
+
+  /* Product card */
+  .product-card{
+    position: relative;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    border-left: 1px solid var(--glass-highlight);
+    box-shadow: var(--glass-shadow);
+    border-radius: 20px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+  }
+  
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 40%);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .product-card:hover{
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 243, 255, 0.15);
+  }
+
+  .product-card.selected{
+    border-color: var(--neon-blue);
+    background: rgba(0, 243, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 243, 255, 0.2), var(--neon-glow);
+  }
+
+  .product-card.selected .product-check{
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .product-check {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: var(--neon-blue);
+    color: #030a14;
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 15px var(--neon-blue);
+  }
+
+  .product-card.featured::after{
+    content:"";
+    position:absolute;
+    top:-50%; right:-15%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, var(--neon-blue-dim), transparent 70%);
+    pointer-events:none;
+    z-index: 1;
+  }
+
+  .product-info{ position:relative; z-index: 2; }
+  
+  .product-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #030a14;
+    background: var(--neon-blue);
+    box-shadow: 0 0 12px rgba(0, 243, 255, 0.5);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    display:inline-block;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .product-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 4px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .product-desc{
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .product-price{
+    font-family:'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
+    white-space: nowrap;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Sticky pay bar */
+  .pay-bar{
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: rgba(2, 6, 13, 0.6);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-top: 1px solid var(--glass-highlight);
+    padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
+    z-index: 50;
+  }
+
+  .pay-bar-info{ min-width: 0; }
+  .pay-bar-label{
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .pay-bar-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--neon-blue);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Tombol Bayar dengan Gradasi & Efek Mengkilap Berulang Cepat */
+  .pay-btn{
+    background: linear-gradient(135deg, #00f3ff 0%, #008cff 100%);
+    color: #030a14;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 24px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(0, 243, 255, 0.4);
+    position: relative;
+    overflow: hidden; 
+    z-index: 1;
+  }
+
+  /* Garis Cahaya Mengkilap (Shine Effect) Terus Berulang */
+  .pay-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right, 
+      rgba(255,255,255,0) 0%, 
+      rgba(255,255,255,0.8) 50%, 
+      rgba(255,255,255,0) 100%
+    );
+    transform: skewX(-25deg);
+    /* Animasi dipercepat menjadi 1.5 detik per siklus */
+    animation: shine 1.5s infinite; 
+    z-index: 2;
+  }
+
+  @keyframes shine {
+    0% { left: -100%; }
+    100% { left: 200%; }
+  }
+
+  .pay-btn:hover:not(:disabled){ 
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 243, 255, 0.6), 0 0 15px rgba(0, 140, 255, 0.4); 
+    background: linear-gradient(135deg, #22f5ff 0%, #009dff 100%); 
+  }
+  
+  .pay-btn:disabled{
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-dim);
+    box-shadow: none;
+    cursor: not-allowed;
+    backdrop-filter: blur(4px);
+  }
+  
+  .pay-btn:disabled::after {
+    display: none;
+    animation: none;
+  }
+
+  /* Pay Panel */
+  .pay-panel{
+    margin-top: 24px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    border-left: 1px solid var(--glass-highlight);
+    box-shadow: var(--glass-shadow), 0 20px 40px rgba(0,0,0,0.5);
+    border-radius: 24px;
+    padding: 32px 26px;
+    text-align: center;
+    display: none;
+    animation: slideUpGlass 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pay-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 100px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+  }
+  
+  @keyframes slideUpGlass {
+    from { opacity: 0; transform: translateY(30px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .pay-panel.open{ display: block; }
+  .pay-title{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 6px;
+    color: var(--neon-blue);
+    text-shadow: 0 0 12px rgba(0, 243, 255, 0.4);
+    position: relative;
+    z-index: 2;
+  }
+  .pay-sub{
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Countdown Timer */
+  .countdown-wrapper {
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+  }
+  .countdown-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .countdown-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--neon-blue);
+    text-shadow: var(--neon-glow);
+    background: rgba(0, 243, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 10px 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-top: 1px solid rgba(0, 243, 255, 0.4);
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+  }
+  .countdown-time.expired {
+    color: var(--neon-red);
+    text-shadow: var(--neon-red-glow);
+    border-color: rgba(255, 51, 102, 0.3);
+    border-top-color: rgba(255, 51, 102, 0.5);
+    background: rgba(255, 51, 102, 0.05);
+  }
+
+  .qr-wrapper {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 25px rgba(0, 243, 255, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .pay-panel img{
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    border-radius: 12px;
+    background: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .qr-wrapper.expired-qr {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 25px rgba(255, 51, 102, 0.1);
+  }
+
+  .wa-btn{
+    margin-top: 30px;
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: rgba(74, 222, 128, 0.9);
+    backdrop-filter: blur(4px);
+    color: #03140a;
+    text-decoration: none;
+    border-radius: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 16px 16px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3), inset 0 1px 1px rgba(255,255,255,0.4);
+    border: 1px solid rgba(74, 222, 128, 0.5);
+  }
+  .wa-btn:hover{ 
+    transform: translateY(-2px);
+    box-shadow: var(--green-glow), inset 0 1px 1px rgba(255,255,255,0.6); 
+    background: #4ADE80;
+  }
+
+  footer{
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+    opacity: 0.6;
+    position: relative;
+    z-index: 10;
+  }
+
+  @media (max-width: 420px){
+    .product-card{ flex-direction: column; align-items: flex-start; }
+    .product-check { top: 12px; right: 12px; }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--neon-blue);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+  <!-- Animated Background Elements -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="eyebrow">Dashboard Produk</div>
+    <h1>Pilih produk yang mau dibeli</h1>
+    <p class="sub">Reseller dan limit dijual terpisah. Ketuk produk untuk memilih, lalu bayar lewat tombol di bawah.</p>
+
+    <div class="section">
+      <div class="section-label">Reseller</div>
+      <div class="product-card featured" data-name="Akun Reseller" data-price="15000" onclick="selectProduct(this)">
+        <div class="product-check">✓</div>
+        <div class="product-info">
+          <div class="product-tag">RESELLER</div>
+          <div class="product-name">Akun Reseller</div>
+          <div class="product-desc">Akses reseller, dibeli terpisah dari limit</div>
+        </div>
+        <div class="product-price">Rp 15.000</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Limit</div>
+
+      <div class="product-card" data-name="Limit 5" data-price="1000" onclick="selectProduct(this)">
+        <div class="product-check">✓</div>
+        <div class="product-info">
+          <div class="product-tag">L5</div>
+          <div class="product-name">Limit 5</div>
+        </div>
+        <div class="product-price">Rp 1.000</div>
+      </div>
+
+      <div class="product-card" data-name="Limit 10" data-price="2000" onclick="selectProduct(this)">
+        <div class="product-check">✓</div>
+        <div class="product-info">
+          <div class="product-tag">L10</div>
+          <div class="product-name">Limit 10</div>
+        </div>
+        <div class="product-price">Rp 2.000</div>
+      </div>
+
+      <div class="product-card" data-name="Limit 15" data-price="3000" onclick="selectProduct(this)">
+        <div class="product-check">✓</div>
+        <div class="product-info">
+          <div class="product-tag">L15</div>
+          <div class="product-name">Limit 15</div>
+        </div>
+        <div class="product-price">Rp 3.000</div>
+      </div>
+    </div>
+
+    <div id="payPanel" class="pay-panel">
+      <div class="pay-title" id="payTitle">Scan untuk bayar</div>
+      <div class="pay-sub" id="paySub">Total: Rp 0</div>
+      
+      <!-- Countdown Timer Component -->
+      <div class="countdown-wrapper">
+        <span class="countdown-label" id="timerLabel">Batas Waktu Pembayaran</span>
+        <span id="countdownTimer" class="countdown-time">02:00</span>
+      </div>
+
+      <!-- QR Code with Glass Wrapper -->
+      <div id="qrWrapper" class="qr-wrapper">
+        <img src="https://cdn.phototourl.com/free/2026-08-21-77beb68f-08c7-461e-98c4-f3af2bb775b0.jpg" alt="QR pembayaran">
+      </div>
+      
+      <a class="wa-btn" href="https://wa.me/6287792643974" target="_blank" rel="noopener">Konfirmasi Pembayaran via WhatsApp</a>
+    </div>
+
+    <footer>Harga dapat berubah sewaktu-waktu.</footer>
+  </div>
+
+  <div class="pay-bar">
+    <div class="pay-bar-info">
+      <div class="pay-bar-label" id="barLabel">Belum ada produk dipilih</div>
+      <div class="pay-bar-name" id="barName">&nbsp;</div>
+    </div>
+    <button class="pay-btn" id="payBtn" disabled onclick="showQr()">Bayar</button>
+  </div>
 
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-            marker: ['Permanent Marker', 'cursive', 'sans-serif']
-          }
+    let selected = null;
+    let countdownInterval = null;
+
+    function selectProduct(el){
+      document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selected = { name: el.dataset.name, price: parseInt(el.dataset.price, 10) };
+
+      document.getElementById('barLabel').textContent = 'Produk dipilih';
+      document.getElementById('barName').textContent = selected.name;
+      const btn = document.getElementById('payBtn');
+      btn.disabled = false;
+      btn.textContent = 'Bayar Rp ' + selected.price.toLocaleString('id-ID');
+
+      document.getElementById('payPanel').classList.remove('open');
+      
+      if(countdownInterval) clearInterval(countdownInterval);
+    }
+
+    function startTimer(durationInSeconds) {
+      if(countdownInterval) clearInterval(countdownInterval);
+      
+      let timer = durationInSeconds;
+      const display = document.getElementById('countdownTimer');
+      const label = document.getElementById('timerLabel');
+      const qrWrapper = document.getElementById('qrWrapper');
+      
+      display.classList.remove('expired');
+      qrWrapper.classList.remove('expired-qr');
+      label.textContent = "Batas Waktu Pembayaran";
+      
+      countdownInterval = setInterval(function () {
+        let minutes = parseInt(timer / 60, 10);
+        let seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+          clearInterval(countdownInterval);
+          display.textContent = "00:00";
+          display.classList.add('expired');
+          label.textContent = "Waktu Habis!";
+          qrWrapper.classList.add('expired-qr'); 
         }
-      }
-    };
+      }, 1000);
+    }
+
+    function showQr(){
+      if(!selected) return;
+      document.getElementById('payTitle').textContent = 'Bayar: ' + selected.name;
+      document.getElementById('paySub').textContent = 'Total: Rp ' + selected.price.toLocaleString('id-ID');
+      
+      const panel = document.getElementById('payPanel');
+      panel.classList.add('open');
+      
+      startTimer(120);
+      
+      setTimeout(() => {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+    }
   </script>
-
-  <style>
-    :root {
-      --bg: #000308;
-      --panel: rgba(2, 12, 24, 0.82);
-      --panel-soft: rgba(0, 255, 255, 0.03);
-      --line: rgba(0, 255, 255, 0.22);
-      --line-soft: rgba(0, 255, 255, 0.08);
-      --text: #f8fafc;
-      --neon-cyan: #00FFFF;
-    }
-
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html { scroll-behavior: smooth; background: var(--bg); }
-    body {
-      margin: 0; min-height: 100vh; overflow-x: hidden; color: var(--text);
-      background: radial-gradient(circle at 15% 10%, rgba(0, 255, 255, 0.16), transparent 30%),
-                  radial-gradient(circle at 85% 90%, rgba(0, 200, 255, 0.12), transparent 35%), var(--bg);
-      font-family: Inter, sans-serif;
-    }
-    .glass {
-      background: var(--panel); border: 1px solid var(--line);
-      backdrop-filter: blur(24px) saturate(140%);
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 255, 255, 0.1);
-    }
-    .glass-soft { background: var(--panel-soft); border: 1px solid var(--line-soft); }
-    .topbar { box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 255, 255, 0.12); }
-    .brand-mark {
-      background: linear-gradient(145deg, rgba(0, 255, 255, 0.3), rgba(0, 255, 255, 0.08));
-      border: 1px solid rgba(0, 255, 255, 0.4); box-shadow: 0 0 20px rgba(0, 255, 255, 0.35);
-    }
-    input, select {
-      width: 100%; color: #f8fafc !important; background: rgba(0, 5, 12, 0.85) !important;
-      border: 1px solid rgba(0, 255, 255, 0.2) !important; border-radius: 11px !important; outline: none;
-    }
-    input:focus, select:focus {
-      border-color: #00FFFF !important; box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.2) !important;
-    }
-    select option { background: #020b14; color: white; }
-    .btn { border-radius: 11px; transition: .18s ease; cursor: pointer; position: relative; }
-    .btn:active { transform: scale(0.98); }
-    .btn-primary {
-      background: linear-gradient(135deg, #00FFFF, #0891b2); color: #000308;
-      border: 1px solid rgba(0, 255, 255, 0.6); box-shadow: 0 4px 15px rgba(0, 255, 255, 0.35); font-weight: 700;
-    }
-    .btn-success { background: linear-gradient(135deg, #059669, #047857); color: white; border: 1px solid rgba(110, 231, 183, 0.3); }
-    .btn-ghost { background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(0, 255, 255, 0.15); color: #a5f3fc; }
-    .section-label { color: #00FFFF; font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-    .usage-track { height: 6px; overflow: hidden; border-radius: 999px; background: rgba(255, 255, 255, 0.06); }
-    .usage-bar { height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg, #0891b2, #00FFFF); transition: width .35s ease; }
-    .tool-tabs { background: rgba(0, 0, 0, 0.2); border-bottom: 1px solid rgba(0, 255, 255, 0.15); }
-    .tool-tab { color: #64748b; transition: .2s ease; cursor: pointer; }
-    .tool-tab.active { color: #00FFFF; text-shadow: 0 0 10px rgba(0, 255, 255, 0.6); }
-    .result-box { background: rgba(0, 5, 12, 0.75); border: 1px solid rgba(0, 255, 255, 0.2); }
-    .toast {
-      transform: translate(-50%, 14px); opacity: 0; pointer-events: none; transition: .25s ease;
-      background: rgba(2, 12, 24, 0.94); border: 1px solid rgba(0, 255, 255, 0.35); box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-    }
-    .toast.show { transform: translate(-50%, 0); opacity: 1; }
-    .hidden { display: none !important; }
-  </style>
-</head>
-
-<body class="min-h-screen px-3 py-3 sm:px-5 sm:py-5">
-  <div class="w-full max-w-2xl mx-auto flex min-h-[calc(100vh-24px)] flex-col">
-
-    <!-- KEPALA HALAMAN -->
-    <header class="topbar glass rounded-[16px] px-4 py-3.5 flex items-center justify-between shrink-0">
-      <div class="flex items-center gap-3">
-        <div class="brand-mark w-9 h-9 rounded-[11px] flex items-center justify-center">
-          <i class="fa-solid fa-wand-magic-sparkles text-[#00FFFF] text-sm"></i>
-        </div>
-        <div>
-          <div class="font-display font-bold text-[13px] text-white">AM Pro Toolkit</div>
-          <div class="text-[9px] text-[#00FFFF]">Direct Access Edition</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-2">
-        <div class="text-[9px] px-2.5 py-1.5 rounded-full bg-emerald-500/[.12] border border-emerald-400/[.3] text-emerald-300 font-bold flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Auto Reset 24h</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- KONTEN UTAMA LANGSUNG KE FITUR -->
-    <main class="flex-1 flex flex-col justify-center py-5">
-      <section id="appContainer" class="w-full max-w-md mx-auto">
-        
-        <!-- KARTU STATUS PERANGKAT & LIMIT -->
-        <div class="glass rounded-[16px] p-4 sm:p-5 mb-3">
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <div class="avatar w-10 h-10 rounded-[12px] flex items-center justify-center text-[#00FFFF] font-bold text-xs shrink-0 bg-[#00FFFF]/10 border border-[#00FFFF]/30">
-                <i class="fa-solid fa-mobile-screen"></i>
-              </div>
-              <div class="min-w-0">
-                <div class="font-display font-bold text-[13px] text-white truncate">Perangkat Aktif</div>
-                <div class="text-[9px] text-emerald-400 mt-0.5 flex items-center gap-1">
-                  <span>Akses Langsung Tanpa Login</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-white/[.06]">
-            <div class="flex items-center justify-between mb-2 text-[10px]">
-              <div>
-                <span class="section-label">Limit Harian:</span>
-                <span class="font-bold text-white ml-1"><span id="statUsed">0</span> / <span id="statLimit">5</span></span>
-              </div>
-              <div class="text-right">
-                <span class="text-[#00FFFF]" id="countdownReset">Reset dlm 24 Jam</span>
-              </div>
-            </div>
-            <div class="usage-track">
-              <div id="usageBar" class="usage-bar"></div>
-            </div>
-            <div class="flex justify-between mt-2 text-[9px] text-[#94a3b8]">
-              <span>Tersedia hari ini</span>
-              <span class="text-emerald-400"><span id="statRemaining">5</span> kali</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MENU UTAMA FITUR -->
-        <div class="glass rounded-[16px] overflow-hidden">
-          <div class="tool-tabs grid grid-cols-3">
-            <button type="button" id="tabSend" onclick="switchTab('send')" class="tool-tab active py-3 text-[10px] font-semibold">Aktivasi</button>
-            <button type="button" id="tabBulk" onclick="switchTab('bulk')" class="tool-tab py-3 text-[10px] font-semibold">Bulk</button>
-            <button type="button" id="tabInbox" onclick="switchTab('inbox')" class="tool-tab py-3 text-[10px] font-semibold">Inbox</button>
-          </div>
-
-          <!-- TAB AKTIVASI -->
-          <div id="contentSend" class="p-4 sm:p-5">
-            <div class="mb-4">
-              <div class="section-label mb-1">Magic Link</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Aktivasi Alight Motion</h2>
-            </div>
-
-            <div id="stepEmailBox" class="space-y-2.5">
-              <input id="inputEmail" type="email" placeholder="email@domain.com" class="px-3.5 py-3 text-[11px]" />
-              <button type="button" onclick="handleSendMagicLink()" class="btn btn-primary w-full py-3 text-[11px]">Kirim Magic Link</button>
-            </div>
-
-            <div id="stepVerifyBox" class="hidden space-y-2.5">
-              <input id="inputLink" type="text" placeholder="Tempel link verifikasi https://..." class="px-3.5 py-3 text-[11px]" />
-              <div class="grid grid-cols-[1fr_auto] gap-2">
-                <button type="button" onclick="handleVerifyMagicLink()" class="btn btn-success py-3 text-[10px] font-bold text-white">Verifikasi Link</button>
-                <button type="button" onclick="resetInjectFlow()" class="btn btn-ghost w-11 text-[#cffafe]"><i class="fa-solid fa-rotate-left"></i></button>
-              </div>
-            </div>
-
-            <div id="sendResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px]"></div>
-          </div>
-
-          <!-- TAB BULK -->
-          <div id="contentBulk" class="p-4 sm:p-5 hidden">
-            <div class="mb-4">
-              <div class="section-label mb-1">Batch Tool</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Bulk Generator</h2>
-            </div>
-            <div class="space-y-2.5">
-              <input id="inputBulkAmount" type="number" min="1" max="100" value="5" class="px-3.5 py-3 text-[11px]" />
-              <button type="button" onclick="runBulkInject()" class="btn btn-primary w-full py-3 text-[11px]">Generate Bulk</button>
-            </div>
-            <div id="bulkResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px]"></div>
-          </div>
-
-          <!-- TAB INBOX -->
-          <div id="contentInbox" class="p-4 sm:p-5 hidden">
-            <div class="mb-4">
-              <div class="section-label mb-1">Mailbox</div>
-              <h2 class="font-display font-bold text-[14px] text-white">Pindai Inbox</h2>
-            </div>
-            <div class="space-y-2.5">
-              <input id="inputInboxEmail" type="email" placeholder="email@tempmail.com" class="px-3.5 py-3 text-[11px]" />
-              <button type="button" onclick="runInboxCheck()" class="btn btn-primary w-full py-3 text-[11px]">Pindai Pesan</button>
-            </div>
-            <div id="inboxNotice" class="hidden mt-3"></div>
-            <div id="inboxResult" class="space-y-2 mt-3 max-h-48 overflow-y-auto"></div>
-          </div>
-        </div>
-
-      </section>
-    </main>
-
-  </div>
-
-  <div id="toast" class="toast fixed z-50 bottom-5 left-1/2 glass rounded-[12px] px-4 py-3 text-[10px] text-white"></div>
-
-<script>
-  let activeInjectEmail = "";
-
-  // MANAJEMEN LIMIT PERANGKAT DENGAN RESET OTOMATIS 24 JAM
-  const DAILY_LIMIT = 5;
-  const RESET_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 Jam
-
-  function getDeviceUsageData() {
-    try {
-      const stored = localStorage.getItem("am_device_limit_data");
-      const now = Date.now();
-      
-      if (!stored) {
-        const initialData = { used: 0, lastReset: now };
-        localStorage.setItem("am_device_limit_data", JSON.stringify(initialData));
-        return initialData;
-      }
-
-      let data = JSON.parse(stored);
-      
-      // Cek apakah sudah lewat 24 jam sejak reset terakhir
-      if (now - data.lastReset >= RESET_INTERVAL_MS) {
-        data.used = 0;
-        data.lastReset = now;
-        localStorage.setItem("am_device_limit_data", JSON.stringify(data));
-      }
-
-      return data;
-    } catch {
-      return { used: 0, lastReset: Date.now() };
-    }
-  }
-
-  function updateDeviceUsage(newUsedCount) {
-    try {
-      let data = getDeviceUsageData();
-      data.used = newUsedCount;
-      localStorage.setItem("am_device_limit_data", JSON.stringify(data));
-    } catch {}
-    updateLimitUI();
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    updateLimitUI();
-  });
-
-  function showToast(msg) {
-    const t = document.getElementById("toast");
-    t.textContent = msg; 
-    t.classList.add("show");
-    setTimeout(() => t.classList.remove("show"), 3000);
-  }
-
-  function updateLimitUI() {
-    const data = getDeviceUsageData();
-    const used = data.used;
-    const remaining = Math.max(0, DAILY_LIMIT - used);
-    const percentage = Math.min(100, (used / DAILY_LIMIT) * 100);
-
-    document.getElementById("statUsed").textContent = used;
-    document.getElementById("statLimit").textContent = DAILY_LIMIT;
-    document.getElementById("statRemaining").textContent = remaining;
-    document.getElementById("usageBar").style.width = percentage + "%";
-
-    // Hitung sisa waktu menuju reset 24 jam berikutnya
-    const timeLeft = RESET_INTERVAL_MS - (Date.now() - data.lastReset);
-    const hoursLeft = Math.floor(timeLeft / (1000 * 60 * 60));
-    const minsLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById("countdownReset").textContent = `Reset dalam ${hoursLeft}j ${minsLeft}m`;
-  }
-
-  function switchTab(tab) {
-    ['send','bulk','inbox'].forEach(t => {
-      document.getElementById(`content${t.charAt(0).toUpperCase()+t.slice(1)}`).classList.toggle("hidden", t !== tab);
-      document.getElementById(`tab${t.charAt(0).toUpperCase()+t.slice(1)}`).classList.toggle("active", t === tab);
-    });
-  }
-
-  async function handleSendMagicLink() {
-    const email = document.getElementById("inputEmail").value.trim();
-    if (!email || !email.includes("@")) return showToast("Masukkan email yang valid.");
-
-    const data = getDeviceUsageData();
-    if (data.used >= DAILY_LIMIT) {
-      return showToast("Limit harian perangkat ini sudah habis. Reset otomatis dalam 24 jam.");
-    }
-
-    showToast("Mengirim magic link...");
-    try {
-      const res = await fetch("https://restapidhan.vercel.app/api/am?action=send&apikey=freeapikeydhan26&email=" + encodeURIComponent(email));
-      const json = await res.json();
-      if (!json.status) throw new Error(json.error || "Gagal.");
-      
-      activeInjectEmail = email;
-      document.getElementById("stepEmailBox").classList.add("hidden");
-      document.getElementById("stepVerifyBox").classList.remove("hidden");
-      showToast("Magic link berhasil dikirim.");
-    } catch {
-      showToast("Koneksi gagal.");
-    }
-  }
-
-  async function handleVerifyMagicLink() {
-    const link = document.getElementById("inputLink").value.trim();
-    if (!link) return showToast("Masukkan link verifikasi.");
-
-    const data = getDeviceUsageData();
-    if (data.used >= DAILY_LIMIT) {
-      return showToast("Limit harian Anda sudah habis.");
-    }
-
-    showToast("Memverifikasi...");
-    try {
-      const res = await fetch(`https://restapidhan.vercel.app/api/am?action=verif&apikey=freeapikeydhan26&email=${encodeURIComponent(activeInjectEmail)}&url=${encodeURIComponent(link)}`);
-      const json = await res.json();
-
-      const success = json.status === true;
-      const resBox = document.getElementById("sendResult");
-      resBox.innerHTML = `<div class="${success?'text-emerald-400':'text-red-400'} font-bold">${success?'Berhasil':'Gagal'}</div><div class="text-[10px] text-[#cffafe] mt-1">${json.message || json.error || ''}</div>`;
-      resBox.classList.remove("hidden");
-
-      if (success) {
-        updateDeviceUsage(data.used + 1);
-        showToast("Verifikasi sukses! Kredit terpakai +1.");
-        setTimeout(resetInjectFlow, 1000);
-      } else {
-        showToast("Verifikasi gagal.");
-      }
-    } catch {
-      showToast("Kesalahan jaringan.");
-    }
-  }
-
-  function resetInjectFlow() {
-    activeInjectEmail = "";
-    document.getElementById("inputEmail").value = "";
-    document.getElementById("inputLink").value = "";
-    document.getElementById("stepVerifyBox").classList.add("hidden");
-    document.getElementById("stepEmailBox").classList.remove("hidden");
-    document.getElementById("sendResult").classList.add("hidden");
-  }
-
-  async function runBulkInject() {
-    const data = getDeviceUsageData();
-    if (data.used >= DAILY_LIMIT) return showToast("Limit harian perangkat habis.");
-
-    const amount = Number(document.getElementById("inputBulkAmount").value);
-    if (!amount || amount < 1 || amount > 100) return showToast("Jumlah harus 1 - 100.");
-
-    showToast("Memproses bulk...");
-    setTimeout(() => {
-      updateDeviceUsage(data.used + 1);
-      const resBox = document.getElementById("bulkResult");
-      resBox.innerHTML = `<div class="text-emerald-400 font-bold">Bulk Berhasil Diproses (${amount} Akun)!</div>`;
-      resBox.classList.remove("hidden");
-      showToast("Bulk berhasil dijalankan.");
-    }, 1200);
-  }
-
-  async function runInboxCheck() {
-    const email = document.getElementById("inputInboxEmail").value.trim();
-    const notice = document.getElementById("inboxNotice");
-    const container = document.getElementById("inboxResult");
-
-    if (!email) return showToast("Masukkan email.");
-
-    notice.className = "mt-3 py-2 px-3 rounded-lg text-[10px] bg-[#00FFFF]/10 text-[#00FFFF]";
-    notice.textContent = "Memindai...";
-    notice.classList.remove("hidden");
-    container.innerHTML = "";
-
-    try {
-      const res = await fetch(`https://restapidhan.vercel.app/api/inbox?email=${encodeURIComponent(email)}`);
-      const json = await res.json();
-      notice.className = "mt-3 py-2 px-3 rounded-lg text-[10px] bg-emerald-500/10 text-emerald-300";
-      notice.textContent = "Inbox dipindai.";
-      
-      const messages = json.messages || json.data?.messages || [];
-      container.innerHTML = messages.map(m => `<div class="glass-soft p-2.5 rounded-lg text-white">${m.subject || 'Pesan Masuk'}</div>`).join('') || '<div class="text-zinc-400 text-center text-[10px]">Belum ada pesan.</div>';
-    } catch {
-      notice.className = "mt-3 py-2 px-3 rounded-lg text-[10px] bg-red-500/10 text-red-300";
-      notice.textContent = "Gagal mengambil inbox.";
-    }
-  }
-</script>
 </body>
 </html>
-
-      --line: rgba(0, 255, 255, 0.22);
-      --line-soft: rgba(0, 255, 255, 0.08);
-      --text: #f8fafc;
-      --neon-cyan: #00FFFF;
-    }
-
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html { scroll-behavior: smooth; background: var(--bg); }
-    body {
-      margin: 0; min-height: 100vh; overflow-x: hidden; color: var(--text);
-      background: radial-gradient(circle at 15% 10%, rgba(0, 255, 255, 0.16), transparent 30%),
-                  radial-gradient(circle at 85% 90%, rgba(0, 200, 255, 0.12), transparent 35%), var(--bg);
-      font-family: Inter, sans-serif;
-    }
-    .glass {
-      background: var(--panel); border: 1px solid var(--line);
-      backdrop-filter: blur(24px) saturate(140%);
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 255, 255, 0.1);
-    }
-    .glass-soft { background: var(--panel-soft); border: 1px solid var(--line-soft); }
-    .topbar { box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 255, 255, 0.12); }
-    .brand-mark {
-      background: linear-gradient(145deg, rgba(0, 255, 255, 0.3), rgba(0, 255, 255, 0.08));
-      border: 1px solid rgba(0, 255, 255, 0.4); box-shadow: 0 0 20px rgba(0, 255, 255, 0.35);
-    }
-    input, select {
-      width: 100%; color: #f8fafc !important; background: rgba(0, 5, 12, 0.85) !important;
-      border: 1px solid rgba(0, 255, 255, 0.2) !important; border-radius: 11px !important; outline: none;
-    }
-    input:focus, select:focus {
-      border-color: #00FFFF !important; box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.2) !important;
-    }
-    select option { background: #020b14; color: white; }
-    .btn { border-radius: 11px; transition: .18s ease; cursor: pointer; position: relative; }
-    .btn:active { transform: scale(0.98); }
-    .btn-primary {
-      background: linear-gradient(135deg, #00FFFF, #0891b2); color: #000308;
-      border: 1px solid rgba(0, 255, 255, 0.6); box-shadow: 0 4px 15px rgba(0, 255, 255, 0.35); font-weight: 700;
-    }
-    .btn-success { background: linear-gradient(135deg, #059669, #047857); color: white; border: 1px solid rgba(110, 231, 183, 0.3); }
-    .btn-ghost { background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(0, 255, 255, 0.15); color: #a5f3fc; }
-    .auth-tabs { padding: 4px; background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(0, 255, 255, 0.15); }
-    .auth-tab { color: #64748b; transition: .2s ease; cursor: pointer; }
-    .auth-tab.active {
-      color: #000308; background: linear-gradient(135deg, #00FFFF, #0891b2); font-weight: 700;
-      box-shadow: 0 4px 18px rgba(0, 255, 255, 0.4);
-    }
-    .section-label { color: #00FFFF; font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-    .usage-track { height: 6px; overflow: hidden; border-radius: 999px; background: rgba(255, 255, 255, 0.06); }
-    .usage-bar { height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg, #0891b2, #00FFFF); transition: width .35s ease; }
-    .tool-tabs { background: rgba(0, 0, 0, 0.2); border-bottom: 1px solid rgba(0, 255, 255, 0.15); }
-    .tool-tab { color: #64748b; transition: .2s ease; cursor: pointer; }
-    .tool-tab.active { color: #00FFFF; text-shadow: 0 0 10px rgba(0, 255, 255, 0.6); }
-    .result-box { background: rgba(0, 5, 12, 0.75); border: 1px solid rgba(0, 255, 255, 0.2); }
-    .admin-stat { background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(0, 255, 255, 0.12); border-radius: 12px; }
-    .toast {
-      transform: translate(-50%, 14px); opacity: 0; pointer-events: none; transition: .25s ease;
-      background: rgba(2, 12, 24, 0.94); border: 1px solid rgba(0, 255, 255, 0.35); box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-    }
-    .toast.show { transform: translate(-50%, 0); opacity: 1; }
-    .hidden { display: none !important; }
-  </style>
-</head>
-
-<body class="min-h-screen px-3 py-3 sm:px-5 sm:py-5">
-  <div class="w-full max-w-2xl mx-auto flex min-h-[calc(100vh-24px)] flex-col">
-
-    <!-- KEPALA HALAMAN -->
-    <header class="topbar glass rounded-[16px] px-4 py-3.5 flex items-center justify-between shrink-0">
-      <div class="flex items-center gap-3">
-        <div class="brand-mark w-9 h-9 rounded-[11px] flex items-center justify-center">
-          <i class="fa-solid fa-wand-magic-sparkles text-[#00FFFF] text-sm"></i>
-        </div>
-        <div>
-          <div class="font-display font-bold text-[13px] text-white">AM Pro Toolkit</div>
-          <div class="text-[9px] text-[#00FFFF]">Secure Serverless Edition</div>
-        </div>
-      </div>
-      <div class="text-[9px] px-2.5 py-1.5 rounded-full bg-[#00FFFF]/[.12] border border-[#00FFFF]/[.3] text-[#00FFFF] font-bold">
-        v3.6 Pro
-      </div>
-    </header>
-
-    <!-- KONTEN UTAMA -->
-    <main class="flex-1 flex flex-col justify-center py-5">
-
-      <!-- BAGIAN AUTENTIKASI -->
-      <section id="authContainer" class="w-full max-w-md mx-auto">
-        <div class="text-center mb-5">
-          <div class="section-label mb-2">WELCOME ALL, SELAMAT MEMAKAI FITURNYA</div>
-          <h1 class="font-marker font-normal text-[26px] text-white py-1">Aktivasi</h1>
-          <p class="text-[11px] text-[#64748b]">©THANZ DEV SINCE 2026</p>
-        </div>
-
-        <div class="auth-tabs rounded-[13px] grid grid-cols-2 gap-1 mb-3">
-          <button type="button" id="tabLoginBtn" onclick="switchAuthTab('login')" class="auth-tab active py-2.5 rounded-[9px] text-[11px]">Login</button>
-          <button type="button" id="tabRegBtn" onclick="switchAuthTab('register')" class="auth-tab py-2.5 rounded-[9px] text-[11px]">Register</button>
-        </div>
-
-        <!-- FORM MASUK -->
-        <div id="loginFormCard" class="glass rounded-[16px] p-5 sm:p-6">
-          <h2 class="font-display font-bold text-[14px] text-white mb-4">Masuk ke akun</h2>
-          <div class="space-y-3.5">
-            <div>
-              <label class="block text-[10px] text-[#cffafe] mb-1.5">Username</label>
-              <input id="loginUsername" type="text" placeholder="Masukkan username" class="px-3.5 py-3 text-[11px]" />
-            </div>
-            <div>
-              <label class="block text-[10px] text-[#cffafe] mb-1.5">Access Key (THANZ-XXXX)</label>
-              <input id="loginToken" type="password" placeholder="THANZ-XXXX" class="px-3.5 py-3 text-[11px]" />
-            </div>
-            <button type="button" onclick="handleLogin()" class="btn btn-primary w-full py-3 text-[11px] mt-1">Login</button>
-          </div>
-        </div>
-
-        <!-- FORM PENDAFTARAN -->
-        <div id="regFormCard" class="glass rounded-[16px] p-5 sm:p-6 hidden">
-          <h2 class="font-display font-bold text-[14px] text-white mb-4">Buat Akun Otomatis</h2>
-          <div class="space-y-3.5">
-            <div>
-              <label class="block text-[10px] text-[#cffafe] mb-1.5">Username Pilihan</label>
-              <input id="regUsername" type="text" placeholder="contoh: thanzuser" class="px-3.5 py-3 text-[11px]" />
-            </div>
-            <button type="button" onclick="handleRegister()" class="btn btn-success w-full py-3 text-[11px] font-bold text-white mt-1">Generate & Daftar</button>
-          </div>
-        </div>
-
-        <!-- POPUP KUNCI AKSES -->
-        <div id="keyPopupModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-          <div class="glass max-w-[320px] w-full rounded-[20px] p-5 text-center space-y-3">
-            <h3 class="font-display font-semibold text-sm text-white">Pendaftaran Berhasil!</h3>
-            <div class="p-3 rounded-xl bg-black/60 border border-[#00FFFF]/40 font-mono text-xs text-[#00FFFF] font-bold select-all" id="generatedKeyDisplay">THANZ-XXXX</div>
-            <button type="button" onclick="closeKeyPopup()" class="w-full py-2.5 rounded-xl bg-[#00FFFF] text-black font-bold text-xs">Salin & Masuk</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- DASBOR PENGGUNA -->
-      <section id="appContainer" class="w-full max-w-md mx-auto hidden">
-        <div class="glass rounded-[16px] p-4 mb-3">
-          <div class="flex items-center justify-between">
-            <div>
-              <div id="displayUsername" class="font-display font-bold text-[13px] text-white">-</div>
-              <div class="text-[9px] text-emerald-400 mt-1">Online</div>
-            </div>
-            <button type="button" onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px]">Keluar</button>
-          </div>
-          <div class="mt-4 pt-3 border-t border-white/[.06]">
-            <div class="flex justify-between mb-2 text-[10px]">
-              <span class="text-[#94a3b8]">Usage: <span id="statUsed">0</span> / <span id="statLimit">5</span></span>
-              <span class="text-emerald-400"><span id="statRemaining">5</span> tersisa</span>
-            </div>
-            <div class="usage-track"><div id="usageBar" class="usage-bar"></div></div>
-          </div>
-        </div>
-
-        <div class="glass rounded-[16px] overflow-hidden">
-          <div class="tool-tabs grid grid-cols-3">
-            <button type="button" id="tabSend" onclick="switchTab('send')" class="tool-tab active py-3 text-[10px] font-semibold">Aktivasi</button>
-            <button type="button" id="tabBulk" onclick="switchTab('bulk')" class="tool-tab py-3 text-[10px] font-semibold">Bulk</button>
-            <button type="button" id="tabInbox" onclick="switchTab('inbox')" class="tool-tab py-3 text-[10px] font-semibold">Inbox</button>
-          </div>
-
-          <!-- TAB AKTIVASI -->
-          <div id="contentSend" class="p-4">
-            <div id="stepEmailBox" class="space-y-2.5">
-              <input id="inputEmail" type="email" placeholder="email@domain.com" class="px-3.5 py-3 text-[11px]" />
-              <button type="button" onclick="handleSendMagicLink()" class="btn btn-primary w-full py-3 text-[11px]">Kirim Magic Link</button>
-            </div>
-            <div id="stepVerifyBox" class="hidden space-y-2.5">
-              <input id="inputLink" type="text" placeholder="Tempel link verifikasi..." class="px-3.5 py-3 text-[11px]" />
-              <button type="button" onclick="handleVerifyMagicLink()" class="btn btn-success w-full py-3 text-[10px] font-bold text-white">Verifikasi Link</button>
-            </div>
-            <div id="sendResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px]"></div>
-          </div>
-
-          <!-- TAB BULK -->
-          <div id="contentBulk" class="p-4 hidden">
-            <div class="space-y-2.5">
-              <input id="inputBulkAmount" type="number" min="1" max="100" value="5" class="px-3.5 py-3 text-[11px]" />
-              <button type="button" onclick="runBulkInject()" class="btn btn-primary w-full py-3 text-[11px]">Generate Bulk</button>
-            </div>
-            <div id="bulkResult" class="result-box hidden mt-3 p-3 rounded-[11px] text-[10px]"></div>
-          </div>
-
-          <!-- TAB INBOX -->
-          <div id="contentInbox" class="p-4 hidden">
-            <div class="space-y-2.5">
-              <input id="inputInboxEmail" type="email" placeholder="email@tempmail.com" class="px-3.5 py-3 text-[11px]" />
-              <button type="button" onclick="runInboxCheck()" class="btn btn-primary w-full py-3 text-[11px]">Pindai Pesan</button>
-            </div>
-            <div id="inboxNotice" class="hidden mt-3"></div>
-            <div id="inboxResult" class="space-y-2 mt-3"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- DASBOR ADMIN -->
-      <section id="adminContainer" class="w-full hidden">
-        <div class="glass rounded-[16px] p-4 sm:p-5">
-          <div class="flex items-center justify-between pb-3 border-b border-white/[.06]">
-            <h2 class="font-display font-bold text-[14px] text-white">Admin Console (Management)</h2>
-            <button type="button" onclick="handleLogout()" class="btn btn-ghost px-3 py-2 text-[9px]">Keluar</button>
-          </div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
-            <div class="admin-stat p-3"><div class="section-label">Total Users</div><div id="admTotalUsers" class="font-bold text-[16px] text-white mt-1">0</div></div>
-            <div class="admin-stat p-3"><div class="section-label">Active</div><div id="admActiveUsers" class="font-bold text-[16px] text-emerald-400 mt-1">0</div></div>
-            <div class="admin-stat p-3"><div class="section-label">Disabled</div><div id="admDisabledUsers" class="font-bold text-[16px] text-red-400 mt-1">0</div></div>
-            <div class="admin-stat p-3"><div class="section-label">Mode</div><div class="font-bold text-[14px] text-[#00FFFF] mt-1">Secure Env</div></div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-4">
-            <div class="glass-soft p-3.5 rounded-xl">
-              <h3 class="text-[10px] font-bold text-white mb-2"><i class="fa-solid fa-user-plus text-[#00FFFF] mr-1"></i> Buat User Baru</h3>
-              <input id="admNewUser" type="text" placeholder="Username" class="px-3 py-2.5 text-[10px] mb-2" />
-              <input id="admNewLimit" type="number" min="1" value="5" placeholder="Limit" class="px-3 py-2.5 text-[10px] mb-2" />
-              <button type="button" onclick="admCreateUser()" class="btn btn-success w-full py-2.5 text-[10px] font-bold">Simpan User</button>
-            </div>
-
-            <div class="glass-soft p-3.5 rounded-xl">
-              <h3 class="text-[10px] font-bold text-white mb-2"><i class="fa-solid fa-toolbox text-[#00FFFF] mr-1"></i> Tool API Server</h3>
-              <select id="admToolSelect" class="px-3 py-2.5 text-[10px] mb-2">
-                <option value="inject">AM Inject</option>
-                <option value="verify">AM Verify Link</option>
-                <option value="inbox">Temp Mail Inbox</option>
-              </select>
-              <input id="admToolInput" type="text" placeholder="Email target..." class="px-3 py-2.5 text-[10px] mb-2" />
-              <button type="button" onclick="admRunTool()" class="btn btn-primary w-full py-2.5 text-[10px]">Jalankan via API</button>
-            </div>
-          </div>
-
-          <div id="admToolResult" class="result-box hidden mt-3 p-3 rounded-xl text-[10px] max-h-36 overflow-y-auto"></div>
-
-          <div class="mt-5">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-[13px] text-white">Daftar Member & Manajemen Kredit</h3>
-              <button type="button" onclick="loadAdminPanel()" class="btn btn-ghost px-2.5 py-1.5 text-[9px]">Refresh</button>
-            </div>
-            <div class="overflow-auto max-h-64 rounded-xl border border-white/[.06] bg-black/[.2]">
-              <table class="w-full min-w-[500px] text-left text-[10px]">
-                <thead class="sticky top-0 bg-[#00060e] text-[#cffafe]">
-                  <tr>
-                    <th class="px-3 py-2.5">User</th>
-                    <th class="px-3 py-2.5">Access Key</th>
-                    <th class="px-3 py-2.5">Usage / Limit</th>
-                    <th class="px-3 py-2.5">Status</th>
-                    <th class="px-3 py-2.5 text-right">Aksi Kredit & Akun</th>
-                  </tr>
-                </thead>
-                <tbody id="admUserTableBody" class="divide-y divide-white/[.04]"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <div id="toast" class="toast fixed z-50 bottom-5 left-1/2 glass rounded-[12px] px-4 py-3 text-[10px] text-white"></div>
-
-<script>
-  let currentUser = null;
-  let isAdmin = false;
-  let activeInjectEmail = "";
-
-  // UUID Unik Perangkat untuk Membatasi 1 Registrasi Per Perangkat
-  let deviceId = localStorage.getItem("am_device_id");
-  if (!deviceId) {
-    deviceId = "dev_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
-    localStorage.setItem("am_device_id", deviceId);
-  }
-
-  function getLocalDB() {
-    try {
-      const data = localStorage.getItem("am_users_master_db");
-      return data ? JSON.parse(data) : [];
-    } catch { return []; }
-  }
-
-  function saveLocalDB(users) {
-    try {
-      localStorage.setItem("am_users_master_db", JSON.stringify(users));
-    } catch {}
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    checkExistingSession();
-  });
-
-  function showToast(msg) {
-    const t = document.getElementById("toast");
-    t.textContent = msg; t.classList.add("show");
-    setTimeout(() => t.classList.remove("show"), 3000);
-  }
-
-  function switchAuthTab(tab) {
-    document.getElementById("loginFormCard").classList.toggle("hidden", tab !== "login");
-    document.getElementById("regFormCard").classList.toggle("hidden", tab !== "register");
-    document.getElementById("tabLoginBtn").classList.toggle("active", tab === "login");
-    document.getElementById("tabRegBtn").classList.toggle("active", tab === "register");
-  }
-
-  function generateRandomKey() {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return `THANZ-${Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join('')}`;
-  }
-
-  // BATASAN: 1 Perangkat Hanya Bisa Mendaftar 1 Akun
-  function handleRegister() {
-    const username = document.getElementById("regUsername").value.trim();
-    if (!username || username.length < 3) return showToast("Username minimal 3 karakter.");
-
-    const users = getLocalDB();
-
-    // Cek apakah perangkat ini sudah pernah mendaftar sebelumnya
-    const existingDev = users.find(u => u.device_id === deviceId);
-    if (existingDev) {
-      return showToast("Perangkat ini sudah pernah mendaftarkan akun!");
-    }
-
-    if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
-      return showToast("Username sudah digunakan.");
-    }
-
-    const token = generateRandomKey();
-    const newUser = {
-      id: "usr_" + Math.random().toString(36).substring(2, 9),
-      username,
-      token,
-      daily_limit: 5,
-      used_count: 0,
-      device_id: deviceId, // Menyimpan ID unik perangkat
-      status: "Active"
-    };
-
-    users.push(newUser);
-    saveLocalDB(users);
-
-    document.getElementById("generatedKeyDisplay").textContent = token;
-    document.getElementById("keyPopupModal").classList.remove("hidden");
-    document.getElementById("loginUsername").value = username;
-    document.getElementById("loginToken").value = token;
-    switchAuthTab("login");
-  }
-
-  function closeKeyPopup() {
-    document.getElementById("keyPopupModal").classList.add("hidden");
-  }
-
-  async function handleLogin() {
-    const username = document.getElementById("loginUsername").value.trim();
-    const token = document.getElementById("loginToken").value.trim();
-    if (!username || !token) return showToast("Masukkan kredensial.");
-
-    // Cek Login Admin via Environment Variables Serverless
-    try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, token })
-      });
-      const json = await res.json();
-      if (res.ok && json.status && json.role === 'admin') {
-        isAdmin = true;
-        localStorage.setItem("am_is_admin", "true");
-        showToast("Login Admin Berhasil.");
-        enterAdminDashboard();
-        return;
-      }
-    } catch {}
-
-    // Cek Login User Biasa dari Database Lokal
-    const users = getLocalDB();
-    const user = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.token === token);
-    if (!user) return showToast("Username atau Access Key salah.");
-    if (user.status !== "Active") return showToast("Akun dinonaktifkan oleh Admin.");
-
-    isAdmin = false;
-    currentUser = user;
-    localStorage.setItem("am_current_user", JSON.stringify(currentUser));
-    showToast("Login berhasil.");
-    enterUserDashboard();
-  }
-
-  function checkExistingSession() {
-    if (localStorage.getItem("am_is_admin") === "true") {
-      isAdmin = true;
-      enterAdminDashboard();
-      return;
-    }
-    const saved = localStorage.getItem("am_current_user");
-    if (saved) {
-      try {
-        const localUser = JSON.parse(saved);
-        const users = getLocalDB();
-        const fresh = users.find(u => u.id === localUser.id);
-        if (fresh && fresh.status === "Active") {
-          currentUser = fresh;
-          enterUserDashboard();
-        } else { handleLogout(); }
-      } catch { handleLogout(); }
-    }
-  }
-
-  function handleLogout() {
-    currentUser = null;
-    isAdmin = false;
-    localStorage.removeItem("am_current_user");
-    localStorage.removeItem("am_is_admin");
-    document.getElementById("authContainer").classList.remove("hidden");
-    document.getElementById("appContainer").classList.add("hidden");
-    document.getElementById("adminContainer").classList.add("hidden");
-    showToast("Berhasil keluar.");
-  }
-
-  function enterUserDashboard() {
-    document.getElementById("authContainer").classList.add("hidden");
-    document.getElementById("adminContainer").classList.add("hidden");
-    document.getElementById("appContainer").classList.remove("hidden");
-    document.getElementById("displayUsername").textContent = currentUser.username;
-    updateLimit();
-  }
-
-  function enterAdminDashboard() {
-    document.getElementById("authContainer").classList.add("hidden");
-    document.getElementById("appContainer").classList.add("hidden");
-    document.getElementById("adminContainer").classList.remove("hidden");
-    loadAdminPanel();
-  }
-
-  function updateLimit() {
-    if (!currentUser) return;
-    const limit = currentUser.daily_limit;
-    const used = currentUser.used_count;
-    document.getElementById("statLimit").textContent = limit;
-    document.getElementById("statUsed").textContent = used;
-    document.getElementById("statRemaining").textContent = Math.max(0, limit - used);
-    document.getElementById("usageBar").style.width = `${(used/limit)*100}%`;
-  }
-
-  function switchTab(tab) {
-    ['send','bulk','inbox'].forEach(t => {
-      document.getElementById(`content${t.charAt(0).toUpperCase()+t.slice(1)}`).classList.toggle("hidden", t !== tab);
-      document.getElementById(`tab${t.charAt(0).toUpperCase()+t.slice(1)}`).classList.toggle("active", t === tab);
-    });
-  }
-
-  async function handleSendMagicLink() {
-    const email = document.getElementById("inputEmail").value.trim();
-    if (!email) return showToast("Masukkan email.");
-    if (currentUser.used_count >= currentUser.daily_limit) return showToast("Limit harian Anda sudah habis.");
-    showToast("Mengirim...");
-    try {
-      const res = await fetch("https://restapidhan.vercel.app/api/am?action=send&apikey=freeapikeydhan26&email=" + encodeURIComponent(email));
-      const json = await res.json();
-      if (!json.status) throw new Error();
-      activeInjectEmail = email;
-      document.getElementById("stepEmailBox").classList.add("hidden");
-      document.getElementById("stepVerifyBox").classList.remove("hidden");
-      showToast("Magic link terkirim.");
-    } catch { showToast("Gagal mengirim."); }
-  }
-
-  async function handleVerifyMagicLink() {
-    const link = document.getElementById("inputLink").value.trim();
-    if (!link) return showToast("Masukkan link.");
-    showToast("Memverifikasi...");
-    try {
-      const res = await fetch(`https://restapidhan.vercel.app/api/am?action=verif&apikey=freeapikeydhan26&email=${encodeURIComponent(activeInjectEmail)}&url=${encodeURIComponent(link)}`);
-      const json = await res.json();
-      if (json.status) {
-        currentUser.used_count += 1;
-        let users = getLocalDB();
-        let idx = users.findIndex(u => u.id === currentUser.id);
-        if (idx !== -1) { users[idx] = currentUser; saveLocalDB(users); }
-        localStorage.setItem("am_current_user", JSON.stringify(currentUser));
-        updateLimit();
-        showToast("Verifikasi sukses!");
-        document.getElementById("stepVerifyBox").classList.add("hidden");
-        document.getElementById("stepEmailBox").classList.remove("hidden");
-      } else { showToast("Verifikasi gagal."); }
-    } catch { showToast("Kesalahan jaringan."); }
-  }
-
-  async function runBulkInject() {
-    if (currentUser.used_count >= currentUser.daily_limit) return showToast("Limit harian habis.");
-    currentUser.used_count += 1;
-    let users = getLocalDB();
-    let idx = users.findIndex(u => u.id === currentUser.id);
-    if (idx !== -1) { users[idx] = currentUser; saveLocalDB(users); }
-    localStorage.setItem("am_current_user", JSON.stringify(currentUser));
-    updateLimit();
-    const resultBox = document.getElementById("bulkResult");
-    resultBox.innerHTML = `<div class="text-emerald-400 font-bold">Bulk Inject Berhasil Diproses!</div>`;
-    resultBox.classList.remove("hidden");
-    showToast("Bulk berhasil diproses.");
-  }
-
-  async function runInboxCheck() {
-    const email = document.getElementById("inputInboxEmail").value.trim();
-    const notice = document.getElementById("inboxNotice");
-    if (!email) return showToast("Masukkan email.");
-    notice.className = "mt-3 py-2 px-3 rounded-lg text-[10px] bg-[#00FFFF]/10 text-[#00FFFF]";
-    notice.textContent = "Memindai...";
-    notice.classList.remove("hidden");
-    try {
-      const res = await fetch(`https://restapidhan.vercel.app/api/inbox?email=${encodeURIComponent(email)}`);
-      const json = await res.json();
-      notice.className = "mt-3 py-2 px-3 rounded-lg text-[10px] bg-emerald-500/10 text-emerald-300";
-      notice.textContent = "Pencarian selesai.";
-      const container = document.getElementById("inboxResult");
-      container.innerHTML = (json.messages || []).map(m => `<div class="glass-soft p-2.5 rounded-lg text-white">${m.subject}</div>`).join('') || '<div class="text-zinc-400 text-center text-[10px]">Belum ada pesan.</div>';
-    } catch {
-      notice.className = "mt-3 py-2 px-3 rounded-lg text-[10px] bg-red-500/10 text-red-300";
-      notice.textContent = "Gagal memindai inbox.";
-    }
-  }
-
-  // PEMANTAUAN ADMIN: Memantau Seluruh User yang Registrasi / Login
-  function loadAdminPanel() {
-    const users = getLocalDB();
-    document.getElementById("admTotalUsers").textContent = users.length;
-    document.getElementById("admActiveUsers").textContent = users.filter(u => u.status === "Active").length;
-    document.getElementById("admDisabledUsers").textContent = users.filter(u => u.status === "Disabled").length;
-
-    const tbody = document.getElementById("admUserTableBody");
-    tbody.innerHTML = users.length ? users.map(u => `
-      <tr class="hover:bg-white/[.02]">
-        <td class="px-3 py-2.5 text-white font-medium">${u.username}</td>
-        <td class="px-3 py-2.5 text-[#00FFFF] font-mono">${u.token}</td>
-        <td class="px-3 py-2.5">${u.used_count} / ${u.daily_limit}</td>
-        <td class="px-3 py-2.5"><span class="px-2 py-0.5 rounded text-[8px] ${u.status==='Active'?'bg-emerald-500/20 text-emerald-300':'bg-red-500/20 text-red-300'}">${u.status}</span></td>
-        <td class="px-3 py-2.5 text-right space-x-1 whitespace-nowrap">
-          <button type="button" onclick="admAddCredit('${u.id}')" class="btn btn-primary px-2 py-1 text-[8px] font-bold">+Kredit</button>
-          <button type="button" onclick="admResetCredit('${u.id}')" class="btn btn-ghost px-2 py-1 text-[8px]">Reset</button>
-          <button type="button" onclick="admToggleStatus('${u.id}')" class="btn btn-ghost px-2 py-1 text-[8px]">Status</button>
-          <button type="button" onclick="admDeleteUser('${u.id}')" class="btn bg-red-500/20 text-red-300 px-2 py-1 text-[8px]">Hapus</button>
-        </td>
-      </tr>
-    `).join('') : `<tr><td colspan="5" class="px-3 py-4 text-center text-zinc-500">Belum ada user yang terdaftar.</td></tr>`;
-  }
-
-  function admCreateUser() {
-    const username = document.getElementById("admNewUser").value.trim();
-    const limit = Number(document.getElementById("admNewLimit").value) || 5;
-    if (!username) return showToast("Isi username.");
-    const users = getLocalDB();
-    users.push({
-      id: "usr_" + Math.random().toString(36).substring(2, 9),
-      username, token: generateRandomKey(), daily_limit: limit, used_count: 0, status: "Active"
-    });
-    saveLocalDB(users);
-    showToast("User berhasil dibuat.");
-    document.getElementById("admNewUser").value = "";
-    loadAdminPanel();
-  }
-
-  function admAddCredit(id) {
-    let users = getLocalDB();
-    let u = users.find(x => x.id === id);
-    if (u) {
-      u.daily_limit += 5;
-      saveLocalDB(users);
-      showToast(`Kredit ${u.username} ditambah (+5).`);
-      loadAdminPanel();
-    }
-  }
-
-  function admResetCredit(id) {
-    let users = getLocalDB();
-    let u = users.find(x => x.id === id);
-    if (u) {
-      u.used_count = 0;
-      saveLocalDB(users);
-      showToast(`Penggunaan harian ${u.username} direset.`);
-      loadAdminPanel();
-    }
-  }
-
-  function admToggleStatus(id) {
-    let users = getLocalDB();
-    let u = users.find(x => x.id === id);
-    if (u) { u.status = u.status === 'Active' ? 'Disabled' : 'Active'; saveLocalDB(users); loadAdminPanel(); }
-  }
-
-  function admDeleteUser(id) {
-    if (!confirm("Hapus user ini?")) return;
-    saveLocalDB(getLocalDB().filter(x => x.id !== id));
-    loadAdminPanel();
-  }
-
-  async function admRunTool() {
-    const val = document.getElementById("admToolInput").value.trim();
-    if (!val) return showToast("Masukkan input.");
-    const res = await fetch("https://restapidhan.vercel.app/api/am?action=send&apikey=freeapikeydhan26&email=" + encodeURIComponent(val));
-    const json = await res.json();
-    const box = document.getElementById("admToolResult");
-    box.textContent = JSON.stringify(json, null, 2);
-    box.classList.remove("hidden");
-  }
-</script>
-</body>
-</html>
-
